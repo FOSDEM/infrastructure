@@ -1,0 +1,6 @@
+# Playbook for installing event nodes
+- hosts: event
+  tags: [docker]
+  roles:
+    - docker
+
