@@ -6,12 +6,12 @@ http://docs.ansible.com/ansible/intro_installation.html#installing-the-control-m
 
 Make sure the `fosdem_hosts` file is up to date
 
-Setup the ENV
+Setup the ENV if you want to operate outside of the repo:
 
     export FOSDEM_REPO="$(git rev-parse --show-toplevel)"
-    export ANSIBLE_INVENTORY="${FOSDEM_REPO}/ansible/fosdem_hosts"
     export ANSIBLE_CONFIG="${FOSDEM_REPO}/ansible/fosdem_ansible.cfg"
-    echo "${ANSIBLE_INVENTORY}"
+    export ANSIBLE_INVENTORY="${FOSDEM_REPO}/ansible/fosdem_hosts"
+    ls -l "${ANSIBLE_CONFIG}" "${ANSIBLE_INVENTORY}"
 
 Check the connectivity
 
