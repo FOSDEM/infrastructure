@@ -2,6 +2,7 @@
 - hosts: event
   tags: [docker]
   roles:
+    - common
     - docker
     - users
 
