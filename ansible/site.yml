@@ -3,4 +3,5 @@
   tags: [docker]
   roles:
     - docker
+    - users
 
