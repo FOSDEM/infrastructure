@@ -17,3 +17,6 @@ Check the connectivity
 
     ansible all -m ping 
 
+Deploy
+
+    ansible-playbook site.yml

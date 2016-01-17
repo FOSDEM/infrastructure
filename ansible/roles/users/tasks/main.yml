@@ -1,3 +1,8 @@
+### FOSDEM users
+# See:
+# http://docs.ansible.com/ansible/user_module.html
+# http://docs.ansible.com/ansible/authorized_key_module.html
+
 # wouter
 - user: 
     name=wouter
