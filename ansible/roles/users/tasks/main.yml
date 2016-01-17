@@ -1,0 +1,16 @@
+# wouter
+- user: 
+    name=wouter
+    comment="wouter"
+    shell=/bin/bash
+    groups=sudo
+    append=yes
+
+# Ben Kochie <superq@gmail.com>
+- user:
+    name=superq
+    comment="Ben Kochie"
+    shell=/bin/bash 
+    groups=sudo 
+    append=yes
+- authorized_key: user=superq key=https://github.com/superq.keys
