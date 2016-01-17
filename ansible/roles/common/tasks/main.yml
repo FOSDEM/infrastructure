@@ -1,0 +1,8 @@
+- name: Install common packages
+  apt: name={{item}} state=latest update_cache=true cache_valid_time=600
+  with_items:
+    - git
+    - etckeeper
+    - screen
+    - mosh
+    - apt-transport-https
