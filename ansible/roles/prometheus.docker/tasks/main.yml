@@ -1,0 +1,5 @@
+- name: node_exporter
+  docker:
+    name: node_exporter
+    image: prom/node-exporter
+    state: present
