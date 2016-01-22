@@ -6,3 +6,7 @@
     - screen
     - mosh
     - apt-transport-https
+
+- name: Copy screenrc file
+  copy: src=screenrc dest=/root/.screenrc
+
