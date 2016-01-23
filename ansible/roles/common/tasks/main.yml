@@ -7,6 +7,11 @@
     - mosh
     - apt-transport-https
 
+- name: Jessie backports repo
+  apt_repository:
+    repo: "deb http://ftp.belnet.be/debian/ jessie-backports main"
+    state: present
+
 - name: Copy screenrc file
   copy: src=screenrc dest=/root/.screenrc
 
