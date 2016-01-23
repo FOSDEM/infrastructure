@@ -3,13 +3,23 @@
 # http://docs.ansible.com/ansible/user_module.html
 # http://docs.ansible.com/ansible/authorized_key_module.html
 
-# wouter
+# wouter (wouter.simons@gmail.com)
 - user: 
     name=wouter
     comment="wouter"
     shell=/bin/bash
     groups=sudo
     append=yes
+
+
+# peter (pevaneyn@cisco.com)
+- user:
+    name=pevaneyn
+    comment="Peter Van Eynde"
+    shell=/bin/bash
+    groups=sudo
+    append=yes
+
 
 # Ben Kochie <superq@gmail.com>
 - user:
