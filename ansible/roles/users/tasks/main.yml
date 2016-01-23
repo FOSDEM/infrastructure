@@ -10,7 +10,7 @@
     shell=/bin/bash
     groups=sudo
     append=yes
-
+- authorized_key: user=wouter key=https://github.com/corosuske.keys
 
 # peter (pevaneyn@cisco.com)
 - user:
@@ -19,7 +19,7 @@
     shell=/bin/bash
     groups=sudo
     append=yes
-
+- authorized_key: user=pvaneyn key="{{ lookup('file', './files/authorised_keys/pvaneynde.pub')
 
 # Ben Kochie <superq@gmail.com>
 - user:
