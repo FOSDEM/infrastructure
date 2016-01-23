@@ -6,3 +6,4 @@
     - docker
     - users
     - prometheus.docker
+    - dns
