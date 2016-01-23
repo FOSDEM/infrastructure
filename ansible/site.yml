@@ -1,8 +1,12 @@
+# Install base role everywhere
+- hosts: all
+  tags: [base]
+  roles:
+    - base
 # Playbook for installing event nodes
 - hosts: event
   tags: [docker]
   roles:
-    - common
     - docker
     - users
     - prometheus.docker
