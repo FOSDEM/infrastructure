@@ -19,7 +19,11 @@
     shell=/bin/bash
     groups=sudo
     append=yes
-- authorized_key: user=pvaneyn key="{{ lookup('file', './files/authorised_keys/pvaneynde.pub')
+- authorized_key: user=pevaneyn key="{{ item }}"
+  with_file:
+    - authorised_keys/pvaneynde.pub
+
+
 
 # Ben Kochie <superq@gmail.com>
 - user:
