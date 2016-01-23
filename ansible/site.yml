@@ -5,4 +5,4 @@
     - common
     - docker
     - users
-#    - prometheus.docker
+    - prometheus.docker

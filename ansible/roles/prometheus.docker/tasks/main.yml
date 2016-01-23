@@ -2,4 +2,7 @@
   docker:
     name: node_exporter
     image: prom/node-exporter
-    state: present
+    state: started
+    pull: always
+    net: host
+    ports: 9100:9100
