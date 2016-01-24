@@ -1,4 +1,0 @@
-ALERT ExampleAlertAlwaysFiring
-  IF sum by (job)(up) == 1
-  SUMMARY "Example alert, {{$labels.job}} is up"
-  DESCRIPTION "Example alert"
