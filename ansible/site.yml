@@ -2,12 +2,12 @@
 - hosts: all
   tags: [base]
   roles:
+    - docker
     - users
     - base
-# Playbook for installing event nodes
-- hosts: event
-  tags: [docker]
+# Playbook for installing event primary node
+- hosts: event-primary
+  tags: [event-primary]
   roles:
-    - docker
     - prometheus.docker
     - dns
