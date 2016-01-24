@@ -3,16 +3,16 @@
 # http://docs.ansible.com/ansible/user_module.html
 # http://docs.ansible.com/ansible/authorized_key_module.html
 
-# wouter (wouter.simons@gmail.com)
-- user: 
-    name=wouter
-    comment="wouter"
+# Brian Brazil <brian.brazil@robustperception.io>
+- user:
+    name=bbrazil
+    comment="Brian Brazil"
     shell=/bin/bash
     groups=sudo
     append=yes
-- authorized_key: user=wouter key=https://github.com/corosuske.keys
+- authorized_key: user=bbrazil key=https://github.com/brian-brazil.keys
 
-# peter (pevaneyn@cisco.com)
+# Peter Van Eynde <pevaneyn@cisco.com>
 - user:
     name=pevaneyn
     comment="Peter Van Eynde"
@@ -23,22 +23,29 @@
   with_file:
     - authorised_keys/pvaneynde.pub
 
-
+# Richard Hartmann <richih@fosdem.org>
+- user:
+    name=richih
+    comment="Richard Hartmann"
+    shell=/usr/bin/zsh
+    groups=sudo
+    append=yes
+- authorized_key: user=richih key=https://github.com/richih.keys
 
 # Ben Kochie <superq@gmail.com>
 - user:
     name=superq
     comment="Ben Kochie"
-    shell=/bin/bash 
-    groups=sudo 
-    append=yes
-- authorized_key: user=superq key=https://github.com/superq.keys
-
-# Brian Brazil <brian.brazil@robustperception.io>
-- user:
-    name=bbrazil
-    comment="Brian Brazil"
     shell=/bin/bash
     groups=sudo
     append=yes
-- authorized_key: user=bbrazil key=https://github.com/brian-brazil.keys
+- authorized_key: user=superq key=https://github.com/superq.keys
+
+# Wouter Simons <wouter.simons@gmail.com>
+- user:
+    name=wouter
+    comment="wouter"
+    shell=/bin/bash
+    groups=sudo
+    append=yes
+- authorized_key: user=wouter key=https://github.com/corosuske.keys
