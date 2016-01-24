@@ -19,3 +19,12 @@
     groups=sudo 
     append=yes
 - authorized_key: user=superq key=https://github.com/superq.keys
+
+# Brian Brazil <brian.brazil@robustperception.io>
+- user:
+    name=bbrazil
+    comment="Brian Brazil"
+    shell=/bin/bash
+    groups=sudo
+    append=yes
+- authorized_key: user=bbrazil key=https://github.com/brian-brazil.keys
