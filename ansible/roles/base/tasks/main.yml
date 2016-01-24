@@ -6,6 +6,7 @@
     - screen
     - mosh
     - apt-transport-https
+    - sudo
 
 - name: Jessie backports repo
   apt_repository:
