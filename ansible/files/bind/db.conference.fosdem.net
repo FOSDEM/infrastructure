@@ -1,0 +1,15 @@
+$TTL 3600
+@               IN      SOA     ns0.conference.fosdem.net.    hostmaster.conference.fosdem.net. (
+                        2016012401 ; serial
+                        600 ; refresh
+                        300 ; retry
+                        604800 ; expire
+                        3600 ; default_ttl
+                        )
+@               IN      NS      ns0.conference.fosdem.net.
+; @               IN      NS      ns1.conference.fosdem.net.
+@               IN      A       151.216.191.253
+@               IN      AAAA    2001:67c:1810:f052:21e:c9ff:fef7:c07b
+ns0             IN      A       151.216.191.253
+ns0             IN      AAAA    2001:67c:1810:f052:21e:c9ff:fef7:c07b
+monitor         IN      CNAME   conference.fosdem.net.
