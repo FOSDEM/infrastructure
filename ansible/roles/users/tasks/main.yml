@@ -27,13 +27,13 @@
 - user:
     name=superq
     comment="Ben Kochie"
-    shell=/bin/bash 
-    groups=sudo 
+    shell=/bin/bash
+    groups=sudo
     append=yes
 - authorized_key: user=superq key=https://github.com/superq.keys
 
 # Wouter Simons <wouter.simons@gmail.com>
-- user: 
+- user:
     name=wouter
     comment="wouter"
     shell=/bin/bash
