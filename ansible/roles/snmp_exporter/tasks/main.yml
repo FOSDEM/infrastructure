@@ -1,0 +1,5 @@
+- name: Install python-netsnmp
+  apt: name=python-netsnmp state=latest update_cache=true cache_valid_time=600
+
+- pip: name=snmp_exporter
+

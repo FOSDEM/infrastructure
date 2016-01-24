@@ -10,6 +10,8 @@
   tags: [event-primary]
   roles:
     - prometheus.docker
+    - prometheus
+    - snmp_exporter
     - dns
     - web
   vars:
