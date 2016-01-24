@@ -1,2 +1,0 @@
-- name: Install bind9
-  apt: name=bind9 state=latest update_cache=true cache_valid_time=600
