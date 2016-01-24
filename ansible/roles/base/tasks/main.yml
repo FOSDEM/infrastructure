@@ -7,6 +7,7 @@
     - mosh
     - apt-transport-https
     - sudo
+    - tcpdump
 
 - name: Jessie backports repo
   apt_repository:
