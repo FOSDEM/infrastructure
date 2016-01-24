@@ -1,0 +1,25 @@
+# Setup letsencrypt
+# 
+
+- apt: update_cache=yes cache_valid_time=3600
+
+- name: Install depends
+  apt: name={{ item }} state=present
+  with_items:
+    - python
+    - python-dev
+    - python-virtualenv
+    - gcc
+    - dialog
+    - libaugeas0
+    - libssl-dev
+    - libffi-dev
+    - ca-certificates
+    - python-pip
+    - git
+
+- name: Download the git repo
+  git:
+    repo: https://github.com/letsencrypt/letsencrypt
+    dest: /srv/letsencrypt
+    version: v0.2.0
