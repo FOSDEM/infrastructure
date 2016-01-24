@@ -1,2 +1,12 @@
+apache_mods_enabled:
+  - proxy.load
+  - proxy.conf
+  - proxy_http.load
 apache_vhosts:
-  - {servername: "monitor.conference.fosdem.net", documentroot: "/var/www/monitor.conference.fosdem.net"}
+  - servername: "monitor.conference.fosdem.net"
+    documentroot: "/var/www/monitor.conference.fosdem.net"
+    extra_parameters: |
+      ProxyPreserveHost On  
+      ProxyPass /prometheus http://localhost:9090/prometheus  
+      ProxyPass /grafana http://0.0.0.0:3000
+      ProxyPassReverse /grafana http://0.0.0.0:3000  
