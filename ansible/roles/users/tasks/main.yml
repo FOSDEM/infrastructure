@@ -3,7 +3,7 @@
 # http://docs.ansible.com/ansible/user_module.html
 # http://docs.ansible.com/ansible/authorized_key_module.html
 
-# wouter (wouter.simons@gmail.com)
+# Wouter Simons <wouter.simons@gmail.com>
 - user: 
     name=wouter
     comment="wouter"
@@ -12,7 +12,7 @@
     append=yes
 - authorized_key: user=wouter key=https://github.com/corosuske.keys
 
-# peter (pevaneyn@cisco.com)
+# Peter Van Eynde <pevaneyn@cisco.com>
 - user:
     name=pevaneyn
     comment="Peter Van Eynde"
@@ -22,8 +22,6 @@
 - authorized_key: user=pevaneyn key="{{ item }}"
   with_file:
     - authorised_keys/pvaneynde.pub
-
-
 
 # Ben Kochie <superq@gmail.com>
 - user:
