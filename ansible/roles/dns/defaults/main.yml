@@ -1,8 +1,0 @@
-bind_zones:
-  conference.fosdem.net:
-#  bind_zone_master_server_ip: 151.216.191.253
-#  bind_zone_name: conference.fosdem.net
-#  bind_zone_hosts:
-#    - name: monitoring
-#      ip: 151.216.191.253
-#      ipv6: 2001:67c:1810:f052:21e:c9ff:fef7:c07b
