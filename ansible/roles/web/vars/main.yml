@@ -1,0 +1,2 @@
+apache_vhosts:
+  - {servername: "monitor.conference.fosdem.net", documentroot: "/var/www/monitor.conference.fosdem.net"}
