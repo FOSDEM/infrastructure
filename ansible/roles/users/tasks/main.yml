@@ -3,14 +3,14 @@
 # http://docs.ansible.com/ansible/user_module.html
 # http://docs.ansible.com/ansible/authorized_key_module.html
 
-# Wouter Simons <wouter.simons@gmail.com>
-- user: 
-    name=wouter
-    comment="wouter"
+# Brian Brazil <brian.brazil@robustperception.io>
+- user:
+    name=bbrazil
+    comment="Brian Brazil"
     shell=/bin/bash
     groups=sudo
     append=yes
-- authorized_key: user=wouter key=https://github.com/corosuske.keys
+- authorized_key: user=bbrazil key=https://github.com/brian-brazil.keys
 
 # Peter Van Eynde <pevaneyn@cisco.com>
 - user:
@@ -32,11 +32,11 @@
     append=yes
 - authorized_key: user=superq key=https://github.com/superq.keys
 
-# Brian Brazil <brian.brazil@robustperception.io>
-- user:
-    name=bbrazil
-    comment="Brian Brazil"
+# Wouter Simons <wouter.simons@gmail.com>
+- user: 
+    name=wouter
+    comment="wouter"
     shell=/bin/bash
     groups=sudo
     append=yes
-- authorized_key: user=bbrazil key=https://github.com/brian-brazil.keys
+- authorized_key: user=wouter key=https://github.com/corosuske.keys
