@@ -1,0 +1,5 @@
+- name: install apache2
+  apt: name=apache2 state=latest update_cache=true cache_valid_time=600
+
+- name: enabled http_proxy
+  apache2_module: name=http_proxy state=present
