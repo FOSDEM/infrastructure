@@ -1,0 +1,7 @@
+prometheus_install_path: /srv/prometheus
+prometheus_components:
+  - prometheus
+
+prometheus_version:  0.16.2
+prometheus_opts: -web.external-url=/prometheus -storage.local.memory-chunks=102400 -web.listen-address=localhost:9090
+prometheus_conf_main: files/prometheus/prometheus.yml
