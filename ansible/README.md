@@ -7,6 +7,7 @@ http://docs.ansible.com/ansible/intro_installation.html#installing-the-control-m
 Add some ansible galaxy packages (may require sudo to install on your machine)
 
     ansible-galaxy install netzwirt.bind
+    ansible-galaxy install geerlingguy.apache
 
 Make sure the `fosdem_hosts` file is up to date
 

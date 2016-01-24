@@ -1,0 +1,2 @@
+- name: Make web dir for monitor.conference.fosdem.net
+  file: path=/var/www/monitor.conference.fosdem.net state=directory owner=www-data group=www-data mode=0775

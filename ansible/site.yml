@@ -11,6 +11,7 @@
   roles:
     - prometheus.docker
     - dns
+    - web
   vars:
     bind_zones:
       conference.fosdem.net:
