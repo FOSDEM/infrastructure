@@ -8,6 +8,7 @@
     - apt-transport-https
     - sudo
     - tcpdump
+    - python-pip
 
 - name: Jessie backports repo
   apt_repository:
