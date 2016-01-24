@@ -2,12 +2,12 @@
 - hosts: all
   tags: [base]
   roles:
+    - users
     - base
 # Playbook for installing event nodes
 - hosts: event
   tags: [docker]
   roles:
     - docker
-    - users
     - prometheus.docker
     - dns
