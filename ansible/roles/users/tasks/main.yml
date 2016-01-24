@@ -23,6 +23,15 @@
   with_file:
     - authorised_keys/pvaneynde.pub
 
+# Richard Hartmann <richih@fosdem.org>
+- user:
+    name=richih
+    comment="Richard Hartmann"
+    shell=/usr/bin/zsh
+    groups=sudo
+    append=yes
+- authorized_key: user=richih key=https://github.com/richih.keys
+
 # Ben Kochie <superq@gmail.com>
 - user:
     name=superq
