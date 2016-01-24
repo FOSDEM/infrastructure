@@ -16,3 +16,9 @@
 - name: Copy screenrc file
   copy: src=screenrc dest=/root/.screenrc
 
+- name: Update sudoers with NOPASSWD
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo   ALL=(ALL:ALL) NOPASSWD:ALL'
