@@ -11,6 +11,12 @@
 - name: Create snmp_exporter user
   user: name=snmp_exporter home=/var/lib/snmp_exporter system=true state=present
 
+- name: Read community
+  command: cat /etc/snmp_community
+  register: snmp_community
+  always_run: true
+  changed_when: false
+
 - name: Create snmp_exporter config
   template: src=snmp_exporter.yml dest=/usr/local/snmp_exporter/snmp_exporter.yml
 
