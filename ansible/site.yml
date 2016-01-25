@@ -18,3 +18,5 @@
     bind_zones:
       conference.fosdem.net:
         type: master
+    bind_recursion_allowed_clients:
+     - 0/0   # FIXME, the DNS role is mixing up allow-query and allow-recursion.
