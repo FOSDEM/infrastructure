@@ -1,5 +1,59 @@
-- name: Install python-netsnmp
-  apt: name=python-netsnmp state=latest update_cache=true cache_valid_time=600
+- name: Install packages
+  apt: name={{item}} state=latest update_cache=true cache_valid_time=600
+  with_items:
+    - virtualenv
+    - python-netsnmp
 
-- pip: name=snmp_exporter
+- name: Install snmp_exporter virtualenv
+  notify: restart snmp_exporter
+  pip: name=snmp_exporter virtualenv=/usr/local/snmp_exporter virtualenv_site_packages=yes state=latest
+
+- name: Create snmp_exporter user
+  user: name=snmp_exporter home=/var/lib/snmp_exporter system=true state=present
+
+- name: Create snmp_exporter config
+  template: src=snmp_exporter.yml dest=/usr/local/snmp_exporter/snmp_exporter.yml
+
+- name: Create snmp_exporter init script
+  notify: restart snmp_exporter
+  copy:
+    dest: /etc/init.d/snmp_exporter
+    mode: 0755
+    content: |
+      #!/bin/bash
+      ### BEGIN INIT INFO
+      # Provides:          skeleton
+      # Required-Start:    $remote_fs $syslog
+      # Required-Stop:     $remote_fs $syslog
+      # Default-Start:     2 3 4 5
+      # Default-Stop:      0 1 6
+      # Short-Description: Example initscript
+      # Description:       This file should be used to construct scripts to be
+      #                    placed in /etc/init.d.
+      ### END INIT INFO
+      PIDFILE=/var/run/snmp_exporter.pid
+
+      . /usr/local/snmp_exporter/bin/activate
+      case "$1" in
+        start)
+          /sbin/start-stop-daemon --start --oknodo --pidfile $PIDFILE --make-pidfile \
+              --chuid snmp_exporter --background \
+              --exec /usr/local/snmp_exporter/bin/snmp_exporter /usr/local/snmp_exporter/snmp_exporter.yml
+        ;;
+        stop)
+          /sbin/start-stop-daemon --stop --oknodo --pidfile $PIDFILE --user snmp_exporter --retry 5
+        ;;
+        status)
+          /sbin/start-stop-daemon --status --pidfile $PIDFILE --user snmp_exporter
+        ;;
+        *)
+          echo "Usage: snmp_exporter {start|stop|status}"
+          exit 1
+        ;;
+      esac
+
+- meta: flush_handlers
+
+- name: Start snmp_exporter
+  service: name=snmp_exporter state=started enabled=yes
 
