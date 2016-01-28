@@ -54,7 +54,7 @@
 - user:
     name=msuriar
     comment="msuriar"
-    shell=/usr/bin/zsh
+    shell=/bin/bash
     groups=sudo
     append=yes
 - authorized_key: user=msuriar key=https://github.com/msuriar.keys
