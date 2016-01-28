@@ -8,6 +8,7 @@ Add some ansible galaxy packages (may require sudo to install on your machine)
 
     ansible-galaxy install netzwirt.bind
     ansible-galaxy install geerlingguy.apache
+    ansible-galaxy install andreaswolf.letsencrypt
     ansible-galaxy install williamyeh.prometheus
 
 Make sure the `fosdem_hosts` file is up to date

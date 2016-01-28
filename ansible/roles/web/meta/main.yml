@@ -1,2 +1,6 @@
 dependencies:
+  - fix-cert-perms
   - { role: geerlingguy.apache }
+# Only include this once to bootstrap andreaswolf.letsencrypt
+# See: https://github.com/andreaswolf/ansible-role-letsencrypt/issues/6
+#  - { role: andreaswolf.letsencrypt }

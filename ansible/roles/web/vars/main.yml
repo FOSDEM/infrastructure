@@ -6,7 +6,25 @@ apache_vhosts:
   - servername: "monitor.conference.fosdem.net"
     documentroot: "/var/www/monitor.conference.fosdem.net"
     extra_parameters: |
+      Alias "/.well-known/acme-challenge" "{{ acme_tiny_challenges_directory }}"
       ProxyPreserveHost On  
       ProxyPass /prometheus http://localhost:9090/prometheus  
       ProxyPass /grafana http://0.0.0.0:3000
       ProxyPassReverse /grafana http://0.0.0.0:3000  
+
+letsencrypt_certs:
+  - name: "monitor.conference.fosdem.net" # :-)
+    keypath: "/etc/ssl/private/monitor.conference.fosdem.net.key"
+    certpath: "/etc/ssl/letsencrypt/monitor.conference.fosdem.net.crt"
+    host: "monitor.conference.fosdem.net"
+
+apache_vhosts_ssl:
+  - servername: "monitor.conference.fosdem.net"
+    documentroot: "/var/www/monitor.conference.fosdem.net"
+    certificate_file: "/etc/ssl/letsencrypt/monitor.conference.fosdem.net.crt"
+    certificate_key_file: "/etc/ssl/private/monitor.conference.fosdem.net.key"
+    extra_parameters: |
+      ProxyPreserveHost On
+      ProxyPass /prometheus http://localhost:9090/prometheus
+      ProxyPass /grafana http://0.0.0.0:3000
+      ProxyPassReverse /grafana http://0.0.0.0:3000
