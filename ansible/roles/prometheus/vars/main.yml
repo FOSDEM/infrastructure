@@ -1,4 +1,5 @@
 prometheus_install_path: /srv/prometheus
+prometheus_db_path: /data/prometheus
 prometheus_components:
   - prometheus
 
