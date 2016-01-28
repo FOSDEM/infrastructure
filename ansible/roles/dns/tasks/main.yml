@@ -1,0 +1,3 @@
+- name: Override named.conf.options
+  notify: reload bind
+  copy: src=named.conf.options dest=/etc/bind/named.conf.options owner=bind group=bind mode=0644
