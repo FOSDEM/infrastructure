@@ -1,0 +1,2 @@
+- name: Fix ssl-cert path
+  file: path=/etc/ssl/letsencrypt state=directory owner=root group=root mode=1777
