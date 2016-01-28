@@ -3,27 +3,20 @@ global:
   evaluation_interval: 15s # By default, scrape targets every 15 seconds.
   # scrape_timeout is set to the global default (10s).
 
-  # Attach these labels to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
-  external_labels:
-    monitor: 'codelab-monitor'
-
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'prometheus'
-
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-    scrape_timeout: 10s
     metrics_path: /prometheus/metrics
     target_groups:
       - targets: ['localhost:9090']
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: localhost:9090
+        replacement: monitor.conference.fosdem.net:9090
+        target_label: instance
 
   - job_name: 'node'
     target_groups:
-      - targets: ['localhost:9100']
+      - targets: ['monitor.conference.fosdem.net:9100']
 
   - job_name: 'snmp'
     target_groups:
