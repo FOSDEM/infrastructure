@@ -1,4 +1,7 @@
 [website]
 
 [event-primary]
-conference.fosdem.net ansible_host=151.216.191.253
+tradesurplus.conference.fosdem.net ansible_host=151.216.191.253
+
+[event-secondary]
+tradedefecit.conference.fosdem.net ansible_host=151.216.191.252
