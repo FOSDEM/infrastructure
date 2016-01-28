@@ -2,3 +2,4 @@
 
 [event-primary]
 conference.fosdem.net
+ansible_host=151.216.191.253
