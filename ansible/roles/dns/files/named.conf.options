@@ -1,9 +1,23 @@
 // Ansible managed: /etc/ansible/roles/netzwirt.bind/templates/named.conf.options.j2 modified on 2016-01-24 14:09:03 by root on mrhat
 
+acl "fosdem-dualstack" {
+    151.216.128.0/19;
+    2001:67C:1810:F055::1/64;
+};
+
+acl "fosdem-v6only" {
+    2001:67C:1810:F051::1/64;
+};
+
+acl "v6localhost" {
+    ::1/128;
+};
 
 acl trusted {
     localhost;
     localnets;
+    fosdem-dualstack;
+    fosdem-v6only;
 };
 
 
@@ -15,10 +29,15 @@ options {
     // to talk to, you may need to fix the firewall to allow multiple
     // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
 
-    recursion no;
+    recursion yes;
     allow-query { any; };
     allow-recursion { trusted; };
 
+    dns64 64:ff9b::/96 {
+      clients {
+        "fosdem-v6only";
+        "v6localhost";
+    };
 
     //========================================================================
     // If BIND logs error messages about the root key being expired,
