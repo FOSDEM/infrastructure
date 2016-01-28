@@ -8,6 +8,7 @@
     - apt-transport-https
     - sudo
     - python-pip
+    - zsh
 
 - name: Jessie backports repo
   apt_repository:
