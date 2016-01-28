@@ -1,3 +1,8 @@
+- name: Jessie backports repo
+  apt_repository:
+    repo: "deb http://ftp.belnet.be/debian/ jessie-backports main"
+    state: present
+
 - name: Install common packages
   apt: name={{item}} state=latest update_cache=true cache_valid_time=600
   with_items:
@@ -9,11 +14,6 @@
     - sudo
     - python-pip
     - zsh
-
-- name: Jessie backports repo
-  apt_repository:
-    repo: "deb http://ftp.belnet.be/debian/ jessie-backports main"
-    state: present
 
 - name: Install backports packages
   apt: name={{item}} state=latest update_cache=true cache_valid_time=600 default_release=jessie-backports

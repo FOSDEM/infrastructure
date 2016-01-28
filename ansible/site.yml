@@ -2,9 +2,9 @@
 - hosts: all
   tags: [base]
   roles:
-    - docker
-    - users
     - base
+    - users
+    - docker
 # Playbook for installing event primary node
 - hosts: event-primary
   tags: [event-primary]
