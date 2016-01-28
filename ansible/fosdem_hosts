@@ -5,3 +5,7 @@ tradesurplus.conference.fosdem.net ansible_host=151.216.191.253
 
 [event-secondary]
 tradedefecit.conference.fosdem.net ansible_host=151.216.191.252
+
+[public-grafana]
+# Digital Ocean box in AMS, under RobustPerception's account - talk to bbrazil
+prometheus.conference.fosdem.net
