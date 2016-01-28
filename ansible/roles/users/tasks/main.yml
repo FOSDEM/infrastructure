@@ -49,3 +49,12 @@
     groups=sudo
     append=yes
 - authorized_key: user=wouter key=https://github.com/corosuske.keys
+
+# Murali Suriar <code@suriar.com>
+- user:
+    name=msuriar
+    comment="msuriar"
+    shell=/usr/bin/zsh
+    groups=sudo
+    append=yes
+- authorized_key: user=msuriar key=https://github.com/msuriar.keys
