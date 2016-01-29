@@ -1,10 +1,12 @@
 [website]
 
 [event-primary]
-tradesurplus.conference.fosdem.net ansible_host=151.216.191.253
+# use if dns is broken - tradesurplus.conference.fosdem.net ansible_host=151.216.191.253
+tradesurplus.conference.fosdem.net
 
 [event-secondary]
-tradedefecit.conference.fosdem.net ansible_host=151.216.191.252
+# use if dns is broken - tradedefecit.conference.fosdem.net ansible_host=151.216.191.252
+tradedefecit.conference.fosdem.net
 
 [public-grafana]
 # Digital Ocean box in AMS, under RobustPerception's account - talk to bbrazil
