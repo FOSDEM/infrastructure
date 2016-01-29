@@ -1,0 +1,5 @@
+---
+dependencies:
+ - common
+ - fix-cert-perms
+ - { role: geerlingguy.apache }
