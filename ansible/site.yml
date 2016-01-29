@@ -19,3 +19,8 @@
     bind_zones:
       conference.fosdem.net:
         type: master
+
+- hosts: public-grafana
+  tags: [public-grafana]
+  roles:
+    - public_grafana

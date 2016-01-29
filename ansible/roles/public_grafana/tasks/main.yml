@@ -1,0 +1,58 @@
+---
+- name: Add robust perception to sources
+  notify: apt-get update
+  copy:
+    dest: /etc/apt/sources.list.d/robustperception.list
+    content: |
+      deb http://deb.robustperception.io/ precise nightly
+
+- name: Add robust perception apt key
+  notify: apt-get update
+  apt_key: id=41EFC99D url=https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg
+
+- name: Add grafana to sources
+  notify: apt-get update
+  copy:
+    dest: /etc/apt/sources.list.d/grafana.list
+    content: |
+      deb https://packagecloud.io/grafana/stable/debian/ wheezy main
+
+- name: Add grafana apt key
+  notify: apt-get update
+  apt_key: url=https://packagecloud.io/gpg.key
+
+- meta: flush_handlers
+
+- name: Install prometheus components
+  apt: name={{item}} state=latest
+  with_items:
+    - prometheus
+    - node-exporter
+    - grafana
+
+- name: Create prometheus config
+  notify: reload prometheus
+  template: src=prometheus.yml dest=/etc/prometheus/prometheus.yml
+
+
+- name: Create prometheus default config
+  notify: restart prometheus
+  copy:
+    dest: /etc/default/prometheus
+    mode: 0755
+    content: |
+      DAEMON_ARGS="$DAEMON_ARGS -web.listen-address 127.0.0.1:9090"
+
+- name: Create grafana config
+  notify: restart grafana
+  template: src=grafana.ini dest=/etc/grafana/grafana.ini
+
+- meta: flush_handlers
+
+- name: Start prometheus
+  service: name=prometheus state=started enabled=yes
+- name: Start node-exporter
+  service: name=node-exporter state=started enabled=yes
+- name: Start grafana
+  service: name=grafana-server state=started enabled=yes
+
