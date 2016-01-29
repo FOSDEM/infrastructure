@@ -6,10 +6,10 @@ http://docs.ansible.com/ansible/intro_installation.html#installing-the-control-m
 
 Add some ansible galaxy packages (may require sudo to install on your machine)
 
-    ansible-galaxy install netzwirt.bind
-    ansible-galaxy install geerlingguy.apache
-    ansible-galaxy install andreaswolf.letsencrypt
-    ansible-galaxy install williamyeh.prometheus
+    ansible-galaxy install netzwirt.bind \
+                           geerlingguy.apache \
+                           andreaswolf.letsencrypt \
+                           williamyeh.prometheus
 
 Make sure the `fosdem_hosts` file is up to date
 
