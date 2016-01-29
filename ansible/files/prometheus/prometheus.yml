@@ -16,7 +16,10 @@ scrape_configs:
 
   - job_name: 'node'
     target_groups:
-      - targets: ['monitor.conference.fosdem.net:9100']
+      - targets:
+        - 'tradesurplus.conference.fosdem.net:9100'
+        - 'tradedefecit.conference.fosdem.net:9100'
+        - 'prometheus.conference.fosdem.net:9100'
 
   - job_name: 'snmp'
     target_groups:
