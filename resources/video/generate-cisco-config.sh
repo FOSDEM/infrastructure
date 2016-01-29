@@ -25,7 +25,6 @@ gen_cisco_config_for_host() {
   create_pool $pool_name
   set_address $ipv4
   set_mac_address $mac
-  set_client_name $host
   set_static_info
   exit_pool
 }
@@ -44,10 +43,6 @@ set_address() {
 
 set_mac_address() {
   echo "hardware-address $1"
-}
-
-set_client_name() {
-  echo "client-name $1"
 }
 
 set_static_info() {
