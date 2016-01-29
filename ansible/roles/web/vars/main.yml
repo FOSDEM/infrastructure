@@ -1,3 +1,5 @@
+acme_tiny_challenges_directory: /var/www/letsencrypt
+
 apache_mods_enabled:
   - proxy.load
   - proxy.conf
