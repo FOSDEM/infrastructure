@@ -28,7 +28,7 @@ apache_vhosts_ssl:
       ProxyPass /prometheus http://localhost:9090/prometheus
       ProxyPass /grafana http://0.0.0.0:3000
       ProxyPassReverse /grafana http://0.0.0.0:3000
-      <Location />
+      <Location /prometheus>
         AuthType Basic
         AuthName "Authentication Required"
         AuthUserFile /etc/apache2/.htpasswd
