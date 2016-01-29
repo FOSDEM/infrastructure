@@ -1,2 +1,8 @@
 - name: Make web dir for monitor.conference.fosdem.net
   file: path=/var/www/monitor.conference.fosdem.net state=directory owner=www-data group=www-data mode=0775
+
+- name: Copy letsencrypt chain file
+  get_url:
+    url: https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem.txt
+    dest: /etc/ssl/certs/lets-encrypt-x1-cross-signed.pem.txt
+    mode: 0444
