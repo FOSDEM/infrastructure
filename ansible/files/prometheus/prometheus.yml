@@ -78,6 +78,7 @@ scrape_configs:
         - 192.168.211.252
         - 192.168.211.253
         - 192.168.211.254
+        - 172.33.17.250
     relabel_configs:
       - source_labels: [__address__]
         regex: (.*?)(:80)?
