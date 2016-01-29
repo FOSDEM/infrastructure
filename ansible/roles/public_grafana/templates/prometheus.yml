@@ -14,6 +14,12 @@ scrape_configs:
   - job_name: 'mainprometheus'
     honor_labels: true
     metrics_path: /prometheus/federate
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    basic_auth:
+      username: fosdem
+      password: {{basic_auth.stdout}}
     params:
       match[]:
         - '{__name__=~".+"}'
