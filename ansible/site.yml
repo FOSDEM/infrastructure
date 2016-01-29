@@ -5,7 +5,7 @@
     - base
     - users
     - docker
-    - prometheus.docker
+    - node_exporter
 # Playbook for installing event primary node
 - hosts: event-primary
   tags: [event-primary]
