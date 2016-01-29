@@ -23,6 +23,7 @@ apache_vhosts_ssl:
     documentroot: "/var/www/monitor.conference.fosdem.net"
     certificate_file: "/etc/ssl/letsencrypt/monitor.conference.fosdem.net.crt"
     certificate_key_file: "/etc/ssl/private/monitor.conference.fosdem.net.key"
+    certificate_chain_file: "/etc/ssl/certs/lets-encrypt-x1-cross-signed.pem.txt"
     extra_parameters: |
       ProxyPreserveHost On
       ProxyPass /prometheus http://localhost:9090/prometheus
