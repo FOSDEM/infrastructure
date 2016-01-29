@@ -9,4 +9,4 @@ apache_vhosts:
       ProxyPass / http://127.0.0.1:3000/
       ProxyPassReverse / http://127.0.0.1:3000/
 
-grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+grafana_root_url: "%(protocol)s://%(domain)s/"
