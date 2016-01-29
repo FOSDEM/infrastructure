@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     ns0.conference.fosdem.net.    hostmaster.conference.fosdem.net. (
-                        2016012900 ; serial
+                        2016012901 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -32,3 +32,11 @@ printer1        IN      A       151.216.190.1
 printer2        IN      A       151.216.190.2
 printer3        IN      A       151.216.190.3
 printer4        IN      A       151.216.190.4
+
+; Switch management addresses. talk to msuriar/RichiH
+core-sw         IN      A       192.168.211.254
+noc-sw          IN      A       192.168.211.253
+h-sw            IN      A       192.168.211.252
+j-sw            IN      A       192.168.211.251
+aw-sw           IN      A       192.168.211.250
+k-sw            IN      A       192.168.211.240
