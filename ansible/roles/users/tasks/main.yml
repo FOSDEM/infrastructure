@@ -58,3 +58,12 @@
     groups=sudo
     append=yes
 - authorized_key: user=msuriar key=https://github.com/msuriar.keys
+
+# Julius Volz <julius.volz@gmail.com>
+- user:
+    name=juliusv
+    comment="Julius Volz"
+    shell=/bin/bash
+    groups=sudo
+    append=yes
+- authorized_key: user=juliusv key=https://github.com/juliusv.keys
