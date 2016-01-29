@@ -9,10 +9,8 @@ apache_vhosts:
     documentroot: "/var/www/monitor.conference.fosdem.net"
     extra_parameters: |
       Alias "/.well-known/acme-challenge" "{{ acme_tiny_challenges_directory }}"
-      ProxyPreserveHost On  
-      ProxyPass /prometheus http://localhost:9090/prometheus  
-      ProxyPass /grafana http://0.0.0.0:3000
-      ProxyPassReverse /grafana http://0.0.0.0:3000  
+      RewriteEngine on
+      RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [L,QSA,R=permanent]
 
 letsencrypt_certs:
   - name: "monitor.conference.fosdem.net" # :-)
@@ -30,3 +28,9 @@ apache_vhosts_ssl:
       ProxyPass /prometheus http://localhost:9090/prometheus
       ProxyPass /grafana http://0.0.0.0:3000
       ProxyPassReverse /grafana http://0.0.0.0:3000
+      <Location />
+        AuthType Basic
+        AuthName "Authentication Required"
+        AuthUserFile /etc/apache2/.htpasswd
+        Require valid-user
+      </Location>
