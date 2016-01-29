@@ -5,12 +5,12 @@
     - base
     - users
     - docker
+    - prometheus.docker
 # Playbook for installing event primary node
 - hosts: event-primary
   tags: [event-primary]
   roles:
     - network_tools
-    - prometheus.docker
     - prometheus
     - snmp_exporter
     - dns
