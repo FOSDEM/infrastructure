@@ -1,10 +1,60 @@
 $TTL 3600
-@               IN      SOA     ns0.conference.fosdem.net.    hostmaster.conference.fosdem.net. (
-                        2016012900 ; serial
-                        600 ; refresh
-                        300 ; retry
-                        604800 ; expire
-                        3600 ; default_ttl
-                        )
-@               IN      NS      ns0.conference.fosdem.net.
+@ IN SOA ns0.conference.fosdem.net. hostmaster.conference.fosdem.net. (
+ 20160129151416 ; serial
+ 600 ; refresh
+ 300 ; retry
+ 604800 ; expire
+ 3600 ; default_ttl
+ )
+@ IN NS ns0.conference.fosdem.net.
+; @ IN NS ns0.conference.fosdem.net.
+;;
 
+aw1120slides    IN    A    151.216.220.0
+aw1120cam    IN    A    151.216.220.1
+aw1121slides    IN    A    151.216.220.2
+aw1121cam    IN    A    151.216.220.3
+aw1124slides    IN    A    151.216.220.4
+aw1124cam    IN    A    151.216.220.5
+aw1125slides    IN    A    151.216.220.6
+aw1125cam    IN    A    151.216.220.7
+aw1126slides    IN    A    151.216.220.8
+aw1126cam    IN    A    151.216.220.9
+h1301slides    IN    A    151.216.220.10
+h1301cam    IN    A    151.216.220.11
+h1302slides    IN    A    151.216.220.12
+h1302cam    IN    A    151.216.220.13
+h1308slides    IN    A    151.216.220.14
+h1308cam    IN    A    151.216.220.15
+h1309slides    IN    A    151.216.220.16
+h1309cam    IN    A    151.216.220.17
+h2213slides    IN    A    151.216.220.18
+h2213cam    IN    A    151.216.220.19
+h2214slides    IN    A    151.216.220.20
+h2214cam    IN    A    151.216.220.21
+h2215slides    IN    A    151.216.220.22
+h2215cam    IN    A    151.216.220.23
+jansonslides    IN    A    151.216.220.24
+jansoncam    IN    A    151.216.220.25
+k1105slides    IN    A    151.216.220.26
+k1105cam    IN    A    151.216.220.27
+k3201slides    IN    A    151.216.220.28
+k3201cam    IN    A    151.216.220.29
+k3401slides    IN    A    151.216.220.30
+k3401cam    IN    A    151.216.220.31
+k4201slides    IN    A    151.216.220.32
+k4201cam    IN    A    151.216.220.33
+k4401slides    IN    A    151.216.220.34
+k4401cam    IN    A    151.216.220.35
+k4601slides    IN    A    151.216.220.36
+k4601cam    IN    A    151.216.220.37
+ua2114slides    IN    A    151.216.220.38
+ua2114cam    IN    A    151.216.220.39
+ua2220slides    IN    A    151.216.220.40
+ua2220cam    IN    A    151.216.220.41
+ub2252aslides    IN    A    151.216.220.42
+ub2252acam    IN    A    151.216.220.43
+ud2120slides    IN    A    151.216.220.44
+ud2120cam    IN    A    151.216.220.45
+ud2218aslides    IN    A    151.216.220.46
+ud2218acam    IN    A    151.216.220.47
