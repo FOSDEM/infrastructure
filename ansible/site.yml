@@ -16,6 +16,7 @@
     - snmp_exporter
     - dns
     - web
+    - oxidized
 
 - hosts: public-grafana
   tags: [public-grafana]

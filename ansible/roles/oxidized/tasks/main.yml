@@ -1,0 +1,15 @@
+- name: Install ruby packages
+  apt: name={{item}} state=latest update_cache=true cache_valid_time=600
+  with_items:
+    - ruby
+    - ruby-dev
+    - cmake
+    - libsqlite3-dev
+    - libssl-dev
+
+- name: Install oxidized
+  gem: name={{item}} state=latest
+  with_items:
+    - oxidized
+    - oxidized-script
+    - oxidized-web
