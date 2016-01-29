@@ -17,6 +17,7 @@
     - vim
     - vcsh
     - htop
+    - sysstat
 
 - name: Install backports packages
   apt: name={{item}} state=latest update_cache=true cache_valid_time=600 default_release=jessie-backports
