@@ -72,7 +72,7 @@ scrape_configs:
   - job_name: 'graphite'
     target_groups:
       - targets:
-        - 127.0.0.1
+        - 127.0.0.1:9108
 
   - job_name: 'snmp'
     target_groups:
