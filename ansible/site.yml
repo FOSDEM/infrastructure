@@ -12,6 +12,7 @@
   roles:
     - network_tools
     - prometheus
+    - grafana
     - snmp_exporter
     - dns
     - web
