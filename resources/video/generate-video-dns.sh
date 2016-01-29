@@ -22,7 +22,7 @@ main() {
 generate_zonefile_header() {
   echo '$TTL 3600'
   echo "@ IN SOA ns0.conference.fosdem.net. hostmaster.conference.fosdem.net. ("
-  echo " $(generate_serial) ; serial"
+  echo " $(generate_serial) ; serial (seconds since epoch)"
   echo " 600 ; refresh"
   echo " 300 ; retry"
   echo " 604800 ; expire"
@@ -33,7 +33,7 @@ generate_zonefile_header() {
 }
 
 generate_serial() {
-  date +%Y%m%d%H%M%S
+  date +%s
 }
 
 
