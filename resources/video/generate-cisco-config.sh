@@ -48,6 +48,7 @@ set_mac_address() {
 set_static_info() {
   echo "default-router 151.216.223.254"
   echo "dns-server 8.8.4.4 8.8.8.8"
+  echo "domain-name v.conference.fosdem.net"
 }
 
 exit_pool() {
