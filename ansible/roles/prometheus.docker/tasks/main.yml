@@ -1,8 +1,0 @@
-- name: node_exporter
-  docker:
-    name: node_exporter
-    image: prom/node-exporter
-    state: started
-    pull: always
-    net: host
-    ports: 9100:9100
