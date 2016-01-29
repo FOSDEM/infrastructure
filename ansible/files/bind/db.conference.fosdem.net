@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     ns0.conference.fosdem.net.    hostmaster.conference.fosdem.net. (
-                        2016012803 ; serial
+                        2016012900 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -26,3 +26,9 @@ asr1k           IN      AAAA    2001:920:0:1::5F
 grafana         IN      A       82.196.2.137
 grafana         IN      AAAA    2a03:b0c0:0:1010::be:f001
 prometheus      IN      CNAME   grafana
+
+; Printers; static leases defined on ASR, talk to msuriar@
+printer1        IN      A       151.216.190.1
+printer2        IN      A       151.216.190.2
+printer3        IN      A       151.216.190.3
+printer4        IN      A       151.216.190.4
