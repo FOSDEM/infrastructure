@@ -20,6 +20,7 @@ main() {
 
 
 generate_zonefile_header() {
+  echo "$TTL 3600"
   echo "@ IN SOA ns0.conference.fosdem.net. hostmaster.conference.fosdem.net. ("
   echo " $(generate_serial) ; serial"
   echo " 600 ; refresh"
