@@ -27,7 +27,6 @@
   apt: name={{item}} state=latest
   with_items:
     - prometheus
-    - node-exporter
     - grafana
 
 - name: Create prometheus config
