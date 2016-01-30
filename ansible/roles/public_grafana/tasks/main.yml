@@ -15,6 +15,12 @@
   with_items:
     - prometheus
 
+- name: Read basic auth pw
+  command: cat /etc/basic_auth
+  register: basic_auth
+  always_run: true
+  changed_when: false
+
 - name: Create prometheus config
   notify: reload prometheus
   template: src=prometheus.yml dest=/etc/prometheus/prometheus.yml
