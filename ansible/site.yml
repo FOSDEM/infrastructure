@@ -36,5 +36,5 @@
   roles:
     - node_exporter.systemd
   vars:
-    node_exporter_download_url: https://monitor.conference.fosdem.net
-    node_exporter_collectors: netdev,loadavg,meminfo,netstat,stat,uname,vmstat
+    node_exporter_download_url: https://monitor.conference.fosdem.net/node_exporter
+    node_exporter_collectors: netdev,loadavg,meminfo,netstat,stat,uname
