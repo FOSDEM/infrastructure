@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     ns0.conference.fosdem.net.    hostmaster.conference.fosdem.net. (
-                        2016013001 ; serial
+                        2016013002 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -46,5 +46,8 @@ prime          IN       A       164.15.59.241
 
 ; Wifi monitoring
 wifi1          IN       A       151.216.191.250
+wifi1          IN       AAAA    2001:67c:1810:f052:5054:ff:febb:35b3
 wifi2          IN       A       151.216.191.251
+wifi2          IN       AAAA    2001:67c:1810:f052:702a:6460:9fbb:1d42
 wifidash       IN       CNAME   wifi1
+wifi-kvm       IN       CNAME   wifi2
