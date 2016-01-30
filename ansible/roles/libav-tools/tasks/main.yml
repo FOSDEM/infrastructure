@@ -1,0 +1,4 @@
+- name: Install libav-tools packages
+  apt: name={{item}} state=latest update_cache=true cache_valid_time=600
+  with_items:
+    - libav-tools
