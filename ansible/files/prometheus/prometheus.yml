@@ -79,19 +79,19 @@ scrape_configs:
         - 141.1.1.1
         - 8.8.8.8
         - 8.8.4.4
-      relabel_configs:
-        - source_labels: [__address__]
-          regex: (.*)(:80)?
-          target_label: __param_target
-          replacement: ${1}
-        - source_labels: [__param_target]
-          regex: (.*)
-          target_label: instance
-          replacement: ${1}
-        - source_labels: []
-          regex: .*
-          target_label: __address__
-          replacement: 127.0.0.1:9115  # Blackbox exporter.
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: (.*)(:80)?
+        target_label: __param_target
+        replacement: ${1}
+      - source_labels: [__param_target]
+        regex: (.*)
+        target_label: instance
+        replacement: ${1}
+      - source_labels: []
+        regex: .*
+        target_label: __address__
+        replacement: 127.0.0.1:9115  # Blackbox exporter.
 
   - job_name: 'graphite'
     target_groups:
