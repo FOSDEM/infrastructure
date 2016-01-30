@@ -1,0 +1,8 @@
+[Unit]
+Description=Video Recording
+
+[Service]
+ExecStart=/root/bmd-streamer -B -S hdmi -k 1000 -x /root/tsSink.sh
+
+[Install]
+WantedBy=multi-user.target

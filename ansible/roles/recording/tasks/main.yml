@@ -1,0 +1,19 @@
+- name: Deploy tsSink.sh
+  notify: restart recording
+  copy:
+    src: tsSink.sh
+    dest: /root/tsSink.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install recording systemd service file
+  notify:
+  - reload systemd
+  - restart recording
+  template:
+    src: recording.service
+    dest: /etc/systemd/system/recording.service
+
+- name: Enable and start recording service
+  service: name=recording state=started enabled=yes
