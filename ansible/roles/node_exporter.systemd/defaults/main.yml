@@ -1,0 +1,1 @@
+node_exporter_collectors: diskstats,filefd,filesystem,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname
