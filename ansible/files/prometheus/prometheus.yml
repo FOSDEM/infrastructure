@@ -68,6 +68,19 @@ scrape_configs:
         - 'ud2120cam.v.conference.fosdem.net:9100'
         - 'ud2218aslides.v.conference.fosdem.net:9100'
         - 'ud2218acam.v.conference.fosdem.net:9100'
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: .*
+        target_label: role
+        replacement: ops
+      - source_labels: [__address__]
+        regex: .*cam.v.*
+        target_label: role
+        replacement: camera
+      - source_labels: [__address__]
+        regex: .*slides.v.*
+        target_label: role
+        replacement: slides
 
   - job_name: 'blackbox'
     metrics_path: /probe
