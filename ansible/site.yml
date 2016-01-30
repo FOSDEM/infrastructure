@@ -1,5 +1,5 @@
-# Install base role everywhere
-- hosts: all
+# Install base role on servers
+- hosts: event-primary:event-secondary:public-grafana
   tags: [base]
   roles:
     - base
@@ -28,3 +28,10 @@
   tags: [public-grafana]
   roles:
     - public_grafana
+
+- hosts: videoboxes
+  tags: [videoboxes]
+  roles:
+    - node_exporter.systemd
+  vars:
+    node_exporter_collectors: netdev,loadavg,meminfo,netstat,stat,uname,version,vmstat

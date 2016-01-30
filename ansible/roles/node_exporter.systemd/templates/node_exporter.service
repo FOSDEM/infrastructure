@@ -1,0 +1,8 @@
+[Unit]
+Description=Prometheus Node Exporter
+
+[Service]
+ExecStart=/usr/local/sbin/node_exporter -collectors.enabled {{ node_exporter_collectors }}
+
+[Install]
+WantedBy=multi-user.target
