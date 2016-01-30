@@ -31,7 +31,9 @@
 
 - hosts: videoboxes
   tags: [videoboxes]
+  remote_user: root
+  sudo: no
   roles:
     - node_exporter.systemd
   vars:
-    node_exporter_collectors: netdev,loadavg,meminfo,netstat,stat,uname,version,vmstat
+    node_exporter_collectors: netdev,loadavg,meminfo,netstat,stat,uname,vmstat
