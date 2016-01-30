@@ -1,0 +1,27 @@
+- name: Set OS = Linux arch = amd64
+  set_fact:
+    node_exporter_tarball_url: "{{ node_exporter_download_url }}/{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
+  when: ansible_system == "Linux" and ansible_architecture == "x86_64"
+
+- name: Set OS = Linux arch = arm
+  set_fact:
+    node_exporter_tarball_url: "{{ node_exporter_download_url }}/{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-arm.tar.gz"
+  when: ansible_system == "Linux" and ansible_architecture == "armv7l"
+
+- name: untar node_exporter tarball
+  unarchive:
+    src: "{{ node_exporter_tarball_url }}"
+    dest: /usr/local/sbin
+    #creates: /usr/local/sbin/node_exporter
+    mode: 0755
+    owner: root
+    group: root
+    copy: no
+
+- name: Install node_exporter systemd service file
+  template:
+    src: node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+
+- name: Enable and start node_exporter service
+  service: name=node_exporter state=started enabled=yes
