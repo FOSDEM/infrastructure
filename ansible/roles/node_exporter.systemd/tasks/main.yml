@@ -19,7 +19,9 @@
     copy: no
 
 - name: Install node_exporter systemd service file
-  notify: reload systemd
+  notify:
+  - reload systemd
+  - restart node_exporter
   template:
     src: node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
