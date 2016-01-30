@@ -40,3 +40,6 @@ h-sw            IN      A       192.168.211.252
 j-sw            IN      A       192.168.211.251
 aw-sw           IN      A       192.168.211.250
 k-sw            IN      A       192.168.211.240
+
+; Cisco prime. talk to pvaneynd
+prime          IN       A       164.15.59.241
