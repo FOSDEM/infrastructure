@@ -11,12 +11,18 @@
   tags: [event-primary]
   roles:
     - network_tools
+    - oxidized
+- hosts: event-primary
+  tags: [event-primary,prometheus]
+  roles:
     - prometheus
     - grafana
     - snmp_exporter
-    - dns
     - web
-    - oxidized
+- hosts: event-primary
+  tags: [event-primary,dns]
+  roles:
+    - dns
 
 - hosts: public-grafana
   tags: [public-grafana]
