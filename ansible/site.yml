@@ -35,5 +35,6 @@
   sudo: no
   roles:
     - node_exporter.systemd
+    - libav-tools
   vars:
     node_exporter_download_url: https://monitor.conference.fosdem.net/node_exporter
