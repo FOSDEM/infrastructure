@@ -1,0 +1,2 @@
+- name: restart mistserver
+  service: name=mistserver state=restarted
