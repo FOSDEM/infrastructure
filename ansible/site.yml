@@ -36,5 +36,8 @@
   roles:
     - videobox_base
     - node_exporter.systemd
+    - recording
+    - mistserver
+    - streaming
   vars:
     node_exporter_download_url: https://monitor.conference.fosdem.net/node_exporter
