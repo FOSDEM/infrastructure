@@ -1,0 +1,10 @@
+- name: Install MistServer systemd service file
+  notify:
+  - reload systemd
+  - restart mistserver
+  template:
+    src: mistserver.service
+    dest: /etc/systemd/system/mistserver.service
+
+- name: Enable and start mistserver service
+  service: name=mistserver state=started enabled=yes

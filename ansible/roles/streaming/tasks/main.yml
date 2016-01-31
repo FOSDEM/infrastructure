@@ -1,0 +1,19 @@
+- name: Deploy stream.sh
+  notify: restart streaming
+  copy:
+    src: stream.sh
+    dest: /root/stream.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install streaming systemd service file
+  notify:
+  - reload systemd
+  - restart streaming
+  template:
+    src: streaming.service
+    dest: /etc/systemd/system/streaming.service
+
+- name: Enable and start streaming service
+  service: name=streaming state=started enabled=yes
