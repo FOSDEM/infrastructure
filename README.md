@@ -1,3 +1,3 @@
 # FOSDEM Infrastructure
 
-TODO: Add user account deployment
+Here be the hairy details.
