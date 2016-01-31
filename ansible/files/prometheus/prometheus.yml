@@ -20,6 +20,7 @@ scrape_configs:
         - 'tradesurplus.conference.fosdem.net:9100'
         - 'tradedefecit.conference.fosdem.net:9100'
         - 'prometheus.conference.fosdem.net:9100'
+        - 'stream-a.fosdem.org:9100'
         - 'aw1120slides.v.conference.fosdem.net:9100'
         - 'aw1120cam.v.conference.fosdem.net:9100'
         - 'aw1121slides.v.conference.fosdem.net:9100'

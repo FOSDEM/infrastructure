@@ -41,3 +41,8 @@
     - streaming
   vars:
     node_exporter_download_url: https://monitor.conference.fosdem.net/node_exporter
+
+- hosts: streaming
+  tags: [streaming]
+  roles:
+    - node_exporter.systemd
