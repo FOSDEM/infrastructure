@@ -39,10 +39,12 @@
   hosts: videobox
   remote_user: root
   roles:
-  - videobox
+  - { role: videobox, tags: [ 'videobox' ] }
+
 
 - name: voctohost
   hosts: voctohost
   remote_user: root
   roles:
   - voctohost
+  - common-repository-debian-backports
