@@ -1,0 +1,43 @@
+---
+- name: install packages required by LXC
+  apt: pkg={{ item }} state=latest default_release=jessie-backports
+  with_items:
+    - lxc
+    - python-lxc
+
+- name: create the base container
+  lxc_container:
+    name: "vocto-bare"
+    backing_store: dir
+    container_log: true
+    template: debian
+    state: stopped
+    container_config:
+      - "lxc.include = /usr/share/lxc/config/debian.common.conf"
+      - "lxc.utsname = vocto-bare"
+      - "lxc.arch = amd64"
+      - "lxc.autodev = 1"
+      - "lxc.kmsg = 0"
+      - "lxc.network.type = macvlan"
+      - "lxc.network.macvlan.mode = bridge"
+      - "lxc.network.flags = up"
+      - "lxc.network.link = mvlan0"
+      - "lxc.network.name = eth0"
+      - "lxc.network.mtu = 1500"
+      - "lxc.tty = 1"
+    template_options: --release jessie
+  environment:
+    MIRROR: http://httpredir.debian.org/debian
+
+- name: create and start voctocontainers
+  lxc_container:
+    name: "{{ item.name }}"
+    backing_store: dir
+    container_log: true
+    template: debian
+    state: started
+    clone_name: "vocto-bare"
+    container_config:
+      - "lxc.network.hwaddr = {{ item.mac }}"
+    template_options: --release jessie
+  with_items: "{{ vocto_containers }}"
