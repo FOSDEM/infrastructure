@@ -10,3 +10,4 @@
     - lsof
     - mtr-tiny
     - vim
+    - file
