@@ -1,0 +1,5 @@
+- include: user_root.yml
+- include: user_fosdem.yml
+- include: set_hostname.yml
+- include: install_packages.yml
+- include: configure_sshd.yml

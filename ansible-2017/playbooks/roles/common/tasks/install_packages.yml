@@ -1,0 +1,12 @@
+---
+- name: "common: install packages"
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - git
+    - htop
+    - iftop
+    - iotop
+    - less
+    - lsof
+    - mtr-tiny
+    - vim

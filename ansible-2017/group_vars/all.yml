@@ -1,0 +1,7 @@
+---
+# SSH keys to deploy (override them in host_vars if ever necessary)
+# The files refer to files in the common role
+ssh_users:
+  - gerry
+  - mark
+  - frank

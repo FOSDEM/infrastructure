@@ -1,0 +1,7 @@
+- name: set custom hostname
+  hostname: name={{ system_hostname }}
+  when: system_hostname is defined
+
+- name: set hostname to inventory hostname
+  hostname: name={{ inventory_hostname }}
+  when: system_hostname is not defined

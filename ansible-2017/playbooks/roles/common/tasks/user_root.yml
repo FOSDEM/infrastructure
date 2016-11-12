@@ -1,0 +1,7 @@
+---
+- name: ansible ssh key for user root
+  authorized_key: user=root key="{{ lookup('file', '../public_keys/ansible.pub') }}"
+
+- name: confiure root user
+  user: name=root shell=/bin/bash
+

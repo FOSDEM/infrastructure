@@ -1,0 +1,48 @@
+##
+## Generic roles
+##
+
+- name: global pre tasks
+  gather_facts: False
+  pre_tasks:
+  - name: install ansible dependencies
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  - name: remove bananian systemd preferences # This is only required for the video boxes, fix that later
+    raw: test ! -e /etc/apt/preferences.d/systemd || (rm /etc/apt/preferences.d/systemd && apt-get -y update && apt-get install -y dbus systemd systemd-sysv)
+    register: systemd_preferences
+  - name: make sure systemd is installed
+    raw: test -e /bin/systemctl || (apt-get -y update && apt-get install -y dbus systemd systemd-sysv)
+    register: systemd_install
+  - name: reboot the box if needed
+    command: shutdown -r now "Ansible updates triggered"
+    async: 0
+    poll: 0
+    ignore_errors: true
+    when: systemd_preferences.changed or systemd_install.changed
+  - name: waiting for the box to come back if it has been rebooted
+    local_action: wait_for host={{ inventory_hostname }} state=started
+    when: systemd_preferences.changed or systemd_install.changed
+  hosts: all
+  remote_user: root
+
+- name: common roles
+  hosts: all
+  remote_user: root
+  roles:
+  - common
+
+##
+## Specific roles
+##
+
+- name: videobox
+  hosts: videobox
+  remote_user: root
+  roles:
+  - videobox
+
+- name: voctohost
+  hosts: voctohost
+  remote_user: root
+  roles:
+  - voctohost
