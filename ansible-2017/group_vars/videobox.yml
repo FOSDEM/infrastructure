@@ -1,0 +1,3 @@
+---
+# Where is our SSD drive supposed to be?
+ssd_drive: /dev/sda
