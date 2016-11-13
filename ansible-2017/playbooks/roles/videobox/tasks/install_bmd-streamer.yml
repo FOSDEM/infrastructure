@@ -1,0 +1,27 @@
+---
+- name: install bmd-streamer binary
+  copy: src=bmd/bmd-streamer dest=/usr/local/bin/bmd-streamer owner=root group=root mode=0755
+
+- name: install bmd-streamer firmware
+  copy: src=bmd/{{ item }} dest=/usr/lib/firmware/{{ item }} owner=root group=root mode=0755
+  with_items:
+  - bmd-h264prorecorder.bin
+  - bmd-atemtvstudio.bin
+
+- name: install bmd-streamer script
+  template: src=bmd-streamer/bmd-streamer.sh dest=/usr/local/bin/bmd-streamer.sh owner=root group=root mode=0755
+
+- name: install bmd-streamer service
+  template: src=bmd-streamer/bmd-streamer.service dest=/etc/systemd/system/bmd-streamer.service owner=root group=root mode=0644
+  register: bmdstreamer
+
+- name: perform a daemon-reload if bmd-streamer.service has been modified
+  shell: systemctl daemon-reload
+  when: bmdstreamer.changed
+
+- name: enable bmd-streamer service
+  service: name=bmd-streamer enabled=yes state=started
+
+# This requires Ansible 2.2
+#- name: enable bmd-streamer service
+#  systemd: name=bmd-streamer enabled=yes state=started daemon_reload=yes

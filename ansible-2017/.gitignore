@@ -1,1 +1,3 @@
 playbooks/site.retry
+playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
+playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin

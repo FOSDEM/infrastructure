@@ -1,3 +1,5 @@
 ---
 # Where is our SSD drive supposed to be?
 ssd_drive: /dev/sda
+
+bmd_streamer_ffmpeg_options: "overrun_nonfatal=1&buffer_size=81921024&fifo_size=178481"
