@@ -2,11 +2,6 @@
 
 ## Videobox
 
-Bananian Linux doesn't come with python installed. You will want to install that
-first:
-
-  ansible --ask-pass -i hosts videobox -u root -m raw -a "apt-get update && apt-get install -y python-minimal python-pkg-resources"
-
 The default root password is "pi", this will be changed later on.
 
 The internal SSD in our video boxes is also managed via Ansible. The disk should
@@ -17,3 +12,7 @@ and ext4 filesystem.
 If you ever want to clear the SSDs (for example after the event is over), you
 can add `--extra-vars '{"destroy_all_videobox_data": True}'` when running the
 playbook.
+
+For the bmd-streamer process to work at all, you will need the BlackMagic
+firmware. See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
+information.
