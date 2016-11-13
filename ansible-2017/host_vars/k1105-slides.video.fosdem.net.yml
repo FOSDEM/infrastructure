@@ -1,4 +1,4 @@
 ---
-system_hostname: h1308-slides.video.fosdem.net
+system_hostname: k1105-slides.video.fosdem.net
 
 bmd_streamer_destination: "udp://227.3.0.1:9000"
