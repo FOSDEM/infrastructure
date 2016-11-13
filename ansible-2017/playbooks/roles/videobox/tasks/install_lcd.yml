@@ -32,6 +32,9 @@
   with_items:
     - links2
 
+- name: configure directfb
+  lineinfile: dest=/etc/directfbrc line="no-cursor" create=yes
+
 - name: install lcd service
   template: src=lcd/lcd.service dest=/etc/systemd/system/lcd.service owner=root group=root mode=0644
   register: lcd

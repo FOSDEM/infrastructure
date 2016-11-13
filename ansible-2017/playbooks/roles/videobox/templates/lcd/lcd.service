@@ -3,7 +3,7 @@ Description=lcd service
 After=bmdstreamer.service
 
 [Service]
-ExecStart=/usr/bin/links2 -g -html-auto-refresh 1 -menu-font-size 1  file:///mnt/ssd/statuspage/output.html
+ExecStart=/usr/bin/links2 -g -html-auto-refresh 1 -menu-font-size 1 -driver directfb file:///mnt/ssd/statuspage/output.html
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
