@@ -10,6 +10,7 @@
 
 - name: install update-statuspage script
   template: src=statuspage/update-statuspage.sh dest=/usr/local/bin/update-statuspage.sh owner=root group=root mode=0755
+  register: statuspagescript
 
 - name: install update-statuspage service
   copy: src=statuspage/update-statuspage.service dest=/etc/systemd/system/update-statuspage.service owner=root group=root mode=0644
@@ -24,4 +25,4 @@
 
 - name: restart service if update-statuspage.service has been modified
   service: name=update-statuspage enabled=yes state=started
-  when: statuspage.changed
+  when: statuspage.changed or statuspagescript.changed
