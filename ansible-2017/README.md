@@ -14,9 +14,13 @@ can add `--extra-vars '{"destroy_all_videobox_data": True}'` when running the
 playbook.
 
 For the bmd-streamer process to work at all, you will need the BlackMagic
-firmware. See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
-information.
+firmware. You will need to drop those files here:
 
+  playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
+  playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
+
+See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
+information.
 
 ### Multicast
 
