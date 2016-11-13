@@ -1,3 +1,4 @@
+- include: configure_apt.yml
 - include: user_root.yml
 - include: user_fosdem.yml
 - include: set_hostname.yml
