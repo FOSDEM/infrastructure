@@ -46,6 +46,10 @@
 - name: enable lcd service
   service: name=lcd enabled=yes state=started
 
+- name: restart service if lcd.service has been modified
+  service: name=lcd enabled=yes state=started
+  when: lcd.changed
+
 # This requires Ansible 2.2
 #- name: enable bmd-monitor service
 #  systemd: name=bmd-monitor enabled=yes state=started daemon_reload=yes

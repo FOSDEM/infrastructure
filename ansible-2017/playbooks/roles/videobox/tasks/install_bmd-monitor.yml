@@ -13,6 +13,10 @@
 - name: enable bmd-monitor service
   service: name=bmd-monitor enabled=yes state=started
 
+- name: restart service if bmd-monitor.service has been modified
+  service: name=bmd-monitor enabled=yes state=started
+  when: bmdmonitor.changed
+
 # This requires Ansible 2.2
 #- name: enable bmd-monitor service
 #  systemd: name=bmd-monitor enabled=yes state=started daemon_reload=yes

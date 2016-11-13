@@ -21,3 +21,7 @@
 
 - name: enable update-statuspage service
   service: name=update-statuspage enabled=yes state=started
+
+- name: restart service if update-statuspage.service has been modified
+  service: name=update-statuspage enabled=yes state=started
+  when: statuspage.changed

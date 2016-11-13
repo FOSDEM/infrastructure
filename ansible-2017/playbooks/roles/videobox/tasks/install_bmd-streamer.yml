@@ -28,6 +28,10 @@
 - name: enable bmd-streamer service
   service: name=bmd-streamer enabled=yes state=started
 
+- name: restart service if bmd-streamer.service has been modified
+  service: name=bmd-streamer enabled=yes state=started
+  when: bmdstreamer.changed
+
 # This requires Ansible 2.2
 #- name: enable bmd-streamer service
 #  systemd: name=bmd-streamer enabled=yes state=started daemon_reload=yes
