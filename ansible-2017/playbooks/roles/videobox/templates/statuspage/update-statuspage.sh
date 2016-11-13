@@ -4,7 +4,7 @@ b64_error='/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYID
 
 while true; do
 	# Timeout set to 10000 ms
-	ffmpeg -i udp://227.1.2.2:9000?timeout=10000 -vf scale=160:-1 -qscale:v 20 -vframes 1 -y /mnt/ssd/statuspage/screenshot.jpg 2>> /dev/null
+	ffmpeg -i {{ bmd_streamer_destination }}?timeout=10000 -vf scale=160:-1 -qscale:v 20 -vframes 1 -y /mnt/ssd/statuspage/screenshot.jpg 2>> /dev/null
 	if [ $? -ne 0 ]; then
 		b64=$b64_error
 	else
