@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 while true; do
 	ffmpeg -i {{ bmd_streamer_destination }} -vf scale=160:-1 -qscale:v 20 -vframes 1 -y /mnt/ssd/statuspage/screenshot.jpg 2>> /dev/null
