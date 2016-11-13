@@ -8,4 +8,16 @@
 - name: install the template as output if there isn't one yet
   copy: src=statuspage/template.html dest=/mnt/ssd/statuspage/output.html force=no
 
-# TODO: install the statuspage updater script and unit file
+- name: install update-statuspage script
+  template: src=statuspage/update-statuspage.sh dest=/usr/local/bin/update-statuspage.sh owner=root group=root mode=0755
+
+- name: install update-statuspage service
+  copy: src=statuspage/update-statuspage.service dest=/etc/systemd/system/update-statuspage.service owner=root group=root mode=0644
+  register: statuspage
+
+- name: perform a daemon-reload if update-statuspage.service has been modified
+  shell: systemctl daemon-reload
+  when: statuspage.changed
+
+- name: enable update-statuspage service
+  service: name=update-statuspage enabled=yes state=started
