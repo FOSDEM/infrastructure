@@ -12,7 +12,9 @@
   hosts: all
   remote_user: root
 
-- name: videobox pre-tasks
+- name: videobox pre tasks
+  gather_facts: False
+  pre_tasks:
   - name: make sure systemd is installed
     raw: test -e /bin/systemctl || (apt-get -y update && apt-get install -y dbus systemd systemd-sysv)
     register: systemd_install
