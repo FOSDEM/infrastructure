@@ -3,12 +3,14 @@
   apt: pkg={{ item }} state=latest install_recommends=no
   with_items:
     - bash-completion
+    - file
     - git
     - htop
     - iftop
+    - inotify-tools
     - iotop
     - less
     - lsof
     - mtr-tiny
     - vim
-    - file
+
