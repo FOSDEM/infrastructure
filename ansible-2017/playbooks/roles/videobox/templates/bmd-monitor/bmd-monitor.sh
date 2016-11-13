@@ -1,7 +1,7 @@
 #! /bin/sh
 
-SERVICE='bmdstreamer.service'
-LOGFILE='/mnt/ssd/bmdstreamer.log'
+SERVICE='bmd-streamer.service'
+LOGFILE='/mnt/ssd/bmd-streamer.log'
 
 touch $LOGFILE
 
@@ -12,7 +12,7 @@ while inotifywait -e modify $LOGFILE; do
         service bmdstreamer stop
 	sleep 10s
 	#TODO notify someone
-	echo '' > $LOGFILE
+	echo 'Monitoring service attempting to restart bmd-streamer...' > $LOGFILE
 	service bmdstreamer start
     fi
 done

@@ -1,0 +1,11 @@
+---
+- name: create status page directory
+  file: path=/mnt/ssd/statuspage state=directory
+
+- name: install the template
+  copy: src=statuspage/template.html dest=/mnt/ssd/statuspage/template.html
+
+- name: install the template as output if there isn't one yet
+  copy: src=statuspage/template.html dest=/mnt/ssd/statuspage/output.html force=no
+
+# TODO: install the statuspage updater script and unit file

@@ -5,23 +5,34 @@
 - name: global pre tasks
   gather_facts: False
   pre_tasks:
-  - name: install ansible dependencies
-    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  - name: install ansible dependencies (python)
+    raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal python-pkg-resources)
+
+  - name: install ansible dependencies (python-pkg-resources)
+    raw: test -e /usr/lib/python2.7/dist-packages/pkg_resources.py || (apt-get -y update && apt-get install -y python-pkg-resources)
+
   - name: remove bananian systemd preferences # This is only required for the video boxes, fix that later
     raw: test ! -e /etc/apt/preferences.d/systemd || (rm /etc/apt/preferences.d/systemd && apt-get -y update && apt-get install -y dbus systemd systemd-sysv)
     register: systemd_preferences
+
   - name: make sure systemd is installed
     raw: test -e /bin/systemctl || (apt-get -y update && apt-get install -y dbus systemd systemd-sysv)
     register: systemd_install
+
+  - name: make sure systemd is running
+    raw: readlink /proc/1/exe
+    register: systemd_running
+
   - name: reboot the box if needed
-    command: shutdown -r now "Ansible updates triggered"
-    async: 0
+    shell: sleep 2 && shutdown -r now "ansible dependencies installed"
+    async: 1
     poll: 0
     ignore_errors: true
-    when: systemd_preferences.changed or systemd_install.changed
+    when: systemd_preferences.changed or systemd_install.changed or systemd_running.stdout_lines[0] != "/lib/systemd/systemd"
+
   - name: waiting for the box to come back if it has been rebooted
-    local_action: wait_for host={{ inventory_hostname }} state=started
-    when: systemd_preferences.changed or systemd_install.changed
+    local_action: wait_for host={{ ansible_ssh_host | default(inventory_hostname) }} port=22 connect_timeout=5 delay=15 timeout=120 state=started
+    when: systemd_preferences.changed or systemd_install.changed or systemd_running.stdout_lines[0] != "/lib/systemd/systemd"
   hosts: all
   remote_user: root
 
@@ -39,8 +50,8 @@
   hosts: videobox
   remote_user: root
   roles:
+  - common-repository-debian-backports
   - { role: videobox, tags: [ 'videobox' ] }
-
 
 - name: voctohost
   hosts: voctohost

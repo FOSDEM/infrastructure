@@ -1,0 +1,5 @@
+- name: "configure sources.list"
+  template: src=apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
+
+- name: "run apt update"
+  apt: update_cache=yes

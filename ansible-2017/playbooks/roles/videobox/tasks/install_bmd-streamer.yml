@@ -1,6 +1,12 @@
 ---
+- name: install ffmpeg from backports
+  apt: pkg=ffmpeg state=latest install_recommends=no default_release=jessie-backports
+
 - name: install bmd-streamer binary
   copy: src=bmd/bmd-streamer dest=/usr/local/bin/bmd-streamer owner=root group=root mode=0755
+
+- name: create /usr/lib/firmware
+  file: path=/usr/lib/firmware state=directory mode=0755
 
 - name: install bmd-streamer firmware
   copy: src=bmd/{{ item }} dest=/usr/lib/firmware/{{ item }} owner=root group=root mode=0755

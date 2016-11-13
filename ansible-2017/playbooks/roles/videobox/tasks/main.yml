@@ -3,3 +3,5 @@
 - include: configure_ssd.yml
 - include: install_bmd-monitor.yml
 - include: install_bmd-streamer.yml
+- include: install_statuspage.yml
+- include: install_lcd.yml
