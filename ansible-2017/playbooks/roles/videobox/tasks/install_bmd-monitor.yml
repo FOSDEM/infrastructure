@@ -1,6 +1,7 @@
 ---
 - name: install bmd-monitor script
   template: src=bmd-monitor/bmd-monitor.sh dest=/usr/local/bin/bmd-monitor.sh owner=root group=root mode=0755
+  register: bmdmonitorscript
 
 - name: install bmd-monitor service
   template: src=bmd-monitor/bmd-monitor.service dest=/etc/systemd/system/bmd-monitor.service owner=root group=root mode=0644
@@ -13,9 +14,9 @@
 - name: enable bmd-monitor service
   service: name=bmd-monitor enabled=yes state=started
 
-- name: restart service if bmd-monitor.service has been modified
+- name: restart service if bmd-monitor service  or script has been modified
   service: name=bmd-monitor enabled=yes state=started
-  when: bmdmonitor.changed
+  when: bmdmonitor.changed or bmdmonitorscript.changed
 
 # This requires Ansible 2.2
 #- name: enable bmd-monitor service
