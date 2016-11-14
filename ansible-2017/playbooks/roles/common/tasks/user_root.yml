@@ -2,6 +2,10 @@
 - name: ansible ssh key for user root
   authorized_key: user=root key="{{ lookup('file', '../public_keys/ansible.pub') }}"
 
-- name: confiure root user
+- name: add fosdem ssh keys
+  authorized_key: user=root key="{{ lookup('file', '../public_keys/'+item+'.pub') }}"
+  with_items: "{{ ssh_users }}"
+
+- name: configure root user
   user: name=root shell=/bin/bash
 
