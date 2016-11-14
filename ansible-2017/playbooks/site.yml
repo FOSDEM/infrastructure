@@ -3,35 +3,45 @@
 ##
 
 - name: global pre tasks
+  hosts: all
+  remote_user: root
   gather_facts: False
   pre_tasks:
   - name: install ansible dependencies (python)
-    raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal python-pkg-resources)
+    raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal python-pkg-resources) # install pkg-resources to avoid needlesly triggering the next test
+    changed_when: false # raw has no change handler
+
   - name: install ansible dependencies (python-pkg-resources)
     raw: test -e /usr/lib/python2.7/dist-packages/pkg_resources.py || (apt-get -y update && apt-get install -y python-pkg-resources)
-  hosts: all
-  remote_user: root
+    changed_when: false # raw has no change handler
 
-- name: videobox pre tasks
-  gather_facts: False
-  pre_tasks:
-  - name: make sure systemd is installed
-    raw: test -e /bin/systemctl || (apt-get -y update && apt-get install -y dbus systemd systemd-sysv)
+  - name: remove custom systemd preferences
+    file: path=/etc/apt/preferences.d/systemd state=absent
+
+  - name: install systemd and dependencies
+    apt: name={{ item }}
+    with_items:
+    - dbus
+    - systemd
+    - systemd-sysv
     register: systemd_install
-  - name: make sure systemd is running
-    raw: readlink /proc/1/exe
-    register: systemd_running
+
+  - name: find out which process is PID 1
+    shell: readlink /proc/1/exe
+    register: pid1
+    changed_when: false
+
   - name: reboot the box if needed
     shell: sleep 2 && shutdown -r now "ansible dependencies installed"
     async: 1
     poll: 0
     ignore_errors: true
-    when: systemd_preferences.changed or systemd_install.changed or systemd_running.stdout_lines[0] != "/lib/systemd/systemd"
+    when: systemd_install.changed or pid1.stdout_lines[0] != "/lib/systemd/systemd"
+
   - name: waiting for the box to come back if it has been rebooted
     local_action: wait_for host={{ ansible_ssh_host | default(inventory_hostname) }} port=22 connect_timeout=5 delay=15 timeout=120 state=started
-    when: systemd_preferences.changed or systemd_install.changed or systemd_running.stdout_lines[0] != "/lib/systemd/systemd"
-  hosts: videobox
-  remote_user: root
+    when: systemd_install.changed or pid1.stdout_lines[0] != "/lib/systemd/systemd"
+
 
 
 ###
