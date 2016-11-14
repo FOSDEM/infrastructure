@@ -6,3 +6,5 @@ ssh_users:
   - mark
   - frank
   - vasil
+
+timezone: "Europe/Brussels"
