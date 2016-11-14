@@ -12,10 +12,11 @@ while true; do
 	fi
 	uptime=$(uptime)
 	ip=$(ip addr show dev eth0|grep 'inet '|cut -d' ' -f6)
+	mac=$(ip link show dev eth0 | grep "link/ether" | cut -d' ' -f 6)
 	hostname=$(hostname | cut -d'.' -f1)
 	uptime=$(uptime | cut -d ',' -f1)
 	loadaverage=$(uptime | sed -e 's/.*load\ average\:\ //')
-	sed -e "s/%%uptime%%/$uptime/g" -e "s/%%loadaverage%%/$loadaverage/g" -e "s;%%base64_image%%;$b64;g" -e "s/%%hostname%%/$hostname/g" -e "s?%%ip_address%%?$ip?g" /mnt/ssd/statuspage/template.html > /tmp/output.html
+	sed -e "s/%%uptime%%/$uptime/g" -e "s/%%loadaverage%%/$loadaverage/g" -e "s;%%base64_image%%;$b64;g" -e "s/%%hostname%%/$hostname/g" -e "s?%%ip_address%%?$ip?g" -e "s?%%mac_address%%?$mac?g" -e "s?%%stream_address%%?{{ bmd_streamer_destination }}?g"  /mnt/ssd/statuspage/template.html > /tmp/output.html
 	mv /tmp/output.html /mnt/ssd/statuspage/output.html
 	sleep 2s
 done
