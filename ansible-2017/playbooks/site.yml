@@ -27,7 +27,7 @@
     register: systemd_install
 
   - name: find out which process is PID 1
-    shell: readlink /proc/1/exe
+    stat: path="/proc/1/exe"
     register: pid1
     changed_when: false
 
@@ -36,11 +36,11 @@
     async: 1
     poll: 0
     ignore_errors: true
-    when: systemd_install.changed or pid1.stdout_lines[0] != "/lib/systemd/systemd"
+    when: systemd_install.changed or pid1.stat.lnk_source != "/lib/systemd/systemd"
 
   - name: waiting for the box to come back if it has been rebooted
     local_action: wait_for host={{ ansible_ssh_host | default(inventory_hostname) }} port=22 connect_timeout=5 delay=15 timeout=120 state=started
-    when: systemd_install.changed or pid1.stdout_lines[0] != "/lib/systemd/systemd"
+    when: systemd_install.changed or pid1.stat.lnk_source != "/lib/systemd/systemd"
 
 
 
