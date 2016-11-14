@@ -7,7 +7,8 @@ ExecStart=/usr/bin/links2 -g -html-auto-refresh 1 -menu-font-size 1 -driver dire
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
-Restart=on-failure
+Restart=always
+WatchdogSec=120
 
 [Install]
 WantedBy=multi-user.target
