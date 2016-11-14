@@ -71,4 +71,4 @@
   remote_user: root
   roles:
   - common-repository-debian-backports
-  - voctohost
+  - { role: voctohost, tags: [ 'voctohost' ] }
