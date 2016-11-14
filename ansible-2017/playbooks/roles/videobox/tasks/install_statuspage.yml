@@ -24,5 +24,5 @@
   service: name=update-statuspage enabled=yes state=started
 
 - name: restart service if update-statuspage.service has been modified
-  service: name=update-statuspage enabled=yes state=started
+  service: name=update-statuspage state=restarted
   when: statuspage.changed or statuspagescript.changed
