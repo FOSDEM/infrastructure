@@ -15,9 +15,9 @@ while inotifywait -e modify $LOGFILE 2>>/dev/null ; do
 
     if [ $NOSIGNAL -eq $BMDTIMEOUT ] || [ $STOPPEDENCODER -eq 1 ]; then
         service bmd-streamer stop
-	sleep 10s
-	#TODO notify someone
-	echo 'Monitoring service attempting to restart bmd-streamer...' > $LOGFILE
-	service bmd-streamer start
+        sleep 10s
+        #TODO notify someone
+        echo 'Monitoring service attempting to restart bmd-streamer...' > $LOGFILE
+        service bmd-streamer start
     fi
 done
