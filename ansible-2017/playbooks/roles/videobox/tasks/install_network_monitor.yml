@@ -1,0 +1,23 @@
+---
+- name: install network-monitor script
+  template: src=network-monitor/network-monitor.sh dest=/usr/local/bin/network-monitor.sh owner=root group=root mode=0755
+  register: networkmonitorscript
+
+- name: install network-monitor service
+  template: src=network-monitor/network-monitor.service dest=/etc/systemd/system/network-monitor.service owner=root group=root mode=0644
+  register: networkmonitor
+
+- name: perform a daemon-reload if network-monitor.service has been modified
+  shell: systemctl daemon-reload
+  when: networkmonitor.changed
+
+- name: enable network-monitor service
+  service: name=network-monitor enabled=yes state=started
+
+- name: restart service if network-monitor service  or script has been modified
+  service: name=network-monitor enabled=yes state=started
+  when: networkmonitor.changed or networkmonitorscript.changed
+
+# This requires Ansible 2.2
+#- name: enable network-monitor service
+#  systemd: name=network-monitor enabled=yes state=started daemon_reload=yes
