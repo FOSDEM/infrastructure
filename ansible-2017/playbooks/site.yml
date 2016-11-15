@@ -72,3 +72,12 @@
   roles:
   - common-repository-debian-backports
   - voctohost
+
+- name: streamer
+  hosts: streamer
+  remote_user: root
+  roles:
+  - common-repository-debian-backports
+  - streamer
+
+
