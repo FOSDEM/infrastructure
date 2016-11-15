@@ -7,5 +7,9 @@ sd_root: /dev/mmcblk0p2
 bmd_streamer_ffmpeg_options: "overrun_nonfatal=1&buffer_size=81921024&fifo_size=178481"
 
 sysctl_parameters: {
-	"vt.global_cursor_default": "0",
+    "vt.global_cursor_default": "0",
+    "net.core.wmem_max": "8388608",
+    "net.core.wmem_default": "1703936",
+    "net.core.rmem_max": "8388608",
+    "net.core.rmem_default": "1703936",
 }
