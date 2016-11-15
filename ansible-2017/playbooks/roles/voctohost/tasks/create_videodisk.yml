@@ -5,7 +5,7 @@
 # TODO:
 # - check if /dev/sdwhatever is present
 # - check if it has a filesystem, if it hasn't got one, make one
-# - mount it on /mnt/vide and add it to fstab
+# - mount it on /mnt/video and add it to fstab
 
 - name: create video directories per room
   file: path=/mnt/video/{{ item.room }} state=directory owner=root group=root mode=0777
