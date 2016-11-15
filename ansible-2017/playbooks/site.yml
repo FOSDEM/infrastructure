@@ -71,7 +71,7 @@
   remote_user: root
   roles:
   - common-repository-debian-backports
-  - voctohost
+  - { role: voctohost, tags: [ 'voctohost' ] }
 
 - name: streamer
   hosts: streamer
@@ -79,5 +79,3 @@
   roles:
   - common-repository-debian-backports
   - streamer
-
-
