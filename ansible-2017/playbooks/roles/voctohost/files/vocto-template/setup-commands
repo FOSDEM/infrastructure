@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# This file contains a bunch of commands that need to be executed in the vocto
+# container. This is an absolutely horrible way to do things, but it's the best
+# I could think of, seeing as Ansible can't execute commands in a chroot, and I
+# need a way to find out if anything has changed
+
+# XXX: Important! Making *any* change to this file will cause the containers to
+# be destroyed and re-created. Please make sure you know what you are doing.
+
+# TODO: possoble "fix" suggested by wouter: check dpkg-query -l -f<format>
+# before and after running the apt commands, it should be the same if nothing
+# has been done.
+# Configuring the repositories could be done from outside the chroot, so that's
+# fixable as well.
+
+# Add debian-multimedia & c3voc repositories
+echo "deb http://www.deb-multimedia.org jessie main non-free" > /etc/apt/sources.list.d/debian-multimedia.list
+echo "deb http://c3voc.de/voctomix jessie non-free" > /etc/apt/sources.list.d/c3voc.list
+apt-get install -y curl
+curl https://c3voc.de/voctomix/gpg-key.asc | apt-key add -
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117
+
+# Run apt-get update so we have a fresh list with our shiny new repositories
+apt-get update
+
+# Install vocto dependencies
+apt-get install -y gstreamer1.0-plugins-good vim wget git rsync
+apt-get install -y --no-install-recommends gstreamer1.0-tools libgstreamer1.0-0 python3 python3-gi gir1.2-gstreamer-1.0 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+apt-get install -y gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gstreamer1.0-x ffmpeg python3-gi-cairo

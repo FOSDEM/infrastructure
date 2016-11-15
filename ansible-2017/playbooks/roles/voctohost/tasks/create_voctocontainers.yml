@@ -1,43 +1,71 @@
 ---
-- name: install packages required by LXC
-  apt: pkg={{ item }} state=latest default_release=jessie-backports
+- name: install lxc package
+  apt: pkg=lxc state=latest
   with_items:
     - lxc
-    - python-lxc
 
-- name: create the base container
-  lxc_container:
-    name: "vocto-bare"
-    backing_store: dir
-    container_log: true
-    template: debian
-    state: stopped
-    container_config:
-      - "lxc.include = /usr/share/lxc/config/debian.common.conf"
-      - "lxc.utsname = vocto-bare"
-      - "lxc.arch = amd64"
-      - "lxc.autodev = 1"
-      - "lxc.kmsg = 0"
-      - "lxc.network.type = macvlan"
-      - "lxc.network.macvlan.mode = bridge"
-      - "lxc.network.flags = up"
-      - "lxc.network.link = mvlan0"
-      - "lxc.network.name = eth0"
-      - "lxc.network.mtu = 1500"
-      - "lxc.tty = 1"
-    template_options: --release jessie
+# We currently have a few issues:
+# - jessie containers on jessie with lxc 2 are broken: https://github.com/lxc/lxc/issues/979
+# - jessie doesn't have lxc-dev and liblxc1 packages for lxc 1
+# - ansible's lxc_container module depends on lxc-python2, whcih needs liblxc and lxc-dev to be installed
+#
+# This means we have to choose between broken containers managed by ansible's
+# lxc_container module, or working containers the hardcore way. We chose the
+# latter option.
+#
+# Should this situation ever change, this whole thing should be revised.
+
+# TODO:
+# - configure the network on the host
+#
+#     ip link add mvlan0 link eth1 type macvlan mode bridge
+#     ip link set mvlan0 up
+#
+
+- set_fact: lxc_path=/var/lib/lxc
+- set_fact: template_name=vocto-template
+- set_fact: template_path={{lxc_path}}/{{template_name}}
+- set_fact: template_rootfs={{template_path}}/rootfs
+
+- name: check if we already have a template container
+  shell: lxc-ls | grep ^{{template_name}}$
+  register: template_installed
+  failed_when: false
+  changed_when: false
+
+- name: create a container to use as a template
+  shell: lxc-create -n {{template_name}} -t debian -- -r jessie
   environment:
     MIRROR: http://httpredir.debian.org/debian
+  when: "template_installed.rc != 0"
+  register: template_created
 
-- name: create and start voctocontainers
-  lxc_container:
-    name: "{{ item.name }}"
-    backing_store: dir
-    container_log: true
-    template: debian
-    state: started
-    clone_name: "vocto-bare"
-    container_config:
-      - "lxc.network.hwaddr = {{ item.mac }}"
-    template_options: --release jessie
-  with_items: "{{ vocto_containers }}"
+- name: create .ssh directory for root
+  file: path={{template_rootfs}}/root/.ssh state=directory owner=root group=root mode=0777
+
+- name: ansible ssh key for user root
+  authorized_key: user=root key="{{ lookup('file', '../public_keys/ansible.pub') }}" path={{template_rootfs}}/root/.ssh/authorized_keys manage_dir=no
+  register: root_key_ansible
+
+- name: user ssh keys for user root
+  authorized_key: user=root key="{{ lookup('file', '../public_keys/'+item+'.pub') }}" path={{template_rootfs}}/root/.ssh/authorized_keys manage_dir=no
+  with_items: "{{ ssh_users }}"
+  register: root_key_users
+
+- name: copy the setup file
+  copy: src=vocto-template/setup-commands dest={{template_rootfs}}/root/setup owner=root group=root mode=0755
+  register: setup_commands
+
+- name: execute the setup
+  command: chroot {{template_rootfs}} /bin/sh -c "/root/setup"
+  changed_when: false
+
+- name: install voctomix
+  git: repo=https://github.com/voc/voctomix.git dest={{template_rootfs}}/opt/voctomix/ clone=yes version=d8f80a7ebbf5a654b8c2591e8240479a4d2797e0
+
+#- name: install packages in the template
+#  shell: chroot /var/lib/lxc/vocto-template/rootfs/ /bin/sh -c ""
+
+
+
+
