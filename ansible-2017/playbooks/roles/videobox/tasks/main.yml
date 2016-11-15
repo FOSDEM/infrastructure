@@ -1,7 +1,6 @@
 ---
 - include: install_packages.yml
 - include: configure_ssd.yml
-- include: configure_sysctl.yml
 - include: install_network_monitor.yml
 - include: install_bmd-monitor.yml
 - include: install_bmd-streamer.yml

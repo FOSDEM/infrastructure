@@ -1,0 +1,7 @@
+---
+sysctl_parameters: {
+	"net.core.wmem_max": "8388608",
+	"net.core.wmem_default": "1703936",
+	"net.core.rmem_max": "8388608",
+	"net.core.rmem_default": "1703936",
+}

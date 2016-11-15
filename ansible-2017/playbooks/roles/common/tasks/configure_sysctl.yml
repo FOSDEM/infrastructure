@@ -1,0 +1,10 @@
+---
+- name: configure sysctl
+  template: src=sysctl/10-fosdem.conf dest=/etc/sysctl.d/10-fosdem.conf owner=root group=root mode=0644
+  register: sysctl
+  when: sysctl_parameters is defined
+
+- name: reload sysctl
+  command: /sbin/sysctl -p
+  when: sysctl.changed
+

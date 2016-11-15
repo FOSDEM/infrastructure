@@ -1,3 +1,0 @@
----
-- name: disable the blinking cursor
-  copy: src=sysctl/10-cursor.conf dest=/etc/sysctl.d/10-cursor.conf owner=root group=root mode=0644

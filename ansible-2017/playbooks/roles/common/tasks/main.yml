@@ -1,4 +1,5 @@
 - include: configure_timezone.yml
+- include: configure_sysctl.yml
 - include: configure_apt.yml
 - include: user_root.yml
 - include: user_fosdem.yml
