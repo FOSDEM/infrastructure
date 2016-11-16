@@ -15,12 +15,27 @@
 #
 # Should this situation ever change, this whole thing should be revised.
 
-# TODO:
-# - configure the network on the host
+# Configure the macvlan bridge
+
+- name: check if {{ macvlan_dev }} exists
+  command: ip link show {{ macvlan_dev }}
+  register: macvlan_exists
+  failed_when: false
+  changed_when: false
+
+- name: configure {{ macvlan_dev }}
+  command: ip link add {{ macvlan_dev }} link {{ macvlan_link }} type macvlan mode bridge
+  when: macvlan_exists.rc != 0
+
+- name: bring up {{ macvlan_dev }}
+  command: ip link set {{ macvlan_dev }} up
+  changed_when: false # this is technically not correct, but meh
+
+# Configure the template container
 #
-#     ip link add mvlan0 link eth1 type macvlan mode bridge
-#     ip link set mvlan0 up
-#
+# What can not be done (easily) from outside the chroot is done with the setup
+# script which is copied to the target chroot. Make sure to check this script so
+# you know what's going on there
 
 - set_fact: lxc_path=/var/lib/lxc
 - set_fact: template_name=vocto-template
@@ -66,6 +81,7 @@
 
 - name: install voctomix
   git: repo=https://github.com/voc/voctomix.git dest={{template_rootfs}}/opt/voctomix/ clone=yes version=d8f80a7ebbf5a654b8c2591e8240479a4d2797e0
+  register: voctomix_installed
 
 - name: install vocto units
   copy: src={{item}} dest={{template_rootfs}}/etc/systemd/system/ owner=root group=root mode=0644
@@ -79,11 +95,4 @@
   changed_when: setup_commands.stdout != "no changes"
   failed_when: setup_commands.stderr != ""
 
-# when: template_created.changed or root_key_ansible.changed or root_key_users.changed or multimedia_repository.changed or c3voc_repository.changed or setup_file.changed or setup_commands.changed
-
-#- name: install packages in the template
-#  shell: chroot /var/lib/lxc/vocto-template/rootfs/ /bin/sh -c ""
-
-
-
-
+# when: template_created.changed or root_key_ansible.changed or root_key_users.changed or multimedia_repository.changed or c3voc_repository.changed or setup_file.changed or voctomix_installed.changed or units_installed.changed setup_commands.changed

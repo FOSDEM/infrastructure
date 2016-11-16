@@ -1,0 +1,13 @@
+---
+system_hostname: voctohost1.video.fosdem.net
+
+vocto_containers:
+  - { room: 'h1308', mac: '3e:60:83:e0:00:00' }
+  - { room: 'h1309', mac: '3e:60:83:e0:00:01' }
+  - { room: 'h1301', mac: '3e:60:83:e0:00:02' }
+  - { room: 'h1302', mac: '3e:60:83:e0:00:03' }
+  - { room: 'h2213', mac: '3e:60:83:e0:00:04' }
+  - { room: 'h2214', mac: '3e:60:83:e0:00:05' }
+
+macvlan_dev: macvlan0
+macvlan_link: eth0
