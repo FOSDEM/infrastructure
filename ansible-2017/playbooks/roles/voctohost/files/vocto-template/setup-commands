@@ -14,12 +14,12 @@
 #
 # Suggestions for a better approach are welcome!
 
-passwd -d root
+passwd -d root > /dev/null
 
 INITIAL_PACKAGELIST=$(dpkg-query -W -f='${Package} ${Version}')
 INITIAL_KEYLIST=$(apt-key list)
 
-apt-get install -y curl > /dev/null
+apt-get install -y curl > /dev/null 2>&1
 
 # Make sure we have the keys for our custom repositories
 curl -s https://c3voc.de/voctomix/gpg-key.asc | apt-key add - > /dev/null
@@ -29,9 +29,9 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117 > /dev
 apt-get update > /dev/null
 
 # Install vocto dependencies
-apt-get install -y gstreamer1.0-plugins-good vim wget git rsync > /dev/null
-apt-get install -y --no-install-recommends gstreamer1.0-tools libgstreamer1.0-0 python3 python3-gi gir1.2-gstreamer-1.0 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly > /dev/null
-apt-get install -y gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gstreamer1.0-x ffmpeg python3-gi-cairo > /dev/null
+apt-get install -y gstreamer1.0-plugins-good vim wget git rsync > /dev/null 2>&1
+apt-get install -y --no-install-recommends gstreamer1.0-tools libgstreamer1.0-0 python3 python3-gi gir1.2-gstreamer-1.0 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly > /dev/null 2>&1
+apt-get install -y gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gstreamer1.0-x ffmpeg python3-gi-cairo > /dev/null 2>&1
 
 FINAL_KEYLIST=$(apt-key list)
 FINAL_PACKAGELIST=$(dpkg-query -W -f='${Package} ${Version}')
