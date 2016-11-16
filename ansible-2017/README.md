@@ -2,13 +2,13 @@
 
 Deploying the entire thing should be possible with just one command:
 
-  ansible-playbook playbooks/site.yml
+    ansible-playbook playbooks/site.yml
 
 Usually, you will want to limit your deployment to specific host groups:
 
-  ansible-playbook playbooks/site.yml --limit videobox
-  ansible-playbook playbooks/site.yml --limit vocothost
-  ansible-playbook playbooks/site.yml --limit streamer
+    ansible-playbook playbooks/site.yml --limit videobox
+    ansible-playbook playbooks/site.yml --limit vocothost
+    ansible-playbook playbooks/site.yml --limit streamer
 
 We could consider splitting up our site.yml into multiple files, but this does
 the job for the time being.
@@ -40,8 +40,8 @@ playbook.
 For the bmd-streamer process to work at all, you will need the BlackMagic
 firmware. You will need to drop those files here:
 
-  playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
-  playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
+    playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
+    playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
 
 See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
 information.
