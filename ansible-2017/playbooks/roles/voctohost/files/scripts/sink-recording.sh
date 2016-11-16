@@ -1,22 +1,19 @@
 #!/bin/sh
-wget -nc -O /tmp/overlay_hd.png http://c3voc.mazdermind.de/testfiles/overlay_hd.png
-ffmpeg -y -nostdin \
-	-i tcp://localhost:15000 \
-	-threads:0 0 \
-	-aspect 16:9 \
-	-c:v libx264 \
-	-filter_complex '
-		[0:v] yadif=mode=2, hqdn3d [deinter];
-		movie=/tmp/overlay_hd.png [logo];
-		[deinter] [logo] overlay=0:0 [out]
-	' \
-	-map '[out]' \
-	-maxrate:v:0 3000k -bufsize:v:0 8192k -crf:0 21 \
-	-pix_fmt:0 yuv420p -profile:v:0 main -g:v:0 25 \
-	-preset:v:0 veryfast \
-	\
-	-ac 1 -c:a aac -b:a 96k -ar 44100 \
-	-map 0:a -filter:a:0 pan=mono:c0=FL \
-	-ac:a:2 2 \
-	\
-	-y -f flv rtmp://127.0.0.1:1935/stream/voctomix_hd
+
+confdir="`dirname "$0"`/../"
+. $confdir/default-config.sh
+if [ -f $confdir/config.sh ]; then
+        . $confdir/config.sh
+fi
+
+# XXX: check the recording params to have good enough
+# space/quality tradeoff.
+
+ffmpeg \
+	-y -nostdin \
+	-i tcp://localhost:11000 \
+	-ac 2 -aspect 16:9 \
+	-map 0:v -c:v:0 mpeg2video -pix_fmt:v:0 yuv422p -qscale:v:0 2 -qmin:v:0 2 -qmax:v:0 7 -keyint_min 0 -bf:0 0 -g:0 0 -intra:0 -maxrate:0 90M \
+	-map 0:a -c:a:0 mp2 -b:a:0 192k -ac:a:0 2 -ar:a:0 48000 \
+	-flags +global_header -flags +ilme+ildct \
+	-f mpegts ${RECDIR}/${HOST}.`date +%s`.ts
