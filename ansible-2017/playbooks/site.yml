@@ -78,4 +78,5 @@
   remote_user: root
   roles:
   - common-repository-debian-backports
-  - streamer
+  - common-repository-custom-packages
+  - { role: streamer, tags: [ 'streamer' ] }

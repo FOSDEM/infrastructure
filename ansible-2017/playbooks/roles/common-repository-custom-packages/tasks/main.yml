@@ -1,0 +1,3 @@
+---
+- name: add custom packages repository
+  apt_repository: repo='deb http://crap.video.fosdem.org/debian {{ansible_distribution_release}} main' state=present update_cache=yes
