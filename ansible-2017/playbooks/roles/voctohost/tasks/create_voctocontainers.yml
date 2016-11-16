@@ -52,16 +52,34 @@
   with_items: "{{ ssh_users }}"
   register: root_key_users
 
+- name: configure debian-multimedia repository
+  copy: dest={{template_rootfs}}/etc/apt/sources.list.d/debian-multimedia.list content="deb http://www.deb-multimedia.org jessie main non-free"
+  register: multimedia_repository
+
+- name: configure c3voc repository
+  copy: dest={{template_rootfs}}/etc/apt/sources.list.d/c3voc.list content="deb http://c3voc.de/voctomix jessie non-free"
+  register: c3voc_repository
+
 - name: copy the setup file
   copy: src=vocto-template/setup-commands dest={{template_rootfs}}/root/setup owner=root group=root mode=0755
-  register: setup_commands
-
-- name: execute the setup
-  command: chroot {{template_rootfs}} /bin/sh -c "/root/setup"
-  changed_when: false
+  register: setup_file
 
 - name: install voctomix
   git: repo=https://github.com/voc/voctomix.git dest={{template_rootfs}}/opt/voctomix/ clone=yes version=d8f80a7ebbf5a654b8c2591e8240479a4d2797e0
+
+- name: install vocto units
+  copy: src={{item}} dest={{template_rootfs}}/etc/systemd/system/ owner=root group=root mode=0644
+  with_fileglob:
+  - ../files/units/*
+  register: units_installed
+
+- name: execute the setup (installs packages, enables units)
+  command: chroot {{template_rootfs}} /bin/sh -c "/root/setup"
+  register: setup_commands
+  changed_when: setup_commands.stdout != "no changes"
+  failed_when: setup_commands.stderr != ""
+
+# when: template_created.changed or root_key_ansible.changed or root_key_users.changed or multimedia_repository.changed or c3voc_repository.changed or setup_file.changed or setup_commands.changed
 
 #- name: install packages in the template
 #  shell: chroot /var/lib/lxc/vocto-template/rootfs/ /bin/sh -c ""

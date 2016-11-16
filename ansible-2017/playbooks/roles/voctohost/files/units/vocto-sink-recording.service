@@ -1,0 +1,14 @@
+[Unit]
+Description = voctomix recording sink
+After = voctocore.service
+Requires = voctocore.service
+
+[Service]
+Type = simple
+ExecStart = /opt/scripts/sink-recording.sh
+Restart = always
+RestartSec = 1s
+StartLimitInterval = 0
+
+[Install]
+WantedBy = voctocore.service

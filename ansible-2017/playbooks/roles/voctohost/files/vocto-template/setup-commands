@@ -3,28 +3,54 @@
 # This file contains a bunch of commands that need to be executed in the vocto
 # container. This is an absolutely horrible way to do things, but it's the best
 # I could think of, seeing as Ansible can't execute commands in a chroot, and I
-# need a way to find out if anything has changed
+# need a way to find out if anything has changed.
+#
+# This file gets installed in the container and executed from an Ansible task.
+# It is supposed to output "changed" if anything has been modified, or "no
+# changes" if... well, you get it.
+#
+# This means you need to make sure no other output is produced. Else the task
+# will be marked as changed.
+#
+# Suggestions for a better approach are welcome!
 
-# XXX: Important! Making *any* change to this file will cause the containers to
-# be destroyed and re-created. Please make sure you know what you are doing.
+passwd -d root
 
-# TODO: possoble "fix" suggested by wouter: check dpkg-query -l -f<format>
-# before and after running the apt commands, it should be the same if nothing
-# has been done.
-# Configuring the repositories could be done from outside the chroot, so that's
-# fixable as well.
+INITIAL_PACKAGELIST=$(dpkg-query -W -f='${Package} ${Version}')
+INITIAL_KEYLIST=$(apt-key list)
 
-# Add debian-multimedia & c3voc repositories
-echo "deb http://www.deb-multimedia.org jessie main non-free" > /etc/apt/sources.list.d/debian-multimedia.list
-echo "deb http://c3voc.de/voctomix jessie non-free" > /etc/apt/sources.list.d/c3voc.list
-apt-get install -y curl
-curl https://c3voc.de/voctomix/gpg-key.asc | apt-key add -
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117
+apt-get install -y curl > /dev/null
 
-# Run apt-get update so we have a fresh list with our shiny new repositories
-apt-get update
+# Make sure we have the keys for our custom repositories
+curl -s https://c3voc.de/voctomix/gpg-key.asc | apt-key add - > /dev/null
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117 > /dev/null 2>&1
+
+# Run apt-get update so we are sure to have a fresh list of packages
+apt-get update > /dev/null
 
 # Install vocto dependencies
-apt-get install -y gstreamer1.0-plugins-good vim wget git rsync
-apt-get install -y --no-install-recommends gstreamer1.0-tools libgstreamer1.0-0 python3 python3-gi gir1.2-gstreamer-1.0 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
-apt-get install -y gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gstreamer1.0-x ffmpeg python3-gi-cairo
+apt-get install -y gstreamer1.0-plugins-good vim wget git rsync > /dev/null
+apt-get install -y --no-install-recommends gstreamer1.0-tools libgstreamer1.0-0 python3 python3-gi gir1.2-gstreamer-1.0 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly > /dev/null
+apt-get install -y gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gstreamer1.0-x ffmpeg python3-gi-cairo > /dev/null
+
+FINAL_KEYLIST=$(apt-key list)
+FINAL_PACKAGELIST=$(dpkg-query -W -f='${Package} ${Version}')
+
+# Configure unit files
+UNITS_CHANGED=0
+for filename in /etc/systemd/system/vocto*\.service; do
+	basename=$(basename $filename)
+
+	enabled=$(systemctl is-enabled $basename 2>/dev/null | tail -n 1)
+
+	if [ "$enabled" = "disabled" ]; then
+		UNITS_CHANGED=1
+		systemctl enable $basename 2>/dev/null
+	fi
+done
+
+if [ "${INITIAL_KEYLIST}" != "${FINAL_KEYLIST}" ] || [ "${INITIAL_PACKAGELIST}" != "${FINAL_PACKAGELIST}" ] || [ ${UNITS_CHANGED} -eq 1 ]; then
+	echo "changed"
+else
+	echo "no changes"
+fi
