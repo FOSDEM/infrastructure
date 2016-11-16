@@ -1,5 +1,4 @@
 #!/bin/sh
-
 confdir="`dirname "$0"`/../"
 . $confdir/default-config.sh
 if [ -f $confdir/config.sh ]; then
