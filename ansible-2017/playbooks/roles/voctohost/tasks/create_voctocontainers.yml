@@ -95,4 +95,18 @@
   changed_when: setup_commands.stdout != "no changes"
   failed_when: setup_commands.stderr != ""
 
+- name: clone the template once per room
+  include: create_voctocontainers_clone.yml
+  with_items: "{{ vocto_container_config }}"
+  when: "item.voctohost == ansible_hostname"
+
+#lxc.network.type = macvlan
+#lxc.network.macvlan.mode = bridge
+#lxc.network.flags = up
+#lxc.network.link = mvlan0
+#lxc.network.name = eth0
+#lxc.network.hwaddr = 00:16:3e:41:11:65
+#lxc.network.mtu = 1500
+
+
 # when: template_created.changed or root_key_ansible.changed or root_key_users.changed or multimedia_repository.changed or c3voc_repository.changed or setup_file.changed or voctomix_installed.changed or units_installed.changed setup_commands.changed

@@ -9,4 +9,5 @@
 
 - name: create video directories per room
   file: path=/mnt/video/{{ item.room }} state=directory owner=root group=root mode=0777
-  with_items: "{{ vocto_containers }}"
+  with_items: "{{ vocto_container_config }}"
+  when: "item.voctohost == ansible_hostname"
