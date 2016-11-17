@@ -5,3 +5,77 @@ sysctl_parameters: {
     "net.core.rmem_max": "8388608",
     "net.core.rmem_default": "1703936",
 }
+
+vocto_container_config:
+  - room: aw1120
+    voctohost: voctohost0
+    mac: 00:16:3e:41:11:01
+  - room: aw1121
+    voctohost: voctohost0
+    mac: 00:16:3e:41:11:02
+  - room: aw1124
+    voctohost: voctohost0
+    mac: 00:16:3e:41:11:03
+  - room: aw1125
+    voctohost: voctohost0
+    mac: 00:16:3e:41:11:04
+  - room: aw1126
+    voctohost: voctohost0
+    mac: 00:16:3e:41:11:05
+  - room: h1301
+    voctohost: voctohost0
+    mac: 00:16:3e:41:11:06
+  - room: h1302
+    voctohost: voctohost1
+    mac: 00:16:3e:41:11:07
+  - room: h1308
+    voctohost: voctohost1
+    mac: 00:16:3e:41:11:08
+  - room: h1309
+    voctohost: voctohost1
+    mac: 00:16:3e:41:11:09
+  - room: h2213
+    voctohost: voctohost1
+    mac: 00:16:3e:41:11:10
+  - room: h2214
+    voctohost: voctohost1
+    mac: 00:16:3e:41:11:11
+  - room: h2215
+    voctohost: voctohost1
+    mac: 00:16:3e:41:11:12
+  - room: janson
+    voctohost: voctohost2
+    mac: 00:16:3e:41:11:13
+  - room: k1105
+    voctohost: voctohost2
+    mac: 00:16:3e:41:11:14
+  - room: k3201
+    voctohost: voctohost2
+    mac: 00:16:3e:41:11:15
+  - room: k3401
+    voctohost: voctohost2
+    mac: 00:16:3e:41:11:16
+  - room: k4201
+    voctohost: voctohost2
+    mac: 00:16:3e:41:11:17
+  - room: k4401
+    voctohost: voctohost2
+    mac: 00:16:3e:41:11:18
+  - room: k4601
+    voctohost: voctohost3
+    mac: 00:16:3e:41:11:19
+  - room: ua2114
+    voctohost: voctohost3
+    mac: 00:16:3e:41:11:20
+  - room: ua2220
+    voctohost: voctohost3
+    mac: 00:16:3e:41:11:21
+  - room: ub2252a
+    voctohost: voctohost3
+    mac: 00:16:3e:41:11:22
+  - room: ud2120
+    voctohost: voctohost3
+    mac: 00:16:3e:41:11:23
+  - room: ud2218a
+    voctohost: voctohost3
+    mac: 00:16:3e:41:11:24,
