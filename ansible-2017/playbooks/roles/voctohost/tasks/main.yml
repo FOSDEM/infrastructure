@@ -1,3 +1,5 @@
 ---
 - include: create_videodisk.yml
+  tags: videodisk
 - include: create_voctocontainers.yml
+  tags: voctocontainer
