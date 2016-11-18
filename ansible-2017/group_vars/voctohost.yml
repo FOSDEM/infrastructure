@@ -8,7 +8,7 @@ sysctl_parameters: {
 
 vocto_video_disk: /mnt/video
 
-vocto_container_recording_directory: /opt/vocto/recordings
+vocto_container_recording_directory: /opt/recordings
 vocto_container_source_url_parameters: ?timeout=10000000&buffer_size=81921024&fifo_size=178481
 
 vocto_container_config:
