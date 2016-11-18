@@ -29,7 +29,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117 > /dev
 apt-get update > /dev/null
 
 # Install vocto dependencies
-apt-get install -y gstreamer1.0-plugins-good vim wget git rsync > /dev/null 2>&1
+apt-get install -y gstreamer1.0-plugins-good vim wget git rsync bash-completion > /dev/null 2>&1
 apt-get install -y --no-install-recommends gstreamer1.0-tools libgstreamer1.0-0 python3 python3-gi gir1.2-gstreamer-1.0 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly > /dev/null 2>&1
 apt-get install -y gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gir1.2-gtk-3.0 gstreamer1.0-x ffmpeg python3-gi-cairo > /dev/null 2>&1
 
