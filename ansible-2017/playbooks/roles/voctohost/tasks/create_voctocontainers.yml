@@ -83,6 +83,24 @@
   git: repo=https://github.com/voc/voctomix.git dest={{template_rootfs}}/opt/voctomix/ clone=yes version=d8f80a7ebbf5a654b8c2591e8240479a4d2797e0
   register: voctomix_installed
 
+- name: install scripts
+  copy: src=scripts/{{ item }} dest={{ template_rootfs }}/opt/scripts/ owner=root group=root mode=0755
+  with_items:
+  - sink-recording.sh
+  - sink-stream.sh
+  - source-background.sh
+  - source-cam.sh
+  - source-slides.sh
+  register: scripts_installed
+
+- name: install configuration
+  copy: src=config/{{ item }} dest={{ template_rootfs }}/opt/{{ item }} owner=root group=root mode=0644
+  with_items:
+# - config.sh -- we install config.sh from the clone task file
+  - defaults.sh
+  - voctocore.ini
+  register: config_installed
+
 - name: install vocto units
   copy: src={{item}} dest={{template_rootfs}}/etc/systemd/system/ owner=root group=root mode=0644
   with_fileglob:
@@ -95,7 +113,7 @@
   changed_when: setup_commands.stdout != "no changes"
   failed_when: setup_commands.stderr != ""
 
-- set_fact: container_template_changed={{ (template_created.changed or root_key_ansible.changed or root_key_users.changed or multimedia_repository.changed or c3voc_repository.changed or setup_file.changed or voctomix_installed.changed or units_installed.changed or setup_commands.changed) | ternary(true, false) }}
+- set_fact: container_template_changed={{ (template_created.changed or root_key_ansible.changed or root_key_users.changed or multimedia_repository.changed or c3voc_repository.changed or setup_file.changed or voctomix_installed.changed or scripts_installed.changed or config_installed.changed or units_installed.changed or setup_commands.changed) | ternary(true, false) }}
 
 - name: clone the template once per room
   include: create_voctocontainers_clone.yml
