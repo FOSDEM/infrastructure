@@ -31,6 +31,10 @@
   command: ip link set {{ macvlan_dev }} up
   changed_when: false # this is technically not correct, but meh
 
+
+# TODO: clean up containers that don't belong on this host
+
+
 # Configure the template container
 #
 # What can not be done (easily) from outside the chroot is done with the setup
