@@ -33,6 +33,8 @@
     value: "lxc.network.mtu = 1500"
   - line: "^lxc\\.utsname\\ =\\ .*"
     value: "lxc.utsname = vocto-{{ clone_config.room }}"
+  - line: "^lxc\\.mount\\.entry\\ =\\ .*"
+    value: "lxc.mount.entry = {{ vocto_video_disk }}/{{ clone_config.room }} {{ lxc_path }}/vocto-{{ clone_config.room }}/rootfs/opt/vocto/recordings none bind 0 0"
   register: lxc_config_set
 
 - name: set the vocto config for {{ clone_config.room }}
