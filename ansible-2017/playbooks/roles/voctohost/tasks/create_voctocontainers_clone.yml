@@ -14,30 +14,40 @@
   shell: lxc-clone {{ template_name }} vocto-{{ clone_config.room }}
   when: clone_created.rc != 0
 
-# FIXME; this should probably be done with replace instead of lineinfile!
-- name: set the LXC config to our liking
-  lineinfile: dest={{ lxc_path }}/vocto-{{ clone_config.room }}/config line="{{ item }}"
+- name: set the config for {{ clone_config.room }}
+  lineinfile: dest={{ lxc_path }}/vocto-{{ clone_config.room }}/config line={{ item.value }} regexp={{ item.line }}
   with_items:
-  - "lxc.network.type = macvlan"
-  - "lxc.network.macvlan.mode = bridge"
-  - "lxc.network.flags = up"
-  - "lxc.network.link = macvlan0"
-  - "lxc.network.name = eth0"
-  - "lxc.network.hwaddr = {{ clone_config.mac }}"
-  - "lxc.network.mtu = 1500"
+  - line: "^lxc\\.network\\.type\\ =\\ .*"
+    value: "lxc.network.type = macvlan"
+  - line: "^lxc\\.network\\.macvlan.mode\\ =\\ .*"
+    value: "lxc.network.macvlan.mode = bridge"
+  - line: "^lxc\\.network\\.flags\\ =\\ .*"
+    value: "lxc.network.flags = up"
+  - line: "^lxc\\.network\\.link\\ =\\ .*"
+    value: "lxc.network.link = {{ macvlan_dev }}"
+  - line: "^lxc\\.network\\.name\\ =\\ .*"
+    value: "lxc.network.name = eth0"
+  - line: "^lxc\\.network\\.hwaddr\\ =\\ .*"
+    value: "lxc.network.hwaddr = {{ clone_config.mac }}"
+  - line: "^lxc\\.network\\.mtu\\ =\\ .*"
+    value: "lxc.network.mtu = 1500"
+  - line: "^lxc\\.utsname\\ =\\ .*"
+    value: "lxc.utsname = vocto-{{ clone_config.room }}"
   register: lxc_config_set
 
-- name: configure the hostname
-  replace: dest={{ lxc_path }}/vocto-{{ clone_config.room }}/config regexp='^lxc\.utsname\ =\ .*' replace='lxc.utsname = vocto-{{ clone_config.room }}'
-  register: lxc_hostname_set
-
-- name: stop the container if needed
+- name: stop the container for {{ clone_config.room }} if the config has changed
   shell: lxc-stop -f -n vocto-{{ clone_config.room }}
-  when: lxc_config_set.changed or lxc_hostname_set.changed
+  when: lxc_config_set.changed
   register: lxc_stopped
   failed_when: false
   changed_when: lxc_stopped.rc == 1
 
-- name: make sure the container is started
+- name: get the state for the container for {{ clone_config.room }}
+  shell: lxc-info -n vocto-{{ clone_config.room }} | grep State | tr -s ' ' | cut -d' ' -f 2
+  register: lxc_state
+  changed_when: false
+
+- name: start container for {{ clone_config.room }}
   shell: lxc-start -d -n vocto-{{ clone_config.room }}
-  changed_when: false # lxc-start doesn't say anything :(
+  when: lxc_state.stdout != "RUNNING"
+  changed_when: true
