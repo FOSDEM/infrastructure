@@ -1,0 +1,16 @@
+---
+- name: disable the default site configuration
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: reload nginx
+
+- name: install the site configuration
+  template: src=nginx/sites-enabled/streamer-backend.conf dest=/etc/nginx/sites-enabled/streamer-backend.conf owner=root group=root mode=0644
+  notify: reload nginx
+
+- name: intstall the rtmp configuration
+  template: src=nginx/nginx-rtmp.conf dest=/etc/nginx/nginx-rtmp.conf
+  notify: reload nginx
+
+- name: patch nginx.conf to include the rtmp configuration
+  lineinfile: dest=/etc/nginx/nginx.conf line="include /etc/nginx/nginx-rtmp.conf;" state=present
+  notify: reload nginx

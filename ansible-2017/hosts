@@ -9,5 +9,6 @@ voctohost0.video.fosdem.net
 voctohost1.video.fosdem.net ansible_host=10.2.5.197
 gerry-vocto.fosdem.org ansible_host=212.47.226.241
 
-[streamer]
-aw1120.stream.fosdem.org ansible_host=212.47.251.103
+[streamer-backend]
+streambackend0.video.fosdem.org ansible_host=163.172.166.154
+streambackend1.video.fosdem.org ansible_host=163.172.159.77

@@ -73,10 +73,10 @@
   - common-repository-debian-backports
   - { role: voctohost, tags: [ 'voctohost' ] }
 
-- name: streamer
-  hosts: streamer
+- name: streamer-backend
+  hosts: streamer-backend
   remote_user: root
   roles:
   - common-repository-debian-backports
   - common-repository-custom-packages
-  - { role: streamer, tags: [ 'streamer' ] }
+  - { role: streamer-backend, tags: [ 'streamer-backend' ] }

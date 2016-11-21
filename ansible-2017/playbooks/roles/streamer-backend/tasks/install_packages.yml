@@ -1,0 +1,10 @@
+---
+- name: "create preferences file for nginx"
+  copy: src=apt/preferences dest=/etc/apt/preferences.d/fosdem-video owner=root group=root mode=0644
+
+- name: "install packages"
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - nginx-common
+    - nginx-doc
+    - nginx-extras

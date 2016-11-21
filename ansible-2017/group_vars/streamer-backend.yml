@@ -1,0 +1,11 @@
+---
+sysctl_parameters: {
+    "net.core.wmem_max": "8388608",
+    "net.core.wmem_default": "1703936",
+    "net.core.rmem_max": "8388608",
+    "net.core.rmem_default": "1703936",
+}
+
+nginx_rtmp_publishers:
+  - 31.22.21.130/32
+  - 185.175.218.0/24

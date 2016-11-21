@@ -1,7 +1,0 @@
----
-- name: "common: install packages"
-  apt: pkg={{ item }} state=latest install_recommends=no
-  with_items:
-    - nginx-common
-    - nginx-doc
-    - nginx-extras
