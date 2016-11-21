@@ -23,7 +23,7 @@ apt-get install -y curl > /dev/null 2>&1
 
 # Make sure we have the keys for our custom repositories
 curl -s https://c3voc.de/voctomix/gpg-key.asc | apt-key add - > /dev/null
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117 > /dev/null 2>&1
+apt-key adv --keyserver eu.pool.sks-keyservers.net --recv-keys 5C808C2B65558117 > /dev/null 2>&1
 
 # Run apt-get update so we are sure to have a fresh list of packages
 apt-get update > /dev/null
