@@ -8,7 +8,7 @@ Usually, you will want to limit your deployment to specific host groups:
 
     ansible-playbook playbooks/site.yml --limit videobox
     ansible-playbook playbooks/site.yml --limit vocothost
-    ansible-playbook playbooks/site.yml --limit streamer
+    ansible-playbook playbooks/site.yml --limit streamer-backend
 
 We could consider splitting up our site.yml into multiple files, but this does
 the job for the time being.
