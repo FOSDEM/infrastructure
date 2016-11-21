@@ -1,13 +1,12 @@
 [videobox]
-h1308-cam.video.fosdem.net ansible_host=10.2.5.191
-h1308-slides.video.fosdem.net ansible_host=10.2.5.190
-k1105-slides.video.fosdem.net ansible_host=10.2.5.194
-k1105-cam.video.fosdem.net ansible_host=10.2.5.195
+h1308-cam.video.fosdem.org ansible_host=10.2.5.191
+h1308-slides.video.fosdem.org ansible_host=10.2.5.190
+k1105-slides.video.fosdem.org ansible_host=10.2.5.194
+k1105-cam.video.fosdem.org ansible_host=10.2.5.195
 
 [voctohost]
-voctohost0.video.fosdem.net
-voctohost1.video.fosdem.net ansible_host=10.2.5.197
-gerry-vocto.fosdem.org ansible_host=212.47.226.241
+voctohost0.video.fosdem.org
+voctohost1.video.fosdem.org ansible_host=10.2.5.197
 
 [streamer-backend]
 streambackend0.video.fosdem.org ansible_host=163.172.166.154
