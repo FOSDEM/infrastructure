@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 SCREENSHOT_PATH="{{ video_screenshot_directory }}/{{ video_screenshot_filename }}"
 STREAM_DESTINATION="{{ video_streamer_destination }}"
