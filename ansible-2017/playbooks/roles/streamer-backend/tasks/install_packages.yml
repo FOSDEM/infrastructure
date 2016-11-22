@@ -8,3 +8,4 @@
     - nginx-common
     - nginx-doc
     - nginx-extras
+    - ffmpeg
