@@ -9,13 +9,11 @@
 #   - less frequent updates of "static" data (MAC address, hostname,
 #     stream URL)
 #   - only redraw what's really necessary instead of the whole block
-# * Default to eth0 as the network interface, unless specified
-# * Modify the stream screenshotter
 # * IPv6 address isn't being displayed because it doesn't fit on the
 #   screen. We could implement some kind of scrolling marquee for text
-#   that doesn't fit on the screen?
+#   that doesn't fit on the screen? Or reduce the font size?
 
-import os, sys, re, pygame
+import os, sys, re, signal, pygame
 from pygame.locals import *
 
 WHITE = 255,255,255
@@ -23,6 +21,7 @@ BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
 
+STREAM_DESTINATION = '{{ video_streamer_destination }}'
 NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
 LOGO_FILE =  'logo.png'
@@ -126,9 +125,15 @@ def update_sysinfo(screen):
 		image.blit(font.render("IPv4: no IPv4 address", 1, RED), (0, 45))
 
 	image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, 60))
-	image.blit(font.render("stream: {{ video_streamer_destination }}", 1, WHITE), (0, 75))
+	image.blit(font.render("stream: " + STREAM_DESTINATION, 1, WHITE), (0, 75))
 
 	screen.blit(image,(10,120))
 
+def signal_handler(signum, frame):
+	# We need something to catch signals since systemd sends a SIGHUP, if we
+	# don't catch that, we'll quit and die
+	pass
+
 if __name__=="__main__":
-    main()
+	signal.signal(signal.SIGHUP, signal_handler)
+	main()

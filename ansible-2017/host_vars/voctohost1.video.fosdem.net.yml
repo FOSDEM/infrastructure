@@ -1,5 +1,0 @@
----
-system_hostname: voctohost1.video.fosdem.net
-
-macvlan_dev: macvlan0
-macvlan_link: eth0

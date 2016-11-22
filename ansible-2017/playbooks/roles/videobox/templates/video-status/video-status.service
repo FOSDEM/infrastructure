@@ -3,12 +3,11 @@ Description=video-status service
 After=video-streamer.service
 
 [Service]
-ExecStart=/usr/local/bin/status.py
+ExecStart=/usr/local/bin/video-status.py
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
-Restart=always
-WatchdogSec=3600
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

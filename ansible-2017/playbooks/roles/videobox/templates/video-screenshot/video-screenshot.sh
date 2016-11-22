@@ -9,7 +9,9 @@ while true; do
 
 	# If we failed, make sure there is no file at all
 	if [ $? -ne 0 ]; then
-		rm $SCREENSHOT_PATH
+		if [ -f $SCREENSHOT_PATH ]; then
+			rm $SCREENSHOT_PATH
+		fi
 	fi
 
 	sleep 2s

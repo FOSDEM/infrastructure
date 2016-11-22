@@ -1,11 +1,4 @@
 ---
-# Where is our SSD drive supposed to be?
-ssd_drive: /dev/sda
-sd_boot: /dev/mmcblk0p1
-sd_root: /dev/mmcblk0p2
-
-bmd_streamer_ffmpeg_options: "overrun_nonfatal=1&buffer_size=81921024&fifo_size=178481"
-
 sysctl_parameters: {
     "vt.global_cursor_default": "0",
     "net.core.wmem_max": "8388608",
@@ -13,3 +6,166 @@ sysctl_parameters: {
     "net.core.rmem_max": "8388608",
     "net.core.rmem_default": "1703936",
 }
+
+# Where is our SSD drive supposed to be?
+ssd_drive: /dev/sda
+ssd_mount: /mnt/ssd
+
+# Partition layout of the SD card
+sd_boot: /dev/mmcblk0p1
+sd_root: /dev/mmcblk0p2
+
+# Our network device
+network_device: eth0
+
+# Location for the screenshot dumps
+video_screenshot_directory: /mnt/ssd/video-screenshot/
+video_screenshot_filename: screenshot.jpg
+
+# Video streamer configuration
+video_streamer_ffmpeg_options: "overrun_nonfatal=1&buffer_size=81921024&fifo_size=178481"
+
+video_streamer_config:
+  - host: aw1120-slides
+    destination: udp://227.0.0.1:9000
+
+  - host: aw1120-cam
+    destination: udp://227.0.0.2:9000
+
+  - host: aw1121-slides
+    destination: udp://227.0.1.1:9000
+
+  - host: aw1121-cam
+    destination: udp://227.0.1.2:9000
+
+  - host: aw1124-slides
+    destination: udp://227.0.2.1:9000
+
+  - host: aw1124-cam
+    destination: udp://227.0.2.2:9000
+
+  - host: aw1125-slides
+    destination: udp://227.0.3.1:9000
+
+  - host: aw1125-cam
+    destination: udp://227.0.3.2:9000
+
+  - host: aw1126-slides
+    destination: udp://227.0.4.1:9000
+
+  - host: aw1126-cam
+    destination: udp://227.0.4.2:9000
+
+  - host: h1301-slides
+    destination: udp://227.1.0.1:9000
+
+  - host: h1301-cam
+    destination: udp://227.1.0.2:9000
+
+  - host: h1302-slides
+    destination: udp://227.1.1.1:9000
+
+  - host: h1302-cam
+    destination: udp://227.1.1.2:9000
+
+  - host: h1308-slides
+    destination: udp://227.1.2.1:9000
+
+  - host: h1308-cam
+    destination: udp://227.1.2.2:9000
+
+  - host: h1309-slides
+    destination: udp://227.1.3.1:9000
+
+  - host: h1309-cam
+    destination: udp://227.1.3.2:9000
+
+  - host: h2213-slides
+    destination: udp://227.1.4.1:9000
+
+  - host: h2213-cam
+    destination: udp://227.1.4.2:9000
+
+  - host: h2214-slides
+    destination: udp://227.1.5.1:9000
+
+  - host: h2214-cam
+    destination: udp://227.1.5.2:9000
+
+  - host: h2215-slides
+    destination: udp://227.1.6.1:9000
+
+  - host: h2215-cam
+    destination: udp://227.1.6.2:9000
+
+  - host: janson-slides
+    destination: udp://227.2.0.1:9000
+
+  - host: janson-cam
+    destination: udp://227.2.0.2:9000
+
+  - host: k1105-slides
+    destination: udp://227.3.0.1:9000
+
+  - host: k1105-cam
+    destination: udp://227.3.0.2:9000
+
+  - host: k3201-slides
+    destination: udp://227.3.1.1:9000
+
+  - host: k3201-cam
+    destination: udp://227.3.1.2:9000
+
+  - host: k3401-slides
+    destination: udp://227.3.2.1:9000
+
+  - host: k3401-cam
+    destination: udp://227.3.2.2:9000
+
+  - host: k4201-slides
+    destination: udp://227.3.3.1:9000
+
+  - host: k4201-cam
+    destination: udp://227.3.3.2:9000
+
+  - host: k4401-slides
+    destination: udp://227.3.4.1:9000
+
+  - host: k4401-cam
+    destination: udp://227.3.4.2:9000
+
+  - host: k4601-slides
+    destination: udp://227.3.5.1:9000
+
+  - host: k4601-cam
+    destination: udp://227.3.5.2:9000
+
+  - host: ua2114-slides
+    destination: udp://227.4.0.1:9000
+
+  - host: ua2114-cam
+    destination: udp://227.4.0.2:9000
+
+  - host: ua2220-slides
+    destination: udp://227.4.1.1:9000
+
+  - host: ua2220-cam
+    destination: udp://227.4.1.2:9000
+
+  - host: ub2252a-slides
+    destination: udp://227.4.2.1:9000
+
+  - host: ub2252a-cam
+    destination: udp://227.4.2.2:9000
+
+  - host: ud2120-slides
+    destination: udp://227.4.3.1:9000
+
+  - host: ud2120-cam
+    destination: udp://227.4.3.2:9000
+
+  - host: ud2218a-slides
+    destination: udp://227.4.4.1:9000
+
+  - host: ud2218a-cam
+    destination: udp://227.4.4.2:9000

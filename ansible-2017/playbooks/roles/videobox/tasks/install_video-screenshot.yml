@@ -7,7 +7,7 @@
   register: videoscreenshotscript
 
 - name: install video-screenshot service
-  copy: src=video-screenshot/video-screenshot.service dest=/etc/systemd/system/video-screenshot.service owner=root group=root mode=0644
+  template: src=video-screenshot/video-screenshot.service dest=/etc/systemd/system/video-screenshot.service owner=root group=root mode=0644
   register: videoscreenshot
 
 - name: perform a daemon-reload if video-screenshot.service has been modified

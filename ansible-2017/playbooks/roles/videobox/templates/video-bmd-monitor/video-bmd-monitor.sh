@@ -14,12 +14,12 @@ while inotifywait -e modify $LOGFILE 2>>/dev/null ; do
     STOPPEDENCODER=$(tail -n1 $LOGFILE | grep 'stopping encoder' | wc -l)
 
     if [ $NOSIGNAL -eq $BMDTIMEOUT ] || [ $STOPPEDENCODER -eq 1 ]; then
-        service $SERVICE stop
+        systemctl stop $SERVICE
         sleep 10s
 
         #TODO notify someone
 
-        echo 'Monitoring service attempting to restart bmd-streamer...' > $LOGFILE
-        service $SERVICE start
+        echo "Monitoring service attempting to restart ${SERVICE}..." > $LOGFILE
+        systemctl start $SERVICE
     fi
 done
