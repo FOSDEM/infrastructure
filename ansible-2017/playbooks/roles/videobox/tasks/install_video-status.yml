@@ -1,0 +1,18 @@
+---
+- name: install video-status service
+  template: src=video-status/video-status.service dest=/etc/systemd/system/video-status.service owner=root group=root mode=0644
+  register: videostatus
+
+- name: perform a daemon-reload if video-status.service has been modified
+  shell: systemctl daemon-reload
+  when: videostatus.changed
+
+- name: enable video-statusservice
+  service: name=video-status enabled=yes state=started
+
+- name: restart service if video-status.service has been modified
+  service: name=video-status state=restarted
+  when: video-status.changed
+
+- name: enable video-status service
+  systemd: name=video-status enabled=yes state=started daemon_reload=yes

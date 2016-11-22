@@ -1,0 +1,13 @@
+[Unit]
+Description=video-streamer service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/video-streamer.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

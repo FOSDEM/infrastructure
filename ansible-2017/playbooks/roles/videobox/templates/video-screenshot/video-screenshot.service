@@ -1,0 +1,13 @@
+[Unit]
+Description=video-screenshot service
+After=video-status.service
+
+[Service]
+ExecStart=/usr/local/bin/video-screenshot.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

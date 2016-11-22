@@ -1,0 +1,3 @@
+---
+macvlan_dev: macvlan0
+macvlan_link: eth0
