@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/opt/voctomix/voctocore/voctocore.py -vv
+ExecStart=/opt/voctomix/voctocore/voctocore.py -vv --ini-file /opt/config/voctocore.ini
 Restart=always
 RestartSec=1s
 StartLimitInterval=0
