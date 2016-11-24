@@ -17,20 +17,22 @@
 
 # Configure the macvlan bridge
 
+- name: configure {{ macvlan_dev }}
+  template: src=network/macvlan dest=/etc/network/interfaces.d/macvlan owner=root group=root mode=0644
+  register: macvlan_config
+
 - name: check if {{ macvlan_dev }} exists
   command: ip link show {{ macvlan_dev }}
   register: macvlan_exists
   failed_when: false
   changed_when: false
 
-- name: configure {{ macvlan_dev }}
-  command: ip link add {{ macvlan_dev }} link {{ macvlan_link }} type macvlan mode bridge
-  when: macvlan_exists.rc != 0
-
 - name: bring up {{ macvlan_dev }}
-  command: ip link set {{ macvlan_dev }} up
-  changed_when: false # this is technically not correct, but meh
-
+  command: "{{ item }}"
+  with_items:
+  - ifdown {{ macvlan_dev }}
+  - ifup {{ macvlan_dev }}
+  when: macvlan_exists.rc != 0 or macvlan_config.changed
 
 # TODO: clean up containers that don't belong on this host
 
