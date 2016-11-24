@@ -70,6 +70,7 @@ vocto_container_config:
   - room: h2213
 #    voctohost: voctohost1
     voctohost: voctohost99
+    mac: 00:16:3e:41:11:10
     slides_source: udp://227.1.4.1:9000
     cam_source: udp://227.1.4.2:9000
 
@@ -155,6 +156,6 @@ vocto_container_config:
 
   - room: ud2218a
     voctohost: voctohost3
-    mac: 00:16:3e:41:11:24,
+    mac: 00:16:3e:41:11:24
     slides_source: udp://227.4.4.1:9000
     cam_source: udp://227.4.4.2:9000
