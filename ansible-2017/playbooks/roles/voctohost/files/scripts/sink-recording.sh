@@ -1,6 +1,7 @@
 #!/bin/sh
 
 confdir="`dirname "$0"`/../config/"
+. ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
 # XXX: check the recording params to have good enough
