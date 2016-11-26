@@ -96,8 +96,7 @@
 - name: install scripts
   copy: src=scripts/{{ item }} dest={{ template_rootfs }}/opt/scripts/ owner=root group=root mode=0755
   with_items:
-  - sink-recording.sh
-  - sink-streaming.sh
+  - sink-output.sh
   - source-background.sh
   - source-cam.sh
   - source-slides.sh

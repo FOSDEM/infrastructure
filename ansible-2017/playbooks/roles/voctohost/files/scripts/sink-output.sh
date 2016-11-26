@@ -18,4 +18,4 @@ ffmpeg -y -nostdin \
 	-map 0:a -filter:a:0 pan=mono:c0=FL \
 	-ac:a:2 2 \
 	\
-	-y -f flv ${STREAM_DESTINATION}
+	-y -flags +global_header -bsf:a aac_adtstoasc -f tee "${RECORDING_DIRECTORY}/${ROOM}.`date +%s`.ts|[f=flv]${STREAM_DESTINATION}"

@@ -1,11 +1,11 @@
 [Unit]
-Description = voctomix recording sink
+Description = voctomix output sink
 After = voctocore.service
 Requires = voctocore.service
 
 [Service]
 Type = simple
-ExecStart = /opt/scripts/sink-recording.sh
+ExecStart = /opt/scripts/sink-output.sh
 Restart = always
 RestartSec = 1s
 StartLimitInterval = 0
