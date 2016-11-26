@@ -5,7 +5,7 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/config.sh
 
 ffmpeg -y -nostdin \
-	-i tcp://localhost:15000 \
+	-i tcp://localhost:11000 \
 	-threads:0 0 \
 	-aspect 16:9 \
 	-c:v libx264 \
