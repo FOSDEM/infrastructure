@@ -1,4 +1,13 @@
 ---
+- name: remove default html directory
+  file: path=/var/www/html state=absent
+
+- name: create nginx content directories
+  file: path={{ item }} state=directory owner=www-data group=www-data mode=0755
+  with_items:
+  - /var/www/hls
+  - /var/www/dump
+
 - name: disable the default site configuration
   file: path=/etc/nginx/sites-enabled/default state=absent
   notify: reload nginx
