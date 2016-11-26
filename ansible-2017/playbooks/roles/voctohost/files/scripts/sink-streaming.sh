@@ -18,4 +18,4 @@ ffmpeg -y -nostdin \
 	-map 0:a -filter:a:0 pan=mono:c0=FL \
 	-ac:a:2 2 \
 	\
-	-y -f flv rtmp://${ROOM}.restream.fosdem.org:1935/st/${ROOM}
+	-y -f flv ${STREAM_DESTINATION}
