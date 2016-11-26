@@ -24,7 +24,7 @@ RED   = 255,0,0
 STREAM_DESTINATION = '{{ video_streamer_destination }}'
 NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
-LOGO_FILE =  'logo.png'
+LOGO_FILE =  '/usr/local/bin/logo.png'
 
 def main():
 	# Initialize the display
