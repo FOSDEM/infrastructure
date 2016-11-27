@@ -9,5 +9,16 @@ voctohost0.video.fosdem.org
 voctohost1.video.fosdem.org ansible_host=10.2.5.197
 
 [streamer-backend]
-streambackend0.video.fosdem.org ansible_host=163.172.166.154
-streambackend1.video.fosdem.org ansible_host=163.172.159.77
+streambackend0.video.fosdem.org
+streambackend1.video.fosdem.org
+streambackend2.video.fosdem.org
+streambackend3.video.fosdem.org
+
+[streamer-frontend]
+streamfrontend0.video.fosdem.org
+streamfrontend1.video.fosdem.org
+streamfrontend2.video.fosdem.org
+streamfrontend3.video.fosdem.org
+
+[web-frontend]
+web0.video.fosdem.org

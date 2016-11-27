@@ -1,0 +1,5 @@
+---
+# Scaleway nodes come with an outdated Debian jessie install, dist-upgrade them
+# first.
+- name: "upgrade all packages"
+  apt: upgrade=dist
