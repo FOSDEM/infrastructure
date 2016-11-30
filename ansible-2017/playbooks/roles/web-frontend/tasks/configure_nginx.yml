@@ -12,6 +12,13 @@
   when: private_key.stat.exists
   notify: reload nginx
 
+- name: install dh parameters
+  copy: src=nginx/certificate/dhparam.pem dest=/etc/nginx/dhparam.pem owner=root group=root mode=0644
+  notify: reload nginx
+
+- name: set global configuration
+  copy: src=nginx/global.conf dest=/etc/nginx/conf.d/global.conf owner=root group=root mode=0644
+
 - name: disable default configuration
   file: path=/etc/nginx/sites-enabled/default state=absent
   notify: reload nginx
