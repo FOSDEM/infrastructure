@@ -77,6 +77,7 @@
   hosts: streamer-backend
   remote_user: root
   roles:
+  - scaleway
   - common-repository-debian-backports
   - common-repository-custom-packages
   - scaleway
@@ -91,6 +92,7 @@
 
 - name: web-frontend
   hosts: web-frontend
+  remote_user: root
   roles:
   - scaleway
   - { role: web-frontend, tags: [ 'web-frontend' ] }
