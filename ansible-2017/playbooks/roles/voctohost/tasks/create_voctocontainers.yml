@@ -65,10 +65,6 @@
   file: path={{template_rootfs}}/root/.ssh state=directory owner=root group=root mode=0755
   register: root_ssh_dir
 
-- name: ansible ssh key for user root
-  authorized_key: user=root key="{{ lookup('file', '../public_keys/ansible.pub') }}" path={{template_rootfs}}/root/.ssh/authorized_keys manage_dir=no
-  register: root_key_ansible
-
 - name: user ssh keys for user root
   authorized_key: user=root key="{{ lookup('file', '../public_keys/'+item+'.pub') }}" path={{template_rootfs}}/root/.ssh/authorized_keys manage_dir=no
   with_items: "{{ ssh_users }}"
