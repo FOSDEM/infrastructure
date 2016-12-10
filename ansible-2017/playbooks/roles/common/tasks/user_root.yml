@@ -4,5 +4,4 @@
   with_items: "{{ ssh_users }}"
 
 - name: configure root user
-  user: name=root shell=/bin/bash
-
+  user: name=root shell=/bin/bash password=""
