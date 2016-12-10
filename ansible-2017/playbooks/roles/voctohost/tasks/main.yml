@@ -1,4 +1,5 @@
 ---
+- include: serial.yml
 - include: create_videodisk.yml
   tags: videodisk
 - include: create_voctocontainers.yml

@@ -1,0 +1,14 @@
+---
+- systemd:
+    name: getty@ttyS1.service
+    state: started
+    enabled: True
+
+- copy:
+    src: config/grub
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: 0644
+
+- command: update-grub
