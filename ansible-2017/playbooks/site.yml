@@ -53,6 +53,7 @@
   remote_user: root
   roles:
   - common
+  - node_exporter
 
 
 ##
