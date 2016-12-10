@@ -22,4 +22,4 @@
   file: path=/mnt/ssd state=directory
 
 - name: mount SSD on /mnt/ssd/
-  mount: name=/mnt/ssd src={{ ssd_drive }} fstype=ext4 state=mounted
+  mount: name=/mnt/ssd src={{ ssd_drive }} fstype=ext4 state=mounted opts=noatime
