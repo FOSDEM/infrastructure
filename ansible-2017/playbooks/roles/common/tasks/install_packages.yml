@@ -23,12 +23,12 @@
     question: irqbalance/oneshot
     value: true
     vtype: boolean
-  when: kernel_package
+  when: kernel_package is defined
 
 - name: "common: Upgrade kernel"
   apt: pkg={{ item }} state=latest install_recommends=no default_release=jessie-backports
   with_items:
-    - {{ kernel_package }}
+    - "{{ kernel_package }}"
     - irqbalance
-  when: kernel_package
+  when: kernel_package is defined
 
