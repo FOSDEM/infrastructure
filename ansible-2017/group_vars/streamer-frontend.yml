@@ -1,0 +1,80 @@
+---
+sysctl_parameters: {
+    "net.core.wmem_max": "8388608",
+    "net.core.wmem_default": "1703936",
+    "net.core.rmem_max": "8388608",
+    "net.core.rmem_default": "1703936",
+}
+
+stream_backends:
+  - room: aw1120
+    backend: streambackend0.video.fosdem.org
+
+  - room: aw1121
+    backend: streambackend0.video.fosdem.org
+
+  - room: aw1124
+    backend: streambackend0.video.fosdem.org
+
+  - room: aw1125
+    backend: streambackend0.video.fosdem.org
+
+  - room: aw1126
+    backend: streambackend0.video.fosdem.org
+
+  - room: h1301
+    backend: streambackend0.video.fosdem.org
+
+  - room: h1302
+    backend: streambackend0.video.fosdem.org
+
+  - room: h1308
+    backend: streambackend0.video.fosdem.org
+
+  - room: h1309
+    backend: streambackend0.video.fosdem.org
+
+  - room: h2213
+    backend: streambackend0.video.fosdem.org
+
+  - room: h2214
+    backend: streambackend0.video.fosdem.org
+
+  - room: h2215
+    backend: streambackend0.video.fosdem.org
+
+  - room: janson
+    backend: streambackend0.video.fosdem.org
+
+  - room: k1105
+    backend: streambackend0.video.fosdem.org
+
+  - room: k3201
+    backend: streambackend0.video.fosdem.org
+
+  - room: k3401
+    backend: streambackend0.video.fosdem.org
+
+  - room: k4201
+    backend: streambackend0.video.fosdem.org
+
+  - room: k4401
+    backend: streambackend0.video.fosdem.org
+
+  - room: k4601
+    backend: streambackend0.video.fosdem.org
+
+  - room: ua2114
+    backend: streambackend0.video.fosdem.org
+
+  - room: ua2220
+    backend: streambackend0.video.fosdem.org
+
+  - room: ub2252a
+    backend: streambackend0.video.fosdem.org
+
+  - room: ud2120
+    backend: streambackend0.video.fosdem.org
+
+  - room: ud2218a
+    backend: streambackend0.video.fosdem.org
