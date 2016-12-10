@@ -2,10 +2,31 @@
 - name: create mountpoint
   file: path=/mnt/video state=directory owner=root group=root mode=0777
 
-# TODO:
-# - check if /dev/sdwhatever is present
-# - check if it has a filesystem, if it hasn't got one, make one
-# - mount it on /mnt/video and add it to fstab
+- name: detect existing partitions
+  shell: fdisk -l {{ video_drive }} | grep ^\/ | wc -l
+  register: number_of_partitions
+  changed_when: False
+
+- name: wipe existing partition table
+  shell: dd if=/dev/zero of={{ video_drive }} bs=512 count=1
+  when: number_of_partitions.stdout != "0"
+
+- name: create a filesystem on the disk
+  filesystem: fstype=ext4 dev={{ video_drive }}
+
+- name: unmount the disk if it needs to be wiped
+  mount: src={{ video_drive }} name=/mnt/video state=unmounted fstype=ext4
+  when: destroy_all_vocothost_data is defined and destroy_all_vocothost_data == True
+
+- name: wipe all data on the disk
+  filesystem: fstype=ext4 dev={{ video_drive }} force=yes
+  when: destroy_all_vocothost_data is defined and destroy_all_vocothost_data == True
+
+- name: create mount directory
+  file: path=/mnt/video state=directory
+
+- name: mount disk on /mnt/video/
+  mount: name=/mnt/video src={{ video_drive }} fstype=ext4 state=mounted opts=noatime
 
 - name: create video directories per room
   file: path={{ vocto_video_disk }}/{{ item.room }} state=directory owner=root group=root mode=0777
