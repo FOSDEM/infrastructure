@@ -52,6 +52,7 @@
   hosts: all
   remote_user: root
   roles:
+  - common-repository-debian-backports
   - common
   - node_exporter
 
@@ -64,21 +65,19 @@
   hosts: videobox
   remote_user: root
   roles:
-  - common-repository-debian-backports
+
   - { role: videobox, tags: [ 'videobox' ] }
 
 - name: voctohost
   hosts: voctohost
   remote_user: root
   roles:
-  - common-repository-debian-backports
   - { role: voctohost, tags: [ 'voctohost' ] }
 
 - name: stream-dumper
   hosts: stream-dumper
   remote_user: root
   roles:
-  - common-repository-debian-backports
   - { role: stream-dumper, tags: [ 'stream-dumper' ] }
 
 - name: streamer-backend
@@ -86,7 +85,6 @@
   remote_user: root
   roles:
   - scaleway
-  - common-repository-debian-backports
   - common-repository-custom-packages
   - scaleway
   - { role: streamer-backend, tags: [ 'streamer-backend' ] }
