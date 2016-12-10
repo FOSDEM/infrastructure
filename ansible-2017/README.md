@@ -7,7 +7,7 @@ Deploying the entire thing should be possible with just one command:
 Usually, you will want to limit your deployment to specific host groups:
 
     ansible-playbook playbooks/site.yml --limit videobox
-    ansible-playbook playbooks/site.yml --limit vocothost
+    ansible-playbook playbooks/site.yml --limit voctohost
     ansible-playbook playbooks/site.yml --limit streamer-backend
 
 We could consider splitting up our site.yml into multiple files, but this does
