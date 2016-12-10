@@ -74,6 +74,13 @@
   - common-repository-debian-backports
   - { role: voctohost, tags: [ 'voctohost' ] }
 
+- name: stream-dumper
+  hosts: stream-dumper
+  remote_user: root
+  roles:
+  - common-repository-debian-backports
+  - { role: stream-dumper, tags: [ 'stream-dumper' ] }
+
 - name: streamer-backend
   hosts: streamer-backend
   remote_user: root
