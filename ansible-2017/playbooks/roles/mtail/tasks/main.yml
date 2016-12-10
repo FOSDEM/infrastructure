@@ -1,0 +1,13 @@
+- name: Create mtail dir
+  file:
+    path: "{{ mtail_install_path }}"
+    state: directory
+    mode: 0755
+
+- name: untar node_exporter tarball
+  unarchive:
+    src: mtail-345082f-linux-amd64.tar.gz
+    dest: "{{ mtail_install_path }}"
+    mode: 0755
+    owner: root
+    group: root
