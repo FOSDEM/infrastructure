@@ -17,50 +17,50 @@ vocto_container_config:
   - room: aw1120
     voctohost: voctohost0
     mac: 00:16:3e:41:11:01
-    slides_source: udp://227.0.0.1:9000
-    cam_source: udp://227.0.0.2:9000
+    slides_source: udp://ff02::f0:001%eth0:9000
+    cam_source: udp://ff02::f0:002%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1120
 
   - room: aw1121
     voctohost: voctohost0
     mac: 00:16:3e:41:11:02
-    slides_source: udp://227.0.1.1:9000
-    cam_source: udp://227.0.1.2:9000
+    slides_source: udp://ff02::f0:011%eth0:9000
+    cam_source: udp://ff02::f0:012%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1121
 
   - room: aw1124
     voctohost: voctohost0
     mac: 00:16:3e:41:11:03
-    slides_source: udp://227.0.2.1:9000
-    cam_source: udp://227.0.2.2:9000
+    slides_source: udp://ff02::f0:021%eth0:9000
+    cam_source: udp://ff02::f0:022%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1124
 
   - room: aw1125
     voctohost: voctohost0
     mac: 00:16:3e:41:11:04
-    slides_source: udp://227.0.3.1:9000
-    cam_source: udp://227.0.3.2:9000
+    slides_source: udp://ff02::f0:031%eth0:9000
+    cam_source: udp://ff02::f0:032%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1125
 
   - room: aw1126
     voctohost: voctohost1
     mac: 00:16:3e:41:11:05
-    slides_source: udp://227.0.4.1:9000
-    cam_source: udp://227.0.4.2:9000
+    slides_source: udp://ff02::f0:041%eth0:9000
+    cam_source: udp://ff02::f0:042%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1126
 
   - room: h1301
     voctohost: voctohost1
     mac: 00:16:3e:41:11:06
-    slides_source: udp://227.1.0.1:9000
-    cam_source: udp://227.1.0.2:9000
+    slides_source: udp://ff02::f0:101%eth0:9000
+    cam_source: udp://ff02::f0:102%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h1301
 
   - room: h1302
     voctohost: voctohost1
     mac: 00:16:3e:41:11:07
-    slides_source: udp://227.1.1.1:9000
-    cam_source: udp://227.1.1.2:9000
+    slides_source: udp://ff02::f0:111%eth0:9000
+    cam_source: udp://ff02::f0:112%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h1302
 
   - room: h1308
@@ -68,118 +68,118 @@ vocto_container_config:
 #    voctohost: voctohost1
     voctohost: voctohost4
     mac: 00:16:3e:41:11:08
-    slides_source: udp://227.1.2.1:9000
-    cam_source: udp://227.1.2.2:9000
+    slides_source: udp://ff02::f0:121%eth0:9000
+    cam_source: udp://ff02::f0:122%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h1308
 
   - room: h1309
     voctohost: voctohost2
     mac: 00:16:3e:41:11:09
-    slides_source: udp://227.1.3.1:9000
-    cam_source: udp://227.1.3.2:9000
+    slides_source: udp://ff02::f0:131%eth0:9000
+    cam_source: udp://ff02::f0:132%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h1309
 
   - room: h2213
     voctohost: voctohost2
     mac: 00:16:3e:41:11:10
-    slides_source: udp://227.1.4.1:9000
-    cam_source: udp://227.1.4.2:9000
+    slides_source: udp://ff02::f0:141%eth0:9000
+    cam_source: udp://ff02::f0:142%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h2213
 
   - room: h2214
     voctohost: voctohost2
     mac: 00:16:3e:41:11:11
-    slides_source: udp://227.1.5.1:9000
-    cam_source: udp://227.1.5.2:9000
+    slides_source: udp://ff02::f0:151%eth0:9000
+    cam_source: udp://ff02::f0:152%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h2214
 
   - room: h2215
     voctohost: voctohost2
     mac: 00:16:3e:41:11:12
-    slides_source: udp://227.1.6.1:9000
-    cam_source: udp://227.1.6.2:9000
+    slides_source: udp://ff02::f0:161%eth0:9000
+    cam_source: udp://ff02::f0:162%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h2215
 
   - room: janson
     voctohost: voctohost3
     mac: 00:16:3e:41:11:13
-    slides_source: udp://227.2.0.1:9000
-    cam_source: udp://227.2.0.2:9000
+    slides_source: udp://ff02::f0:201%eth0:9000
+    cam_source: udp://ff02::f0:202%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/janson
 
   - room: k1105
     voctohost: voctohost3
     mac: 00:16:3e:41:11:14
-    slides_source: udp://227.3.0.1:9000
-    cam_source: udp://227.3.0.2:9000
+    slides_source: udp://ff02::f0:301%eth0:9000
+    cam_source: udp://ff02::f0:302%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/k1105
 
   - room: k3201
     voctohost: voctohost3
     mac: 00:16:3e:41:11:15
-    slides_source: udp://227.3.1.1:9000
-    cam_source: udp://227.3.1.2:9000
+    slides_source: udp://ff02::f0:311%eth0:9000
+    cam_source: udp://ff02::f0:312%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/k3201
 
   - room: k3401
     voctohost: voctohost3
     mac: 00:16:3e:41:11:16
-    slides_source: udp://227.3.2.1:9000
-    cam_source: udp://227.3.2.2:9000
+    slides_source: udp://ff02::f0:321%eth0:9000
+    cam_source: udp://ff02::f0:322%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/k3401
 
   - room: k4201
     voctohost: voctohost4
     mac: 00:16:3e:41:11:17
-    slides_source: udp://227.3.3.1:9000
-    cam_source: udp://227.3.3.2:9000
+    slides_source: udp://ff02::f0:331%eth0:9000
+    cam_source: udp://ff02::f0:332%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/k4201
 
   - room: k4401
     voctohost: voctohost4
     mac: 00:16:3e:41:11:18
-    slides_source: udp://227.3.4.1:9000
-    cam_source: udp://227.3.4.2:9000
+    slides_source: udp://ff02::f0:341%eth0:9000
+    cam_source: udp://ff02::f0:342%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/k4401
 
   - room: k4601
     voctohost: voctohost4
     mac: 00:16:3e:41:11:19
-    slides_source: udp://227.3.5.1:9000
-    cam_source: udp://227.3.5.2:9000
+    slides_source: udp://ff02::f0:351%eth0:9000
+    cam_source: udp://ff02::f0:352%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/k4601
 
   - room: ua2114
     voctohost: voctohost4
     mac: 00:16:3e:41:11:20
-    cam_source: udp://227.4.0.2:9000
-    slides_source: udp://227.4.0.1:9000
+    cam_source: udp://ff02::f0:402%eth0:9000
+    slides_source: udp://ff02::f0:401%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ua2114
 
   - room: ua2220
     voctohost: voctohost5
     mac: 00:16:3e:41:11:21
-    slides_source: udp://227.4.1.1:9000
-    cam_source: udp://227.4.1.2:9000
+    slides_source: udp://ff02::f0:411%eth0:9000
+    cam_source: udp://ff02::f0:412%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ua2220
 
   - room: ub2252a
     voctohost: voctohost5
     mac: 00:16:3e:41:11:22
-    slides_source: udp://227.4.2.1:9000
-    cam_source: udp://227.4.2.2:9000
+    slides_source: udp://ff02::f0:421%eth0:9000
+    cam_source: udp://ff02::f0:422%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ub2252a
 
   - room: ud2120
     voctohost: voctohost5
     mac: 00:16:3e:41:11:23
-    slides_source: udp://227.4.3.1:9000
-    cam_source: udp://227.4.3.2:9000
+    slides_source: udp://ff02::f0:431%eth0:9000
+    cam_source: udp://ff02::f0:432%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ud2120
 
   - room: ud2218a
     voctohost: voctohost5
     mac: 00:16:3e:41:11:24
-    slides_source: udp://227.4.4.1:9000
-    cam_source: udp://227.4.4.2:9000
+    slides_source: udp://ff02::f0:441%eth0:9000
+    cam_source: udp://ff02::f0:442%eth0:9000
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ud2218a
