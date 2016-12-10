@@ -4,9 +4,9 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
-# Please provide a background in $confdir/bg.png
+# Please provide a background in $confdir/background.png
 
-ffmpeg -loop 1 -i $confdir/bg.png \
+ffmpeg -loop 1 -i $confdir/background.png \
 	-filter_complex "
 		[0:v] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE [v]
 	" \
