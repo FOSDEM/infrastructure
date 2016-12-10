@@ -8,145 +8,145 @@ sysctl_parameters: {
 
 video_dump_source:
   - host: aw1120-slides
-    source: udp://ff02::f0:001%eth0:9000
+    source: udp://227.0.0.1:9000
 
   - host: aw1120-cam
-    source: udp://ff02::f0:002%eth0:9000
+    source: udp://227.0.0.2:9000
 
   - host: aw1121-slides
-    source: udp://ff02::f0:011%eth0:9000
+    source: udp://227.0.1.1:9000
 
   - host: aw1121-cam
-    source: udp://ff02::f0:012%eth0:9000
+    source: udp://227.0.1.2:9000
 
   - host: aw1124-slides
-    source: udp://ff02::f0:021%eth0:9000
+    source: udp://227.0.2.1:9000
 
   - host: aw1124-cam
-    source: udp://ff02::f0:022%eth0:9000
+    source: udp://227.0.2.2:9000
 
   - host: aw1125-slides
-    source: udp://ff02::f0:031%eth0:9000
+    source: udp://227.0.3.1:9000
 
   - host: aw1125-cam
-    source: udp://ff02::f0:032%eth0:9000
+    source: udp://227.0.3.2:9000
 
   - host: aw1126-slides
-    source: udp://ff02::f0:041%eth0:9000
+    source: udp://227.0.4.1:9000
 
   - host: aw1126-cam
-    source: udp://ff02::f0:042%eth0:9000
+    source: udp://227.0.4.2:9000
 
   - host: h1301-slides
-    source: udp://ff02::f0:101%eth0:9000
+    source: udp://227.1.0.1:9000
 
   - host: h1301-cam
-    source: udp://ff02::f0:102%eth0:9000
+    source: udp://227.1.0.2:9000
 
   - host: h1302-slides
-    source: udp://ff02::f0:111%eth0:9000
+    source: udp://227.1.1.1:9000
 
   - host: h1302-cam
-    source: udp://ff02::f0:112%eth0:9000
+    source: udp://227.1.1.2:9000
 
   - host: h1308-slides
-    source: udp://ff02::f0:121%eth0:9000
+    source: udp://227.1.2.1:9000
 
   - host: h1308-cam
-    source: udp://ff02::f0:122%eth0:9000
+    source: udp://227.1.2.2:9000
 
   - host: h1309-slides
-    source: udp://ff02::f0:131%eth0:9000
+    source: udp://227.1.3.1:9000
 
   - host: h1309-cam
-    source: udp://ff02::f0:132%eth0:9000
+    source: udp://227.1.3.2:9000
 
   - host: h2213-slides
-    source: udp://ff02::f0:141%eth0:9000
+    source: udp://227.1.4.1:9000
 
   - host: h2213-cam
-    source: udp://ff02::f0:142%eth0:9000
+    source: udp://227.1.4.2:9000
 
   - host: h2214-slides
-    source: udp://ff02::f0:151%eth0:9000
+    source: udp://227.1.5.1:9000
 
   - host: h2214-cam
-    source: udp://ff02::f0:152%eth0:9000
+    source: udp://227.1.5.2:9000
 
   - host: h2215-slides
-    source: udp://ff02::f0:161%eth0:9000
+    source: udp://227.1.6.1:9000
 
   - host: h2215-cam
-    source: udp://ff02::f0:162%eth0:9000
+    source: udp://227.1.6.2:9000
 
   - host: janson-slides
-    source: udp://ff02::f0:201%eth0:9000
+    source: udp://227.2.0.1:9000
 
   - host: janson-cam
-    source: udp://ff02::f0:202%eth0:9000
+    source: udp://227.2.0.2:9000
 
   - host: k1105-slides
-    source: udp://ff02::f0:301%eth0:9000
+    source: udp://227.3.0.1:9000
 
   - host: k1105-cam
-    source: udp://ff02::f0:302%eth0:9000
+    source: udp://227.3.0.2:9000
 
   - host: k3201-slides
-    source: udp://ff02::f0:311%eth0:9000
+    source: udp://227.3.1.1:9000
 
   - host: k3201-cam
-    source: udp://ff02::f0:312%eth0:9000
+    source: udp://227.3.1.2:9000
 
   - host: k3401-slides
-    source: udp://ff02::f0:321%eth0:9000
+    source: udp://227.3.2.1:9000
 
   - host: k3401-cam
-    source: udp://ff02::f0:322%eth0:9000
+    source: udp://227.3.2.2:9000
 
   - host: k4201-slides
-    source: udp://ff02::f0:331%eth0:9000
+    source: udp://227.3.3.1:9000
 
   - host: k4201-cam
-    source: udp://ff02::f0:332%eth0:9000
+    source: udp://227.3.3.2:9000
 
   - host: k4401-slides
-    source: udp://ff02::f0:341%eth0:9000
+    source: udp://227.3.4.1:9000
 
   - host: k4401-cam
-    source: udp://ff02::f0:342%eth0:9000
+    source: udp://227.3.4.2:9000
 
   - host: k4601-slides
-    source: udp://ff02::f0:351%eth0:9000
+    source: udp://227.3.5.1:9000
 
   - host: k4601-cam
-    source: udp://ff02::f0:352%eth0:9000
+    source: udp://227.3.5.2:9000
 
   - host: ua2114-slides
-    source: udp://ff02::f0:401%eth0:9000
+    source: udp://227.4.0.1:9000
 
   - host: ua2114-cam
-    source: udp://ff02::f0:402%eth0:9000
+    source: udp://227.4.0.2:9000
 
   - host: ua2220-slides
-    source: udp://ff02::f0:411%eth0:9000
+    source: udp://227.4.1.1:9000
 
   - host: ua2220-cam
-    source: udp://ff02::f0:412%eth0:9000
+    source: udp://227.4.1.2:9000
 
   - host: ub2252a-slides
-    source: udp://ff02::f0:421%eth0:9000
+    source: udp://227.4.2.1:9000
 
   - host: ub2252a-cam
-    source: udp://ff02::f0:422%eth0:9000
+    source: udp://227.4.2.2:9000
 
   - host: ud2120-slides
-    source: udp://ff02::f0:431%eth0:9000
+    source: udp://227.4.3.1:9000
 
   - host: ud2120-cam
-    source: udp://ff02::f0:432%eth0:9000
+    source: udp://227.4.3.2:9000
 
   - host: ud2218a-slides
-    source: udp://ff02::f0:441%eth0:9000
+    source: udp://227.4.4.1:9000
 
   - host: ud2218a-cam
-    source: udp://ff02::f0:442%eth0:9000
+    source: udp://227.4.4.2:9000
