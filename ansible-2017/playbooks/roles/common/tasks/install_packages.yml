@@ -14,6 +14,8 @@
     - mediainfo
     - mtr-tiny
     - vim
+    - ack-grep
+    - mosh
 
 - name: "common: configure irqbalance"
   debconf:
@@ -25,7 +27,6 @@
 - name: "common: Upgrade kernel"
   apt: pkg={{ item }} state=latest install_recommends=no default_release=jessie-backports
   with_items:
-    - linux-image-4.7.0-0.bpo.1-amd64
+    - {{ kernel_package }}
     - irqbalance
-    - firmware-linux-free
 

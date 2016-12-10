@@ -1,3 +1,23 @@
+- name: Set go arch variable
+  set_fact:
+    go_arch: "amd64"
+  when: ansible_architecture == "x86_64"
+
+- name: Set go arch variable
+  set_fact:
+    go_arch: "armv7"
+  when: ansible_architecture == "armv7l"
+
+- name: Set go arch variable
+  set_fact:
+    kernel_package: "linux-image-4.7.0-0.bpo.1-amd64"
+  when: ansible_architecture == "x86_64"
+
+- name: Set go arch variable
+  set_fact:
+    kernel_package: "linux-image-3.4-bananian"
+  when: ansible_architecture == "armv7l"
+
 - include: configure_timezone.yml
 - include: configure_sysctl.yml
 - include: configure_apt.yml
