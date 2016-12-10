@@ -24,5 +24,8 @@ streamfrontend1.video.fosdem.org
 streamfrontend2.video.fosdem.org
 streamfrontend3.video.fosdem.org
 
+[stream-dumper]
+streamdumper0.video.fosdem.org ansible_host=10.2.5.147
+
 [web-frontend]
 web0.video.fosdem.org
