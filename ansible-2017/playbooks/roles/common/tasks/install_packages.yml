@@ -28,7 +28,7 @@
 - name: "common: Upgrade kernel"
   apt: pkg={{ item }} state=latest install_recommends=no default_release=jessie-backports
   with_items:
-    - "{{ kernel_package }}"
+    - "{{ kernel_package | default('') }}"
     - irqbalance
   when: kernel_package is defined
 
