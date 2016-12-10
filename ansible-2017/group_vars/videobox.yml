@@ -7,6 +7,8 @@ sysctl_parameters: {
     "net.core.rmem_default": "1703936",
 }
 
+kernel_package: linux-image-3.4-bananian
+
 # Where is our SSD drive supposed to be?
 ssd_drive: /dev/sda
 ssd_mount: /mnt/ssd
