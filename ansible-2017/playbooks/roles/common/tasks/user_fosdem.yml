@@ -3,7 +3,7 @@
   group: name=fosdem gid=1000
 
 - name: add fosdem user
-  user: name=fosdem comment="FOSDEM user" uid=1000 group=fosdem shell=/bin/bash
+  user: name=fosdem comment="FOSDEM user" uid=1000 group=fosdem shell=/bin/bash password=""
 
 - name: add fosdem ssh keys
   authorized_key: user=fosdem key="{{ lookup('file', '../public_keys/'+item+'.pub') }}"
