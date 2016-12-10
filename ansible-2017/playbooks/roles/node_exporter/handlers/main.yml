@@ -1,2 +1,2 @@
-- name: reload systemd
+- name: restart node_exporter
   service: name=node_exporter state=restarted
