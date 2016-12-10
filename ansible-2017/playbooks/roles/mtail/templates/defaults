@@ -1,0 +1,2 @@
+# Managed by ansible.
+ARGS="-progs /srv/mtail/configs -logs '/var/log/nginx/metrics.log'"
