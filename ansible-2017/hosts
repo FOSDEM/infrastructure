@@ -5,8 +5,12 @@ k1105-slides.video.fosdem.org ansible_host=10.2.5.194
 k1105-cam.video.fosdem.org ansible_host=10.2.5.195
 
 [voctohost]
-voctohost0.video.fosdem.org
-voctohost1.video.fosdem.org ansible_host=10.2.5.197
+voctohost0.video.fosdem.org ansible_host=10.2.5.186
+voctohost1.video.fosdem.org
+voctohost2.video.fosdem.org ansible_host=10.2.5.106
+voctohost3.video.fosdem.org
+voctohost4.video.fosdem.org ansible_host=10.2.5.123
+voctohost5.video.fosdem.org ansible_host=10.2.5.104
 
 [streamer-backend]
 streambackend0.video.fosdem.org
