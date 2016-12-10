@@ -26,3 +26,12 @@
 - name: configure stream.fosdem.org
   template: src=nginx/sites-enabled/stream.fosdem.org.conf dest=/etc/nginx/sites-enabled/stream.fosdem.org.conf owner=root group=root mode=0644
   notify: reload nginx
+
+- name: Add mtail metrics to ngninx
+  copy:
+    src: nginx/mtail.conf
+    dest: /etc/nginx/conf.d/mtail.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
