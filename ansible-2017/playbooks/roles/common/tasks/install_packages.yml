@@ -16,6 +16,7 @@
     - vim
     - ack-grep
     - mosh
+    - ca-certificates
 
 - name: "common: configure irqbalance"
   debconf:
