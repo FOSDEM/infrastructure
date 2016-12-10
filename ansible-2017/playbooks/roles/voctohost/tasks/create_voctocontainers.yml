@@ -83,7 +83,7 @@
   register: setup_file
 
 - name: install voctomix
-  git: repo=https://github.com/voc/voctomix.git dest={{template_rootfs}}/opt/voctomix/ clone=yes version=d8f80a7ebbf5a654b8c2591e8240479a4d2797e0
+  git: repo=https://github.com/fosdem/voctomix.git dest={{template_rootfs}}/opt/voctomix/ clone=yes version=b07239f8fe7a50939c52fff7fdb690861dfde916
   register: voctomix_installed
 
 - name: create scripts directory
