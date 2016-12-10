@@ -38,6 +38,6 @@
 - name: Install node_exporter defaults file
   template:
     src: defaults
-    dest: /etc/default/node_exporer
+    dest: /etc/default/node_exporter
   notify:
   - restart node_exporter
