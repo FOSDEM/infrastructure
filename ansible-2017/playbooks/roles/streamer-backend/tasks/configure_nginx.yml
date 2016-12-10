@@ -23,3 +23,11 @@
 - name: patch nginx.conf to include the rtmp configuration
   lineinfile: dest=/etc/nginx/nginx.conf line="include /etc/nginx/nginx-rtmp.conf;" state=present
   notify: reload nginx
+
+- name: Add mtail metrics to ngninx
+  copy:
+    src: nginx/mtail.conf
+    dest: /etc/nginx/conf.d/mtail.conf
+    owner: root
+    group: root
+    mode: 0644
