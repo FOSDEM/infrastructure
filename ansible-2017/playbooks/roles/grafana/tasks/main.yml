@@ -1,0 +1,23 @@
+---
+- name: Install grafana key
+  apt_key:
+    url: "https://packagecloud.io/gpg.key"
+    state: present
+
+- name: Install grafana repo
+  apt_repository:
+    repo: deb https://packagecloud.io/grafana/stable/debian/ jessie main
+    state: present
+
+- name: Install grafana package
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - grafana
+
+- name: Configure grafana
+  template:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+
+- name: Start grafana
+  systemd: name=grafana-server enabled=yes state=started daemon_reload=yes

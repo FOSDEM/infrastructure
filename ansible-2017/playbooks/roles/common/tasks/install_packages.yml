@@ -1,8 +1,9 @@
 ---
-- name: "common: install packages"
+- name: "Install packages"
   apt: pkg={{ item }} state=latest install_recommends=no
   with_items:
     - ack-grep
+    - apt-transport-https
     - bash-completion
     - ca-certificates
     - file
@@ -17,12 +18,18 @@
     - mediainfo
     - mosh
     - mtr-tiny
+    - screen
     - strace
     - tcpdump
     - vim
     - vnstat
 
-- name: "common: configure irqbalance"
+- name: "Add root screenrc"
+  copy:
+    src: screenrc
+    dest: /root/.screenrc
+
+- name: "configure irqbalance"
   debconf:
     name: irqbalance
     question: irqbalance/oneshot
@@ -30,7 +37,7 @@
     vtype: boolean
   when: kernel_package is defined
 
-- name: "common: Upgrade kernel"
+- name: "Upgrade kernel"
   apt: pkg={{ item }} state=latest install_recommends=no default_release=jessie-backports
   with_items:
     - "{{ kernel_package | default('') }}"
