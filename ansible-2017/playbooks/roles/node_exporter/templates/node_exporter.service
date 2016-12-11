@@ -3,7 +3,7 @@ Description=Prometheus Node Exporter
 
 [Service]
 EnvironmentFile=-/etc/default/node_exporter
-ExecStart={{ node_exporter_path }}/node_exporter -collectors.enabled ${COLLECTORS}
+ExecStart={{ node_exporter_path }}/node_exporter -collectors.enabled ${COLLECTORS} -collector.textfile.directory {{ node_exporter_textfiles_path }}
 
 [Install]
 WantedBy=multi-user.target

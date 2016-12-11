@@ -4,6 +4,8 @@
     state: directory
     recurse: yes
     mode: 0755
+    owner: root
+    group: root
 
 - name: untar mtail tarball
   unarchive:
