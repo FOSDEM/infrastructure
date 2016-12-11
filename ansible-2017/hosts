@@ -1,3 +1,6 @@
+[control-server]
+control.video.fosdem.org ansible_host=10.2.5.135
+
 [videobox]
 h1308-cam.video.fosdem.org ansible_host=10.2.5.191
 h1308-slides.video.fosdem.org ansible_host=10.2.5.190
