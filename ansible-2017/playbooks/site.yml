@@ -60,6 +60,11 @@
 ##
 ## Specific roles
 ##
+- name: control-server
+  hosts: control-server
+  remote_user: root
+  roles:
+  - { role: control-server, tags: [ 'control-server' ] }
 
 - name: videobox
   hosts: videobox
