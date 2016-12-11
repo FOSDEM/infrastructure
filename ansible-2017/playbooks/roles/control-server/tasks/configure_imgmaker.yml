@@ -1,5 +1,5 @@
 ---
-- name: create stream dump directories
+- name: create room name directories
   file: path=/var/www/html/{{ item.roomname }} state=directory owner=root group=root mode=0755
   with_items: "{{ controlserver_source }}"
 
@@ -28,11 +28,11 @@
   service: name=imgmaker-{{ item.roomname }} enabled=yes state=started
   with_items: "{{ controlserver_source }}"
 
-- name: restart service if video-network-monitor service or script has been modified
-  service: name=streamdump-{{ item.roomname }} state=restarted
+- name: restart service if control-server service or script has been modified
+  service: name=imgmaker-{{ item.roomname }} state=restarted
   with_items: "{{ controlserver_source }}"
   when: imgmaker.changed or imgmakerscript.changed
 
 - name: enable imgmaker service
-  systemd: name=imgmaker-{{ roomname.host }} enabled=yes state=started daemon_reload=yes
+  systemd: name=imgmaker-{{ item.roomname }} enabled=yes state=started daemon_reload=yes
   with_items: "{{ controlserver_source }}"
