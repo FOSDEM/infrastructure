@@ -1,0 +1,2 @@
+instance_cpu:node_cpu_not_idle:rate1m = sum by (instance,cpu) keep_common (rate(node_cpu{mode!="idle"}[1m]))
+instance_mode:node_cpu_not_idle:rate1m = sum by (instance,mode) keep_common (rate(node_cpu{mode!="idle"}[1m]))
