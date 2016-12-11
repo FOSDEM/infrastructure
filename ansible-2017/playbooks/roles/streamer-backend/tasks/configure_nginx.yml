@@ -7,6 +7,30 @@
   with_items:
   - /var/www/hls
   - /var/www/dump
+  - /var/www/dump/aw1120
+  - /var/www/dump/aw1121
+  - /var/www/dump/aw1124
+  - /var/www/dump/aw1125
+  - /var/www/dump/aw1126
+  - /var/www/dump/h1301
+  - /var/www/dump/h1302
+  - /var/www/dump/h1308
+  - /var/www/dump/h1309
+  - /var/www/dump/h2213
+  - /var/www/dump/h2214
+  - /var/www/dump/h2215
+  - /var/www/dump/janson
+  - /var/www/dump/k1105
+  - /var/www/dump/k3201
+  - /var/www/dump/k3401
+  - /var/www/dump/k4201
+  - /var/www/dump/k4401
+  - /var/www/dump/k4601
+  - /var/www/dump/ua2114
+  - /var/www/dump/ua2220
+  - /var/www/dump/ub2252a
+  - /var/www/dump/ud2120
+  - /var/www/dump/ud2218a
 
 - name: disable the default site configuration
   file: path=/etc/nginx/sites-enabled/default state=absent
