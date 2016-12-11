@@ -107,7 +107,7 @@
 # - config.sh -- we install config.sh from the clone task file
   - defaults.sh
   - voctocore.ini
-  - background.png
+  - background.raw
   register: config_installed
 
 - name: create recordings directory

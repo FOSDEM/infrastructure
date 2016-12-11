@@ -54,3 +54,12 @@ Use the `update-private-files.sh` script to manage them.
 
 See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
 information.
+
+## Background image
+
+If you have a new background image, it needs to be 1280x720, and to be
+converted to a raw one. It's done by using ffmpeg, like this:
+
+`ffmpeg -i background.png -c:v rawvideo -pix_fmt:v yuv420p -c:v rawvideo -pix_fmt yuv420p -frames 1 -f rawvideo background.raw`
+
+This needs to go in `playbooks/roles/voctohost/files/config/`.
