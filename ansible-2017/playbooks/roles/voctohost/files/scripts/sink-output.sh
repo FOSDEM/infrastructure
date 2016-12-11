@@ -11,7 +11,7 @@ ffmpeg -y -nostdin \
 	-c:v libx264 \
 	-maxrate:v:0 2000k -bufsize:v:0 8192k \
 	-pix_fmt:0 yuv420p -profile:v:0 main -b:v 512k \
-	-preset:v:0 ultrafast \
+	-preset:v:0 veryfast \
 	\
 	-ac 2 -c:a libfdk_aac -b:a 128k -ar 44100 \
 	-map 0:v \
