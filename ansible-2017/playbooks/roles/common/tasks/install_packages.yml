@@ -20,6 +20,7 @@
     - strace
     - tcpdump
     - vim
+    - vnstat
 
 - name: "common: configure irqbalance"
   debconf:
