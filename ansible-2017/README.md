@@ -16,6 +16,13 @@ the job for the time being.
 Please note that the `ansible.cfg` file disables host key checks. This should be
 a temporary measure and should be re-enabled.
 
+## Private files
+
+Some files, such as the private keys for our certificates and the firmware for
+the BlackMagic H.264 encoders live in a separate private repository. You need
+these to deploy some of the roles. Use the `update-private-files.sh` script to
+fetch them for you.
+
 ## Video boxes
 
 Our video boxes run Bananian Linux for the time being. The idea is to switch to
@@ -42,6 +49,8 @@ firmware. You will need to drop those files here:
 
     playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
     playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
+
+Use the `update-private-files.sh` script to manage them.
 
 See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
 information.
