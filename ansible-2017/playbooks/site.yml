@@ -102,3 +102,9 @@
   roles:
   - scaleway
   - { role: web-frontend, tags: [ 'web-frontend' ] }
+
+- name: monitor
+  hosts: monitor
+  remote_user: root
+  roles:
+  - { role: monitor, tags: [ 'monitor' ] }

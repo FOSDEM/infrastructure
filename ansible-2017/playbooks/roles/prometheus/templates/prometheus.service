@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Node Exporter
+
+[Service]
+User={{ prometheus_user }}
+Group={{ prometheus_group }}
+ExecStart={{ prometheus_path }}/prometheus -config.file {{ prometheus_config_path }}/prometheus.yml -storage.local.path {{ prometheus_db_path }}
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
