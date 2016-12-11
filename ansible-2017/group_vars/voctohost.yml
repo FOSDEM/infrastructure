@@ -64,9 +64,7 @@ vocto_container_config:
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h1302
 
   - room: h1308
-# FIXME: this one belongs on voctohost1
-#    voctohost: voctohost1
-    voctohost: voctohost4
+    voctohost: voctohost1
     mac: 00:16:3e:41:11:08
     slides_source: udp://227.1.2.1:9000
     cam_source: udp://227.1.2.2:9000
