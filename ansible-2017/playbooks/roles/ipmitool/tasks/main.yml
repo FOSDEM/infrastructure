@@ -1,0 +1,39 @@
+---
+
+- name: Copy prometheus tool
+  copy:
+    src: ipmi_sensor_prometheus.py
+    dest: /usr/local/sbin/ipmi_sensor_prometheus.py
+    owner: root
+    mode: 0755
+
+- name: install kernel modules
+  modprobe: name={{ item }} state=present
+  with_items:
+    - acpi_ipmi
+    - ipmi_devintf
+    - ipmi_si
+
+- name: install packages
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - ipmitool
+
+- name: Install ipmi_metrics systemd service file
+  notify:
+  - reload systemd
+  template:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+  with_items:
+    - ipmi_metrics.service
+    - ipmi_metrics.timer
+
+- name: Enable and start ipmi_metrics service/timer
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: True
+  with_items:
+    - ipmi_metrics.service
+    - ipmi_metrics.timer

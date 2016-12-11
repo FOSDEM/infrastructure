@@ -10,11 +10,14 @@
     node_exporter_path: "{{ node_exporter_install_path }}/node_exporter-{{ node_exporter_version }}.linux-armv7"
   when: ansible_system == "Linux" and ansible_architecture == "armv7l"
 
-- name: Creating node_exporter dir
+- name: Creating node_exporter dirs
   file:
-    path: "{{ node_exporter_install_path }}"
+    path: "{{ item }}"
     state: directory
     mode: 0755
+  with_items:
+    - "{{ node_exporter_install_path }}"
+    - "{{ node_exporter_textfiles_path }}"
 
 - name: untar node_exporter tarball
   unarchive:
@@ -28,6 +31,7 @@
 - name: Install node_exporter systemd service file
   notify:
   - reload systemd
+  - restart node_exporter
   template:
     src: node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
