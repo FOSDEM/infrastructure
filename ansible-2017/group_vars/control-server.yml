@@ -1,0 +1,49 @@
+---
+controlserver_source:
+  - roomname: aw1120
+
+  - roomname: aw1121
+
+  - host: aw1124
+
+  - roomname: aw1125
+
+  - roomname: aw1126
+
+  - roomname: h1301
+
+  - roomname: h1302
+
+  - roomname: h1308
+
+  - roomname: h1309
+
+  - roomname: h2213
+
+  - roomname: h2214
+
+  - roomname: h2215
+
+  - roomname: janson
+
+  - roomname: k1105
+
+  - roomname: k3201
+
+  - roomname: k3401
+
+  - roomname: k4201
+
+  - roomname: k4401
+
+  - roomname: k4601
+
+  - roomname: ua2114
+
+  - roomname: ua2220
+
+  - roomname: ub2252a
+
+  - roomname: ud2120
+
+  - roomname: ud2218a

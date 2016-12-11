@@ -1,0 +1,30 @@
+---
+- name: create stream dump directories
+  file: path=/var/www/html/{{ item.roomname }} state=directory owner=root group=root mode=0755
+  with_items: "{{ controlserver_source }}"
+
+- name: install imgmaker script
+  copy: src=imgmaker.sh dest=/usr/local/bin/imgmaker.sh owner=root group=root mode=0755
+  register: imgmakerscript
+
+- name: install imgmaker services
+  template: src=imgmaker.service dest=/etc/systemd/system/imgmaker-{{ item.roomname}}.service owner=root group=root mode=0644
+  with_items: "{{ controlserver_source }}"
+  register: streamdump
+
+- name: perform a daemon-reload if any of the imgmaker services have been modified
+  shell: systemctl daemon-reload
+  when: imgmaker.changed
+
+- name: enable imgmaker services
+  service: name=imgmaker-{{ item.roomname }} enabled=yes state=started
+  with_items: "{{ controlserver_source }}"
+
+- name: restart service if video-network-monitor service or script has been modified
+  service: name=streamdump-{{ item.roomname }} state=restarted
+  with_items: "{{ controlserver_source }}"
+  when: imgmaker.changed or imgmakerscript.changed
+
+- name: enable imgmaker service
+  systemd: name=imgmaker-{{ roomname.host }} enabled=yes state=started daemon_reload=yes
+  with_items: "{{ controlserver_source }}"
