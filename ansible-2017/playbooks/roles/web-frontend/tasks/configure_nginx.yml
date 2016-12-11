@@ -3,13 +3,8 @@
   copy: src=nginx/certificate/live.fosdem.org.crt dest=/etc/nginx/live.fosdem.org.crt owner=root group=root mode=0644
   notify: reload nginx
 
-- name: check if we have the key available locally
-  local_action: stat path={{ role_path }}/files/nginx/certificate/live.fosdem.org.key
-  register: private_key
-
 - name: install the key
   copy: src=nginx/certificate/live.fosdem.org.key dest=/etc/nginx/live.fosdem.org.key owner=root group=root mode=0600
-  when: private_key.stat.exists
   notify: reload nginx
 
 - name: install dh parameters
