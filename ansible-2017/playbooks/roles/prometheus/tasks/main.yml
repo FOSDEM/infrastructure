@@ -48,8 +48,8 @@
     src: "{{ prometheus_tarball_url }}"
     dest: "{{ prometheus_install_path }}"
     mode: 0755
-    owner: root
-    group: root
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
     copy: no
 
 - name: Configure Prometheus
@@ -64,6 +64,7 @@
     src: "{{ item }}"
     dest: "{{ prometheus_rule_path }}/"
     owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
     mode: 0644
   with_fileglob:
     - rules/*.rules
