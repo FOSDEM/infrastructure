@@ -1,5 +1,0 @@
----
-macvlan_dev: macvlan0
-macvlan_link: eth0
-
-video_drive: /dev/sdb
