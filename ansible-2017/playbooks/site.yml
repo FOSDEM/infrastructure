@@ -73,11 +73,11 @@
 
   - { role: videobox, tags: [ 'videobox' ] }
 
-- name: voctohost
-  hosts: voctohost
+- name: voctop
+  hosts: voctop
   remote_user: root
   roles:
-  - { role: voctohost, tags: [ 'voctohost' ] }
+  - { role: voctop, tags: [ 'voctop' ] }
 
 - name: stream-dumper
   hosts: stream-dumper

@@ -1,0 +1,3 @@
+---
+- include: install_voctocore.yml
+  tags: voctocore

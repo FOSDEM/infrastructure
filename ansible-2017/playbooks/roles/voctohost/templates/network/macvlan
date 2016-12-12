@@ -1,3 +1,0 @@
-auto {{ macvlan_dev }}
-iface {{ macvlan_dev }} inet manual
-	pre-up ip link add {{ macvlan_dev }} link {{ macvlan_link }} type macvlan mode bridge

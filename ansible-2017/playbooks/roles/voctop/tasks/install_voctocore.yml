@@ -1,0 +1,90 @@
+---
+- name: create recordings directory
+  file: path={{ vocto_recording_directory }} state=directory owner=root group=root mode=0755
+
+- name: add debian multimedia key
+  apt_key:
+    keyserver: eu.pool.sks-keyservers.net
+    id: 5C808C2B65558117
+
+- name: add debian multimedia repository
+  apt_repository: repo='deb http://www.deb-multimedia.org {{ansible_distribution_release}} main non-free' state=present update_cache=yes
+
+- name: add c3voc multimedia key
+  apt_key:
+    url: "https://c3voc.de/voctomix/gpg-key.asc"
+    state: present
+
+- name: add c3voc repository
+  apt_repository: repo='deb http://c3voc.de/voctomix {{ansible_distribution_release}} non-free' state=present update_cache=yes
+
+- name: "install packages"
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - bash-completion
+    - curl
+    - ffmpeg
+    - gir1.2-gst-plugins-base-1.0
+    - gir1.2-gstreamer-1.0
+    - gir1.2-gtk-3.0
+    - git
+    - gstreamer1.0-plugins-bad
+    - gstreamer1.0-plugins-good
+    - gstreamer1.0-plugins-ugly
+    - gstreamer1.0-tools
+    - gstreamer1.0-x
+    - libgstreamer1.0-0
+    - python3
+    - python3-gi
+    - python3-gi-cairo
+    - rsync
+
+- name: install voctomix
+  git: repo=https://github.com/fosdem/voctomix.git dest=/opt/voctomix/ clone=yes version=a2d817d0c78410e2bbe0b2663740f4fe02b327d4
+  notify: restart vocto
+
+- name: create scripts directory
+  file: path=/opt/scripts/ state=directory owner=root group=root mode=0755
+
+- name: install sink-output scripts
+  copy: src=scripts/{{ item }} dest=/opt/scripts/ owner=root group=root mode=0755
+  with_items:
+  - sink-output.sh
+  - source-background.sh
+  - source-cam.sh
+  - source-slides.sh
+  notify: restart voctoscripts
+
+- name: create config directory
+  file: path=/opt/config/ state=directory owner=root group=root mode=0755
+
+- name: set standard configuration
+  copy: src=config/{{ item }} dest=/opt/config/{{ item }} owner=root group=root mode=0644
+  with_items:
+  - defaults.sh
+  - voctocore.ini
+  - background.raw
+  notify: restart vocto
+
+- name: set local configuration
+  template: src=config/config.sh dest=/opt/config/config.sh owner=root group=root mode=0644
+  notify: restart vocto
+
+- name: install vocto units
+  copy: src={{item}} dest=/etc/systemd/system/ owner=root group=root mode=0644
+  with_fileglob:
+  - ../files/units/*
+  notify: restart vocto
+
+- name: enable and start all vocto units
+  service:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  with_items:
+  - voctocore
+  - vocto-sink-output
+  - vocto-source-background
+  - vocto-source-cam
+  - vocto-source-slides
