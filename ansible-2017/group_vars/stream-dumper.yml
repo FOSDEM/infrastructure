@@ -13,11 +13,17 @@ video_dump_source:
   - host: aw1120-cam
     source: udp://227.0.0.2:9000
 
+  - host: aw1120-pip
+    source: udp://227.0.0.3:9000
+
   - host: aw1121-slides
     source: udp://227.0.1.1:9000
 
   - host: aw1121-cam
     source: udp://227.0.1.2:9000
+
+  - host: aw1121-pip
+    source: udp://227.0.1.3:9000
 
   - host: aw1124-slides
     source: udp://227.0.2.1:9000
@@ -25,11 +31,17 @@ video_dump_source:
   - host: aw1124-cam
     source: udp://227.0.2.2:9000
 
+  - host: aw1124-pip
+    source: udp://227.0.2.3:9000
+
   - host: aw1125-slides
     source: udp://227.0.3.1:9000
 
   - host: aw1125-cam
     source: udp://227.0.3.2:9000
+
+  - host: aw1125-pip
+    source: udp://227.0.3.3:9000
 
   - host: aw1126-slides
     source: udp://227.0.4.1:9000
@@ -37,11 +49,17 @@ video_dump_source:
   - host: aw1126-cam
     source: udp://227.0.4.2:9000
 
+  - host: aw1126-pip
+    source: udp://227.0.4.3:9000
+
   - host: h1301-slides
     source: udp://227.1.0.1:9000
 
   - host: h1301-cam
     source: udp://227.1.0.2:9000
+
+  - host: h1301-pip
+    source: udp://227.1.0.3:9000
 
   - host: h1302-slides
     source: udp://227.1.1.1:9000
@@ -49,11 +67,17 @@ video_dump_source:
   - host: h1302-cam
     source: udp://227.1.1.2:9000
 
+  - host: h1302-pip
+    source: udp://227.1.1.3:9000
+
   - host: h1308-slides
     source: udp://227.1.2.1:9000
 
   - host: h1308-cam
     source: udp://227.1.2.2:9000
+
+  - host: h1308-pip
+    source: udp://227.1.2.3:9000
 
   - host: h1309-slides
     source: udp://227.1.3.1:9000
@@ -61,11 +85,17 @@ video_dump_source:
   - host: h1309-cam
     source: udp://227.1.3.2:9000
 
+  - host: h1309-pip
+    source: udp://227.1.3.3:9000
+
   - host: h2213-slides
     source: udp://227.1.4.1:9000
 
   - host: h2213-cam
     source: udp://227.1.4.2:9000
+
+  - host: h2213-pip
+    source: udp://227.1.4.3:9000
 
   - host: h2214-slides
     source: udp://227.1.5.1:9000
@@ -73,11 +103,17 @@ video_dump_source:
   - host: h2214-cam
     source: udp://227.1.5.2:9000
 
+  - host: h2214-pip
+    source: udp://227.1.5.3:9000
+
   - host: h2215-slides
     source: udp://227.1.6.1:9000
 
   - host: h2215-cam
     source: udp://227.1.6.2:9000
+
+  - host: h2215-pip
+    source: udp://227.1.6.3:9000
 
   - host: janson-slides
     source: udp://227.2.0.1:9000
@@ -85,11 +121,17 @@ video_dump_source:
   - host: janson-cam
     source: udp://227.2.0.2:9000
 
+  - host: janson-pip
+    source: udp://227.2.0.3:9000
+
   - host: k1105-slides
     source: udp://227.3.0.1:9000
 
   - host: k1105-cam
     source: udp://227.3.0.2:9000
+
+  - host: k1105-pip
+    source: udp://227.3.0.3:9000
 
   - host: k3201-slides
     source: udp://227.3.1.1:9000
@@ -97,11 +139,17 @@ video_dump_source:
   - host: k3201-cam
     source: udp://227.3.1.2:9000
 
+  - host: k3201-pip
+    source: udp://227.3.1.3:9000
+
   - host: k3401-slides
     source: udp://227.3.2.1:9000
 
   - host: k3401-cam
     source: udp://227.3.2.2:9000
+
+  - host: k3401-pip
+    source: udp://227.3.2.3:9000
 
   - host: k4201-slides
     source: udp://227.3.3.1:9000
@@ -109,11 +157,17 @@ video_dump_source:
   - host: k4201-cam
     source: udp://227.3.3.2:9000
 
+  - host: k4201-pip
+    source: udp://227.3.3.3:9000
+
   - host: k4401-slides
     source: udp://227.3.4.1:9000
 
   - host: k4401-cam
     source: udp://227.3.4.2:9000
+
+  - host: k4401-pip
+    source: udp://227.3.4.3:9000
 
   - host: k4601-slides
     source: udp://227.3.5.1:9000
@@ -121,11 +175,17 @@ video_dump_source:
   - host: k4601-cam
     source: udp://227.3.5.2:9000
 
+  - host: k4601-pip
+    source: udp://227.3.5.3:9000
+
   - host: ua2114-slides
     source: udp://227.4.0.1:9000
 
   - host: ua2114-cam
     source: udp://227.4.0.2:9000
+
+  - host: ua2114-pip
+    source: udp://227.4.0.3:9000
 
   - host: ua2220-slides
     source: udp://227.4.1.1:9000
@@ -133,11 +193,17 @@ video_dump_source:
   - host: ua2220-cam
     source: udp://227.4.1.2:9000
 
+  - host: ua2220-pip
+    source: udp://227.4.1.3:9000
+
   - host: ub2252a-slides
     source: udp://227.4.2.1:9000
 
   - host: ub2252a-cam
     source: udp://227.4.2.2:9000
+
+  - host: ub2252a-pip
+    source: udp://227.4.2.3:9000
 
   - host: ud2120-slides
     source: udp://227.4.3.1:9000
@@ -145,8 +211,14 @@ video_dump_source:
   - host: ud2120-cam
     source: udp://227.4.3.2:9000
 
+  - host: ud2120-pip
+    source: udp://227.4.3.3:9000
+
   - host: ud2218a-slides
     source: udp://227.4.4.1:9000
 
   - host: ud2218a-cam
     source: udp://227.4.4.2:9000
+
+  - host: ud2218a-pip
+    source: udp://227.4.4.3:9000
