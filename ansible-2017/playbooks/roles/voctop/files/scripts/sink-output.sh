@@ -17,4 +17,4 @@ ffmpeg -y -nostdin \
 	-map 0:v \
 	-map 0:a \
 	\
-	-y -flags +global_header -bsf:a aac_adtstoasc -f tee "${RECORDING_DIRECTORY}/${ROOM}.`date +%s`.ts|[f=flv]${STREAM_DESTINATION}"
+	-y -f mpegts ${MULTICAST_SINK}
