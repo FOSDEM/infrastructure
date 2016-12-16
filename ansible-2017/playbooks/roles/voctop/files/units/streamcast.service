@@ -1,0 +1,12 @@
+[Unit]
+Description={{ item.host }} stream cast service
+
+[Service]
+ExecStart=/usr/local/bin/streamcast.sh {{ item.multicast_sink }} {{ item.stream_destination }}/
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
