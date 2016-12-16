@@ -1,0 +1,26 @@
+---
+- name: install stream cast script
+  copy: src=streamcast.sh dest=/usr/local/bin/streamcast.sh owner=root group=root mode=0755
+  register: streamdumpscript
+
+- name: install stream cast services
+  template: src=streamcast.service dest=/etc/systemd/system/streamcast-{{ item.host}}.service owner=root group=root mode=0644
+  with_items: "{{ video_cast_source }}"
+  register: streamcast
+
+- name: perform a daemon-reload if any of the stream cast services have been modified
+  shell: systemctl daemon-reload
+  when: streamcast.changed
+
+- name: enable stream cast services
+  service: name=streamcast-{{ item.host }} enabled=yes state=started
+  with_items: "{{ video_cast_source }}"
+
+- name: restart service if video-network-monitor service or script has been modified
+  service: name=streamcast-{{ item.host }} state=restarted
+  with_items: "{{ video_cast_source }}"
+  when: streamcast.changed or streamcastscript.changed
+
+- name: enable streamcast service
+  systemd: name=streamcast-{{ item.host }} enabled=yes state=started daemon_reload=yes
+  with_items: "{{ video_cast_source }}"
