@@ -1,0 +1,6 @@
+[Unit]
+Description=smartmon metrics
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/local/sbin/smartmon_metrics.sh > {{ node_exporter_textfiles_path }}/smartmon.prom'
