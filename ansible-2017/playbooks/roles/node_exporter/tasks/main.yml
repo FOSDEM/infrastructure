@@ -45,3 +45,5 @@
     dest: /etc/default/node_exporter
   notify:
   - restart node_exporter
+
+include: smartmon_metrics.yml

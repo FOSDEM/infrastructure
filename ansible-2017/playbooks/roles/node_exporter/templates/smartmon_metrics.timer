@@ -1,0 +1,9 @@
+[Unit]
+Description=smartmon metrics
+
+[Timer]
+OnUnitActiveSec=10s
+OnBootSec=10s
+
+[Install]
+WantedBy=timers.target
