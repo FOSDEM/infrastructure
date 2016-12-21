@@ -9,6 +9,11 @@ Usually, you will want to limit your deployment to specific host groups:
     ansible-playbook playbooks/site.yml --limit videobox
     ansible-playbook playbooks/site.yml --limit voctohost
     ansible-playbook playbooks/site.yml --limit streamer-backend
+    
+Note that when deploying to a local test setup, you can define ip addresses to deploy roles to in the hosts file in the root of the ansible config directory. If you want to test a voctop deployment for example to a machine with ip 192.168.178.30, change
+    `voctop-h1308.video.fosdem.org ansible_host=10.2.5.197`.
+into
+    `voctop-h1308.video.fosdem.org ansible_host=192.168.178.30`
 
 We could consider splitting up our site.yml into multiple files, but this does
 the job for the time being.
