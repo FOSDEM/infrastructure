@@ -10,6 +10,8 @@
   - vocto-source-background
   - vocto-source-cam
   - vocto-source-slides
+  - streamcast
+  - streamcast_backup
 
 - name: restart voctocore
   service: name=voctocore state=restarted
