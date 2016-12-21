@@ -53,6 +53,8 @@
   - source-background.sh
   - source-cam.sh
   - source-slides.sh
+  - streamcast.sh
+  - streamcast_backup.sh
   notify: restart voctoscripts
 
 - name: create config directory
