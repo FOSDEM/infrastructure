@@ -1,3 +1,4 @@
 ---
 - include: install_voctocore.yml
   tags: voctocore
+- include: configure_streamcast.yml
