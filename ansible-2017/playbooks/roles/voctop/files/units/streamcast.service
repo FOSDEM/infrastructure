@@ -1,8 +1,8 @@
 [Unit]
-Description={{ item.room }} stream cast service
+Description= primary rtmp stream cast service
 
 [Service]
-ExecStart=/usr/local/bin/streamcast.sh {{ item.multicast_sink }} {{ item.stream_destination }}/
+ExecStart=/opt/scripts/streamcast.sh
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
