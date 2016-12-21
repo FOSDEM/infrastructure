@@ -1,0 +1,12 @@
+[Unit]
+Description= backup rtmp stream cast service
+
+[Service]
+ExecStart=/opt/scripts/streamcast_backup.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
