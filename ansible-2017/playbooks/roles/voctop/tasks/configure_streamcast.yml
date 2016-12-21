@@ -1,6 +1,6 @@
 ---
 - name: install stream cast script
-  copy: src=streamcast.sh dest=/usr/local/bin/streamcast.sh owner=root group=root mode=0755
+  copy: src=scripts/streamcast.sh dest=/usr/local/bin/streamcast.sh owner=root group=root mode=0755
   register: streamcastscript
 
 - name: install stream cast services
