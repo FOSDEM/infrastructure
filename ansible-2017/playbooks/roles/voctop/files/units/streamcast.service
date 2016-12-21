@@ -1,5 +1,5 @@
 [Unit]
-Description={{ item.host }} stream cast service
+Description={{ item.room }} stream cast service
 
 [Service]
 ExecStart=/usr/local/bin/streamcast.sh {{ item.multicast_sink }} {{ item.stream_destination }}/
