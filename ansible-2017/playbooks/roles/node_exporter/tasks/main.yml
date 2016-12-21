@@ -46,4 +46,4 @@
   notify:
   - restart node_exporter
 
-include: smartmon_metrics.yml
+- include: smartmon_metrics.yml
