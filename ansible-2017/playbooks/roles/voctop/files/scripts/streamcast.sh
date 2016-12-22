@@ -5,5 +5,5 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/config.sh
 
 while true; do
-	ffmpeg -y -i ${MULTICAST_SINK} -f flv ${STREAM_DESTINATION}
+	ffmpeg -y -i ${MULTICAST_SINK} -c copy -f flv ${STREAM_DESTINATION}
 done
