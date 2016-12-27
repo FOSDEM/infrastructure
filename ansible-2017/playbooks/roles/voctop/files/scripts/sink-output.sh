@@ -5,6 +5,8 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/config.sh
 
 ffmpeg -y -nostdin \
+	-probesize 10M \
+	-analyzeduration 10M \
 	-i tcp://localhost:11000 \
 	-threads:0 0 \
 	-aspect 16:9 \
@@ -14,7 +16,7 @@ ffmpeg -y -nostdin \
 	-pix_fmt:0 yuv420p -profile:v:0 main -b:v 512k \
 	-preset:v:0 veryfast \
 	\
-	-ac 2 -c:a libfdk_aac -b:a 128k -ar 44100 \
+	-ac 2 -strict -2 -c:a libfdk_aac -b:a 128k -ar 48000 \
 	-map 0:v \
 	-map 0:a \
 	\
