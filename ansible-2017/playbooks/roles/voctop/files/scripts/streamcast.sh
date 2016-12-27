@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
 while true; do
-	ffmpeg -y -flags +global_header -bsf:a aac_adtstoasc -i "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}" -c copy -f flv ${STREAM_DESTINATION}
+	ffmpeg -y -i "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}" -c copy -bsf:a aac_adtstoasc -f flv ${STREAM_DESTINATION}
 done
