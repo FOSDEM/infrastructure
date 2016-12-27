@@ -2,9 +2,9 @@
 sysctl_parameters: {
     "vt.global_cursor_default": "0",
     "net.core.wmem_max": "8388608",
-    "net.core.wmem_default": "1703936",
+    "net.core.wmem_default": "8388608",
     "net.core.rmem_max": "8388608",
-    "net.core.rmem_default": "1703936",
+    "net.core.rmem_default": "8388608",
 }
 
 kernel_package: linux-image-3.4-bananian
