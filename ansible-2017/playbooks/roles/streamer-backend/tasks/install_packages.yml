@@ -9,3 +9,7 @@
     - nginx-doc
     - nginx-extras
     - ffmpeg
+    - libglib-perl          
+    - gir1.2-gstreamer-1.0
+    - gir1.2-gst-plugins-base-1.0
+    - libdbd-pg-perl
