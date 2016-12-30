@@ -1,14 +1,11 @@
 [control-server]
 control.video.fosdem.org ansible_host=10.2.5.135
 
-[videobox]
-h1308-cam.video.fosdem.org ansible_host=10.2.5.191
-h1308-slides.video.fosdem.org ansible_host=10.2.5.190
-aw1125-slides.video.fosdem.org ansible_host=10.2.5.194
-k1105-cam.video.fosdem.org ansible_host=10.2.5.195
+[monitor]
+monitor.video.fosdem.org ansible_host=10.2.5.149
 
-[voctop]
-voctop-h1308.video.fosdem.org ansible_host=10.2.5.197
+[review]
+review.video.fosdem.org
 
 [streamer-backend]
 streambackend0.video.fosdem.org
@@ -25,8 +22,14 @@ streamfrontend3.video.fosdem.org
 [stream-dumper]
 streamdumper0.video.fosdem.org ansible_host=10.2.5.147
 
+[videobox]
+h1308-cam.video.fosdem.org ansible_host=10.2.5.191
+h1308-slides.video.fosdem.org ansible_host=10.2.5.190
+aw1125-slides.video.fosdem.org ansible_host=10.2.5.194
+k1105-cam.video.fosdem.org ansible_host=10.2.5.195
+
+[voctop]
+voctop-h1308.video.fosdem.org ansible_host=10.2.5.197
+
 [web-frontend]
 web0.video.fosdem.org
-
-[monitor]
-monitor.video.fosdem.org ansible_host=10.2.5.149
