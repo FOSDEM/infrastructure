@@ -6,6 +6,7 @@ ssh_users:
   - bert
   - frank
   - gerry
+  - johan
   - mark
   - vasil
 
