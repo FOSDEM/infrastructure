@@ -29,7 +29,7 @@ $dbh->begin_work;
 
 my $exists = $dbh->prepare("SELECT count(*) FROM raw_files WHERE filename = ?");
 my $add = $dbh->prepare("INSERT INTO raw_files(filename, room, starttime, endtime) VALUES (?, (SELECT id FROM rooms WHERE altname = ? OR name = ?), ?::timestamptz, ?::timestamptz + ?::interval)");
-my $update = $dbh->prepare("UPDATE raw_files SET endtime = ?::timestamptz + ?::interval WHERE filename = ?");
+my $update = $dbh->prepare("UPDATE raw_files SET endtime = starttime + ?::interval WHERE filename = ?");
 
 my @files = glob($config->{inputglob});
 
@@ -51,7 +51,7 @@ foreach my $file(@files) {
 	if($row->{count} eq '0') {
 		$add->execute($url, $room, $room, "$start_day $start_hour", "$start_day $start_hour", "$length seconds");
 	} else {
-		$update->execute("$start_day $start_hour", "$length seconds", $url);
+		$update->execute("$length seconds", $url);
 	}
 }
 
