@@ -1,3 +1,4 @@
 ---
 - include: install_packages.yml
 - include: configure_imgmaker.yml
+- include: configure_nginx.yml
