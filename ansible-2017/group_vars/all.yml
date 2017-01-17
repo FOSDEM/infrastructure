@@ -9,5 +9,6 @@ ssh_users:
   - johan
   - mark
   - vasil
+  - wouter
 
 timezone: "Europe/Brussels"
