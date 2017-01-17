@@ -3,3 +3,6 @@
   apt: pkg={{ item }} state=latest install_recommends=no
   with_items:
     - ffmpeg
+    - nginx
+    - php5
+    - php5-fpm
