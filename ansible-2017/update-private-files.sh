@@ -16,5 +16,6 @@ cp $1/certificates/live.fosdem.org.crt playbooks/roles/web-frontend/files/nginx/
 cp $1/certificates/control.video.fosdem.org.key playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.key
 cp $1/certificates/control.video.fosdem.org.crt playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.crt
 cp $1/sreview/config.pl playbooks/roles/streamer-backend/files/sreview/config.pl
+cp $1/control/htpasswd playbooks/roles/control-server/files/nginx/htpasswd
 
 echo "done."

@@ -7,6 +7,10 @@
   copy: src=nginx/certificate/control.video.fosdem.org.key dest=/etc/nginx/control.video.fosdem.org.key owner=root group=root mode=0600
   notify: reload nginx
 
+- name: install htpasswd
+  copy: src=nginx/htpasswd dest=/etc/nginx/htpasswd owner=root group=root mode=0644
+  notify: reload nginx
+
 - name: install dh parameters
   copy: src=nginx/certificate/dhparam.pem dest=/etc/nginx/dhparam.pem owner=root group=root mode=0644
   notify: reload nginx
