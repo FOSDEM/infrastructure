@@ -13,5 +13,6 @@ cp $1/certificates/stream.fosdem.org.key playbooks/roles/streamer-frontend/files
 cp $1/certificates/stream.fosdem.org.crt playbooks/roles/streamer-frontend/files/nginx/certificate/stream.fosdem.org.crt
 cp $1/certificates/live.fosdem.org.key playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.key
 cp $1/certificates/live.fosdem.org.crt playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.crt
+cp $1/sreview/config.pl playbooks/roles/streamer-backend/files/sreview/config.pl
 
 echo "done."
