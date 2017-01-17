@@ -1,0 +1,26 @@
+---
+- name: Install the detect_files script
+  copy:
+   src: sreview/detect_files
+   dest: /usr/local/bin/detect_files
+   owner: root
+   group: root
+   mode: 0755
+
+- name: create sreview config directory
+  file: path=/etc/sreview state=directory owner=fosdem group=fosdem mode=0755
+
+- name: Install the detect_files config file
+  copy:
+   src: sreview/config.pl
+   dest: /etc/sreview/config.pl
+   owner: fosdem
+   group: root
+   mode: 0660
+
+- name: Enable the cronjob
+  cron:
+    name: detect files for sreview
+    user: fosdem
+    special_time: hourly
+    job: "/usr/local/bin/detect_files >/home/fosdem/detect_files.lastlog 2>&1"

@@ -1,0 +1,63 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+
+use DBI;
+
+use Glib;
+use Glib::Object::Introspection;
+use Net::Domain qw(hostname);
+
+Glib::Object::Introspection->setup(
+	basename => "Gst",
+	version => "1.0",
+	package => "Gst",
+	);
+Glib::Object::Introspection->setup(
+	basename => "GstPbutils",
+	version => "1.0",
+	package => "Gst::Pbutils",
+	);
+
+our $config;
+require '/etc/sreview/config.pl';
+
+my $dbh = DBI->connect($config->{dbistring}, '', '') or die "Cannot connect to database!";
+
+$dbh->begin_work;
+
+my $exists = $dbh->prepare("SELECT count(*) FROM raw_files WHERE filename = ?");
+my $add = $dbh->prepare("INSERT INTO raw_files(filename, room, starttime, endtime) VALUES (?, (SELECT id FROM rooms WHERE altname = ? OR name = ?), ?::timestamptz, ?::timestamptz + ?::interval)");
+my $update = $dbh->prepare("UPDATE raw_files SET endtime = ?::timestamptz + ?::interval WHERE filename = ?");
+
+my @files = glob($config->{inputglob});
+
+Gst::init(\@ARGV);
+my $disc = Gst::Pbutils::Discoverer->new(1_000_000_000);
+
+my $host = hostname() . ".video.fosdem.org";
+
+foreach my $file(@files) {
+	next unless (-f $file);
+	my $ext = $config->{inputext};
+	my $parsesub = $config->{parse_raw};
+	my ($room, $start_day, $start_hour, $url) = &$parsesub($file, $host);
+	next unless defined($room);
+	$exists->execute($url);
+	my $row = $exists->fetchrow_hashref;
+	my $info = $disc->discover_uri(Glib->filename_to_uri($file, undef));
+	my $length = $info->get_duration() / 1_000_000_000;
+	if($row->{count} eq '0') {
+		$add->execute($url, $room, $room, "$start_day $start_hour", "$start_day $start_hour", "$length seconds");
+	} else {
+		$update->execute("$start_day $start_hour", "$length seconds", $url);
+	}
+}
+
+my $full = $dbh->prepare("UPDATE talks SET state = 'files_found' WHERE state < 'files_found' AND id IN (select talkid FROM raw_talks WHERE talks_length <= (raw_total + '5 seconds'::interval))");
+$full->execute();
+my $partial = $dbh->prepare("UPDATE talks SET state = 'partial_files_found' WHERE state < 'partial_files_found' AND id IN (select distinct talkid FROM raw_talks)");
+$partial->execute();
+
+$dbh->commit;
