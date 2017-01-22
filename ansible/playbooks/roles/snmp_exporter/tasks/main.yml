@@ -30,10 +30,15 @@
     group: root
     copy: no
 
+- name: Read community
+  command: cat /etc/snmp_community
+  register: snmp_community
+  always_run: true
+  changed_when: false
+
 - name: Install config file
-  assemble:
-    remote_src: False
-    src: snmp_config
+  template:
+    src: snmp.yml.j2
     dest: "{{ snmp_exporter_install_path }}/snmp.yml"
   notify:
   - restart snmp_exporter
