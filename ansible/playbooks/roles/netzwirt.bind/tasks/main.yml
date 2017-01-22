@@ -1,0 +1,33 @@
+---
+# tasks file for netzwirt.bind
+
+- name: create group for bind
+  group: 
+    name={{bind_group}} 
+    system=yes
+    state=present
+
+
+- name: create user for bind
+  user: 
+    name={{bind_user}} 
+    comment="bind-user"
+    group={{bind_group}}
+    system=yes
+    state=present
+    createhome=no
+
+
+- name: installing packages with apt
+  include: install.apt.yml
+  when: ansible_os_family == 'Debian'
+
+
+- include: config.yml
+
+
+- name: ensure bind is started
+  service: 
+    name={{bind_service_name}} 
+    state=started 
+    enabled=yes

@@ -1,0 +1,34 @@
+// {{ansible_managed}}
+
+{% if bind_rfc1918 %}
+// adding the 1918 zones 
+include "{{bind_config_dir}}/zones.rfc1918";
+{% endif %}
+
+{% if bind_zones is defined %}
+{% for key, zone in bind_zones.iteritems() %}
+zone "{{key}}" {
+    type {{zone.type|default('master')}}; # zone file type
+    file "{{bind_cache_dir}}/db.{{key}}"; # zone file path
+{% if zone.secondary is defined and zone.secondary.0 is defined %}
+{% if zone.type is defined and zone.type == 'slave' %}
+    # masters ip adresses
+    masters { 
+{% else %}
+    # secondary ip adresses
+    allow-transfer { 
+{% endif %}
+{% for secondary in zone.secondary %}
+        {{secondary}};{% endfor %}
+    }; {% endif %}       
+};
+
+{% endfor %}
+{% endif %}
+{# automatic slave from an ansible host in the same inventory #}
+{% if bind_create_slave_from_master is defined and bind_create_slave_from_master.0 is defined %}
+{% for slave in bind_create_slave_from_master %}
+// generated slave for {{slave.master}}
+include "{{bind_config_dir}}/named.conf.local.slave-{{slave.master}}-{{slave.limit_to|default(['all'])|join('-')}}";
+{% endfor %}
+{% endif %}

@@ -1,0 +1,7 @@
+# {{ansible_managed}}
+
+# run resolvconf?
+RESOLVCONF=no
+
+# startup options for the server
+OPTIONS="-u {{bind_user}}{% if bind_use_protocol is defined %}{% if bind_use_protocol == 'ipv4' %} -4{% endif %}{% if bind_use_protocol == 'ipv6' %} -6{% endif %}{% endif %}"

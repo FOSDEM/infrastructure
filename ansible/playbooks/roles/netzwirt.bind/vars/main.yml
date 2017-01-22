@@ -1,0 +1,13 @@
+---
+# vars file for netzwirt.bind
+# normaly there's no need to change this values 
+
+
+bind_config_dir: /etc/bind
+bind_cache_dir: /var/cache/bind
+bind_lib_dir: /var/lib/bind
+
+bind_user: bind
+bind_group: bind
+bind_service_name: bind9
+

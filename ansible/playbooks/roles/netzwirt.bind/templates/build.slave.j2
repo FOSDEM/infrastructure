@@ -1,0 +1,24 @@
+// {{ansible_managed}}
+
+{% for zone_name, values in hostvars[item.master]['bind_zones'].iteritems() %}{# create slave zones out of another bind host #}
+{% if item.master_address is defined and item.master_address.0 is defined %}{# we need a master ip #}
+
+{%- if item.limit_to is defined %}
+{# create intersect #}{% set check = item.limit_to | intersect(values.secondary|default([])) %}
+{% endif -%}
+
+{% if item.limit_to is not defined or check.0 is defined %}
+zone "{{zone_name}}" {
+    type slave; # zone file type
+    masters {
+{% for ip in item.master_address %}
+        {{ip}};{% endfor %}
+    };
+    file "{{bind_lib_dir}}{% if bind_config_subdirectories %}/slave{% endif %}/{{zone_name}}";
+    notify no;
+    allow-query { any; };
+    allow-transfer { none; };
+}; 
+{% endif %}
+{% endif %}
+{% endfor %}
