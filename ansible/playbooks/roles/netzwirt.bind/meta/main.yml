@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: 'Reto Gassmann'
+  description: 'Install and manage Bind 9. Create slaves automaticly'
+  license: BSD
+  min_ansible_version: '1.8'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  - name: Debian
+    versions:
+    - jessie
+
+  categories:
+  - networking
+  - web
+  - dns 
+    
+dependencies: []
+  
+allow_duplicates: yes 
