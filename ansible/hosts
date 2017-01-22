@@ -4,8 +4,8 @@ network1.conference.fosdem.net ansible_host=185.175.216.250 ansible_port=1973
 [control-server]
 control.video.fosdem.org ansible_host=10.2.5.135
 
-[monitor]
-monitor.video.fosdem.org ansible_host=10.2.5.149
+#[monitor]
+#monitor.video.fosdem.org ansible_host=10.2.5.149
 
 [review]
 review.video.fosdem.org

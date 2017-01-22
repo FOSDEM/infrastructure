@@ -1,4 +1,4 @@
 dependencies:
   - dns
-# - prometheus
-# - grafana
+  - prometheus
+#  - grafana
