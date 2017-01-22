@@ -1,0 +1,46 @@
+- name: Set OS = Linux arch = amd64
+  set_fact:
+    blackbox_exporter_tarball_url: "{{ blackbox_exporter_download_url }}/v{{ blackbox_exporter_version }}/blackbox_exporter-{{ blackbox_exporter_version }}.linux-amd64.tar.gz"
+    blackbox_exporter_path: "{{ blackbox_exporter_install_path }}/blackbox_exporter-{{ blackbox_exporter_version }}.linux-amd64"
+  when: ansible_system == "Linux" and ansible_architecture == "x86_64"
+
+- name: Set OS = Linux arch = arm
+  set_fact:
+    blackbox_exporter_tarball_url: "{{ blackbox_exporter_download_url }}/v{{ blackbox_exporter_version }}/blackbox_exporter-{{ blackbox_exporter_version }}.linux-armv7.tar.gz"
+    blackbox_exporter_path: "{{ blackbox_exporter_install_path }}/blackbox_exporter-{{ blackbox_exporter_version }}.linux-armv7"
+  when: ansible_system == "Linux" and ansible_architecture == "armv7l"
+
+- name: Creating blackbox_exporter dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ blackbox_exporter_install_path }}"
+
+- name: untar blackbox_exporter tarball
+  unarchive:
+    src: "{{ blackbox_exporter_tarball_url }}"
+    dest: "{{ blackbox_exporter_install_path }}"
+    mode: 0755
+    owner: root
+    group: root
+    copy: no
+
+- name: Install config file
+  copy:
+    src: blackbox.yml
+    dest: "{{ blackbox_exporter_install_path }}/blackbox.yml"
+  notify:
+  - restart blackbox_exporter
+
+- name: Install blackbox_exporter systemd service file
+  notify:
+  - reload systemd
+  - restart blackbox_exporter
+  template:
+    src: blackbox_exporter.service
+    dest: /etc/systemd/system/blackbox_exporter.service
+
+- name: Enable and start blackbox_exporter service
+  service: name=blackbox_exporter state=started enabled=yes

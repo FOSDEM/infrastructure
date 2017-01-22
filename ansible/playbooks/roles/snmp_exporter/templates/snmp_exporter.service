@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus SNMP Exporter
+
+[Service]
+User=nobody
+Group=nogroup
+EnvironmentFile=-/etc/default/snmp_exporter
+ExecStart={{ snmp_exporter_path }}/snmp_exporter -config.file {{ snmp_exporter_path }}/snmp.yml
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

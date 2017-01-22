@@ -1,0 +1,50 @@
+- name: Set OS = Linux arch = amd64
+  set_fact:
+    snmp_exporter_tarball_url: "{{ snmp_exporter_download_url }}/v{{ snmp_exporter_version }}/snmp_exporter-{{ snmp_exporter_version }}.linux-amd64.tar.gz"
+    #snmp_exporter_path: "{{ snmp_exporter_install_path }}/snmp_exporter-{{ snmp_exporter_version }}.linux-amd64"
+    snmp_exporter_path: "{{ snmp_exporter_install_path }}"
+  when: ansible_system == "Linux" and ansible_architecture == "x86_64"
+
+- name: Set OS = Linux arch = arm
+  set_fact:
+    snmp_exporter_tarball_url: "{{ snmp_exporter_download_url }}/v{{ snmp_exporter_version }}/snmp_exporter-{{ snmp_exporter_version }}.linux-armv7.tar.gz"
+    #snmp_exporter_path: "{{ snmp_exporter_install_path }}/snmp_exporter-{{ snmp_exporter_version }}.linux-armv7"
+    snmp_exporter_path: "{{ snmp_exporter_install_path }}"
+  when: ansible_system == "Linux" and ansible_architecture == "armv7l"
+
+- name: Creating snmp_exporter dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ snmp_exporter_install_path }}"
+
+- name: untar snmp_exporter tarball
+  unarchive:
+#    src: "{{ snmp_exporter_tarball_url }}"
+    src: "https://33c3-prometheus.s3.eu-central-1.amazonaws.com/snmp_exporter-33c3.tar.gz"
+    dest: "{{ snmp_exporter_install_path }}"
+    mode: 0755
+    owner: root
+    group: root
+    copy: no
+
+- name: Install config file
+  assemble:
+    remote_src: False
+    src: snmp_config
+    dest: "{{ snmp_exporter_install_path }}/snmp.yml"
+  notify:
+  - restart snmp_exporter
+
+- name: Install snmp_exporter systemd service file
+  notify:
+  - reload systemd
+  - restart snmp_exporter
+  template:
+    src: snmp_exporter.service
+    dest: /etc/systemd/system/snmp_exporter.service
+
+- name: Enable and start snmp_exporter service
+  service: name=snmp_exporter state=started enabled=yes
