@@ -5,7 +5,9 @@
     - ack-grep
     - apt-transport-https
     - bash-completion
+    - binutils
     - ca-certificates
+    - curl
     - file
     - git
     - htop
