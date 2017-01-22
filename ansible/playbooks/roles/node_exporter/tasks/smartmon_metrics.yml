@@ -22,12 +22,18 @@
     - smartmon_metrics.service
     - smartmon_metrics.timer
 
-- name: Enable and start smartmon_metrics service/timer
+- name: Enable smartmon_metrics service
+  service:
+    name: "{{ item }}"
+    enabled: True
+  with_items:
+    - smartmon_metrics.service
+
+- name: Enable and start smartmon_metrics timer
   service:
     name: "{{ item }}"
     state: started
     enabled: True
   with_items:
-    - smartmon_metrics.service
     - smartmon_metrics.timer
 
