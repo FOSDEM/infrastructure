@@ -60,6 +60,12 @@
 ##
 ## Specific roles
 ##
+- name: event-primary
+  hosts: event-primary
+  remote_user: root
+  roles:
+  - { role: event-primary, tags: [ 'event-primary' ] }
+
 - name: control-server
   hosts: control-server
   remote_user: root
