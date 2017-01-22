@@ -3,3 +3,22 @@ bind_zones:
     type: master
   v.conference.fosdem.net:
     type: master
+
+bind_acls:
+  fosdem-dualstack:
+    - 151.216.128.0/19
+    - 2001:67C:1810:F055::1/64
+  fosdem-v6only:
+    - 2001:67C:1810:F051::1/64
+  v6localhost:
+    - ::1/128
+
+bind_recursion_allowed_clients:
+  - fosdem-dualstack
+  - fosdem-v6only
+
+bind_dns64_clients:
+  - fosdem-v6only
+  - v6localhost
+
+bind_authoritative_only: False
