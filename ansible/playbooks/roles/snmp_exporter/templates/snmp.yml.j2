@@ -1,4 +1,6 @@
 default:
+  auth:
+    community: {{snmp_community.stdout}}
   walk:
   - 1.3.6.1.2.1.1.3 # sysUpTime
   - 1.3.6.1.2.1.2.2 # ifTable
