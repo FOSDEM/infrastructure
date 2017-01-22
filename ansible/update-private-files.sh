@@ -1,8 +1,9 @@
 #!/bin/sh
 
-if [ -z $1 ]; then
-	echo "please tell me where I can find the private files."
-	exit 1
+if [ $# != 1 -o ! -d $1 ]; then
+  echo "ERROR: please tell me where I can find the private files."
+  echo "usage: $(basename $0) <directory>"
+  exit 1
 fi
 
 echo -n "copying private files from ${1}... "
