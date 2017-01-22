@@ -1,0 +1,1363 @@
+aruba_wlan:
+  walk:
+  - 1.3.6.1.2.1.1.3
+  - 1.3.6.1.4.1.14823.2.2.1.5.2.1.4
+  - 1.3.6.1.4.1.14823.2.2.1.5.2.1.5
+  - 1.3.6.1.4.1.14823.2.2.1.5.2.1.7
+  - 1.3.6.1.4.1.14823.2.2.1.5.3.1.1
+  - 1.3.6.1.4.1.14823.2.2.1.5.3.1.6
+  metrics:
+  - name: sysUpTime
+    oid: 1.3.6.1.2.1.1.3
+  - name: wlanAPdot11aAntennaGain
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.7
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPdot11gAntennaGain
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.8
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPNumRadios
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.9
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPEnet1Mode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.10
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPIpsecMode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.11
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPUpTime
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.12
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBuilding
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.15
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFloor
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.16
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPLoc
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.17
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPExternalAntenna
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.18
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPStatus
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPNumBootstraps
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.20
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPNumReboots
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.21
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPUnprovisioned
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.22
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPMonitorMode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.23
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPMeshRole
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.31
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPNumWarmReboots
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.35
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPActiveUplink
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.38
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPConnectedAsStandby
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.41
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioNumber
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.1
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioType
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.2
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioChannel
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.3
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioTransmitPower
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.4
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioMode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.5
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioUtilization
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.6
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioNumAssociatedClients
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.7
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioNumMonitoredClients
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.8
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioNumActiveBSSIDs
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.9
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioNumMonitoredBSSIDs
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.10
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioHTMode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.13
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRadioHTExtChannel
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.5.1.14
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidSlot
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.3
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidPort
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.4
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidPhyType
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.5
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidRogueType
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.6
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidMode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.7
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidChannel
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.8
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidUpTime
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.9
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidInactiveTime
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.10
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidLoadBalancing
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.11
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidNumAssociatedStations
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.12
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidPhyNumber
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.14
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidHTMode
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.15
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidHTExtChannel
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.16
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPBssidSnr
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.7.1.18
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPCurrentChannel
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.1
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPNumClients
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.2
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.3
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxBytes
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.4
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.5
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxBytes
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.6
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxDeauthentications
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.7
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxDeauthentications
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.8
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChannelThroughput
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.9
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameRetryRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.10
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameLowSpeedRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.11
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameNonUnicastRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.12
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameFragmentationRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.13
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameBandwidthRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.14
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameRetryErrorRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.15
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChannelErrorRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.16
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPFrameReceiveErrorRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.17
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxDataPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.18
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxDataBytes
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.19
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxDataPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.20
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxDataBytes
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.21
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxDataPkts64
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.22
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxDataBytes64
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.23
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxDataPkts64
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.24
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPTxDataBytes64
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.25
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPWiredRxErrorPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.26
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPRxErrorPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.1.1.27
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    - labelname: wlanAPBSSID
+      type: PhysAddress48
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChannelNumber
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.1
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChNumStations
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.2
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTotPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.3
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTotBytes
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.4
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTotRetryPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.5
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTotFragmentedPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.6
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTotPhyErrPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.7
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTotMacErrPkts
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.8
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChNoise
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.9
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChCoverageIndex
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.10
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChInterferenceIndex
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.11
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameRetryRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.12
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameLowSpeedRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.13
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameNonUnicastRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.14
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameFragmentationRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.15
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameBandwidthRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.16
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameRetryErrorRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.17
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChBusyRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.18
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChNumAPs
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.19
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameReceiveErrorRate
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.20
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTransmittedFragmentCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.21
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChMulticastTransmittedFrameCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.22
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFailedCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.23
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChRetryCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.24
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChMultipleRetryCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.25
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFrameDuplicateCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.26
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChRTSSuccessCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.27
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChRTSFailureCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.28
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChACKFailureCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.29
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChReceivedFragmentCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.30
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChMulticastReceivedFrameCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.31
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChFCSErrorCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.32
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTransmittedFrameCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.33
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChWEPUndecryptableCount
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.34
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChRxUtilization
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.35
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChTxUtilization
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.36
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3
+  - name: wlanAPChUtilization
+    oid: 1.3.6.1.4.1.14823.2.2.1.5.3.1.6.1.37
+    indexes:
+    - labelname: wlanAPMacAddress
+      type: PhysAddress48
+    - labelname: wlanAPRadioNumber
+      type: Integer
+    lookups:
+    - labels:
+      - wlanAPMacAddress
+      labelname: wlanAPName
+      oid: 1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.3

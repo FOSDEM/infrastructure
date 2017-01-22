@@ -1,4 +1,6 @@
 dependencies:
   - dns
   - prometheus
+  - snmp_exporter
+  - blackbox_exporter
 #  - grafana
