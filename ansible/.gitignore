@@ -4,3 +4,5 @@ playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
 playbooks/roles/streamer-frontend/files/nginx/certificate/stream.fosdem.org.key
 playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.key
 playbooks/roles/streamer-backend/files/sreview/config.pl
+playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.key
+playbooks/roles/control-server/files/nginx/htpasswd
