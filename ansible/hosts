@@ -10,6 +10,18 @@ control.video.fosdem.org ansible_host=10.2.5.135
 [review]
 review.video.fosdem.org
 
+[encoder-backend]
+encoder0.review.video.fosdem.org
+encoder1.review.video.fosdem.org
+encoder2.review.video.fosdem.org
+encoder3.review.video.fosdem.org
+encoder4.review.video.fosdem.org
+encoder5.review.video.fosdem.org
+encoder6.review.video.fosdem.org
+encoder7.review.video.fosdem.org
+encoder8.review.video.fosdem.org
+encoder9.review.video.fosdem.org
+
 [streamer-backend]
 streambackend0.video.fosdem.org
 streambackend1.video.fosdem.org

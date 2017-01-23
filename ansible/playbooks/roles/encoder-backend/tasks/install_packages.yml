@@ -1,0 +1,13 @@
+---
+- name: "install packages"
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - curl
+    - nfs-common
+    - ffmpeg
+    - gstreamer1.0-plugins-good
+    - gstreamer1.0-plugins-bad
+    - gstreamer1.0-plugins-ugly
+    - gstreamer1.0-plugins-base
+    - gir1.2-gstreamer1.0
+    - gridengine-exec
