@@ -33,3 +33,21 @@ scrape_configs:
 {% for host in hostvars %}
         - {{ host }}:9100
 {% endfor %}
+
+  - job_name: 'snmp_default'
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+{% for host in prometheus_snmp_default_targets %}
+        - {{ host }}
+{% endfor %}
+    metrics_path: /snmp
+    params:
+      module: [default]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9116  # SNMP exporter.
