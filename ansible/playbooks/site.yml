@@ -119,3 +119,10 @@
   remote_user: root
   roles:
   - { role: monitor, tags: [ 'monitor' ] }
+
+- name: encoder-backend
+  hosts: encoder-backend
+  remote_user: root
+  roles:
+  - scaleway
+  - { role: encoder-backend, tags: [ 'encoder-backend' ] }
