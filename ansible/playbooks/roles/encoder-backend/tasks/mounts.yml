@@ -19,6 +19,16 @@
     - U
     - J
 
+- name: mount sreview auxiliary directories
+  mount:
+    name: /srv/sreview/{{ item }}
+    src: 10.6.7.143:/srv/sreview/{{ item }}
+    fstype: nfs
+    state: mounted
+  with_items:
+    - output
+    - assets
+
 - name: mount gridengine cell
   mount:
     name: /var/lib/gridengine/sreview
