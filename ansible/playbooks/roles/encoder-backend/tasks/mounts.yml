@@ -1,0 +1,27 @@
+---
+- name: mount sreview home directory
+  mount:
+    name: /home/sreview
+    src: 10.6.7.143:/home/sreview
+    fstype: nfs
+    state: mounted
+
+- name: mount sreview srv directories
+  mount:
+    name: /srv/sreview/1/{{ item }}
+    src: 10.6.7.143:/srv/sreview/1/{{ item }}
+    fstype: nfs
+    state: mounted
+  with_items:
+    - H
+    - K
+    - A
+    - U
+    - J
+
+- name: mount gridengine cell
+  mount:
+    name: /var/lib/gridengine/sreview
+    src: 10.6.7.143:/var/lib/gridengine/sreview
+    fstype: nfs
+    state: mounted
