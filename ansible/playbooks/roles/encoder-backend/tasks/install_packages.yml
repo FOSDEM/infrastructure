@@ -32,9 +32,5 @@
     update_cache: yes
     repo: deb ftp://mirror.boxed-it.com/pub/deb-multimedia/ stable main
 
-# HACK: we don't want to install anything from deb-multimedia unless we
-# explicitly asked for it. That's only possible if we use -t <target
-# release>, which unfortunately the apt module in ansible doesn't allow
-# us to do.
 - name: "install deb-multimedia version of ffmpeg"
-  command: apt-get -t jessie -y install ffmpeg
+  apt: pkg=ffmpeg state=latest default_release=jessie
