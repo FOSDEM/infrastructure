@@ -2,12 +2,39 @@
 - name: "install packages"
   apt: pkg={{ item }} state=latest install_recommends=no
   with_items:
-    - curl
     - nfs-common
-    - ffmpeg
     - gstreamer1.0-plugins-good
     - gstreamer1.0-plugins-bad
     - gstreamer1.0-plugins-ugly
     - gstreamer1.0-plugins-base
     - gir1.2-gstreamer-1.0
+    - gir1.2-gst-plugins-base-1.0
     - gridengine-exec
+    - libdbi-perl
+    - libdbd-pg-perl
+    - libwww-curl-perl
+    - libglib-object-introspection-perl
+    - bs1770gain
+
+- name: "add deb-multimedia key"
+  apt_key:
+    id: A401FF99368FA1F98152DE755C808C2B65558117
+    keyserver: keys.gnupg.net
+    state: present
+
+- name: "set deb-multimedia preferences"
+  copy:
+    src: deb-multimedia.pref
+    dest: /etc/apt/preferences.d/deb-multimedia.pref
+
+- name: "add deb-multimedia repository"
+  apt_repository:
+    update_cache: yes
+    repo: deb ftp://mirror.boxed-it.com/pub/deb-multimedia/ stable main
+
+# HACK: we don't want to install anything from deb-multimedia unless we
+# explicitly asked for it. That's only possible if we use -t <target
+# release>, which unfortunately the apt module in ansible doesn't allow
+# us to do.
+- name: "install deb-multimedia version of ffmpeg"
+  command: apt-get -t jessie -y install ffmpeg
