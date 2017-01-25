@@ -1,0 +1,3 @@
+[submodule "ansible/playbooks/roles/rsyslog"]
+	path = ansible/playbooks/roles/rsyslog
+	url = https://github.com/Oefenweb/ansible-rsyslog.git
