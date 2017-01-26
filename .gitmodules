@@ -1,3 +1,6 @@
 [submodule "ansible/playbooks/roles/rsyslog"]
 	path = ansible/playbooks/roles/rsyslog
 	url = https://github.com/Oefenweb/ansible-rsyslog.git
+[submodule "ansible/playbooks/roles/netzwirt.bind"]
+	path = ansible/playbooks/roles/netzwirt.bind
+	url = https://github.com/netzwirt/ansible-bind.git
