@@ -1,15 +1,13 @@
 - name: Set OS = Linux arch = amd64
   set_fact:
     snmp_exporter_tarball_url: "{{ snmp_exporter_download_url }}/v{{ snmp_exporter_version }}/snmp_exporter-{{ snmp_exporter_version }}.linux-amd64.tar.gz"
-    #snmp_exporter_path: "{{ snmp_exporter_install_path }}/snmp_exporter-{{ snmp_exporter_version }}.linux-amd64"
-    snmp_exporter_path: "{{ snmp_exporter_install_path }}"
+    snmp_exporter_path: "{{ snmp_exporter_install_path }}/snmp_exporter-{{ snmp_exporter_version }}.linux-amd64"
   when: ansible_system == "Linux" and ansible_architecture == "x86_64"
 
 - name: Set OS = Linux arch = arm
   set_fact:
     snmp_exporter_tarball_url: "{{ snmp_exporter_download_url }}/v{{ snmp_exporter_version }}/snmp_exporter-{{ snmp_exporter_version }}.linux-armv7.tar.gz"
-    #snmp_exporter_path: "{{ snmp_exporter_install_path }}/snmp_exporter-{{ snmp_exporter_version }}.linux-armv7"
-    snmp_exporter_path: "{{ snmp_exporter_install_path }}"
+    snmp_exporter_path: "{{ snmp_exporter_install_path }}/snmp_exporter-{{ snmp_exporter_version }}.linux-armv7"
   when: ansible_system == "Linux" and ansible_architecture == "armv7l"
 
 - name: Creating snmp_exporter dirs
@@ -22,8 +20,7 @@
 
 - name: untar snmp_exporter tarball
   unarchive:
-#    src: "{{ snmp_exporter_tarball_url }}"
-    src: "https://33c3-prometheus.s3.eu-central-1.amazonaws.com/snmp_exporter-33c3.tar.gz"
+    src: "{{ snmp_exporter_tarball_url }}"
     dest: "{{ snmp_exporter_install_path }}"
     mode: 0755
     owner: root
