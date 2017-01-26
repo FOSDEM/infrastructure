@@ -1,5 +1,5 @@
 [event-primary]
-network1.conference.fosdem.net ansible_host=185.175.216.250 ansible_port=1973
+server001.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 
 [control-server]
 control.video.fosdem.org ansible_host=10.2.5.135
