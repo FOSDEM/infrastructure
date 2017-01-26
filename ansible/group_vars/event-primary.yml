@@ -7,6 +7,10 @@ rsyslog_repeated_msg_reduction: true
 rsyslog_rsyslog_d_files:
   20-log-routers:
     settings:
-      - '$template DynFile,"/var/log/router-log/%FROMHOST%”'
+      - 'module(load="imudp")'
+      - 'input(type="imudp" port="514")'
+      - '$template DynFile,"/var/log/router-log/%FROMHOST%"'
       - ':source , !isequal , “server-hostname" ?DynFile'
       - ':source , !isequal , "server-hostname" stop'
+
+
