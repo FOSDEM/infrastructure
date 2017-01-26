@@ -21,6 +21,12 @@ the job for the time being.
 Please note that the `ansible.cfg` file disables host key checks. This should be
 a temporary measure and should be re-enabled.
 
+## Submodules
+
+This repo includes git submodules to vendor external source.  You need to update them with this helper command.
+
+    ./update-submodules.sh
+
 ## Private files
 
 Some files, such as the private keys for our certificates and the firmware for
