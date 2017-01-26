@@ -1,5 +1,5 @@
 ---
-- name: add fosdem ssh keys
+- name: add ssh keys to root
   authorized_key: user=root key="{{ lookup('file', '../public_keys/'+item+'.pub') }}"
   with_items: "{{ ssh_users }}"
 
