@@ -67,12 +67,13 @@
   - { role: event-primary, tags: [ 'event-primary' ] }
   - rsyslog
   vars:
-          rsyslog_repeated_msg_reduction: true
-          rsyslog_rsyslog_d_files:
-                  20-log-routers: |
-$template DynFile,"/var/log/router-log/%FROMHOST%”
-:source , !isequal , “server-hostname" ?DynFile
-:source , !isequal , "server-hostname" stop
+    rsyslog_repeated_msg_reduction: true
+    rsyslog_rsyslog_d_files:
+      20-log-routers:
+        settings:
+          - '$template DynFile,"/var/log/router-log/%FROMHOST%”'
+          - ':source , !isequal , “server-hostname" ?DynFile'
+          - ':source , !isequal , "server-hostname" stop'
 
 - name: control-server
   hosts: control-server
