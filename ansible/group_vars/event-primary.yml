@@ -10,7 +10,5 @@ rsyslog_rsyslog_d_files:
       - 'module(load="imudp")'
       - 'input(type="imudp" port="514")'
       - '$template DynFile,"/var/log/router-log/%FROMHOST%"'
-      - ':source , !isequal , “server-hostname" ?DynFile'
+      - ':source , !isequal , "server-hostname" ?DynFile'
       - ':source , !isequal , "server-hostname" stop'
-
-
