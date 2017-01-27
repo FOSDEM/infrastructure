@@ -98,7 +98,6 @@
   roles:
   - scaleway
   - common-repository-custom-packages
-  - scaleway
   - { role: streamer-backend, tags: [ 'streamer-backend' ] }
 
 - name: streamer-frontend
