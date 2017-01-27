@@ -9,3 +9,5 @@ sysctl_parameters: {
 nginx_rtmp_publishers:
   - 31.22.21.130/32
   - 185.175.218.0/24
+
+ssd_drive: /dev/sda
