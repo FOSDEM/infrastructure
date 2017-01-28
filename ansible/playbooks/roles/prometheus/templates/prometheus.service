@@ -4,7 +4,7 @@ Description=Prometheus Node Exporter
 [Service]
 User={{ prometheus_user }}
 Group={{ prometheus_group }}
-ExecStart={{ prometheus_path }}/prometheus -config.file {{ prometheus_config_path }}/prometheus.yml -storage.local.path {{ prometheus_db_path }}
+ExecStart={{ prometheus_path }}/prometheus -config.file {{ prometheus_config_path }}/prometheus.yml -storage.local.path {{ prometheus_db_path }} -web.listen-address 'localhost:9090' -web.external-url "https://{{ ansible_nodename }}/prometheus"
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 
