@@ -3,4 +3,4 @@ dependencies:
   - prometheus
   - snmp_exporter
   - blackbox_exporter
-#  - grafana
+  - ansiblebit.grafana

@@ -4,3 +4,6 @@
 [submodule "ansible/playbooks/roles/netzwirt.bind"]
 	path = ansible/playbooks/roles/netzwirt.bind
 	url = https://github.com/netzwirt/ansible-bind.git
+[submodule "ansible/playbooks/roles/ansiblebit.grafana"]
+	path = ansible/playbooks/roles/ansiblebit.grafana
+	url = https://github.com/ansiblebit/grafana
