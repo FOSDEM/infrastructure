@@ -1,5 +1,14 @@
 # Deployment with Ansible
 
+## Setup vault
+
+Secrets are encrypted with [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html).  To use ansible-fault transparently, create a file with the shared secret and export it via an env.
+
+    echo "SECRET" > ~/.fosdem_vault_pass.txt
+    export ANSIBLE_VAULT_PASSWORD_FILE=~/.fosdem_vault_pass.txt
+
+## Deploying to hosts
+
 Deploying the entire thing should be possible with just one command:
 
     ansible-playbook playbooks/site.yml
