@@ -108,6 +108,12 @@ def update_sysinfo(screen):
 	except AttributeError:
 		ip_link_mac = ""
 
+	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
+	if re.search('^ActiveState=active', rec_info) == None:
+		rec = False
+	else:
+		rec = True
+
 	# Prepare surface
 	surface = pygame.Surface((300, 130))
 	image = surface.convert()
@@ -116,6 +122,11 @@ def update_sysinfo(screen):
 	# Print output
 	font = pygame.font.SysFont("monospace", 13, True)
 	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, 0))
+	if rec:
+		image.blit(font.render("REC", 1, RED), (230, 0))
+	else:
+		image.blit(font.render("NOREC", 1, WHITE), (230, 0))
+
 	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, 15))
 	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, 30))
 
