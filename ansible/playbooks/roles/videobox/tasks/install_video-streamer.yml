@@ -14,23 +14,51 @@
   - bmd-h264prorecorder.bin
   - bmd-atemtvstudio.bin
 
-- name: install video-bmd-streamer script
+- name: install bmd-receiver script
+  template: src=video-streamer/bmd-receiver.sh dest=/usr/local/bin/bmd-receiver.sh owner=root group=root mode=0755
+
+- name: install video-streamer script
   template: src=video-streamer/video-streamer.sh dest=/usr/local/bin/video-streamer.sh owner=root group=root mode=0755
+
+- name: install video-recorder script
+  template: src=video-streamer/video-recorder.sh dest=/usr/local/bin/video-recorder.sh owner=root group=root mode=0755
 
 - name: install video-streamer service
   template: src=video-streamer/video-streamer.service dest=/etc/systemd/system/video-streamer.service owner=root group=root mode=0644
   register: videostreamer
 
-- name: perform a daemon-reload if video-streamer.service has been modified
+- name: install bmd-receiver service
+  template: src=video-streamer/bmd-receiver.service dest=/etc/systemd/system/bmd-receiver.service owner=root group=root mode=0644
+  register: bmdreceiver
+
+- name: install video-recorder service
+  template: src=video-streamer/video-recorder.service dest=/etc/systemd/system/video-recorder.service owner=root group=root mode=0644
+  register: videorecorder
+
+- name: perform a daemon-reload if any service has been modified
   shell: systemctl daemon-reload
-  when: videostreamer.changed
+  when: videostreamer.changed or bmdreceiver.changed or videorecorder.changed
+
+- name: enable bmd-receiver service
+  service: name=bmd-receiver enabled=yes state=started
 
 - name: enable video-streamer service
   service: name=video-streamer enabled=yes state=started
 
-- name: restart service if bmd-streamer.service has been modified
+# video-recorder IS NOT enabled by default/from ansible!
+# do not add it here.
+# vk 2017-01-28
+
+- name: restart service if bmd-receiver.service has been modified
+  service: name=bmd-receiver state=restarted
+  when: videostreamer.changed
+
+- name: restart service if video-streamer.service has been modified
   service: name=video-streamer state=restarted
   when: videostreamer.changed
 
 - name: enable video-streamer service
   systemd: name=video-streamer enabled=yes state=started daemon_reload=yes
+
+- name: enable bmd-receiver service
+  systemd: name=bmd-receiver enabled=yes state=started daemon_reload=yes
