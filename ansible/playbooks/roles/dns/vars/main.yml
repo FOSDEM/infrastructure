@@ -6,6 +6,7 @@ bind_zones:
 
 bind_acls:
   fosdem-dualstack:
+    - 185.175.216.0/22
     - 151.216.128.0/19
     - 2001:67C:1810:F055::1/64
   fosdem-v6only:
