@@ -7,3 +7,6 @@
 [submodule "ansible/playbooks/roles/ansiblebit.grafana"]
 	path = ansible/playbooks/roles/ansiblebit.grafana
 	url = https://github.com/ansiblebit/grafana
+[submodule "ansible/playbooks/roles/antoiner77.caddy"]
+	path = ansible/playbooks/roles/antoiner77.caddy
+	url = https://github.com/antoiner77/caddy-ansible.git

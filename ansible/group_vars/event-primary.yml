@@ -12,3 +12,10 @@ rsyslog_rsyslog_d_files:
       - '$template DynFile,"/var/log/router-log/%FROMHOST%"'
       - ':source , !isequal , "server-hostname" ?DynFile'
       - ':source , !isequal , "server-hostname" stop'
+
+caddy_config: |
+  {{ ansible_nodename }}
+  gzip
+  tls network@lists.fosdem.org 
+  root /var/www
+  
