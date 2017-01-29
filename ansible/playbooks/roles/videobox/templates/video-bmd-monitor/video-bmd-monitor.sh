@@ -1,6 +1,6 @@
 #! /bin/sh
 
-SERVICE='video-streamer.service'
+SERVICE='bmd-receiver.service'
 LOGFILE='/mnt/ssd/bmd-streamer.log'
 BMDTIMEOUT=15
 
