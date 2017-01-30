@@ -5,3 +5,4 @@
     - nginx-common
     - nginx-doc
     - nginx-extras
+    - php5-fpm
