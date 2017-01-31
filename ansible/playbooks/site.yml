@@ -66,6 +66,7 @@
   roles:
   - { role: event-primary, tags: [ 'event-primary' ] }
   - rsyslog
+  - debops.dhcpd
 
 - name: control-server
   hosts: control-server

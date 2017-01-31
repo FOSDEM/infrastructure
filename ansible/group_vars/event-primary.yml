@@ -94,3 +94,19 @@ grafana_conf_data: |
   [event_publisher]
 
   [dashboards.json]
+
+dhcpd_mode: 'server'
+dhcpd_ipversion: '4'
+dhcpd_interfaces:
+  - eth5
+dhcpd_lease_time: 1
+dhcpd_nameservers:
+  - 8.8.8.8
+  - 8.8.4.4
+dhcpd_subnets:
+  - subnet: '151.216.220.0'
+    netmask: '255.255.254.0'
+    routers: [ '151.216.221.254' ]
+    pools:
+      - comment: "Video vlan"
+        range: '151.216.221.200 151.216.221.249'
