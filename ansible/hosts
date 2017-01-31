@@ -35,7 +35,8 @@ streamfrontend2.video.fosdem.org
 streamfrontend3.video.fosdem.org
 
 [stream-dumper]
-streamdumper0.video.fosdem.org ansible_host=10.2.5.147
+streamdumper0.video.fosdem.org
+streamdumper1.video.fosdem.org
 
 [videobox]
 aw1120-slides.video.fosdem.org
