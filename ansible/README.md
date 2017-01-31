@@ -18,7 +18,7 @@ Usually, you will want to limit your deployment to specific host groups:
     ansible-playbook playbooks/site.yml --limit videobox
     ansible-playbook playbooks/site.yml --limit voctohost
     ansible-playbook playbooks/site.yml --limit streamer-backend
-    
+
 Note that when deploying to a local test setup, you can define ip addresses to deploy roles to in the hosts file in the root of the ansible config directory. If you want to test a voctop deployment for example to a machine with ip 192.168.178.30, change
     `voctop-h1308.video.fosdem.org ansible_host=10.2.5.197`.
 into
@@ -60,10 +60,6 @@ be at /dev/sda. It doens't matter if it has been partitioned or not, our
 playbooks will make sure all paritions are erased and the full disk will receive
 and ext4 filesystem.
 
-If you ever want to clear the SSDs (for example after the event is over), you
-can add `--extra-vars '{"destroy_all_videobox_data": True}'` when running the
-playbook.
-
 For the bmd-streamer process to work at all, you will need the BlackMagic
 firmware. You will need to drop those files here:
 
@@ -83,3 +79,15 @@ converted to a raw one. It's done by using ffmpeg, like this:
 `ffmpeg -i background.png -c:v rawvideo -pix_fmt:v yuv420p -c:v rawvideo -pix_fmt yuv420p -frames 1 -f rawvideo background.raw`
 
 This needs to go in `playbooks/roles/voctohost/files/config/`.
+
+## Erasing all data
+
+If you ever want to erase all data (for example after the event is over), you
+can add `--extra-vars '{"destroy_all_something_data": True}'` when running the
+playbook:
+
+    --extra-vars '{"destroy_all_videobox_data": True}'
+    --extra-vars '{"destroy_all_streambackend_data": True}'
+    --extra-vars '{"destroy_all_streamdumper_data": True}'
+
+Be careful. :)
