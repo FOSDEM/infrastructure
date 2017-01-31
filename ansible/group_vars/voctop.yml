@@ -6,7 +6,7 @@ sysctl_parameters: {
     "net.core.rmem_default": "8388608",
 }
 
-kernel_package: linux-image-4.7.0-0.bpo.1-amd64
+kernel_package: linux-image-4.8.0-0.bpo.2-amd64
 
 vocto_source_url_parameters: ?timeout=10000000&buffer_size=81921024&fifo_size=178481
 vocto_recording_directory: /mnt/video
