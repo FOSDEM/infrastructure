@@ -110,3 +110,8 @@ dhcpd_subnets:
     pools:
       - comment: "Video vlan"
         range: '151.216.221.200 151.216.221.249'
+dhcpd_hosts:
+  - hostname: 'msuriar-test'
+    address: '151.216.221.100'
+    ethernet: '00:00:00:00:00:00'
+
