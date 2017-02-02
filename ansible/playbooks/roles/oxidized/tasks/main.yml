@@ -6,6 +6,7 @@
     - cmake
     - libsqlite3-dev
     - libssl-dev
+    - pkg-config
 
 - name: Install oxidized
   gem: name={{item}} state=latest

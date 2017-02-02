@@ -67,6 +67,7 @@
   - { role: event-primary, tags: [ 'event-primary' ] }
   - rsyslog
   - debops.dhcpd
+  - oxidized
 
 - name: control-server
   hosts: control-server
