@@ -36,6 +36,7 @@ scrape_configs:
 
   - job_name: 'snmp_default'
     scrape_interval: 30s
+    scrape_timeout: 30s
     static_configs:
       - targets:
 {% for host in prometheus_snmp_default_targets %}
