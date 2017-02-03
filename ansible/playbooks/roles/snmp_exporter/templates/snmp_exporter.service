@@ -5,7 +5,7 @@ Description=Prometheus SNMP Exporter
 User=nobody
 Group=nogroup
 EnvironmentFile=-/etc/default/snmp_exporter
-ExecStart={{ snmp_exporter_path }}/snmp_exporter -config.file {{ snmp_exporter_path }}/snmp.yml -log.level debug
+ExecStart={{ snmp_exporter_path }}/snmp_exporter -config.file {{ snmp_exporter_install_path }}/snmp.yml -log.level debug
 KillMode=process
 Restart=always
 
