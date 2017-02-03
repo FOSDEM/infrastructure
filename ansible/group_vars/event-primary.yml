@@ -113,7 +113,7 @@ dhcpd_subnets:
   - subnet: '185.175.218.0'
     netmask: '255.255.255.0'
     options: |
-      domain-name-servers 8.8.8.8, 8.8.4.4;
+      option domain-name-servers 8.8.8.8, 8.8.4.4;
     routers: [ '185.175.218.254' ]
     pools:
       - comment: 'default pool'
