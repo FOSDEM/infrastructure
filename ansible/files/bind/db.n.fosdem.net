@@ -21,9 +21,6 @@ noc-sw          IN      A       192.168.211.253
 video-switch-1-sw IN A 192.168.211.248
 video-switch-2-sw IN A 192.168.211.247
 
-; Cisco prime. talk to pvaneynd
-prime          IN       A       164.15.59.241
-
 ; Wifi monitoring
 wifi1          IN       A       151.216.191.250
 wifi1          IN       AAAA    2001:67c:1810:f052:5054:ff:febb:35b3
