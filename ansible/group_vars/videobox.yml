@@ -40,10 +40,10 @@ video_streamer_config:
   - host: aw1121-cam
     destination: udp://227.0.1.2:9000
 
-  - host: aw1124-slides
+  - host: ud2119-slides
     destination: udp://227.0.2.1:9000
 
-  - host: aw1124-cam
+  - host: ud2119-cam
     destination: udp://227.0.2.2:9000
 
   - host: aw1125-slides
