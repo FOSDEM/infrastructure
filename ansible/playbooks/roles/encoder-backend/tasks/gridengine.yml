@@ -23,6 +23,13 @@
     uid: 2001
   register: fix_user
 
+- name: fix permissions on execd directory
+  file:
+    path: /var/spool/gridengine/execd
+    state: directory
+    owner: sgeadmin
+    group: sgeadmin
+
 - name: fix defaults file
   copy:
     src: gridengine.defaults
