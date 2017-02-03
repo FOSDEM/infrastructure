@@ -27,12 +27,6 @@
     group: root
     copy: no
 
-- name: Read community
-  command: cat /etc/snmp_community
-  register: snmp_community
-  always_run: true
-  changed_when: false
-
 - name: Install config file
   template:
     src: snmp.yml.j2
