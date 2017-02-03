@@ -5,6 +5,7 @@
     - ruby-dev
     - cmake
     - libsqlite3-dev
+    - libssh2-1-dev
     - libssl-dev
     - pkg-config
 
@@ -19,8 +20,4 @@
     system: yes
 
 - name: Install oxidized
-  gem: name={{item}} state=latest user_install=no
-  with_items:
-    - oxidized
-    - oxidized-script
-    - oxidized-web
+  command: gem install oxidized oxidized-script oxidized-web
