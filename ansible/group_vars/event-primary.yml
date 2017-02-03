@@ -337,3 +337,6 @@ dhcpd_hosts:
   - hostname: 'streamdump1'
     address: '185.175.218.11'
     ethernet: '3c:97:0e:65:fb:3c'
+  - hostname: 'gleb'
+    address: '185.175.218.212'
+    ethernet: '00:21:cc:6c:f8:1f'
