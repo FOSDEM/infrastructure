@@ -1,6 +1,8 @@
 bind_zones:
   conference.fosdem.net:
     type: master
+  n.fosdem.net:
+    type: master
   v.conference.fosdem.net:
     type: master
 
