@@ -17,6 +17,7 @@
   - 151.216.191.254 # asr1k po1.4001
 - 151.216.220.0/23 # wired video
   - 151.216.221.254 # asr1k po1.4006
+- 151.216.224.0/20 # nat64 pool
 - 185.175.216.240/28 # infra servers
   - 185.175.216.250 # server001.fosdem.net eth6
   - 185.175.216.254 # asr1k po1.212
@@ -36,5 +37,6 @@
   - 2001:67c:1810:f051::/64 # FOSDEM SSID
   - 2001:67c:1810:f052::/64 # FOSDEM wired clients
   - 2001:67c:1810:f053::/64 # Wired video LAN
+  - 2001:67c:1810:f054::/64 # infra servers
   - 2001:67c:1810:f055::/64 # FOSDEM-ancient SSID
 
