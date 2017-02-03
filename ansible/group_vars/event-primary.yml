@@ -112,11 +112,12 @@ dhcpd_subnets:
         range: '151.216.221.200 151.216.221.249'
   - subnet: '185.175.218.0'
     netmask: '255.255.255.0'
-    routers: [ '185.175.218.254' ]
-    comment: 'Video'
-    range: '185.175.218.1 185.175.218.250'
     options: |
       domain-name-servers 8.8.8.8, 8.8.4.4;
+    routers: [ '185.175.218.254' ]
+    pools:
+      - comment: 'default pool'
+        range: '185.175.218.1 185.175.218.250'
 dhcpd_hosts:
   - hostname: 'aw1120-slides'
     address: '185.175.218.128'
