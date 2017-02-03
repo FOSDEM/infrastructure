@@ -22,8 +22,8 @@
     fstype: nfs
     state: mounted
   with_items:
-    - A
-    - U
+    - H
+    - K
 
 - name: mount sreview srv directories (A and U)
   mount:
@@ -32,8 +32,8 @@
     fstype: nfs
     state: mounted
   with_items:
-    - H
-    - K
+    - A
+    - U
 
 - name: mount sreview auxiliary directories
   mount:
