@@ -4,7 +4,7 @@
 $config = array(
 "aw1120" => "vocto-aw1120.video.fosdem.org",
 "aw1121" => "vocto-aw1121.video.fosdem.org",
-"aw1124" => "vocto-aw1124.video.fosdem.org",
+"ud2119" => "vocto-ud2119.video.fosdem.org",
 "aw1125" => "vocto-aw1125.video.fosdem.org",
 "aw1126" => "vocto-aw1126.video.fosdem.org",
 "h1301" => "vocto-h1301.video.fosdem.org",

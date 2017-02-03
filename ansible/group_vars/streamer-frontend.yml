@@ -13,7 +13,7 @@ stream_backends:
   - room: aw1121
     backend: streambackend0.video.fosdem.org
 
-  - room: aw1124
+  - room: ud2119
     backend: streambackend0.video.fosdem.org
 
   - room: aw1125

@@ -28,13 +28,13 @@ video_dump_source:
   - host: aw1121-pip
     source: udp://227.0.1.3:9000
 
-  - host: aw1124-slides
+  - host: ud2119-slides
     source: udp://227.0.2.1:9000
 
-  - host: aw1124-cam
+  - host: ud2119-cam
     source: udp://227.0.2.2:9000
 
-  - host: aw1124-pip
+  - host: ud2119-pip
     source: udp://227.0.2.3:9000
 
   - host: aw1125-slides
