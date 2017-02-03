@@ -1,0 +1,96 @@
+- targets:
+  - avq.n.fosdem.net:2003
+  labels:
+    stream: vocto-aw1120
+- targets:
+  - avq.n.fosdem.net:2013
+  labels:
+    stream: vocto-aw1121
+- targets:
+  - avq.n.fosdem.net:2023
+  labels:
+    stream: vocto-aw1124
+- targets:
+  - avq.n.fosdem.net:2033
+  labels:
+    stream: vocto-aw1125
+- targets:
+  - avq.n.fosdem.net:2043
+  labels:
+    stream: vocto-aw1126
+- targets:
+  - avq.n.fosdem.net:2103
+  labels:
+    stream: vocto-h1301
+- targets:
+  - avq.n.fosdem.net:2113
+  labels:
+    stream: vocto-h1302
+- targets:
+  - avq.n.fosdem.net:2123
+  labels:
+    stream: vocto-h1308
+- targets:
+  - avq.n.fosdem.net:2133
+  labels:
+    stream: vocto-h1309
+- targets:
+  - avq.n.fosdem.net:2143
+  labels:
+    stream: vocto-h2213
+- targets:
+  - avq.n.fosdem.net:2153
+  labels:
+    stream: vocto-h2214
+- targets:
+  - avq.n.fosdem.net:2163
+  labels:
+    stream: vocto-h2215
+- targets:
+  - avq.n.fosdem.net:2203
+  labels:
+    stream: vocto-janson
+- targets:
+  - avq.n.fosdem.net:2303
+  labels:
+    stream: vocto-k1105
+- targets:
+  - avq.n.fosdem.net:2313
+  labels:
+    stream: vocto-k3201
+- targets:
+  - avq.n.fosdem.net:2323
+  labels:
+    stream: vocto-k3401
+- targets:
+  - avq.n.fosdem.net:2333
+  labels:
+    stream: vocto-k4201
+- targets:
+  - avq.n.fosdem.net:2343
+  labels:
+    stream: vocto-k4401
+- targets:
+  - avq.n.fosdem.net:2353
+  labels:
+    stream: vocto-k4601
+- targets:
+  - avq.n.fosdem.net:2403
+  labels:
+    stream: vocto-ua2114
+- targets:
+  - avq.n.fosdem.net:2413
+  labels:
+    stream: vocto-ua2220
+- targets:
+  - avq.n.fosdem.net:2423
+  labels:
+    stream: vocto-ub2252a
+- targets:
+  - avq.n.fosdem.net:2433
+  labels:
+    stream: vocto-ud2120
+- targets:
+  - avq.n.fosdem.net:2443
+  labels:
+    stream: vocto-ud2218a
