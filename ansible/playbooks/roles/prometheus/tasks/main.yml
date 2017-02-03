@@ -80,3 +80,13 @@
 
 - name: Enable and start prometheus service
   service: name=prometheus state=started enabled=yes
+
+- name: Deploy avq targets
+  copy:
+    src: avq.yml
+    dest: "{{ prometheus_config_path }}/"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644
+  notify:
+  - reload prometheus
