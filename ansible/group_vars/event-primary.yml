@@ -111,7 +111,7 @@ dhcpd_subnets:
     routers: [ '185.175.218.254' ]
     pools:
       - comment: 'default pool'
-        range: '185.175.218.1 185.175.218.250'
+        range: '185.175.218.200 185.175.218.239'
 dhcpd_hosts:
   - hostname: 'aw1120-slides'
     address: '185.175.218.128'
@@ -329,3 +329,9 @@ dhcpd_hosts:
   - hostname: 'vocto-ud2218a'
     address: '185.175.218.87'
     ethernet: 'f0:de:f1:b7:e2:5f'
+  - hostname: 'streamdump0'
+    address: '185.175.218.10'
+    ethernet: '3c:97:0e:93:18:14'
+  - hostname: 'streamdump1'
+    address: '185.175.218.11'
+    ethernet: '3c:97:0e:65:fb:3c'
