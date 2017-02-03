@@ -23,15 +23,16 @@ rsyslog_rsyslog_d_files:
 
 caddy_features: prometheus
 caddy_config: |
-  {{ ansible_nodename }}
-  gzip
-  tls network@lists.fosdem.org 
-  root /var/www
-  prometheus
-  log /var/log/caddy/access.log
-  proxy /prometheus localhost:9090
-  proxy / localhost:3000 {
-    transparent
+  {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
+    gzip
+    tls network@lists.fosdem.org
+    root /var/www
+    prometheus
+    log /var/log/caddy/access.log
+    proxy /prometheus localhost:9090
+    proxy / localhost:3000 {
+      transparent
+    }
   }
 
 grafana_conf_data: |
