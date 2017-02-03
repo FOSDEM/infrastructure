@@ -29,11 +29,32 @@ caddy_config: |
     root /var/www
     prometheus
     log /var/log/caddy/access.log
-    proxy /prometheus localhost:9090
     proxy / localhost:3000 {
       transparent
     }
   }
+  grafana.n.fosdem.net {
+    proxy / localhost:3000 {
+      transparent
+    }
+  }
+  prometheus.n.fosdem.net {
+    basicauth / admin {{ grafana_admin_password }}
+    proxy / localhost:9090 {
+      transparent
+    }
+  }
+  prime.n.fosdem.net {
+    basicauth / admin {{ grafana_admin_password }}
+    proxy / https://so2wcs.ulb.ac.be {
+      transparent
+      insecure_skip_verify
+    }
+  }
+  oxidized.n.fosdem.net {
+    basicauth / admin {{ grafana_admin_password }}
+  }
+
 
 grafana_conf_data: |
   app_mode = development
