@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
-                        2017020300 ; serial
+                        2017020301 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -31,3 +31,9 @@ wifi2          IN       A       151.216.191.251
 wifi2          IN       AAAA    2001:67c:1810:f052:702a:6460:9fbb:1d42
 wifidash       IN       CNAME   wifi1
 wifi-kvm       IN       CNAME   wifi2
+
+; CNAMEs
+prime          IN       CNAME   server001.fosdem.net.
+prometheus     IN       CNAME   server001.fosdem.net.
+grafana        IN       CNAME   server001.fosdem.net.
+oxydized       IN       CNAME   server001.fosdem.net.
