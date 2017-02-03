@@ -8,8 +8,18 @@
     - libssl-dev
     - pkg-config
 
+- name: Add oxidized user
+  user:
+    name: oxidized
+    group: oxidized
+    home: /opt/oxidized
+    createhome: yes
+    shell: /bin/bash
+    comment: "oxidized user"
+    system: yes
+
 - name: Install oxidized
-  gem: name={{item}} state=latest
+  gem: name={{item}} state=latest user_install=no
   with_items:
     - oxidized
     - oxidized-script
