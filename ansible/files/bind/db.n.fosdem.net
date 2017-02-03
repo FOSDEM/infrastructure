@@ -1,0 +1,33 @@
+$TTL 3600
+@               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
+                        2017020300 ; serial
+                        600 ; refresh
+                        300 ; retry
+                        604800 ; expire
+                        3600 ; default_ttl
+                        )
+@               IN      NS      conference-ns1.fosdem.net.
+
+asr1k           IN      A       213.246.232.54
+asr1k           IN      AAAA    2001:920:0:1::5F
+
+core-sw         IN      A       192.168.211.254
+noc-sw          IN      A       192.168.211.253
+h-sw            IN      A       192.168.211.252
+j-sw            IN      A       192.168.211.251
+aw-sw           IN      A       192.168.211.250
+k-sw            IN      A       192.168.211.240
+noc-sw          IN      A       192.168.211.253
+video-switch-1-sw IN A 192.168.211.248
+video-switch-2-sw IN A 192.168.211.247
+
+; Cisco prime. talk to pvaneynd
+prime          IN       A       164.15.59.241
+
+; Wifi monitoring
+wifi1          IN       A       151.216.191.250
+wifi1          IN       AAAA    2001:67c:1810:f052:5054:ff:febb:35b3
+wifi2          IN       A       151.216.191.251
+wifi2          IN       AAAA    2001:67c:1810:f052:702a:6460:9fbb:1d42
+wifidash       IN       CNAME   wifi1
+wifi-kvm       IN       CNAME   wifi2

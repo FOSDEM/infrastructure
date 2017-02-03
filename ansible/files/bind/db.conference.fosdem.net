@@ -13,41 +13,9 @@ $TTL 3600
 ns0             IN      A       151.216.191.253
 ns0             IN      AAAA    2001:67c:1810:f052::53
 
-tradesurplus    IN      A       151.216.191.253
-tradesurplus    IN      AAAA    2001:67c:1810:f052::53
-monitor         IN      CNAME   tradesurplus
-
-tradedefecit    IN      A       151.216.191.252
-tradedefecit    IN      AAAA    2001:67c:1810:f052:215:17ff:fe8a:9860
-
-asr1k           IN      A       213.246.232.54
-asr1k           IN      AAAA    2001:920:0:1::5F
-
-grafana         IN      A       82.196.2.137
-grafana         IN      AAAA    2a03:b0c0:0:1010::be:f001
-prometheus      IN      CNAME   grafana
-
 ; Printers; static leases defined on ASR, talk to msuriar@
 printer1        IN      A       151.216.190.1
 printer2        IN      A       151.216.190.2
 printer3        IN      A       151.216.190.3
 printer4        IN      A       151.216.190.4
 
-; Switch management addresses. talk to msuriar/RichiH
-core-sw         IN      A       192.168.211.254
-noc-sw          IN      A       192.168.211.253
-h-sw            IN      A       192.168.211.252
-j-sw            IN      A       192.168.211.251
-aw-sw           IN      A       192.168.211.250
-k-sw            IN      A       192.168.211.240
-
-; Cisco prime. talk to pvaneynd
-prime          IN       A       164.15.59.241
-
-; Wifi monitoring
-wifi1          IN       A       151.216.191.250
-wifi1          IN       AAAA    2001:67c:1810:f052:5054:ff:febb:35b3
-wifi2          IN       A       151.216.191.251
-wifi2          IN       AAAA    2001:67c:1810:f052:702a:6460:9fbb:1d42
-wifidash       IN       CNAME   wifi1
-wifi-kvm       IN       CNAME   wifi2
