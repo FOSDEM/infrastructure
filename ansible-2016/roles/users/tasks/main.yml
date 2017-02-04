@@ -67,3 +67,12 @@
     groups=sudo
     append=yes
 - authorized_key: user=juliusv key=https://github.com/juliusv.keys
+
+# Basti Schubert (vouched for by RichiH)
+- user:
+    name=Basti
+    comment="Basti 'Dickbutt' Schubert"
+    shell=/usr/bin/zsh
+    groups=sudo
+    append=yes
+- authorized_key: user=basti key=https://github.com/bastischubert.keys
