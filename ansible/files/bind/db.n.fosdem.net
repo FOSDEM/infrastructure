@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
-                        2017020303 ; serial
+                        2017020400 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
