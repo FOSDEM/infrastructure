@@ -25,9 +25,9 @@ scrape_configs:
     scheme: https
     basic_auth:
       username: admin
-      password: {{ prometheus_password }}
+      password: '{{ prometheus_password }}'
     params:
       match[]:
-        - '{__name__=".+"}'
+        - '{__name__=~".+"}'
     static_configs:
-      - targets: ['prometheus.n.fosdem.net:80']
+      - targets: ['prometheus.n.fosdem.net']
