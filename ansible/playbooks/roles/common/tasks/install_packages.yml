@@ -25,6 +25,8 @@
     - tcpdump
     - vim
     - vnstat
+    - vcsh
+    - zsh
 
 - name: "Add root screenrc"
   copy:
