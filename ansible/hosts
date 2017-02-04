@@ -16,9 +16,9 @@ review.video.fosdem.org
 [encoder-backend]
 encoder0.video.fosdem.org system_hostname=encoder0
 encoder1.video.fosdem.org system_hostname=encoder1
-#encoder2.video.fosdem.org system_hostname=encoder2
-#encoder3.video.fosdem.org system_hostname=encoder3
-#encoder4.video.fosdem.org system_hostname=encoder4
+encoder2.video.fosdem.org system_hostname=encoder2 ansible_host=51.15.63.222
+encoder3.video.fosdem.org system_hostname=encoder3 ansible_host=51.15.63.12
+encoder4.video.fosdem.org system_hostname=encoder4 ansible_host=51.15.47.123
 #encoder5.video.fosdem.org system_hostname=encoder5
 #encoder6.video.fosdem.org system_hostname=encoder6
 #encoder7.video.fosdem.org system_hostname=encoder7
