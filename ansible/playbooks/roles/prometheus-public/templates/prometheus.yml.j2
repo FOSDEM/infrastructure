@@ -5,7 +5,7 @@ global:
   # scrape_timeout is set to the global default (10s).
 
   external_labels:
-      monitor: 'dashboard.fosdem.net'
+      monitor: 'dashboard.fosdem.org'
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -17,13 +17,17 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['dashboard.fosdem.net:9090']
+      - targets: ['dashboard.fosdem.org:9090']
 
   - job_name: 'federate'
     metrics_path: '/federate'
     honor_labels: true
+    scheme: https
+    basic_auth:
+      username: admin
+      password: {{ prometheus_password }}
     params:
       match[]:
         - '{__name__=".+"}'
     static_configs:
-      - targets: ['server001.fosdem.net:9090']
+      - targets: ['prometheus.n.fosdem.net:80']
