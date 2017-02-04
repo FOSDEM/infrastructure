@@ -1,0 +1,82 @@
+- name: Set OS = Linux arch = amd64
+  set_fact:
+    prometheus_tarball_url: "{{ prometheus_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+    prometheus_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64"
+  when: ansible_system == "Linux" and ansible_architecture == "x86_64"
+
+- name: Set OS = Linux arch = arm
+  set_fact:
+    prometheus_tarball_url: "{{ prometheus_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-armv7.tar.gz"
+    prometheus_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-armv7"
+  when: ansible_system == "Linux" and ansible_architecture == "armv7l"
+
+- name: create Prometheus group
+  group: name={{ prometheus_group }}  state=present
+
+- name: create Prometheus user
+  user:
+    name: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    createhome: no
+    shell: /sbin/nologin
+    comment: "Prometheus User"
+    state: present
+
+- name: set permissions, owner and group
+  file:
+    path: "{{ prometheus_install_path }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "go-w"
+    recurse: yes
+
+- name: mkdir for config and data
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_rule_path }}"
+    - "{{ prometheus_file_sd_config_path }}"
+    - "{{ prometheus_db_path }}"
+
+- name: untar prometheus tarball
+  unarchive:
+    src: "{{ prometheus_tarball_url }}"
+    dest: "{{ prometheus_install_path }}"
+    mode: 0755
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    copy: no
+
+- name: Configure Prometheus
+  notify:
+  - reload prometheus
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_config_path }}/prometheus.yml"
+
+- name: Configure rules files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_rule_path }}/"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644
+  with_fileglob:
+    - rules/*.rules
+  notify:
+  - reload prometheus
+
+- name: Install prometheus systemd service file
+  notify:
+  - reload systemd
+  template:
+    src: prometheus.service
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Enable and start prometheus service
+  service: name=prometheus state=started enabled=yes

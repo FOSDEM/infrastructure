@@ -1,0 +1,12 @@
+prometheus_user:   prometheus
+prometheus_group:  prometheus
+
+prometheus_install_path:         /srv/prometheus
+prometheus_config_path:          /srv/prometheus/config
+prometheus_db_path:              /srv/prometheus/data
+prometheus_rule_path:            "{{ prometheus_config_path }}/rules"
+prometheus_file_sd_config_path:  "{{ prometheus_config_path }}/targets"
+
+
+prometheus_version: 1.4.1
+prometheus_download_url: https://github.com/prometheus/prometheus/releases/download
