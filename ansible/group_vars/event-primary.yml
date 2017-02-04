@@ -1,7 +1,7 @@
 ---
 
 prometheus_snmp_default_targets:
-  - router001.fosdem.net
+  - asr1k.n.fosdem.net
   - k-sw.n.fosdem.net
   - video-switch-1-sw.n.fosdem.net
   - video-switch-2-sw.n.fosdem.net
