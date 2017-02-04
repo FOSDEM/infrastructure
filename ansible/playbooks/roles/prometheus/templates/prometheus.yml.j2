@@ -53,6 +53,23 @@ scrape_configs:
       - target_label: __address__
         replacement: 127.0.0.1:9116  # SNMP exporter.
 
+  - job_name: 'snmp_wlc'
+    scrape_interval: 60s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+        - 172.33.17.250
+    metrics_path: /snmp
+    params:
+      module: [cisco_wlc]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9116  # SNMP exporter.
+
   - job_name: 'caddy'
     static_configs:
       - targets:
@@ -63,3 +80,4 @@ scrape_configs:
     file_sd_configs:
     - files:
       - {{ prometheus_config_path }}/avq.yml
+
