@@ -22,7 +22,7 @@
   file:
     path: "{{ item }}"
     state: directory
-    mode: 1777
+    mode: 01777
   with_items:
     - "{{ node_exporter_textfiles_path }}"
 
