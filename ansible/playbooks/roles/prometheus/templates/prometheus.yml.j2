@@ -81,3 +81,9 @@ scrape_configs:
     - files:
       - {{ prometheus_config_path }}/avq.yml
 
+  - job_name: 'swag'
+    scrape_interval: "15s"
+    metrics_path: /stats/stats.php
+    static_configs:
+      - targets:
+        - fosdem.thepreview.be
