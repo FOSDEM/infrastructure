@@ -7,7 +7,7 @@ ExecStart=/usr/local/bin/video-status.py
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
