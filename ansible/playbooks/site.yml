@@ -75,6 +75,12 @@
   roles:
   - { role: control-server, tags: [ 'control-server' ] }
 
+- name: public-dashboard
+  hosts: public-dashboard
+  remote_user: root
+  roles:
+  - { role: public-dashboard, tags: [ 'public-dashboard' ] }
+
 - name: videobox
   hosts: videobox
   remote_user: root
