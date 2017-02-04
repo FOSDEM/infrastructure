@@ -1,2 +1,11 @@
 instance_cpu:node_cpu_not_idle:rate1m = sum by (instance,cpu) keep_common (rate(node_cpu{mode!="idle"}[1m]))
 instance_mode:node_cpu_not_idle:rate1m = sum by (instance,mode) keep_common (rate(node_cpu{mode!="idle"}[1m]))
+
+
+ALERT NodeDown
+  IF up{job="node"} == 0
+  FOR 5m
+  ANNOTATIONS {
+    summary = "Node is down",
+    description = "The node {{$labels.instance}} has been down for 5 min."
+  }
