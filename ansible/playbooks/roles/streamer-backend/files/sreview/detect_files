@@ -1,24 +1,28 @@
 #!/usr/bin/perl -w
 
+# Sreview, a web-based video review and transcoding system
+# Copyright (c) 2016-2017, Wouter Verhelst <w@uter.be>
+#
+# Sreview is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+
 use strict;
 use warnings;
 
 use DBI;
 
-use Glib;
-use Glib::Object::Introspection;
 use Net::Domain qw(hostname);
-
-Glib::Object::Introspection->setup(
-	basename => "Gst",
-	version => "1.0",
-	package => "Gst",
-	);
-Glib::Object::Introspection->setup(
-	basename => "GstPbutils",
-	version => "1.0",
-	package => "Gst::Pbutils",
-	);
 
 our $config;
 require '/etc/sreview/config.pl';
@@ -33,9 +37,6 @@ my $update = $dbh->prepare("UPDATE raw_files SET endtime = starttime + ?::interv
 
 my @files = glob($config->{inputglob});
 
-Gst::init(\@ARGV);
-my $disc = Gst::Pbutils::Discoverer->new(1_000_000_000);
-
 my $host = hostname() . ".video.fosdem.org";
 
 foreach my $file(@files) {
@@ -46,12 +47,17 @@ foreach my $file(@files) {
 	next unless defined($room);
 	$exists->execute($url);
 	my $row = $exists->fetchrow_hashref;
-	my $info = $disc->discover_uri(Glib->filename_to_uri($file, undef));
-	my $length = $info->get_duration() / 1_000_000_000;
+	open INFO, "ffprobe $file|";
+	my $length;
+	while(my $line = <INFO>) {
+		next unless $line =~ /Duration: ([0-9]+:[0-9]+:[0-9]+.[0-9]+)/;
+		$length = $1;
+	}
+	close INFO;
 	if($row->{count} eq '0') {
-		$add->execute($url, $room, $room, "$start_day $start_hour", "$start_day $start_hour", "$length seconds");
+		$add->execute($url, $room, $room, "$start_day $start_hour", "$start_day $start_hour", $length);
 	} else {
-		$update->execute("$length seconds", $url);
+		$update->execute("$length", $url);
 	}
 }
 
