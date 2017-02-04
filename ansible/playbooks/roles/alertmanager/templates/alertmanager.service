@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus Alertmanager
+
+[Service]
+User=nobody
+Group=nogroup
+EnvironmentFile=-/etc/default/alertmanager
+ExecStart={{ alertmanager_path }}/alertmanager
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -17,6 +17,13 @@
     mode: 0755
   with_items:
     - "{{ node_exporter_install_path }}"
+
+- name: Creating node_exporter textfile dir
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 01777
+  with_items:
     - "{{ node_exporter_textfiles_path }}"
 
 - name: untar node_exporter tarball

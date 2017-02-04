@@ -8,5 +8,5 @@ prometheus_rule_path:            "{{ prometheus_config_path }}/rules"
 prometheus_file_sd_config_path:  "{{ prometheus_config_path }}/targets"
 
 
-prometheus_version: 1.5.0
+prometheus_version: 1.4.1
 prometheus_download_url: https://github.com/prometheus/prometheus/releases/download
