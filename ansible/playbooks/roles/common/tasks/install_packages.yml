@@ -21,6 +21,7 @@
     - mosh
     - mtr-tiny
     - screen
+    - sipcalc
     - strace
     - tcpdump
     - vim
