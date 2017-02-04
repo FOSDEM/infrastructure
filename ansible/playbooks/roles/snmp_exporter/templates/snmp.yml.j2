@@ -4,6 +4,7 @@ default:
   walk:
   - 1.3.6.1.2.1.1.3 # sysUpTime
   - 1.3.6.1.2.1.2.2 # ifTable
+  - 1.3.6.1.2.1.16.1.1 # etherStatsTable
   - 1.3.6.1.2.1.31.1.1 # ifXTable
   metrics:
   - name: sysUpTime
@@ -656,6 +657,101 @@ default:
       - ifIndex
       labelname: ifAlias
       oid: 1.3.6.1.2.1.31.1.1.1.18
+  - name: etherStatsIndex
+    oid: 1.3.6.1.2.1.16.1.1.1.1
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsDropEvents
+    oid: 1.3.6.1.2.1.16.1.1.1.3
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsOctets
+    oid: 1.3.6.1.2.1.16.1.1.1.4
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts
+    oid: 1.3.6.1.2.1.16.1.1.1.5
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsBroadcastPkts
+    oid: 1.3.6.1.2.1.16.1.1.1.6
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsMulticastPkts
+    oid: 1.3.6.1.2.1.16.1.1.1.7
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsCRCAlignErrors
+    oid: 1.3.6.1.2.1.16.1.1.1.8
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsUndersizePkts
+    oid: 1.3.6.1.2.1.16.1.1.1.9
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsOversizePkts
+    oid: 1.3.6.1.2.1.16.1.1.1.10
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsFragments
+    oid: 1.3.6.1.2.1.16.1.1.1.11
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsJabbers
+    oid: 1.3.6.1.2.1.16.1.1.1.12
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsCollisions
+    oid: 1.3.6.1.2.1.16.1.1.1.13
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts64Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.14
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts65to127Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.15
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts128to255Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.16
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts256to511Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.17
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts512to1023Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.18
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsPkts1024to1518Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.19
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
+  - name: etherStatsStatus
+    oid: 1.3.6.1.2.1.16.1.1.1.21
+    indexes:
+    - labelname: etherStatsIndex
+      type: Integer
 cisco_wlc:
   auth:
     community: {{snmp_community_wlc}}
