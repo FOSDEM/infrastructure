@@ -31,7 +31,8 @@ wifidash       IN       CNAME   wifi1
 wifi-kvm       IN       CNAME   wifi2
 
 ; CNAMEs
-prime          IN       CNAME   server001.fosdem.net.
-prometheus     IN       CNAME   server001.fosdem.net.
+alertmanager   IN       CNAME   server001.fosdem.net.
 grafana        IN       CNAME   server001.fosdem.net.
 oxidized       IN       CNAME   server001.fosdem.net.
+prime          IN       CNAME   server001.fosdem.net.
+prometheus     IN       CNAME   server001.fosdem.net.
