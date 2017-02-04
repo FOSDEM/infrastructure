@@ -20,4 +20,4 @@ ffmpeg -y -nostdin \
 	-map 0:v \
 	-map 0:a \
 	\
-	-y -f mpegts "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}"
+	-y -f mpegts "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}"'&pkg_size=1000'
