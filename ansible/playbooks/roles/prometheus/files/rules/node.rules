@@ -9,3 +9,11 @@ ALERT NodeDown
     summary = "Node is down",
     description = "The node {{$labels.instance}} has been down for 5 min."
   }
+
+ALERT SoundLow
+  IF ebu_r128 < -50
+  FOR 2m
+  ANNOTATIONS {
+    summary = "Stream {{$labels.stream}} sound level low",
+    description = "https://grafana.n.fosdem.net/dashboard/db/video-audio"
+  }
