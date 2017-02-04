@@ -1,0 +1,4 @@
+dependencies:
+  - prometheus
+  - ansiblebit.grafana
+  - antoiner77.caddy
