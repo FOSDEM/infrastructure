@@ -53,3 +53,14 @@ ALERT DiskWillFillIn4Hours
     summary = "Disk will be full in 4 hours or less",
     description = "https://grafana.n.fosdem.net/dashboard/db/node"
   }
+
+ALERT DiskReadOnly
+  IF node_filesystem_readonly{fstype=~"(ext.|vfat|xfs)"} == 1
+  FOR 1m
+  LABELS {
+    severity="critical"
+  }
+  ANNOTATIONS {
+    summary = "Disk is read-only",
+    description = "https://grafana.n.fosdem.net/dashboard/db/node"
+  }
