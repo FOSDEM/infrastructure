@@ -74,7 +74,7 @@ scrape_configs:
         - localhost:9180
 
   - job_name: 'avq'
-    scrape_interval: "5s"
+    scrape_interval: "1s"
     file_sd_configs:
     - files:
       - {{ prometheus_config_path }}/avq.yml
