@@ -54,6 +54,12 @@ caddy_config: |
   oxidized.n.fosdem.net {
     basicauth / admin {{ grafana_admin_password }}
   }
+  alertmanager.n.fosdem.net {
+    basicauth / admin {{ grafana_admin_password }}
+    proxy / localhost:9093 {
+      transparent
+    }
+  }
 
 
 grafana_conf_data: |

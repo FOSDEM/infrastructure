@@ -1,6 +1,0 @@
----
-- name: reload ssh
-  service: name=sshd state=reloaded
-
-- name: reload systemd
-  command: systemctl daemon-reload
