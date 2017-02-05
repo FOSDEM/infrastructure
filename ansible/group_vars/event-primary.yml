@@ -264,7 +264,7 @@ dhcpd_hosts:
     ethernet: '02:55:0b:42:3e:91'
   - hostname: 'ub2252a-slides'
     address: '185.175.218.170'
-    ethernet: '02:43:06:c2:4d:41'
+    ethernet: '02:56:03:42:ba:91'
   - hostname: 'ub2252a-cam'
     address: '185.175.218.171'
     ethernet: '02:c2:04:81:0a:97'
