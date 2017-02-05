@@ -2,10 +2,10 @@
 Description=Prometheus Alertmanager
 
 [Service]
-User=nobody
-Group=nogroup
+User={{ alertmanager_user }}
+Group={{ alertmanager_group }}
 EnvironmentFile=-/etc/default/alertmanager
-ExecStart={{ alertmanager_path }}/alertmanager
+ExecStart={{ alertmanager_path }}/alertmanager -config.file {{ alertmanager_install_path }}/alertmanager.yml -storage.path {{ alertmanager_data_path }}
 Restart=always
 
 [Install]

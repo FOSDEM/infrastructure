@@ -68,6 +68,7 @@
   - rsyslog
   - debops.dhcpd
   - oxidized
+  - alertmanager
 
 - name: control-server
   hosts: control-server

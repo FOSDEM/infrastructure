@@ -10,22 +10,37 @@
     alertmanager_path: "{{ alertmanager_install_path }}/alertmanager-{{ alertmanager_version }}.linux-armv7"
   when: ansible_system == "Linux" and ansible_architecture == "armv7l"
 
+- name: create Alertmanager group
+  group: name={{ alertmanager_group }}  state=present
+
+- name: create Alertmanager user
+  user:
+    name: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
+    createhome: no
+    shell: /sbin/nologin
+    comment: "Alertmanager User"
+    state: present
+
 - name: Creating alertmanager dirs
   file:
     path: "{{ item }}"
     state: directory
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
     mode: 0755
   with_items:
     - "{{ alertmanager_install_path }}"
-    - "{{ alertmanager_textfiles_path }}"
+    - "{{ alertmanager_config_path }}"
+    - "{{ alertmanager_data_path }}"
 
 - name: untar alertmanager tarball
   unarchive:
     src: "{{ alertmanager_tarball_url }}"
     dest: "{{ alertmanager_install_path }}"
     mode: 0755
-    owner: root
-    group: root
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
     copy: no
 
 - name: Install alertmanager systemd service file
@@ -50,5 +65,7 @@
   template:
     src: alertmanager.yml.j2
     dest: "{{ alertmanager_install_path }}/alertmanager.yml"
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
   notify:
   - restart alertmanager
