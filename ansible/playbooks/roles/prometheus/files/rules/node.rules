@@ -44,7 +44,7 @@ ALERT DiskFull
   }
 
 ALERT DiskWillFillIn4Hours
-  IF predict_linear(node_filesystem_free[1h], 4*3600) < 0
+  IF predict_linear(node_filesystem_avail{fstype=~"(ext.|vfat|xfs)"}[1h], 4*3600) < 0
   FOR 5m
   LABELS {
     severity="critical"
