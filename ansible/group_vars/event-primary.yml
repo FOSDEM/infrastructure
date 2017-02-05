@@ -249,7 +249,7 @@ dhcpd_hosts:
     ethernet: '02:01:05:82:32:30'
   - hostname: 'k4601-cam'
     address: '185.175.218.165'
-    ethernet: '02:17:0b:02:cb:fc'
+    ethernet: '02:43:06:c2:9c:85'
   - hostname: 'ua2114-slides'
     address: '185.175.218.166'
     ethernet: '02:14:04:82:f6:fc'
