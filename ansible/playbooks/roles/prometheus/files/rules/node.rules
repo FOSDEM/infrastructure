@@ -11,7 +11,7 @@ ALERT NodeDown
   }
 
 ALERT SoundLow
-  IF ebu_r128 < -20
+  IF ebu_r128 < -20 and on (stream) sreview_roomstate == 1
   FOR 2m
   ANNOTATIONS {
     summary = "Stream {{$labels.stream}} sound level low -20",
@@ -19,7 +19,7 @@ ALERT SoundLow
   }
 
 ALERT SoundCritical
-  IF ebu_r128 < -50
+  IF ebu_r128 < -50 and on (stream) sreview_roomstate == 1
   FOR 2m
   ANNOTATIONS {
     summary = "Stream {{$labels.stream}} sound level CRITICAL below -50",
