@@ -74,6 +74,7 @@
 - name: Install prometheus systemd service file
   notify:
   - reload systemd
+  - restart prometheus
   template:
     src: prometheus.service
     dest: /etc/systemd/system/prometheus.service
