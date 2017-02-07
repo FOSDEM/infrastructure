@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+	<td>
+	  janson<br/>
+	  <img src="janson/cam.jpg"/><br/>
+	  <img src="janson/grab.jpg"/>
+	  <img src="janson/room.jpg"/>
+	</td>
+      </tr>
+    </table>
+  </body>
+
+</html>
+
+
+

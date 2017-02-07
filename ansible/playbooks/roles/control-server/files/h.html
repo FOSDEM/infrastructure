@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+	<td>
+	  h1301<br/>
+	  <img src="h1301/cam.jpg"/><br/>
+	  <img src="h1301/grab.jpg"/>
+	  <img src="h1301/room.jpg"/>
+	</td>
+
+	<td>
+	  h1302<br/>
+	  <img src="h1302/cam.jpg"/><br/>
+	  <img src="h1302/grab.jpg"/>
+	  <img src="h1302/room.jpg"/>
+	</td>
+
+	<td>
+	  h1308<br/>
+	  <img src="h1308/cam.jpg"/><br/>
+	  <img src="h1308/grab.jpg"/>
+	  <img src="h1308/room.jpg"/>
+	</td>
+
+	<td>
+	  h1309<br/>
+	  <img src="h1309/cam.jpg"/><br/>
+	  <img src="h1309/grab.jpg"/>
+	  <img src="h1309/room.jpg"/>
+	</td>
+
+	<td>
+	  h2213<br/>
+	  <img src="h2213/cam.jpg"/><br/>
+	  <img src="h2213/grab.jpg"/>
+	  <img src="h2213/room.jpg"/>
+	</td>
+	<td>
+	  h2214<br/>
+	  <img src="h2214/cam.jpg"/><br/>
+	  <img src="h2214/grab.jpg"/>
+	  <img src="h2214/room.jpg"/>
+	</td>
+
+	<td>
+	  h2215<br/>
+	  <img src="h2215/cam.jpg"/><br/>
+	  <img src="h2215/grab.jpg"/>
+	  <img src="h2215/room.jpg"/>
+	</td>
+      </tr>
+    </table>
+  </body>
+
+</html>

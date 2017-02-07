@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+	<td>aw1120<br/>
+	  <img src="aw1120/cam.jpg"/><br/>
+	  <img src="aw1120/grab.jpg"/>
+	  <img src="aw1120/room.jpg"/>
+	</td>
+	<td>
+	  aw1121<br/>
+	  <img src="aw1121/cam.jpg"/><br/>
+	  <img src="aw1121/grab.jpg"/>
+	  <img src="aw1121/room.jpg"/>
+	</td>
+
+	<td>
+	  aw1125<br/>
+	  <img src="aw1125/cam.jpg"/><br/>
+	  <img src="aw1125/grab.jpg"/>
+	  <img src="aw1125/room.jpg"/>
+	</td>
+
+	<td>
+	  aw1126<br/>
+	  <img src="aw1126/cam.jpg"/><br/>
+	  <img src="aw1126/grab.jpg"/>
+	  <img src="aw1126/room.jpg"/>
+	</td>
+      </tr>
+    </table>
+  </body>
+</html>

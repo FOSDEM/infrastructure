@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+	<td>
+	  ua2114<br/>
+	  <img src="ua2114/cam.jpg"/><br/>
+	  <img src="ua2114/grab.jpg"/>
+	  <img src="ua2114/room.jpg"/>
+	</td>
+	<td>
+	  ua2220<br/>
+	  <img src="ua2220/cam.jpg"/><br/>
+	  <img src="ua2220/grab.jpg"/>
+	  <img src="ua2220/room.jpg"/>
+	</td>
+
+	<td>ud2119<br/>
+	  <img src="ud2119/cam.jpg"/><br/>
+	  <img src="ud2119/grab.jpg"/>
+	  <img src="ud2119/room.jpg"/>
+	</td>
+	<td>
+	  ub2252a<br/>
+	  <img src="ub2252a/cam.jpg"/><br/>
+	  <img src="ub2252a/grab.jpg"/>
+	  <img src="ub2252a/room.jpg"/>
+	</td>
+
+	<td>
+	  ud2120<br/>
+	  <img src="ud2120/cam.jpg"/><br/>
+	  <img src="ud2120/grab.jpg"/>
+	  <img src="ud2120/room.jpg"/>
+	</td>
+
+	<td>
+	  ud2218a<br/>
+	  <img src="ud2218a/cam.jpg"/><br/>
+	  <img src="ud2218a/grab.jpg"/>
+	  <img src="ud2218a/room.jpg"/>
+	</td>
+      </tr>
+    </table>
+  </body>
+
+</html>
+
+
+
