@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      img { 
+        height: 100px;
+      }
+      td {
+        width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+        images = document.getElementsByTagName('img');
+        for(var i = 0; i < images.length; i++) {
+          src = images[i].src + '?';
+          src = src.split('?')[0]
+          images[i].src = src + '?' + Date.now()
+        }
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+        <td>
+          janson<br/>
+          <img src="janson/cam.jpg"/><br/>
+        </td>
+
+        <td>aw1120<br/>
+          <img src="aw1120/cam.jpg"/><br/>
+        </td>
+        <td>
+          aw1121<br/>
+          <img src="aw1121/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          aw1125<br/>
+          <img src="aw1125/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          aw1126<br/>
+          <img src="aw1126/cam.jpg"/><br/>
+        </td>
+        <td>
+          h1301<br/>
+          <img src="h1301/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          h1302<br/>
+          <img src="h1302/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          h1308<br/>
+          <img src="h1308/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          h1309<br/>
+          <img src="h1309/cam.jpg"/><br/>
+        </td>
+
+        <tr>
+        </tr>
+        <td>
+          h2213<br/>
+          <img src="h2213/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          h2214<br/>
+          <img src="h2214/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          h2215<br/>
+          <img src="h2215/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          k1105<br/>
+          <img src="k1105/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          k3201<br/>
+          <img src="k3201/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          k3401<br/>
+          <img src="k3401/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          k4201<br/>
+          <img src="k4201/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          k4401<br/>
+          <img src="k4401/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          k4601<br/>
+          <img src="k4601/cam.jpg"/><br/>
+        </td>
+
+<tr>
+</tr>
+        <td>
+          ua2114<br/>
+          <img src="ua2114/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          ua2220<br/>
+          <img src="ua2220/cam.jpg"/><br/>
+        </td>
+
+        <td>ud2119<br/>
+          <img src="ud2119/cam.jpg"/><br/>
+        </td>
+        <td>
+          ub2252a<br/>
+          <img src="ub2252a/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          ud2120<br/>
+          <img src="ud2120/cam.jpg"/><br/>
+        </td>
+
+        <td>
+          ud2218a<br/>
+          <img src="ud2218a/cam.jpg"/><br/>
+        </td>
+      </tr>
+    </table>
+  </body>
+
+</html>
+

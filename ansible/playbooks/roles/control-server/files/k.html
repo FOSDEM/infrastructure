@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+	<td>
+	  k1105<br/>
+	  <img src="k1105/cam.jpg"/><br/>
+	  <img src="k1105/grab.jpg"/>
+	  <img src="k1105/room.jpg"/>
+	</td>
+
+	<td>
+	  k3201<br/>
+	  <img src="k3201/cam.jpg"/><br/>
+	  <img src="k3201/grab.jpg"/>
+	  <img src="k3201/room.jpg"/>
+	</td>
+
+	<td>
+	  k3401<br/>
+	  <img src="k3401/cam.jpg"/><br/>
+	  <img src="k3401/grab.jpg"/>
+	  <img src="k3401/room.jpg"/>
+	</td>
+
+	<td>
+	  k4201<br/>
+	  <img src="k4201/cam.jpg"/><br/>
+	  <img src="k4201/grab.jpg"/>
+	  <img src="k4201/room.jpg"/>
+	</td>
+
+	<td>
+	  k4401<br/>
+	  <img src="k4401/cam.jpg"/><br/>
+	  <img src="k4401/grab.jpg"/>
+	  <img src="k4401/room.jpg"/>
+	</td>
+
+	<td>
+	  k4601<br/>
+	  <img src="k4601/cam.jpg"/><br/>
+	  <img src="k4601/grab.jpg"/>
+	  <img src="k4601/room.jpg"/>
+	</td>
+      </tr>
+    </table>
+  </body>
+
+</html>
