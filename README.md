@@ -2,5 +2,4 @@
 
 Here be the hairy details.
 
-Video box repository - https://github.com/FOSDEM/videobox
-
+Video repository - https://github.com/FOSDEM/video
