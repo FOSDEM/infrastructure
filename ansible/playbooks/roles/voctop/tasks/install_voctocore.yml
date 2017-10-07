@@ -10,13 +10,15 @@
 - name: add debian multimedia repository
   apt_repository: repo='deb http://www.deb-multimedia.org {{ansible_distribution_release}} main non-free' state=present update_cache=yes
 
-- name: add c3voc multimedia key
-  apt_key:
-    url: "https://c3voc.de/voctomix/gpg-key.asc"
-    state: present
+# temporary fix until voctomix 0.6 lands in stretch-backports
+- name: pin to debian stable
+  copy:
+          src: /usr/share/doc/apt/examples/preferences
+          dest: /etc/apt/preferences
 
-- name: add c3voc repository
-  apt_repository: repo='deb http://c3voc.de/voctomix {{ansible_distribution_release}} non-free' state=present update_cache=yes
+# temporary fix until voctomix 0.6 lands in stretch-backports
+- name: temporarily add debian buster repository for voctomix
+  apt_repository: repo='deb http://httpredir.debian.org/debian/ testing main' state=present update_cache=yes
 
 - name: "install packages"
   apt: pkg={{ item }} state=latest
@@ -39,9 +41,17 @@
     - python3-gi-cairo
     - rsync
 
-- name: install voctomix
-  git: repo=https://github.com/fosdem/voctomix.git dest=/opt/voctomix/ clone=yes version=a2d817d0c78410e2bbe0b2663740f4fe02b327d4
-  notify: restart vocto
+# temporary fix until voctomix 0.6 lands in stretch-backports
+- name: "install voctomix package from testing"
+  apt:
+    name: voctomix
+    state: latest
+    default_release: testing
+    update_cache: yes
+
+# temporary fix for voctomix bug #137
+- name: patch voctomix bug 137
+  copy: src=patches/avsource.py dest=/usr/share/voctomix/voctocore/lib/sources/ owner=root group=root mode=0644
 
 - name: create scripts directory
   file: path=/opt/scripts/ state=directory owner=root group=root mode=0755

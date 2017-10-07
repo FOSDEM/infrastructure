@@ -10,6 +10,7 @@ while true; do
 	-c:v copy \
 	-strict -2 -c:a libfdk_aac -ab 128k \
 	-flags:v +global_header  \
+	-field_order progressive \ #see https://github.com/voc/voctomix/issues/137 \
 	-f flv \
 	${STREAM_BACKUP_DESTINATION}
 done
