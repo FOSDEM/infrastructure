@@ -19,5 +19,4 @@ ffmpeg -y -nostdin \
 	-ac 2 -strict -2 -c:a libfdk_aac -b:a 128k -ar 48000 \
 	-map 0:v \
 	-map 0:a \
-	\
 	-y -f mpegts "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}"'&pkg_size=1000'
