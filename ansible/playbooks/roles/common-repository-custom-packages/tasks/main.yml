@@ -1,7 +1,7 @@
 ---
-# FIXME: fetching keys via HTTP is a bad idea.
-- name: add key for our custom packages repository
-  apt_key: url=http://crap.video.fosdem.org/debian/conf/repo.key state=present
-
-- name: add custom packages repository
-  apt_repository: repo='deb http://crap.video.fosdem.org/debian {{ansible_distribution_release}} main' state=present update_cache=yes
+# Keeping this as a template in case for whatever reason we have to reenable our own repo
+#- name: add key for our custom packages repository
+#  apt_key: url=http://crap.video.fosdem.org/debian/conf/repo.key state=present
+#
+#- name: add custom packages repository
+#  apt_repository: repo='deb http://crap.video.fosdem.org/debian {{ansible_distribution_release}} main' state=present update_cache=yes

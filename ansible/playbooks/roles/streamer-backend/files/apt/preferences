@@ -1,3 +1,7 @@
-Package: *
-Pin: origin crap.video.fosdem.org
-Pin-Priority: 900
+Package:  *
+Pin:  release a=stable
+Pin-Priority:  500
+
+Package:  *
+Pin:  release a=stretch-backports
+Pin-Priority:  101
