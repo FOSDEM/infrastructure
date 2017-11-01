@@ -19,12 +19,16 @@
   - 151.216.221.254 # asr1k po1.4006
 - 151.216.224.0/20 # nat64 pool
 - 185.175.216.240/28 # infra servers
-  - 185.175.216.250 # server001.fosdem.net eth6
+  - 185.175.216.251 # server001 eno4
+  - 185.175.216.252 # server002 eno4
   - 185.175.216.254 # asr1k po1.212
 - 185.175.218.0/24 # wired video
   - 185.175.218.254/32 # asr1k po1.4006
 - 192.168.1.0/24 # server out of band
-  - 192.168.1.1 # server001 eth4
+  - 192.168.1.1 # server001 eno3
+  - 192.168.1.2 # server002 eno3
+  - 192.168.1.11 # server001 iDRAC
+  - 192.168.1.12 # server002 iDRAC
   - 192.168.1.254 # asr1k gi2/2/0
 - 192.168.211.0/24 # switch management
   - 192.168.211.249 # asr1k po1.211
