@@ -16,7 +16,7 @@ ffmpeg -y -nostdin \
 	-pix_fmt:0 yuv420p -profile:v:0 main -b:v 512k \
 	-preset:v:0 veryfast \
 	\
-	-ac 2 -strict -2 -c:a libfdk_aac -b:a 128k -ar 48000 \
+	-ac 2 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map 0:v \
 	-map 0:a \
 	-y -f mpegts "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}"'&pkg_size=1000'
