@@ -1,2 +1,0 @@
-- name: reload systemd
-  service: name=node_exporter state=restarted

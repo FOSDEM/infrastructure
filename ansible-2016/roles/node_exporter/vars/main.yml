@@ -1,3 +1,0 @@
-prometheus_node_exporter_version: 0.12.0rc1
-prometheus_components:
-  - node_exporter

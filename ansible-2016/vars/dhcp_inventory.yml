@@ -1,5 +1,0 @@
-dhcp_nodes:
-  - name: "monitor.conference.fosdem.net"
-    mac: 00:1e:c9:f7:c0:7b
-    ipv4: 151.216.191.253
-    ipv6: 2001:67c:1810:f052::53

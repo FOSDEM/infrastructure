@@ -1,2 +1,0 @@
-- name: restart streaming
-  service: name=streaming state=restarted
