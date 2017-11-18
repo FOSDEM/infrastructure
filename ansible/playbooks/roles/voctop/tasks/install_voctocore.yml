@@ -2,14 +2,6 @@
 - name: create recordings directory
   file: path={{ vocto_recording_directory }} state=directory owner=root group=root mode=0755
 
-- name: add debian multimedia key
-  apt_key:
-    keyserver: eu.pool.sks-keyservers.net
-    id: 5C808C2B65558117
-
-- name: add debian multimedia repository
-  apt_repository: repo='deb http://www.deb-multimedia.org {{ansible_distribution_release}} main non-free' state=present update_cache=yes
-
 # temporary fix until voctomix 0.6 lands in stretch-backports
 - name: pin to debian stable
   copy:
@@ -48,10 +40,6 @@
     state: latest
     default_release: testing
     update_cache: yes
-
-# temporary fix for voctomix bug #137
-- name: patch voctomix bug 137
-  copy: src=patches/avsource.py dest=/usr/share/voctomix/voctocore/lib/sources/ owner=root group=root mode=0644
 
 - name: create scripts directory
   file: path=/opt/scripts/ state=directory owner=root group=root mode=0755
