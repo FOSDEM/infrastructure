@@ -6,3 +6,4 @@ playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.key
 playbooks/roles/streamer-backend/files/sreview/config.pl
 playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.key
 playbooks/roles/control-server/files/nginx/htpasswd
+.vault-password
