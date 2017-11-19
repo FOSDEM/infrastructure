@@ -26,6 +26,11 @@
   with_items:
     - "{{ node_exporter_textfiles_path }}"
 
+- name: check if we have the right node_exporter version installed
+  stat:
+    path: "{{ node_exporter_path }}"
+  register: node_exporter_path_stat
+
 - name: untar node_exporter tarball
   unarchive:
     src: "{{ node_exporter_tarball_url }}"
@@ -34,6 +39,7 @@
     owner: root
     group: root
     copy: no
+  when: node_exporter_path_stat.stat.isdir is not defined
 
 - name: Install node_exporter systemd service file
   notify:
