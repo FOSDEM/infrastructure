@@ -2,15 +2,15 @@
 - name: create recordings directory
   file: path={{ vocto_recording_directory }} state=directory owner=root group=root mode=0755
 
-# temporary fix until voctomix 0.6 lands in stretch-backports
+# temporary fix until voctomix 1.0 lands in stretch-backports
 - name: pin to debian stable
   copy:
           src: /usr/share/doc/apt/examples/preferences
           dest: /etc/apt/preferences
 
-# temporary fix until voctomix 0.6 lands in stretch-backports
-- name: temporarily add debian buster repository for voctomix
-  apt_repository: repo='deb http://deb.debian.org/debian/ testing main' state=present update_cache=yes
+# temporary fix until voctomix 1.0 lands in stretch-backports
+- name: temporarily add debian sid repository for voctomix
+  apt_repository: repo='deb http://deb.debian.org/debian/ sid main' state=present update_cache=yes
 
 - name: "install packages"
   apt: pkg={{ item }} state=latest
@@ -33,12 +33,12 @@
     - python3-gi-cairo
     - rsync
 
-# temporary fix until voctomix 0.6 lands in stretch-backports
-- name: "install voctomix package from testing"
+# temporary fix until voctomix 1.0 lands in stretch-backports
+- name: "install voctomix package from sid"
   apt:
     name: voctomix
     state: latest
-    default_release: testing
+    default_release: unstable
     update_cache: yes
 
 - name: create scripts directory
@@ -65,6 +65,11 @@
   - voctocore.ini
   - background.raw
   notify: restart vocto
+
+- name: patch videomix.py to use our defaults
+  patch:
+    src: patches/videomix.py.diff 
+    dest: /usr/share/voctomix/voctocore/lib/videomix.py
 
 - name: set local configuration
   template: src=config/config.sh dest=/opt/config/config.sh owner=root group=root mode=0644
