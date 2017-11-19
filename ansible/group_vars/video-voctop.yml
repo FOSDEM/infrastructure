@@ -26,13 +26,6 @@ vocto_config:
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1121
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/aw1121
 
-  - room: ud2119
-    slides_source: udp://227.0.2.1:9000
-    cam_source: udp://227.0.2.2:9000
-    multicast_sink: udp://227.0.2.3:9000
-    stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ud2119
-    stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2119
-
   - room: aw1125
     slides_source: udp://227.0.3.1:9000
     cam_source: udp://227.0.3.2:9000
@@ -179,3 +172,10 @@ vocto_config:
     multicast_sink: udp://227.4.4.3:9000
     stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/ud2218a
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2218a
+
+  - room: ud2119
+    slides_source: udp://227.4.5.1:9000
+    cam_source: udp://227.4.5.2:9000
+    multicast_sink: udp://227.4.5.3:9000
+    stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ud2119
+    stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2119

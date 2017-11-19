@@ -44,12 +44,6 @@ video_streamer_config:
   - host: aw1121-cam
     destination: udp://227.0.1.2:9000
 
-  - host: ud2119-slides
-    destination: udp://227.0.2.1:9000
-
-  - host: ud2119-cam
-    destination: udp://227.0.2.2:9000
-
   - host: aw1125-slides
     destination: udp://227.0.3.1:9000
 
@@ -175,3 +169,33 @@ video_streamer_config:
 
   - host: ud2218a-cam
     destination: udp://227.4.4.2:9000
+
+  - host: ud2119-slides
+    destination: udp://227.4.5.1:9000
+
+  - host: ud2119-cam
+    destination: udp://227.4.5.2:9000
+
+  - host: spare0-slides
+    destination: udp://227.9.1.1:9000
+
+  - host: spare0-cam
+    destination: udp://227.9.1.2:9000
+
+  - host: spare1-slides
+    destination: udp://227.9.2.1:9000
+
+  - host: spare1-cam
+    destination: udp://227.9.2.2:9000
+
+  - host: spare2-slides
+    destination: udp://227.9.3.1:9000
+
+  - host: spare2-cam
+    destination: udp://227.9.3.2:9000
+
+  - host: spare3-slides
+    destination: udp://227.9.4.1:9000
+
+  - host: spare3-cam
+    destination: udp://227.9.4.2:9000
