@@ -54,7 +54,7 @@
   roles:
   - common-repository-debian-backports
   - common
-  - node_exporter
+  - { role: node_exporter, tags: [ 'node_exporter' ] }
 
 
 ##
