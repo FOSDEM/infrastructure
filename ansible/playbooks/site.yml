@@ -58,6 +58,56 @@
 
 
 ##
+## Video roles
+##
+
+- name: video-control-server
+  hosts: video-control-server
+  remote_user: root
+  roles:
+  - { role: video-control-server, tags: [ 'video-control-server' ] }
+
+- name: video-box
+  hosts: video-box
+  remote_user: root
+  roles:
+  - { role: video-box, tags: [ 'video-box' ] }
+
+- name: video-voctop
+  hosts: video-voctop
+  remote_user: root
+  roles:
+  - { role: video-voctop, tags: [ 'video-voctop' ] }
+
+- name: video-stream-dumper
+  hosts: video-stream-dumper
+  remote_user: root
+  roles:
+  - { role: video-stream-dumper, tags: [ 'video-stream-dumper' ] }
+
+- name: video-streamer-backend
+  hosts: video-streamer-backend
+  remote_user: root
+  roles:
+  - scaleway
+  - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
+
+- name: video-streamer-frontend
+  hosts: video-streamer-frontend
+  remote_user: root
+  roles:
+  - scaleway
+  - { role: video-streamer-frontend, tags: [ 'video-streamer-frontend' ] }
+
+- name: video-web-frontend
+  hosts: video-web-frontend
+  remote_user: root
+  roles:
+  - scaleway
+  - { role: video-web-frontend, tags: [ 'video-web-frontend' ] }
+
+
+##
 ## Specific roles
 ##
 - name: event-primary
@@ -70,11 +120,6 @@
   - oxidized
   - alertmanager
 
-- name: control-server
-  hosts: control-server
-  remote_user: root
-  roles:
-  - { role: control-server, tags: [ 'control-server' ] }
 
 - name: public-dashboard
   hosts: public-dashboard
@@ -82,46 +127,6 @@
   roles:
   - { role: public-dashboard, tags: [ 'public-dashboard' ] }
 
-- name: videobox
-  hosts: videobox
-  remote_user: root
-  roles:
-
-  - { role: videobox, tags: [ 'videobox' ] }
-
-- name: voctop
-  hosts: voctop
-  remote_user: root
-  roles:
-  - { role: voctop, tags: [ 'voctop' ] }
-
-- name: stream-dumper
-  hosts: stream-dumper
-  remote_user: root
-  roles:
-  - { role: stream-dumper, tags: [ 'stream-dumper' ] }
-
-- name: streamer-backend
-  hosts: streamer-backend
-  remote_user: root
-  roles:
-  - scaleway
-  - common-repository-custom-packages
-  - { role: streamer-backend, tags: [ 'streamer-backend' ] }
-
-- name: streamer-frontend
-  hosts: streamer-frontend
-  remote_user: root
-  roles:
-  - scaleway
-  - { role: streamer-frontend, tags: [ 'streamer-frontend' ] }
-
-- name: web-frontend
-  hosts: web-frontend
-  remote_user: root
-  roles:
-  - scaleway
-  - { role: web-frontend, tags: [ 'web-frontend' ] }
 
 - name: monitor
   hosts: monitor
