@@ -21,7 +21,8 @@ sd_root: /dev/mmcblk0p2
 network_device: eth0
 
 # Prometheus node exporter should write to the SSD instead of the SD
-node_exporter_textfiles_path: /mnt/ssd/node-exporter/
+node_exporter_textfiles_path: /mnt/ssd/node-exporter/textfiles/
+node_exporter_install_path: /mnt/ssd/node-exporter/
 
 # Location for the screenshot dumps
 video_screenshot_directory: /mnt/ssd/video-screenshot/
