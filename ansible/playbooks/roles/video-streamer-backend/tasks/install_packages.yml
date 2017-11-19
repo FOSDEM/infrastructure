@@ -3,7 +3,7 @@
   copy: src=apt/preferences dest=/etc/apt/preferences.d/fosdem-video owner=root group=root mode=0644
 
 - name: "add stretch-backports for libnginx-mod-rtmp"
-  apt_repository: repo='deb http://httpredir.debian.org/debian/ stretch-backports main' state=present update_cache=yes
+  apt_repository: repo='deb http://deb.debian.org/debian/ stretch-backports main' state=present update_cache=yes
 
 - name: "install packages"
   apt: pkg={{ item }} state=latest install_recommends=no

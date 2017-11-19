@@ -10,7 +10,7 @@
 
 # temporary fix until voctomix 0.6 lands in stretch-backports
 - name: temporarily add debian buster repository for voctomix
-  apt_repository: repo='deb http://httpredir.debian.org/debian/ testing main' state=present update_cache=yes
+  apt_repository: repo='deb http://deb.debian.org/debian/ testing main' state=present update_cache=yes
 
 - name: "install packages"
   apt: pkg={{ item }} state=latest
