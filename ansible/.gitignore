@@ -1,9 +1,9 @@
 playbooks/site.retry
-playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
-playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
-playbooks/roles/streamer-frontend/files/nginx/certificate/stream.fosdem.org.key
-playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.key
-playbooks/roles/streamer-backend/files/sreview/config.pl
-playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.key
-playbooks/roles/control-server/files/nginx/htpasswd
+playbooks/roles/video-box/files/bmd/bmd-atemtvstudio.bin
+playbooks/roles/video-box/files/bmd/bmd-h264prorecorder.bin
+playbooks/roles/video-streamer-frontend/files/nginx/certificate/stream.fosdem.org.key
+playbooks/roles/video-web-frontend/files/nginx/certificate/live.fosdem.org.key
+playbooks/roles/video-streamer-backend/files/sreview/config.pl
+playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.key
+playbooks/roles/video-control-server/files/nginx/htpasswd
 .vault-password

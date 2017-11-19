@@ -8,15 +8,15 @@ fi
 
 echo -n "copying private files from ${1}... "
 
-cp $1/bmd-firmware/bmd-atemtvstudio.bin playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
-cp $1/bmd-firmware/bmd-h264prorecorder.bin playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
-cp $1/certificates/stream.fosdem.org.key playbooks/roles/streamer-frontend/files/nginx/certificate/stream.fosdem.org.key
-cp $1/certificates/stream.fosdem.org.crt playbooks/roles/streamer-frontend/files/nginx/certificate/stream.fosdem.org.crt
-cp $1/certificates/live.fosdem.org.key playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.key
-cp $1/certificates/live.fosdem.org.crt playbooks/roles/web-frontend/files/nginx/certificate/live.fosdem.org.crt
-cp $1/certificates/control.video.fosdem.org.key playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.key
-cp $1/certificates/control.video.fosdem.org.crt playbooks/roles/control-server/files/nginx/certificate/control.video.fosdem.org.crt
-cp $1/sreview/config.pl playbooks/roles/streamer-backend/files/sreview/config.pl
-cp $1/control/htpasswd playbooks/roles/control-server/files/nginx/htpasswd
+cp $1/bmd-firmware/bmd-atemtvstudio.bin playbooks/roles/video-box/files/bmd/bmd-atemtvstudio.bin
+cp $1/bmd-firmware/bmd-h264prorecorder.bin playbooks/roles/video-box/files/bmd/bmd-h264prorecorder.bin
+cp $1/certificates/stream.fosdem.org.key playbooks/roles/video-streamer-frontend/files/nginx/certificate/stream.fosdem.org.key
+cp $1/certificates/stream.fosdem.org.crt playbooks/roles/video-streamer-frontend/files/nginx/certificate/stream.fosdem.org.crt
+cp $1/certificates/live.fosdem.org.key playbooks/roles/video-web-frontend/files/nginx/certificate/live.fosdem.org.key
+cp $1/certificates/live.fosdem.org.crt playbooks/roles/video-web-frontend/files/nginx/certificate/live.fosdem.org.crt
+cp $1/certificates/control.video.fosdem.org.key playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.key
+cp $1/certificates/control.video.fosdem.org.crt playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.crt
+cp $1/sreview/config.pl playbooks/roles/video-streamer-backend/files/sreview/config.pl
+cp $1/control/htpasswd playbooks/roles/video-control-server/files/nginx/htpasswd
 
 echo "done."
