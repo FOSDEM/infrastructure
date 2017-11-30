@@ -8,9 +8,8 @@
           src: /usr/share/doc/apt/examples/preferences
           dest: /etc/apt/preferences
 
-# temporary fix until voctomix 1.0 lands in stretch-backports
 - name: temporarily add debian sid repository for voctomix
-  apt_repository: repo='deb http://deb.debian.org/debian/ sid main' state=present update_cache=yes
+  apt_repository: repo='deb http://deb.debian.org/debian/ stretch-backports main' state=present update_cache=yes
 
 - name: "install packages"
   apt: pkg={{ item }} state=latest
@@ -33,12 +32,11 @@
     - python3-gi-cairo
     - rsync
 
-# temporary fix until voctomix 1.0 lands in stretch-backports
-- name: "install voctomix package from sid"
+- name: "install voctomix package from stretch-backports"
   apt:
     name: voctomix
     state: latest
-    default_release: unstable
+    default_release: stretch-backports
     update_cache: yes
 
 - name: create scripts directory
