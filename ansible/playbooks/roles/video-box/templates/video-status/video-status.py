@@ -33,6 +33,9 @@ def main():
 	pygame.display.set_caption("FOSDEM video box status")
 	pygame.init()
 
+	# Uninitialise the pygame mixer to release the sound card
+	pygame.mixer.quit()
+
 	# Hide the mouse cursor
 	pygame.mouse.set_visible(False)
 
@@ -122,6 +125,7 @@ def update_sysinfo(screen):
 	# Print output
 	font = pygame.font.SysFont("monospace", 13, True)
 	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, 0))
+
 	if rec:
 		image.blit(font.render("REC", 1, RED), (230, 0))
 	else:
