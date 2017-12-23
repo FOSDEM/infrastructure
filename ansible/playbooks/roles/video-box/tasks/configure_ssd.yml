@@ -10,6 +10,10 @@
 - name: create a filesystem on the SSD disk
   filesystem: fstype=ext4 dev={{ ssd_drive }}
 
+- name: stop processes using the SSD
+  shell: lsof | grep /mnt/ssd/ | sed 's/\s\s*/ /g' | cut -d' ' -f 2 | sort -u | while read line; do systemctl stop `systemctl status $line | head -n 1 | cut -d' ' -f 2`; done;
+  when: destroy_all_videobox_data is defined and destroy_all_videobox_data == True
+
 - name: unmount SSD if it needs to be wiped
   mount: src={{ ssd_drive }} name=/mnt/ssd state=unmounted fstype=ext4
   when: destroy_all_videobox_data is defined and destroy_all_videobox_data == True
