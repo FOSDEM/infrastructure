@@ -31,8 +31,19 @@
   template: src=video-streamer/bmd-receiver.service dest=/etc/systemd/system/bmd-receiver.service owner=root group=root mode=0644
   register: bmdreceiver
 
+- name: create recording directory
+  file:
+    path: "{{ ssd_mount }}/video-recording"
+    state: directory
+    mode: 0755
+
 - name: install video-recorder service
-  template: src=video-streamer/video-recorder.service dest=/etc/systemd/system/video-recorder.service owner=root group=root mode=0644
+  template:
+    src: video-streamer/video-recorder.service
+    dest: /etc/systemd/system/video-recorder.service
+    owner: root
+    group: root
+    mode: 0644
   register: videorecorder
 
 - name: perform a daemon-reload if any service has been modified
