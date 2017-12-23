@@ -1,8 +1,10 @@
 # Deployment with Ansible
 
-## Setup vault
+## Set up the vault password
 
-Secrets are encrypted with [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html).  To use ansible-fault transparently, create a file with the shared secret and export it via an env.
+Secrets are encrypted with [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html).
+To use ansible-vault transparently, create a file with the shared secret and
+export it via an environment variable.
 
     echo "SECRET" > ~/.fosdem_vault_pass.txt
     export ANSIBLE_VAULT_PASSWORD_FILE=~/.fosdem_vault_pass.txt
@@ -15,13 +17,20 @@ Deploying the entire thing should be possible with just one command:
 
 Usually, you will want to limit your deployment to specific host groups:
 
-    ansible-playbook playbooks/site.yml --limit videobox
-    ansible-playbook playbooks/site.yml --limit voctohost
-    ansible-playbook playbooks/site.yml --limit streamer-backend
+    ansible-playbook playbooks/site.yml --limit video-box
+    ansible-playbook playbooks/site.yml --limit video-voctop
+    ansible-playbook playbooks/site.yml --limit monitor
 
-Note that when deploying to a local test setup, you can define ip addresses to deploy roles to in the hosts file in the root of the ansible config directory. If you want to test a voctop deployment for example to a machine with ip 192.168.178.30, change
-    `voctop-h1308.video.fosdem.org ansible_host=10.2.5.197`.
+Note that when deploying to a local test setup, you override the DNS lookups
+by specifying an IP addresses in the Ansible hosts file.
+
+For example, if you want to test a voctop deployment to a machine with ip
+192.168.178.30, change
+
+    `voctop-h1308.video.fosdem.org`.
+
 into
+
     `voctop-h1308.video.fosdem.org ansible_host=192.168.178.30`
 
 We could consider splitting up our site.yml into multiple files, but this does
@@ -32,62 +41,26 @@ a temporary measure and should be re-enabled.
 
 ## Submodules
 
-This repo includes git submodules to vendor external source.  You need to update them with this helper command.
+This repo includes git submodules to vendor external source. You need to update
+them with this helper command.
 
     ./update-submodules.sh
+
+We should switch this to use a `requirements.yml` file instead.
 
 ## Private files
 
 Some files, such as the private keys for our certificates and the firmware for
 the BlackMagic H.264 encoders live in a separate private repository. You need
 these to deploy some of the roles. Use the `update-private-files.sh` script to
-fetch them for you.
+fetch them for you. It will copy the files into the current tree.
 
-## Video boxes
+Note that all of these should be in your `.gitignore` file, else you risk adding
+them by accident.
 
-Our video boxes run Bananian Linux for the time being. The idea is to switch to
-pure Debian in the future.
+# More details
 
-To install a video box, simply insert an SD card with a vanilla Bananian Linux
-install on it and deploy the videobox role. The first time you will probably
-want to run it with `--ask-pass` (or `-k`). Subsequent runs can use your SSH
-key.
+Some additional information is available in the `docs/` directory.
 
-The default root password is "pi", this will be changed later on.
+* [Video](docs/video.md)
 
-The internal SSD in our video boxes is also managed via Ansible. The disk should
-be at /dev/sda. It doens't matter if it has been partitioned or not, our
-playbooks will make sure all paritions are erased and the full disk will receive
-and ext4 filesystem.
-
-For the bmd-streamer process to work at all, you will need the BlackMagic
-firmware. You will need to drop those files here:
-
-    playbooks/roles/videobox/files/bmd/bmd-h264prorecorder.bin
-    playbooks/roles/videobox/files/bmd/bmd-atemtvstudio.bin
-
-Use the `update-private-files.sh` script to manage them.
-
-See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
-information.
-
-## Background image
-
-If you have a new background image, it needs to be 1280x720, and to be
-converted to a raw one. It's done by using ffmpeg, like this:
-
-`ffmpeg -i background.png -c:v rawvideo -pix_fmt:v yuv420p -c:v rawvideo -pix_fmt yuv420p -frames 1 -f rawvideo background.raw`
-
-This needs to go in `playbooks/roles/voctohost/files/config/`.
-
-## Erasing all data
-
-If you ever want to erase all data (for example after the event is over), you
-can add `--extra-vars '{"destroy_all_something_data": True}'` when running the
-playbook:
-
-    --extra-vars '{"destroy_all_videobox_data": True}'
-    --extra-vars '{"destroy_all_streambackend_data": True}'
-    --extra-vars '{"destroy_all_streamdumper_data": True}'
-
-Be careful. :)
