@@ -1,0 +1,33 @@
+---
+- name: create the lenkeng ir code directory
+  file:
+    path: /usr/local/bin/lenkengir/
+    state: directory
+
+- name: copy the wav files containing the lenkeng ir codes
+  copy:
+    src: lenkeng/wav/
+    dest: /usr/local/bin/lenkengir/
+
+- name: install the lenkeng ir remote control script
+  copy:
+    src: lenkeng/lenkeng.py
+    dest: /usr/local/bin/lenkeng
+    owner: root
+    group: root
+    mode: 0755
+
+- name: configure asound to use the analog output by default
+  copy:
+    src: lenkeng/asound.conf
+    dest: /etc/asound.conf
+
+- name: load the snd-aaci module in the running kernel
+  modprobe:
+    name: snd-aaci
+    state: present
+
+- name: make loading the snd-aaci module persistent
+  lineinfile:
+    dest: /etc/modules
+    line: "snd-aaci"
