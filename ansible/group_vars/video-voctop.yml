@@ -6,8 +6,6 @@ sysctl_parameters: {
     "net.core.rmem_default": "8388608",
 }
 
-kernel_package: linux-image-4.8.0-0.bpo.2-amd64
-
 vocto_source_url_parameters: ?timeout=10000000&buffer_size=81921024&fifo_size=178481
 vocto_recording_directory: /mnt/video
 
@@ -86,7 +84,7 @@ vocto_config:
     slides_source: udp://227.1.6.1:9000
     cam_source: udp://227.1.6.2:9000
     multicast_sink: udp://227.1.6.3:9000
-    stream_destination: rtmp://streambackend1.video.fosdem.org:1935/stream/h2215
+    stream_destination: rtmp://streambackend2.video.fosdem.org:1935/stream/h2215
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/h2215
 
   - room: janson
@@ -121,14 +119,14 @@ vocto_config:
     slides_source: udp://227.3.3.1:9000
     cam_source: udp://227.3.3.2:9000
     multicast_sink: udp://227.3.3.3:9000
-    stream_destination: rtmp://streambackend2.video.fosdem.org:1935/stream/k4201
+    stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/k4201
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/k4201
 
   - room: k4401
     slides_source: udp://227.3.4.1:9000
     cam_source: udp://227.3.4.2:9000
     multicast_sink: udp://227.3.4.3:9000
-    stream_destination: rtmp://streambackend2.video.fosdem.org:1935/stream/k4401
+    stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/k4401
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/k4401
 
   - room: k4601
@@ -156,26 +154,26 @@ vocto_config:
     slides_source: udp://227.4.2.1:9000
     cam_source: udp://227.4.2.2:9000
     multicast_sink: udp://227.4.2.3:9000
-    stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/ub2252a
+    stream_destination: rtmp://streambackend4.video.fosdem.org:1935/stream/ub2252a
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ub2252a
 
   - room: ud2120
     slides_source: udp://227.4.3.1:9000
     cam_source: udp://227.4.3.2:9000
     multicast_sink: udp://227.4.3.3:9000
-    stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/ud2120
+    stream_destination: rtmp://streambackend4.video.fosdem.org:1935/stream/ud2120
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2120
 
   - room: ud2218a
     slides_source: udp://227.4.4.1:9000
     cam_source: udp://227.4.4.2:9000
     multicast_sink: udp://227.4.4.3:9000
-    stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/ud2218a
+    stream_destination: rtmp://streambackend4.video.fosdem.org:1935/stream/ud2218a
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2218a
 
   - room: ud2119
     slides_source: udp://227.4.5.1:9000
     cam_source: udp://227.4.5.2:9000
     multicast_sink: udp://227.4.5.3:9000
-    stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ud2119
+    stream_destination: rtmp://streambackend4.video.fosdem.org:1935/stream/ud2119
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2119

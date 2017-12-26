@@ -13,9 +13,6 @@ stream_backends:
   - room: aw1121
     backend: streambackend0.video.fosdem.org
 
-  - room: ud2119
-    backend: streambackend0.video.fosdem.org
-
   - room: aw1125
     backend: streambackend0.video.fosdem.org
 
@@ -41,7 +38,7 @@ stream_backends:
     backend: streambackend1.video.fosdem.org
 
   - room: h2215
-    backend: streambackend1.video.fosdem.org
+    backend: streambackend2.video.fosdem.org
 
   - room: janson
     backend: streambackend2.video.fosdem.org
@@ -56,10 +53,10 @@ stream_backends:
     backend: streambackend2.video.fosdem.org
 
   - room: k4201
-    backend: streambackend2.video.fosdem.org
+    backend: streambackend3.video.fosdem.org
 
   - room: k4401
-    backend: streambackend2.video.fosdem.org
+    backend: streambackend3.video.fosdem.org
 
   - room: k4601
     backend: streambackend3.video.fosdem.org
@@ -71,10 +68,13 @@ stream_backends:
     backend: streambackend3.video.fosdem.org
 
   - room: ub2252a
-    backend: streambackend3.video.fosdem.org
+    backend: streambackend4.video.fosdem.org
 
   - room: ud2120
-    backend: streambackend3.video.fosdem.org
+    backend: streambackend4.video.fosdem.org
 
   - room: ud2218a
-    backend: streambackend3.video.fosdem.org
+    backend: streambackend4.video.fosdem.org
+
+  - room: ud2119
+    backend: streambackend4.video.fosdem.org
