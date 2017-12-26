@@ -28,7 +28,7 @@
   apt:
     name: voctomix-core
     state: latest
-    default_release: {{ansible_distribution_release}}-backports
+    default_release: "{{ansible_distribution_release}}-backports"
 
 - name: create scripts directory
   file:
