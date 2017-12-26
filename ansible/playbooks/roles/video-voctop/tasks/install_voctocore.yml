@@ -2,14 +2,17 @@
 - name: create recordings directory
   file: path={{ vocto_recording_directory }} state=directory owner=root group=root mode=0755
 
-# temporary fix until voctomix 1.0 lands in stretch-backports
-- name: pin to debian stable
-  copy:
-          src: /usr/share/doc/apt/examples/preferences
-          dest: /etc/apt/preferences
+- name: add backports repository
+  apt_repository:
+    repo: "deb http://deb.debian.org/debian/ {{ansible_distribution_release}}-backports main"
+    state: present
+  register: apt_sources
 
-- name: temporarily add debian sid repository for voctomix
-  apt_repository: repo='deb http://deb.debian.org/debian/ stretch-backports main' state=present update_cache=yes
+- name: run update if the cache is stale and we have added the backports repo"
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: apt_sources.changed
 
 - name: "install packages"
   apt: pkg={{ item }} state=latest
@@ -17,30 +20,23 @@
     - bash-completion
     - curl
     - ffmpeg
-    - gir1.2-gst-plugins-base-1.0
-    - gir1.2-gstreamer-1.0
-    - gir1.2-gtk-3.0
     - git
-    - gstreamer1.0-plugins-bad
-    - gstreamer1.0-plugins-good
-    - gstreamer1.0-plugins-ugly
-    - gstreamer1.0-tools
-    - gstreamer1.0-x
-    - libgstreamer1.0-0
-    - python3
-    - python3-gi
     - python3-gi-cairo
     - rsync
 
-- name: "install voctomix package from stretch-backports"
+- name: "install voctomix package from backports"
   apt:
-    name: voctomix
+    name: voctomix-core
     state: latest
-    default_release: stretch-backports
-    update_cache: yes
+    default_release: {{ansible_distribution_release}}-backports
 
 - name: create scripts directory
-  file: path=/opt/scripts/ state=directory owner=root group=root mode=0755
+  file:
+    path: /opt/scripts/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
 - name: install sink-output scripts
   copy: src=scripts/{{ item }} dest=/opt/scripts/ owner=root group=root mode=0755
@@ -54,7 +50,12 @@
   notify: restart voctoscripts
 
 - name: create config directory
-  file: path=/opt/config/ state=directory owner=root group=root mode=0755
+  file:
+    path: /opt/config/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
 - name: set standard configuration
   copy: src=config/{{ item }} dest=/opt/config/{{ item }} owner=root group=root mode=0644
@@ -66,15 +67,25 @@
 
 - name: patch videomix.py to use our defaults
   patch:
-    src: patches/videomix.py.diff 
+    src: patches/videomix.py.diff
     dest: /usr/share/voctomix/voctocore/lib/videomix.py
 
 - name: set local configuration
-  template: src=config/config.sh dest=/opt/config/config.sh owner=root group=root mode=0644
+  template:
+    src: config/config.sh
+    dest: /opt/config/config.sh
+    owner: root
+    group: root
+    mode: 0644
   notify: restart vocto
 
 - name: install vocto units
-  copy: src={{item}} dest=/etc/systemd/system/ owner=root group=root mode=0644
+  copy:
+    src: "{{item}}"
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
   with_fileglob:
   - ../files/units/*
   notify: restart vocto
