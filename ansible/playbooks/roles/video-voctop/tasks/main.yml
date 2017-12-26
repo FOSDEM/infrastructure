@@ -1,3 +1,5 @@
 ---
+- include: disable_suspend.yml
 - include: install_voctocore.yml
   tags: voctocore
+
