@@ -1,6 +1,11 @@
 ---
 - name: create recordings directory
-  file: path={{ vocto_recording_directory }} state=directory owner=root group=root mode=0755
+  file:
+    path: "{{ vocto_recording_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
 - name: add backports repository
   apt_repository:
