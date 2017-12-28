@@ -4,7 +4,7 @@
     path: /var/www/html
     state: absent
 
-- name: create nginx content directories
+- name: create nginx content directories (global)
   file:
     path: "{{ item }}"
     state: directory
@@ -14,30 +14,15 @@
   with_items:
   - /var/www/hls
   - /var/www/dump
-  - /var/www/dump/aw1120
-  - /var/www/dump/aw1121
-  - /var/www/dump/ud2119
-  - /var/www/dump/aw1125
-  - /var/www/dump/aw1126
-  - /var/www/dump/h1301
-  - /var/www/dump/h1302
-  - /var/www/dump/h1308
-  - /var/www/dump/h1309
-  - /var/www/dump/h2213
-  - /var/www/dump/h2214
-  - /var/www/dump/h2215
-  - /var/www/dump/janson
-  - /var/www/dump/k1105
-  - /var/www/dump/k3201
-  - /var/www/dump/k3401
-  - /var/www/dump/k4201
-  - /var/www/dump/k4401
-  - /var/www/dump/k4601
-  - /var/www/dump/ua2114
-  - /var/www/dump/ua2220
-  - /var/www/dump/ub2252a
-  - /var/www/dump/ud2120
-  - /var/www/dump/ud2218a
+
+- name: create nginx content directories (rooms)
+  file:
+    path: "/var/www/dump/{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+  with_items: "{{ nginx_dump_rooms }}"
 
 - name: disable the default site configuration
   file:

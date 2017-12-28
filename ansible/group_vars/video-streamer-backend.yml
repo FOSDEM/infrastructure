@@ -12,3 +12,29 @@ nginx_rtmp_publishers:
   - 185.175.218.0/24
 
 ssd_drive: /dev/sda
+
+nginx_dump_rooms:
+  - aw1120
+  - aw1121
+  - aw1125
+  - aw1126
+  - h1301
+  - h1302
+  - h1308
+  - h1309
+  - h2213
+  - h2214
+  - h2215
+  - janson
+  - k1105
+  - k3201
+  - k3401
+  - k4201
+  - k4401
+  - k4601
+  - ua2114
+  - ua2220
+  - ub2252a
+  - ud2120
+  - ud2218a
+  - ud2119
