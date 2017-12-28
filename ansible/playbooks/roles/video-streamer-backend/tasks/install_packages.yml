@@ -1,12 +1,9 @@
 ---
-- name: "create preferences file for nginx"
-  copy: src=apt/preferences dest=/etc/apt/preferences.d/fosdem-video owner=root group=root mode=0644
-
-- name: "add stretch-backports for libnginx-mod-rtmp"
-  apt_repository: repo='deb http://deb.debian.org/debian/ stretch-backports main' state=present update_cache=yes
-
 - name: "install packages"
-  apt: pkg={{ item }} state=latest install_recommends=no
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    install_recommends: no
   with_items:
     - ffmpeg
     - libglib-object-introspection-perl
@@ -20,7 +17,11 @@
     - libdbd-pg-perl
 
 - name: "install nginx from stretch-backports"
-  apt: pkg={{ item }} state=latest install_recommends=no default_release=stretch-backports update_cache=yes
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    install_recommends: no
+    default_release: stretch-backports
   with_items:
     - libnginx-mod-rtmp
     - nginx-common

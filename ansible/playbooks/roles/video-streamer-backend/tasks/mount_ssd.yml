@@ -11,15 +11,33 @@
   filesystem: fstype=ext4 dev={{ ssd_drive }}
 
 - name: unmount SSD if it needs to be wiped
-  mount: src={{ ssd_drive }} name=/var/www state=unmounted fstype=ext4
-  when: destroy_all_streambackend_data is defined and destroy_all_streambackend_data == True
+  mount:
+    src: "{{ ssd_drive }}"
+    name: /var/www
+    state: unmounted
+    fstype: ext4
+  when:
+    - destroy_all_streambackend_data is defined
+    - destroy_all_streambackend_data == True
 
 - name: wipe all data on the SSD disk
-  filesystem: fstype=ext4 dev={{ ssd_drive }} force=yes
-  when: destroy_all_streambackend_data is defined and destroy_all_streambackend_data == True
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
+    force: yes
+  when:
+    - destroy_all_streambackend_data is defined
+    - destroy_all_streambackend_data == True
 
 - name: create mount directory
-  file: path=/var/www state=directory
+  file:
+    path: /var/www
+    state: directory
 
 - name: mount SSD on /var/www/
-  mount: name=/var/www src={{ ssd_drive }} fstype=ext4 state=mounted opts=noatime
+  mount:
+    name: /var/www
+    src: "{{ ssd_drive }}"
+    fstype: ext4
+    state: mounted
+    opts: noatime

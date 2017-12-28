@@ -8,7 +8,12 @@
    mode: 0755
 
 - name: create sreview config directory
-  file: path=/etc/sreview state=directory owner=fosdem group=fosdem mode=0755
+  file:
+    path: /etc/sreview
+    state: directory
+    owner: fosdem
+    group: fosdem
+    mode: 0755
 
 - name: Install the detect_files config file
   copy:

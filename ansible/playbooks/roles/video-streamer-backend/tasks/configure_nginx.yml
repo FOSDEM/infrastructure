@@ -1,9 +1,16 @@
 ---
 - name: remove default html directory
-  file: path=/var/www/html state=absent
+  file:
+    path: /var/www/html
+    state: absent
 
 - name: create nginx content directories
-  file: path={{ item }} state=directory owner=www-data group=www-data mode=0755
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
   with_items:
   - /var/www/hls
   - /var/www/dump
@@ -33,19 +40,31 @@
   - /var/www/dump/ud2218a
 
 - name: disable the default site configuration
-  file: path=/etc/nginx/sites-enabled/default state=absent
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
   notify: reload nginx
 
 - name: install the site configuration
-  template: src=nginx/sites-enabled/streamer-backend.conf dest=/etc/nginx/sites-enabled/streamer-backend.conf owner=root group=root mode=0644
+  template:
+    src: nginx/sites-enabled/streamer-backend.conf
+    dest: /etc/nginx/sites-enabled/streamer-backend.conf
+    owner: root
+    group: root
+    mode: 0644
   notify: reload nginx
 
 - name: intstall the rtmp configuration
-  template: src=nginx/nginx-rtmp.conf dest=/etc/nginx/nginx-rtmp.conf
+  template:
+    src: nginx/nginx-rtmp.conf
+    dest: /etc/nginx/nginx-rtmp.conf
   notify: reload nginx
 
 - name: patch nginx.conf to include the rtmp configuration
-  lineinfile: dest=/etc/nginx/nginx.conf line="include /etc/nginx/nginx-rtmp.conf;" state=present
+  lineinfile:
+    dest: /etc/nginx/nginx.conf
+    line: "include /etc/nginx/nginx-rtmp.conf;"
+    state: present
   notify: reload nginx
 
 - name: Add mtail metrics to ngninx
