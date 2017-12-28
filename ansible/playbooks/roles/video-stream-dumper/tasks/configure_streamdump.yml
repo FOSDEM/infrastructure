@@ -13,7 +13,8 @@
   register: streamdump
 
 - name: perform a daemon-reload if any of the stream dump services have been modified
-  shell: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
   when: streamdump.changed
 
 - name: enable stream dump services

@@ -42,7 +42,8 @@
   register: imgmaker
 
 - name: perform a daemon-reload if any of the imgmaker services have been modified
-  shell: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
   when: imgmaker.changed
 
 - name: enable imgmaker services
