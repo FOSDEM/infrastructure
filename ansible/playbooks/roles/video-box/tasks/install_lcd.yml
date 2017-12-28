@@ -1,19 +1,29 @@
 ---
 # enable the BananaPi's 3.5 inch LCD
 - name: create mount directory
-  file: path=/mnt/boot state=directory
+  file:
+    path: /mnt/boot
+    state: directory
 
 - name: mount boot partition on /mnt/boot/
-  mount: name=/mnt/boot src={{ sd_boot }} fstype=vfat state=mounted
+  mount:
+    name: /mnt/boot
+    src: "{{ sd_boot }}"
+    fstype: vfat
+    state: mounted
 
 # our script.bin comes from here:
 # https://github.com/LeMaker/fex_configuration/tree/master/bin
 - name: replace script.bin with the one provided by LeMaker
-  copy: src=lcd/banana_pi_35lcd.bin dest=/mnt/boot/script.bin
+  copy:
+    src: lcd/banana_pi_35lcd.bin
+    dest: /mnt/boot/script.bin
   register: scriptbin
 
 - name: add the lcd module to /etc/modules
-  lineinfile: dest=/etc/modules line="lcd"
+  lineinfile:
+    dest: /etc/modules
+    line: "lcd"
   register: modulelcd
 
 - name: reboot the box if needed

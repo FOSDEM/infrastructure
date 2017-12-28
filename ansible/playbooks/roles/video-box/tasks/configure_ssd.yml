@@ -8,22 +8,41 @@
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the SSD disk
-  filesystem: fstype=ext4 dev={{ ssd_drive }}
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
 
 - name: stop processes using the SSD
   shell: lsof | grep /mnt/ssd/ | sed 's/\s\s*/ /g' | cut -d' ' -f 2 | sort -u | while read line; do systemctl stop `systemctl status $line | head -n 1 | cut -d' ' -f 2`; done;
-  when: destroy_all_videobox_data is defined and destroy_all_videobox_data == True
+  when:
+    - destroy_all_videobox_data is defined
+    - destroy_all_videobox_data == True
 
 - name: unmount SSD if it needs to be wiped
-  mount: src={{ ssd_drive }} name=/mnt/ssd state=unmounted fstype=ext4
-  when: destroy_all_videobox_data is defined and destroy_all_videobox_data == True
+  mount:
+    src: "{{ ssd_drive }}"
+    name: /mnt/ssd
+    state: unmounted
+    fstype: ext4
+  when:
+    - destroy_all_videobox_data is defined
+    - destroy_all_videobox_data == True
 
 - name: wipe all data on the SSD disk
   filesystem: fstype=ext4 dev={{ ssd_drive }} force=yes
-  when: destroy_all_videobox_data is defined and destroy_all_videobox_data == True
+  when:
+    - destroy_all_videobox_data is defined
+    - destroy_all_videobox_data == True
 
 - name: create mount directory
-  file: path=/mnt/ssd state=directory
+  file:
+    path: /mnt/ssd
+    state: directory
 
 - name: mount SSD on /mnt/ssd/
-  mount: name=/mnt/ssd src={{ ssd_drive }} fstype=ext4 state=mounted opts=noatime
+  mount:
+    name: /mnt/ssd
+    src: "{{ ssd_drive }}"
+    fstype: ext4
+    state: mounted
+    opts: noatime

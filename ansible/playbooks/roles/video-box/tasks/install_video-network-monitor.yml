@@ -1,22 +1,42 @@
 ---
 - name: install video-network-monitor script
-  template: src=video-network-monitor/video-network-monitor.sh dest=/usr/local/bin/video-network-monitor.sh owner=root group=root mode=0755
+  template:
+    src: video-network-monitor/video-network-monitor.sh
+    dest: /usr/local/bin/video-network-monitor.sh
+    owner: root
+    group: root
+    mode: 0755
   register: networkmonitorscript
 
 - name: install video-network-monitor service
-  template: src=video-network-monitor/video-network-monitor.service dest=/etc/systemd/system/video-network-monitor.service owner=root group=root mode=0644
+  template:
+    src: video-network-monitor/video-network-monitor.service
+    dest: /etc/systemd/system/video-network-monitor.service
+    owner: root
+    group: root
+    mode: 0644
   register: networkmonitor
 
 - name: perform a daemon-reload if video-network-monitor.service has been modified
-  shell: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
   when: networkmonitor.changed
 
 - name: enable video-network-monitor service
-  service: name=video-network-monitor enabled=yes state=started
+  service:
+    name: video-network-monitor
+    enabled: yes
+    state: started
 
 - name: restart service if video-network-monitor service or script has been modified
-  service: name=video-network-monitor state=restarted
+  service:
+    name: video-network-monitor
+    state: restarted
   when: networkmonitor.changed or networkmonitorscript.changed
 
 - name: enable video-network-monitor service
-  systemd: name=video-network-monitor enabled=yes state=started daemon_reload=yes
+  systemd:
+    name: video-network-monitor
+    enabled: yes
+    state: started
+    daemon_reload: yes

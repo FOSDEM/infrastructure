@@ -1,26 +1,51 @@
 ---
 - name: install video-status script
-  template: src=video-status/video-status.py dest=/usr/local/bin/video-status.py owner=root group=root mode=0755
+  template:
+    src: video-status/video-status.py
+    dest: /usr/local/bin/video-status.py
+    owner: root
+    group: root
+    mode: 0755
   register: videostatusscript
 
 - name: install video-status logo
-  copy: src=video-status/logo.png dest=/usr/local/bin/logo.png owner=root group=root mode=0644
+  copy:
+    src: video-status/logo.png
+    dest: /usr/local/bin/logo.png
+    owner: root
+    group: root
+    mode: 0644
   register: videostatuslogo
 
 - name: install video-status service
-  template: src=video-status/video-status.service dest=/etc/systemd/system/video-status.service owner=root group=root mode=0644
+  template:
+    src: video-status/video-status.service
+    dest: /etc/systemd/system/video-status.service
+    owner: root
+    group: root
+    mode: 0644
   register: videostatus
 
 - name: perform a daemon-reload if video-status.service has been modified
-  shell: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
   when: videostatus.changed
 
 - name: enable video-status service
-  service: name=video-status enabled=yes state=started
+  service:
+    name: video-status
+    enabled: yes
+    state: started
 
 - name: restart service if video-status.service has been modified
-  service: name=video-status state=restarted
+  service:
+    name: video-status
+    state: restarted
   when: videostatus.changed or videostatusscript.changed or videostatuslogo.changed
 
 - name: enable video-status service
-  systemd: name=video-status enabled=yes state=started daemon_reload=yes
+  systemd:
+    name: video-status
+    enabled: yes
+    state: started
+    daemon_reload: yes
