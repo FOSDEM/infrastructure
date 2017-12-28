@@ -91,6 +91,7 @@
   roles:
   - scaleway
   - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
+  - mtail
 
 - name: video-streamer-frontend
   hosts: video-streamer-frontend
@@ -98,6 +99,7 @@
   roles:
   - scaleway
   - { role: video-streamer-frontend, tags: [ 'video-streamer-frontend' ] }
+  - mtail
 
 - name: video-web-frontend
   hosts: video-web-frontend

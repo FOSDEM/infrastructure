@@ -1,9 +1,0 @@
-[Unit]
-Description=Mtail metrics collector
-
-[Service]
-#EnvironmentFile=-/etc/default/mtail
-ExecStart={{ mtail_install_path }}/mtail -logtostderr -progs /srv/mtail/configs -logs '/var/log/nginx/metrics.log'
-
-[Install]
-WantedBy=multi-user.target

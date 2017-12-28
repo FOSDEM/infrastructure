@@ -1,43 +1,29 @@
-- name: Create mtail dir
-  file:
-    path: "{{ mtail_install_path }}/configs"
-    state: directory
-    recurse: yes
-    mode: 0755
-    owner: root
-    group: root
+---
 
-- name: untar mtail tarball
-  unarchive:
-    src: mtail-345082f-linux-amd64.tar.gz
-    dest: "{{ mtail_install_path }}"
-    mode: 0755
-    owner: root
-    group: root
+- name: install mtail
+  apt:
+    pkg: mtail
+    state: latest
 
-- name: Install mtail systemd service file
-  notify:
-  - reload systemd
-  template:
-    src: mtail.service
-    dest: /etc/systemd/system/mtail.service
+- name: enable and start mtail service
+  service:
+    name: mtail
+    state: started
+    enabled: yes
 
-- name: Enable and start mtail service
-  service: name=mtail state=started enabled=yes
-
-- name: Install mtail defaults file
+- name: install mtail defaults file
   template:
     src: defaults
     dest: /etc/default/mtail
   notify:
   - restart mtail
 
-- name: Install mtail configs
+- name: install mtail configs
   copy:
     src: "{{ item }}"
-    dest: /srv/mtail/configs/
+    dest: /etc/mtail/
     owner: root
-    mode: 600
+    mode: 0644
   with_fileglob:
     - mtail/*.mtail
   notify:
