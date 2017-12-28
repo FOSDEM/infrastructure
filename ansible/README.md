@@ -1,5 +1,9 @@
 # Deployment with Ansible
 
+## Requirements
+
+We aim to be compatible with Ansible 2.2 and up.
+
 ## Set up the vault password
 
 Secrets are encrypted with [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html).
