@@ -3,6 +3,21 @@
   register: number_of_partitions
   changed_when: False
 
+- name: empty our mountpoint if the disk is not mounted, remove directory
+  file:
+    path: /var/www
+    state: absent
+  when: number_of_partitions.stdout != "0"
+
+- name: empty our mountpoint if the disk is not mounted, create directory
+  file:
+    path: /var/www
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: number_of_partitions.stdout != "0"
+
 - name: wipe existing SSD partition table
   shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1
   when: number_of_partitions.stdout != "0"
@@ -40,4 +55,4 @@
     src: "{{ ssd_drive }}"
     fstype: ext4
     state: mounted
-    opts: noatime
+    opts: auto,noatime,nofail
