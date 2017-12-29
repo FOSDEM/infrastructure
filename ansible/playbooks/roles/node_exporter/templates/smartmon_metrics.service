@@ -1,5 +1,5 @@
 [Unit]
-Description=smartmon metrics
+Description=Prometheus Node smartmon metrics
 
 [Service]
 Type=oneshot
