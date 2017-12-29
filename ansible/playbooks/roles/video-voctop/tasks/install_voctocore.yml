@@ -7,18 +7,6 @@
     group: root
     mode: 0755
 
-- name: add backports repository
-  apt_repository:
-    repo: "deb http://deb.debian.org/debian/ {{ansible_distribution_release}}-backports main"
-    state: present
-  register: apt_sources
-
-- name: run update if the cache is stale and we have added the backports repo"
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
-  when: apt_sources.changed
-
 - name: "install packages"
   apt: pkg={{ item }} state=latest
   with_items:
