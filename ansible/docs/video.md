@@ -74,6 +74,16 @@ the Lenkeng scaler using your keyboard.
 
 ## Vocto laptops (video-voctop role)
 
+### Controlling the voctops
+
+Checking if they are all on AC power:
+
+    ansible video-voctop -a "cat /sys/class/power_supply/AC/online"
+
+Checking the battery charge level:
+
+    ansible video-voctop -a "cat /sys/class/power_supply/BAT0/capacity"
+
 ### Stream background image
 
 If you have a new background image, it needs to be 1280x720, and to be
@@ -92,6 +102,10 @@ Restarting nginx:
 
     ansible video-streamer-backend -a "systemctl restart nginx.service"
 
+Erasing video dumps:
+
+    ansible video-streamer-backend -a "find /var/www/dump/ \( -name \*.mp4 -o -iname \*.flv \) -exec rm {} \;"
+    ansible video-streamer-backend -a "systemctl restart nginx.service"
 
 ## Streamer frontends
 
