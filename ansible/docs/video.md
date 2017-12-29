@@ -35,7 +35,7 @@ simultaneously.
 
 Start recording:
 
-    ansible video-box -a "systemctl start video-recorder.service"
+winkekatze
 
 Stop recording:
 
@@ -74,7 +74,7 @@ the Lenkeng scaler using your keyboard.
 
 ## Vocto laptops (video-voctop role)
 
-## Stream background image
+### Stream background image
 
 If you have a new background image, it needs to be 1280x720, and to be
 converted to a raw one. It's done by using ffmpeg, like this:
@@ -82,3 +82,21 @@ converted to a raw one. It's done by using ffmpeg, like this:
 `ffmpeg -i background.png -c:v rawvideo -pix_fmt:v yuv420p -c:v rawvideo -pix_fmt yuv420p -frames 1 -f rawvideo background.raw`
 
 This needs to go in `playbooks/roles/video-voctop/files/config/`.
+
+
+## Streamer backends
+
+### Controlling the streamer backends
+
+Restarting nginx:
+
+    ansible video-streamer-backend -a "systemctl restart nginx.service"
+
+
+## Streamer frontends
+
+### Controlling the streamer frontends
+
+Restarting nginx:
+
+    ansible video-streamer-frontend -a "systemctl restart nginx.service"
