@@ -25,7 +25,7 @@ firmware. You will need to drop those files here:
 
 Use the `update-private-files.sh` script to manage them.
 
-See ![fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
+See [fabled/bmd-tools](https://github.com/fabled/bmd-tools) for more
 information.
 
 ### Controlling the video boxes
