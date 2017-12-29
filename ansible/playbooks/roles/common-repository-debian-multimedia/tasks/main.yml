@@ -1,0 +1,17 @@
+---
+
+- name: "add deb-multimedia key"
+  apt_key:
+    id: A401FF99368FA1F98152DE755C808C2B65558117
+    keyserver: keys.gnupg.net
+    state: present
+
+- name: "set deb-multimedia preferences"
+  copy:
+    src: deb-multimedia.pref
+    dest: /etc/apt/preferences.d/deb-multimedia.pref
+
+- name: "add deb-multimedia repository"
+  apt_repository:
+    update_cache: yes
+    repo: "deb http://www.deb-multimedia.org {{ansible_distribution_release}} main non-free"
