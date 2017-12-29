@@ -1,0 +1,18 @@
+---
+- name: "set deb-multimedia preferences for ffmpeg and dependencies"
+  copy:
+    src: apt/deb-multimedia-ffmpeg.pref
+    dest: /etc/apt/preferences.d/deb-multimedia-ffmpeg.pref
+  register: mmrepo
+
+- name: "run apt update if we have modified the preferences"
+  apt:
+    update_cache: yes
+  when: mmrepo.changed
+
+- name: "install ffmpeg"
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - ffmpeg

@@ -12,7 +12,6 @@
   with_items:
     - bash-completion
     - curl
-    - ffmpeg
     - git
     - python3-gi-cairo
     - rsync

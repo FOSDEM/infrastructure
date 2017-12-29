@@ -1,5 +1,6 @@
 ---
 - include: disable_suspend.yml
+- include: install_ffmpeg.yml
+  tags: ffmpeg
 - include: install_voctocore.yml
   tags: voctocore
-
