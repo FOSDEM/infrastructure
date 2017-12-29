@@ -1,4 +1,10 @@
 ---
+- name: install alsa-utils
+  apt:
+    pkg: alsa-utils
+    state: latest
+    install_recommends: no
+
 - name: create the lenkeng ir code directory
   file:
     path: /usr/local/bin/lenkengir/
