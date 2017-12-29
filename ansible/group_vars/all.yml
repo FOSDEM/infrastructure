@@ -15,3 +15,8 @@ ssh_users:
   - wouter
 
 timezone: "Europe/Brussels"
+
+ansible_to_go_arch:
+  x86_64: amd64
+  aarch64: arm64
+  armv7l: arm7

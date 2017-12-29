@@ -1,11 +1,12 @@
 [Unit]
-Description=Prometheus Node Exporter
+Description=Prometheus Server
 
 [Service]
 User={{ prometheus_user }}
 Group={{ prometheus_group }}
-ExecStart={{ prometheus_path }}/prometheus -config.file {{ prometheus_config_path }}/prometheus.yml -storage.local.path {{ prometheus_db_path }} -web.listen-address 'localhost:9090' -alertmanager.url 'http://localhost:9093' -storage.local.retention 20000h
+ExecStart={{ prometheus_path }}/prometheus -web.listen-address "{{ prometheus_listen_address }}" -config.file {{ prometheus_config_path }}/prometheus.yml -storage.local.path {{ prometheus_db_path }} -storage.local.target-heap-size "{{ (ansible_memtotal_mb*1024*1024*0.50)|int|abs }}"
 ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
 Restart=always
 
 [Install]
