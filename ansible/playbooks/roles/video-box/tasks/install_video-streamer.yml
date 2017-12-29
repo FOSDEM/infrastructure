@@ -4,7 +4,7 @@
     pkg: ffmpeg
     state: latest
     install_recommends: no
-    default_release: jessie-backports
+    default_release: "{{ansible_distribution_release}}-backports"
 
 - name: install bmd-streamer binary
   copy:
