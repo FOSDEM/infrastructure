@@ -4,8 +4,9 @@ Description=Prometheus Blackbox Exporter
 [Service]
 User=nobody
 Group=nogroup
-EnvironmentFile=-/etc/default/blackbox_exporter
-ExecStart={{ blackbox_exporter_path }}/blackbox_exporter -config.file {{ blackbox_exporter_path }}/blackbox.yml
+PermissionsStartOnly=true
+ExecStartPre=/sbin/setcap 'cap_net_raw+ep' {{ blackbox_exporter_path }}/blackbox_exporter
+ExecStart={{ blackbox_exporter_path }}/blackbox_exporter --web.listen-address "{{ blackbox_exporter_listen_address }}" --config.file {{ blackbox_exporter_path }}/blackbox.yml
 KillMode=process
 Restart=always
 
