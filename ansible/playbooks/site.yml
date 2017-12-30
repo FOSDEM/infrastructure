@@ -77,7 +77,6 @@
   hosts: video-voctop
   remote_user: root
   roles:
-  - { role: common-repository-debian-multimedia, tags: [ 'debian-multimedia' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
 - name: video-stream-dumper
