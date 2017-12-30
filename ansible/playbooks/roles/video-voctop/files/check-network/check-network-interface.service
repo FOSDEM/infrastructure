@@ -1,0 +1,10 @@
+[Unit]
+Description=check if our network interface is present
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/check-network-interface.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

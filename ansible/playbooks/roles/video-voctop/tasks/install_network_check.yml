@@ -1,0 +1,32 @@
+---
+
+- name: create scripts directory
+  file:
+    path: /opt/scripts/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install network check script
+  template:
+    src: check-network/check-network-interface.sh
+    dest: /opt/scripts/check-network-interface.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install network check unit
+  copy:
+    src: "check-network/check-network-interface.service"
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable network check unit
+  service:
+    name: check-network-interface
+    state: started
+    enabled: yes
+    daemon_reload: yes
