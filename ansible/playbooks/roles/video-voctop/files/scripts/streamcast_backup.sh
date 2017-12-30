@@ -8,7 +8,7 @@ while true; do
 	ffmpeg -y \
 	-i "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}" \
 	-c:v copy \
-	-strict -2 -c:a libfdk_aac -ab 128k \
+	-strict -2 -c:a aac -ab 128k \
 	-flags:v +global_header  \
 	-field_order progressive \
 	-f flv \
