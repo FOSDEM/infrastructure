@@ -1,15 +1,3 @@
-- name: Set OS = Linux arch = amd64
-  set_fact:
-    prometheus_tarball_url: "{{ prometheus_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
-    prometheus_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-amd64"
-  when: ansible_system == "Linux" and ansible_architecture == "x86_64"
-
-- name: Set OS = Linux arch = arm
-  set_fact:
-    prometheus_tarball_url: "{{ prometheus_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-armv7.tar.gz"
-    prometheus_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-armv7"
-  when: ansible_system == "Linux" and ansible_architecture == "armv7l"
-
 - name: create Prometheus group
   group: name={{ prometheus_group }}  state=present
 
@@ -55,9 +43,12 @@
 - name: Configure Prometheus
   notify:
   - reload prometheus
-  template:
-    src: prometheus.yml.j2
+  copy:
+    content: "{{ prometheus_config | to_nice_yaml(indent=2) }}"
     dest: "{{ prometheus_config_path }}/prometheus.yml"
+    mode: 0755
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
 
 - name: Configure rules files
   copy:
@@ -70,17 +61,43 @@
     - rules/*.rules
   notify:
   - reload prometheus
+  when: prometheus_version | version_compare('2.0', '<')
+
+- name: Configure yaml rules files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_rule_path }}/"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644
+  with_fileglob:
+    - rules/*.yml
+  notify:
+  - reload prometheus
+  when: prometheus_version | version_compare('2.0', '>=')
 
 - name: Install prometheus systemd service file
   notify:
-  - reload systemd
   - restart prometheus
   template:
     src: prometheus.service
     dest: /etc/systemd/system/prometheus.service
+  when: prometheus_version | version_compare('2.0', '<')
+
+- name: Install prometheus 2.0 systemd service file
+  notify:
+  - restart prometheus
+  template:
+    src: prometheus2.service
+    dest: /etc/systemd/system/prometheus.service
+  when: prometheus_version | version_compare('2.0', '>=')
 
 - name: Enable and start prometheus service
-  service: name=prometheus state=started enabled=yes
+  systemd:
+    name: prometheus.service
+    state: started
+    enabled: yes
+    daemon_reload: yes
 
 - name: Deploy avq targets
   copy:
@@ -89,5 +106,11 @@
     owner: "{{ prometheus_user }}"
     group: "{{ prometheus_group }}"
     mode: 0644
-  notify:
-  - reload prometheus
+
+- name: Deploy node targets
+  template:
+    src: nodes.yml.j2
+    dest: "{{ prometheus_config_path }}/nodes.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644

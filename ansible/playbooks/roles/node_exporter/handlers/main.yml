@@ -1,2 +1,4 @@
 - name: restart node_exporter
-  service: name=node_exporter state=restarted
+  systemd:
+    name: node_exporter
+    state: restarted

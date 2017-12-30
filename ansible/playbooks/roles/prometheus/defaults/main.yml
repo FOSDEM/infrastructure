@@ -7,6 +7,29 @@ prometheus_db_path:              /srv/prometheus/data
 prometheus_rule_path:            "{{ prometheus_config_path }}/rules"
 prometheus_file_sd_config_path:  "{{ prometheus_config_path }}/targets"
 
+prometheus_listen_address: ":9090"
 
-prometheus_version: 1.4.1
+prometheus_version: 2.0.0
 prometheus_download_url: https://github.com/prometheus/prometheus/releases/download
+
+prometheus_tarball_url: "{{ prometheus_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-{{ ansible_to_go_arch[ansible_architecture] | default(ansible_architecture) }}.tar.gz"
+prometheus_path: "{{ prometheus_install_path }}/prometheus-{{ prometheus_version }}.linux-{{ ansible_to_go_arch[ansible_architecture] | default(ansible_architecture) }}"
+
+prometheus_storage_tsdb_retention: "90d"
+
+prometheus_config:
+  global:
+    scrape_interval: "15s"
+    evaluation_interval: "15s"
+    scrape_timeout: "10s"
+  rules_files:
+  - 'rules/*.rules'
+  scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - localhost:9100

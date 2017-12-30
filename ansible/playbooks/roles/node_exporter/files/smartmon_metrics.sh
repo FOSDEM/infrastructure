@@ -7,15 +7,13 @@
 #       data in them than you'd think.
 #       http://arstechnica.com/civis/viewtopic.php?p=22062211
 
-disks="$(/usr/sbin/smartctl --scan | awk '{print $1 "|" $3}')"
-
 parse_smartctl_attributes_awk="$(cat << 'SMARTCTLAWK'
 $1 ~ /^[0-9]+$/ && $2 ~ /^[a-zA-Z0-9_-]+$/ {
   gsub(/-/, "_");
   printf "%s_value{%s,smart_id=\"%s\"} %d\n", $2, labels, $1, $4
   printf "%s_worst{%s,smart_id=\"%s\"} %d\n", $2, labels, $1, $5
   printf "%s_threshold{%s,smart_id=\"%s\"} %d\n", $2, labels, $1, $6
-  printf "%s_raw_value{%s,smart_id=\"%s\"} %d\n", $2, labels, $1, $10
+  printf "%s_raw_value{%s,smart_id=\"%s\"} %e\n", $2, labels, $1, $10
 }
 SMARTCTLAWK
 )"
@@ -70,7 +68,7 @@ parse_smartctl_attributes() {
 }
 
 parse_smartctl_info() {
-  local -i smart_available=0 smart_enabled=0
+  local -i smart_available=0 smart_enabled=0 smart_healthy=0
   local disk="$1" disk_type="$2"
   while read line ; do
     info_type="$(echo "${line}" | cut -f1 -d: | tr ' ' '_')"
@@ -92,14 +90,24 @@ parse_smartctl_info() {
         Unavail) smart_available=0 ;;
       esac
     fi
+    if [[ "${info_type}" == 'SMART_overall-health_self-assessment_test_result' ]] ; then
+      case "${info_value:0:6}" in
+        PASSED) smart_healthy=1 ;;
+      esac
+    elif [[ "${info_type}" == 'SMART_Health_Status' ]] ; then
+      case "${info_value:0:2}" in
+        OK) smart_healthy=1 ;;
+      esac
+    fi
   done
-  if [[ -n "${model_family}" ]] ; then
-    echo "device_info{disk=\"${disk}\",type=\"${disk_type}\",model_family=\"${model_family}\",device_model=\"${device_model}\",serial_number=\"${serial_number}\",firmware_version=\"${fw_version}\"} 1"
-  elif [[ -n "${vendor}" ]] ; then
+  if [[ -n "${vendor}" ]] ; then
     echo "device_info{disk=\"${disk}\",type=\"${disk_type}\",vendor=\"${vendor}\",product=\"${product}\",revision=\"${revision}\",lun_id=\"${lun_id}\"} 1"
+  else
+    echo "device_info{disk=\"${disk}\",type=\"${disk_type}\",model_family=\"${model_family}\",device_model=\"${device_model}\",serial_number=\"${serial_number}\",firmware_version=\"${fw_version}\"} 1"
   fi
   echo "device_smart_available{disk=\"${disk}\",type=\"${disk_type}\"} ${smart_available}"
   echo "device_smart_enabled{disk=\"${disk}\",type=\"${disk_type}\"} ${smart_enabled}"
+  echo "device_smart_healthy{disk=\"${disk}\",type=\"${disk_type}\"} ${smart_healthy}"
 }
 
 output_format_awk="$(cat << 'OUTPUTAWK'
@@ -126,14 +134,14 @@ if [[ "$(expr "${smartctl_version}" : '\([0-9]*\)\..*')" -lt 6 ]] ; then
   exit
 fi
 
-device_list="$(/usr/sbin/smartctl --scan-open | awk '{print $1 "|" $3}')"
+device_list="$(/usr/sbin/smartctl --scan-open | awk '/^\/dev/{print $1 "|" $3}')"
 
 for device in ${device_list}; do
   disk="$(echo ${device} | cut -f1 -d'|')"
   type="$(echo ${device} | cut -f2 -d'|')"
   echo "smartctl_run{disk=\"${disk}\",type=\"${type}\"}" $(TZ=UTC date '+%s')
-  # Get the SMART information
-  /usr/sbin/smartctl -i -d "${type}" "${disk}" | parse_smartctl_info "${disk}" "${type}"
+  # Get the SMART information and health
+  /usr/sbin/smartctl -i -H -d "${type}" "${disk}" | parse_smartctl_info "${disk}" "${type}"
   # Get the SMART attributes
   /usr/sbin/smartctl -A -d "${type}" "${disk}" | parse_smartctl_attributes "${disk}" "${type}"
 done | format_output

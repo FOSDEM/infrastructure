@@ -1,11 +1,12 @@
+#jinja2: trim_blocks:False
 [Unit]
 Description=Prometheus Node Exporter
 
 [Service]
 User=nobody
 Group=nogroup
-EnvironmentFile=-/etc/default/node_exporter
-ExecStart={{ node_exporter_path }}/node_exporter -collectors.enabled ${COLLECTORS} -collector.textfile.directory {{ node_exporter_textfiles_path }} -collector.systemd.unit-whitelist ${SYSTEMD_WHITELIST}
+ExecStart={{ node_exporter_path }}/node_exporter --web.listen-address "{{ node_exporter_listen_address }}" --collector.textfile.directory "{{ node_exporter_textfiles_path }}" {% for collector_enable in node_exporter_collectors_enable %}--collector.{{ collector_enable }}{% endfor %} {% for collector_disable in node_exporter_collectors_disable %}--no-collector.{{ collector_disable }}{% endfor %}
+KillMode=process
 Restart=always
 
 [Install]

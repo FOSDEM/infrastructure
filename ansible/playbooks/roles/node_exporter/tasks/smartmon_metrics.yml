@@ -14,7 +14,6 @@
 
 - name: Install smartmon_metrics systemd service file
   notify:
-  - reload systemd
   template:
     src: "{{ item }}"
     dest: "/etc/systemd/system/{{ item }}"
@@ -22,18 +21,15 @@
     - smartmon_metrics.service
     - smartmon_metrics.timer
 
-- name: Enable smartmon_metrics service
-  service:
-    name: "{{ item }}"
+- name: Enable and start smartmon_metrics service
+  systemd:
+    name: smartmon_metrics.service
     enabled: True
-  with_items:
-    - smartmon_metrics.service
+    daemon_reload: yes
 
 - name: Enable and start smartmon_metrics timer
-  service:
-    name: "{{ item }}"
+  systemd:
+    name: smartmon_metrics.timer
     state: started
     enabled: True
-  with_items:
-    - smartmon_metrics.timer
-
+    daemon_reload: yes

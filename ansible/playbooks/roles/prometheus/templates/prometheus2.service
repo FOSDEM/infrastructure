@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Server
+
+[Service]
+User={{ prometheus_user }}
+Group={{ prometheus_group }}
+ExecStart={{ prometheus_path }}/prometheus --web.listen-address="{{ prometheus_listen_address }}" --config.file="{{ prometheus_config_path }}/prometheus.yml" --storage.tsdb.path="{{ prometheus_db_path }}/" --storage.tsdb.retention="{{ prometheus_storage_tsdb_retention }}"
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
