@@ -3,19 +3,12 @@
   apt: pkg={{ item }} state=latest install_recommends=no
   with_items:
     - nfs-common
-    - gstreamer1.0-plugins-good
-    - gstreamer1.0-plugins-bad
-    - gstreamer1.0-plugins-ugly
-    - gstreamer1.0-plugins-base
-    - gir1.2-gstreamer-1.0
-    - gir1.2-gst-plugins-base-1.0
     - gridengine-exec
-    - libdbi-perl
-    - libdbd-pg-perl
-    - libwww-curl-perl
-    - libglib-object-introspection-perl
     - bs1770gain
     - libmojolicious-perl
+    - libmojo-pg-perl
+    - libmoose-perl
+    - sreview-encoder
     - inkscape
 
 - name: "add deb-multimedia key"
