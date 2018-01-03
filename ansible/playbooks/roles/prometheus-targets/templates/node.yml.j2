@@ -1,0 +1,4 @@
+- targets:
+{% for host in hostvars %}
+  - {{ host }}:9100
+{% endfor %}
