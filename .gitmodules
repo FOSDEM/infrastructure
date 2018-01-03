@@ -16,3 +16,6 @@
 [submodule "ansible/playbooks/roles/debops.secret"]
 	path = ansible/playbooks/roles/debops.secret
 	url = https://github.com/debops/ansible-secret.git
+[submodule "ansible/playbooks/roles/cloudalchemy.prometheus"]
+	path = ansible/playbooks/roles/cloudalchemy.prometheus
+	url = https://github.com/cloudalchemy/ansible-prometheus.git
