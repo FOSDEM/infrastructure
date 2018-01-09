@@ -1,0 +1,35 @@
+---
+- name: "install packages"
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    install_recommends: no
+  with_items:
+    - git
+    - libgeos-dev
+    - librsvg2-bin
+    - libagg-dev
+    - libagg-dev
+    - libpng-dev
+    - build-essential
+    - libfreetype6-dev
+    - libqhull-dev
+    - pkg-config
+    - libjpeg-dev
+    - libatlas-base-dev
+    - gettext
+    - redis-server
+    - lighttpd
+    - postgresql
+    - postgis
+    - postgresql-9.6-postgis-2.3
+    - postgresql-9.6-postgis-2.3-scripts
+    - libpq-dev
+    - python3.6
+    - python3.6-venv
+    - python-pip
+    - virtualenv
+    - python3.6-dev
+    - libmemcached-dev
+    - python-psycopg2
+    - python3-tk

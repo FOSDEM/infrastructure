@@ -1,0 +1,24 @@
+---
+- name: create database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: c3nav
+
+- name: add c3nav user to postgres
+  become: yes
+  become_user: postgres
+  postgresql_user:
+     db: c3nav
+     name: c3nav
+     password: c3nav
+     encrypted: True
+
+- name: create postgis extension in new db
+  become: yes
+  become_user: postgres
+  postgresql_ext:
+    db: c3nav
+    name: postgis
+    state: present
+
