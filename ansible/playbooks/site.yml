@@ -54,7 +54,7 @@
   roles:
   - common-repository-debian-backports
   - common
-  - { role: node_exporter, tags: [ 'node_exporter' ] }
+  - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
 
 
 ##
@@ -128,8 +128,8 @@
   roles:
   - prometheus-targets
   - cloudalchemy.prometheus
-  - snmp_exporter
-  - blackbox_exporter
+  - cloudalchemy.snmp-exporter
+  - cloudalchemy.blackbox-exporter
 
 - name: public-dashboard
   hosts: public-dashboard

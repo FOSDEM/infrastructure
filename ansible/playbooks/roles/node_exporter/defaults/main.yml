@@ -1,6 +1,0 @@
-node_exporter_install_path: /srv/node_exporter
-node_exporter_textfiles_path: /srv/node_exporter/textfiles
-node_exporter_collectors: diskstats,filefd,filesystem,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,systemd,textfile,time,uname
-node_exporter_systemd_whitelist: ".+\\.(service|timer)"
-node_exporter_version: 0.13.0
-node_exporter_download_url: https://github.com/prometheus/node_exporter/releases/download
