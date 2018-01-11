@@ -126,10 +126,10 @@
   hosts: event-prometheus-servers
   tags: [event-prometheus-servers]
   roles:
-  - prometheus-targets
-  - cloudalchemy.prometheus
   - cloudalchemy.snmp-exporter
   - cloudalchemy.blackbox-exporter
+  - cloudalchemy.prometheus
+  - prometheus-targets
 
 - name: public-dashboard
   hosts: public-dashboard

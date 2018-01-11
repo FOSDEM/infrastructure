@@ -50,7 +50,7 @@ prometheus_scrape_configs:
   scrape_interval: "1s"
   file_sd_configs:
   - files:
-    - {{ prometheus_config_path }}/avq.yml
+    - "{{ prometheus_config_path }}/avq.yml"
 - job_name: 'swag'
   scrape_interval: "15s"
   metrics_path: /stats/stats.php
@@ -69,7 +69,7 @@ prometheus_snmp_default_targets:
 - noc-sw.n.fosdem.net
 - core-sw.n.fosdem.net
 
-snmp_exporter_config_file: "/etc/snmp.yml"
+snmp_exporter_config_file: "snmp_exporter/snmp.yml"
 
 blackbox_exporter_configuration_modules:
   http_2xx:

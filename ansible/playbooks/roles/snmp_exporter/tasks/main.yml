@@ -1,4 +1,0 @@
-- name: Install config file
-  template:
-    src: snmp.yml.j2
-    dest: "{{ snmp_exporter_config_file }}"
