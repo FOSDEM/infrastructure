@@ -19,3 +19,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.prometheus"]
 	path = ansible/playbooks/roles/cloudalchemy.prometheus
 	url = https://github.com/cloudalchemy/ansible-prometheus.git
+[submodule "ansible/playbooks/roles/cloudalchemy.node-exporter"]
+	path = ansible/playbooks/roles/cloudalchemy.node-exporter
+	url = https://github.com/cloudalchemy/ansible-node-exporter.git

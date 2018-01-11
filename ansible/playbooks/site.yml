@@ -54,7 +54,7 @@
   roles:
   - common-repository-debian-backports
   - common
-  - { role: node_exporter, tags: [ 'node_exporter' ] }
+  - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
 
 
 ##
