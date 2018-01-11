@@ -1,0 +1,70 @@
+prometheus_scrape_configs:
+- job_name: "prometheus"
+  metrics_path: "{{ prometheus_metrics_path }}"
+  file_sd_configs:
+  - files:
+    - "{{ prometheus_config_dir }}/file_sd/prometheus.yml"
+- job_name: "node"
+  scrape_interval: 5s
+  file_sd_configs:
+  - files:
+    - "{{ prometheus_config_dir }}/file_sd/node.yml"
+- job_name: 'snmp_default'
+  scrape_interval: 30s
+  scrape_timeout: 30s
+  static_configs:
+  file_sd_configs:
+  - files:
+    - "{{ prometheus_config_dir }}/file_sd/snmp_default.yml"
+  metrics_path: /snmp
+  params:
+    module: [default]
+  relabel_configs:
+  - source_labels: [__address__]
+    target_label: __param_target
+  - source_labels: [__param_target]
+    target_label: instance
+  - target_label: __address__
+    replacement: 127.0.0.1:9116  # SNMP exporter.
+- job_name: 'snmp_wlc'
+  scrape_interval: 60s
+  scrape_timeout: 10s
+  static_configs:
+    - targets:
+      - 172.33.17.250
+  metrics_path: /snmp
+  params:
+    module: [cisco_wlc]
+  relabel_configs:
+  - source_labels: [__address__]
+    target_label: __param_target
+  - source_labels: [__param_target]
+    target_label: instance
+  - target_label: __address__
+    replacement: 127.0.0.1:9116  # SNMP exporter.
+- job_name: 'caddy'
+  static_configs:
+  - targets:
+    - localhost:9180
+- job_name: 'avq'
+  scrape_interval: "1s"
+  file_sd_configs:
+  - files:
+    - {{ prometheus_config_path }}/avq.yml
+- job_name: 'swag'
+  scrape_interval: "15s"
+  metrics_path: /stats/stats.php
+  static_configs:
+  - targets:
+    - fosdem.thepreview.be
+
+prometheus_snmp_default_targets:
+- asr1k.n.fosdem.net
+- k-sw.n.fosdem.net
+- video-switch-1-sw.n.fosdem.net
+- video-switch-2-sw.n.fosdem.net
+- aw-sw.n.fosdem.net
+- j-sw.n.fosdem.net
+- h-sw.n.fosdem.net
+- noc-sw.n.fosdem.net
+- core-sw.n.fosdem.net
