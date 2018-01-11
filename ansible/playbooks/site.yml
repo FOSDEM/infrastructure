@@ -128,7 +128,7 @@
   roles:
   - prometheus-targets
   - cloudalchemy.prometheus
-  - snmp_exporter
+  - cloudalchemy.snmp-exporter
   - blackbox_exporter
 
 - name: public-dashboard

@@ -68,3 +68,5 @@ prometheus_snmp_default_targets:
 - h-sw.n.fosdem.net
 - noc-sw.n.fosdem.net
 - core-sw.n.fosdem.net
+
+snmp_exporter_config_file: "/etc/snmp.yml"
