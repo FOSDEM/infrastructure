@@ -1,22 +1,21 @@
 prometheus_web_listen_address: "127.0.0.1:9090"
 prometheus_scrape_configs:
 - job_name: "prometheus"
-  metrics_path: "{{ prometheus_metrics_path }}"
   file_sd_configs:
   - files:
-    - "{{ prometheus_config_dir }}/file_sd/prometheus.yml"
+    - "/etc/prometheus/file_sd/prometheus.yml"
 - job_name: "node"
   scrape_interval: 5s
   file_sd_configs:
   - files:
-    - "{{ prometheus_config_dir }}/file_sd/node.yml"
+    - "/etc/prometheus/file_sd/node.yml"
 - job_name: 'snmp_default'
   scrape_interval: 30s
   scrape_timeout: 30s
   static_configs:
   file_sd_configs:
   - files:
-    - "{{ prometheus_config_dir }}/file_sd/snmp_default.yml"
+    - "/etc/prometheus/file_sd/snmp_default.yml"
   metrics_path: /snmp
   params:
     module: [default]
@@ -51,7 +50,7 @@ prometheus_scrape_configs:
   scrape_interval: "1s"
   file_sd_configs:
   - files:
-    - "{{ prometheus_config_path }}/avq.yml"
+    - "/etc/prometheus/avq.yml"
 - job_name: 'swag'
   scrape_interval: "15s"
   metrics_path: /stats/stats.php
