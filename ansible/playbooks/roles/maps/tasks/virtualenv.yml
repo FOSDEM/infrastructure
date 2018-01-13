@@ -16,6 +16,18 @@
     virtualenv_python: python3.6
     virtualenv: /opt/c3nav/env
 
+- name: virtualenv - redis
+  pip:
+    requirements: /opt/c3nav/src/requirements/redis.txt
+    virtualenv_python: python3.6
+    virtualenv: /opt/c3nav/env
+
+- name: virtualenv - postgresql
+  pip:
+    requirements: /opt/c3nav/src/requirements/postgres.txt
+    virtualenv_python: python3.6
+    virtualenv: /opt/c3nav/env
+
 - name: install gunicorn with pip
   pip:
     name: gunicorn

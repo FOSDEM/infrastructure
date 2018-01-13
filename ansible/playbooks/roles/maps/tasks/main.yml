@@ -9,6 +9,18 @@
     group: root
     mode: 0775
 
+- name: add c3nav user
+  user:
+    name: c3nav
+
+- name: create c3nav data dir
+  file:
+    path: /opt/c3nav/data
+    state: directory
+    owner: c3nav
+    group: c3nav
+    mode: 0775
+
 - name: clone c3nav repo
   git:
     repo: https://github.com/c3nav/c3nav.git
@@ -16,11 +28,20 @@
 
 - import_tasks: virtualenv.yml
 
+- name: create configuration dir
+  file:
+    path: /etc/c3nav
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
 - name: copy configuration file
   copy:
     src: c3nav/c3nav.cfg
-    dest: /etc/c3nav.cfg
+    dest: /etc/c3nav/c3nav.cfg
     owner: root
     mode: 0644
 
 - include: configure_postgres.yml
+- include: configure_celery.yml
