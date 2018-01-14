@@ -1,0 +1,16 @@
+go_arch: amd64
+
+coredns_user: coredns
+coredns_port: 53
+
+coredns_path: /srv/coredns
+coredns_version: "1.0.3"
+coredns_download_url: https://github.com/coredns/coredns/releases/download
+
+coredns_config: |
+  .:53 {
+    proxy . 8.8.8.8:53
+    errors stdout
+  }
+
+coredns_tarball_url: "{{ coredns_download_url }}/v{{ coredns_version }}/coredns_{{ coredns_version }}_{{ ansible_system | lower }}_{{ go_arch }}.tgz"

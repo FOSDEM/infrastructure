@@ -1,0 +1,47 @@
+- name: Create coredns user
+  user:
+    name: "{{ coredns_user }}"
+    system: yes
+    createhome: yes
+    home: "{{ coredns_path }}"
+
+- name: Creating coredns dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ coredns_user }}"
+    mode: 0755
+  with_items:
+    - "{{ coredns_path }}"
+
+- name: untar coredns tarball
+  unarchive:
+    src: "{{ coredns_tarball_url }}"
+    dest: "{{ coredns_path }}"
+    mode: 0755
+    owner: "{{ coredns_user }}"
+    copy: no
+  notify:
+  - restart coredns
+
+- name: Install config file
+  copy:
+    content: "{{ coredns_config }}"
+    dest: "{{ coredns_path }}/Corefile"
+    owner: "{{ coredns_user }}"
+  notify:
+  - reload coredns
+
+- name: Install coredns systemd service file
+  notify:
+  - restart coredns
+  template:
+    src: coredns.service.j2
+    dest: /etc/systemd/system/coredns.service
+
+- name: Enable and start coredns service
+  systemd:
+    name: coredns
+    state: started
+    enabled: yes
+    daemon_reload: yes

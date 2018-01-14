@@ -1,0 +1,17 @@
+[Unit]
+Description=CoreDNS DNS server
+Documentation=https://coredns.io
+After=network.target
+
+[Service]
+PermissionsStartOnly=true
+LimitNOFILE=8192
+User=coredns
+WorkingDirectory={{ coredns_path }}
+ExecStartPre=/sbin/setcap cap_net_bind_service=+ep {{ coredns_path }}/coredns
+ExecStart={{ coredns_path }}/coredns -dns.port {{ coredns_port }} -conf {{ coredns_path }}/Corefile -log
+ExecReload=/bin/kill -SIGUSR1 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

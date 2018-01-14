@@ -1,0 +1,30 @@
+---
+coredns_port: 53
+coredns_config: |
+  ### Ansible managed
+  . {
+    proxy . 8.8.8.8:53 {
+      protocol https_google
+    }
+    cache 300 . {
+      success 10000
+      denial  10000
+    }
+    prometheus
+    errors
+  }
+  conference.fosdem.net {
+    file conference.fosdem.net
+    prometheus     # enable metrics
+    errors         # show errors
+  }
+  n.fosdem.net {
+    file n.fosdem.net
+    prometheus     # enable metrics
+    errors         # show errors
+  }
+  v.conference.fosdem.net {
+    file v.conference.fosdem.net
+    prometheus     # enable metrics
+    errors         # show errors
+  }
