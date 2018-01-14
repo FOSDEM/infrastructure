@@ -130,6 +130,7 @@
   - cloudalchemy.blackbox-exporter
   - cloudalchemy.prometheus
   - prometheus-targets
+  - cloudalchemy.alertmanager
 
 - name: public-dashboard
   hosts: public-dashboard
