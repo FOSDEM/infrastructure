@@ -9,7 +9,7 @@ rsyslog_rsyslog_d_files:
       - ':source , !isequal , "server-hostname" ?DynFile'
       - ':source , !isequal , "server-hostname" stop'
 
-caddy_features: prometheus
+caddy_features: http.prometheus
 caddy_config: |
   {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
     gzip
