@@ -1,0 +1,10 @@
+---
+
+- name: configure nav.fosdem.org
+  copy:
+    src: nginx/c3nav
+    dest: /etc/nginx/sites-enabled/c3nav
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx

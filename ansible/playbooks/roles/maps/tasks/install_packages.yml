@@ -19,7 +19,6 @@
     - libatlas-base-dev
     - gettext
     - redis-server
-    - lighttpd
     - postgresql
     - postgis
     - postgresql-9.6-postgis-2.3
@@ -33,3 +32,5 @@
     - libmemcached-dev
     - python-psycopg2
     - python3-tk
+    - nginx
+
