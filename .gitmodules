@@ -28,3 +28,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.blackbox-exporter"]
 	path = ansible/playbooks/roles/cloudalchemy.blackbox-exporter
 	url = https://github.com/cloudalchemy/ansible-blackbox-exporter.git
+[submodule "ansible/playbooks/roles/cloudalchemy.alertmanager"]
+	path = ansible/playbooks/roles/cloudalchemy.alertmanager
+	url = https://github.com/cloudalchemy/ansible-alertmanager.git
