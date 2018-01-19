@@ -1,3 +1,0 @@
-# Managed by ansible.
-COLLECTORS="{{ node_exporter_collectors }}"
-SYSTEMD_WHITELIST="{{ node_exporter_systemd_whitelist }}"

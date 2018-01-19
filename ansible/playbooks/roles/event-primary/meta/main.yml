@@ -1,7 +1,4 @@
 dependencies:
   - dns
-  - prometheus
-  - snmp_exporter
-  - blackbox_exporter
   - ansiblebit.grafana
   - antoiner77.caddy

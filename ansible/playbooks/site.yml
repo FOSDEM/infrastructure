@@ -54,7 +54,7 @@
   roles:
   - common-repository-debian-backports
   - common
-  - { role: node_exporter, tags: [ 'node_exporter' ] }
+  - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
 
 
 ##
@@ -122,6 +122,15 @@
   - oxidized
   - alertmanager
 
+- name: Event Prometheus servers
+  hosts: event-prometheus-servers
+  tags: [event-prometheus-servers]
+  roles:
+  - cloudalchemy.snmp-exporter
+  - cloudalchemy.blackbox-exporter
+  - cloudalchemy.prometheus
+  - prometheus-targets
+  - cloudalchemy.alertmanager
 
 - name: public-dashboard
   hosts: public-dashboard

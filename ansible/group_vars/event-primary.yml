@@ -1,16 +1,4 @@
 ---
-
-prometheus_snmp_default_targets:
-  - asr1k.n.fosdem.net
-  - k-sw.n.fosdem.net
-  - video-switch-1-sw.n.fosdem.net
-  - video-switch-2-sw.n.fosdem.net
-  - aw-sw.n.fosdem.net
-  - j-sw.n.fosdem.net
-  - h-sw.n.fosdem.net
-  - noc-sw.n.fosdem.net
-  - core-sw.n.fosdem.net
-
 rsyslog_repeated_msg_reduction: true
 rsyslog_rsyslog_d_files:
   20-log-routers:
@@ -21,7 +9,7 @@ rsyslog_rsyslog_d_files:
       - ':source , !isequal , "server-hostname" ?DynFile'
       - ':source , !isequal , "server-hostname" stop'
 
-caddy_features: prometheus
+caddy_features: http.prometheus
 caddy_config: |
   {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
     gzip

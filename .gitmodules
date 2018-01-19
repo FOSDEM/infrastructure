@@ -16,3 +16,18 @@
 [submodule "ansible/playbooks/roles/debops.secret"]
 	path = ansible/playbooks/roles/debops.secret
 	url = https://github.com/debops/ansible-secret.git
+[submodule "ansible/playbooks/roles/cloudalchemy.prometheus"]
+	path = ansible/playbooks/roles/cloudalchemy.prometheus
+	url = https://github.com/cloudalchemy/ansible-prometheus.git
+[submodule "ansible/playbooks/roles/cloudalchemy.node-exporter"]
+	path = ansible/playbooks/roles/cloudalchemy.node-exporter
+	url = https://github.com/cloudalchemy/ansible-node-exporter.git
+[submodule "ansible/playbooks/roles/cloudalchemy.snmp-exporter"]
+	path = ansible/playbooks/roles/cloudalchemy.snmp-exporter
+	url = https://github.com/cloudalchemy/ansible-snmp-exporter.git
+[submodule "ansible/playbooks/roles/cloudalchemy.blackbox-exporter"]
+	path = ansible/playbooks/roles/cloudalchemy.blackbox-exporter
+	url = https://github.com/cloudalchemy/ansible-blackbox-exporter.git
+[submodule "ansible/playbooks/roles/cloudalchemy.alertmanager"]
+	path = ansible/playbooks/roles/cloudalchemy.alertmanager
+	url = https://github.com/cloudalchemy/ansible-alertmanager.git

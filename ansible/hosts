@@ -1,6 +1,9 @@
 [event-primary]
 server001.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 
+[event-secondary]
+server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973 ansible_host=185.175.216.252
+
 [control-server]
 control.video.fosdem.org ansible_host=10.2.5.135
 
@@ -140,3 +143,8 @@ spare2-voctop.video.fosdem.org
 
 [video-web-frontend]
 web0.video.fosdem.org
+
+# Composite hosts
+[event-prometheus-servers:children]
+event-primary
+event-secondary
