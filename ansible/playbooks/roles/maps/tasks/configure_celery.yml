@@ -22,3 +22,11 @@
     enabled: yes
     daemon_reload: yes
 
+- name: create logfile (with right permissions) if this does not exist
+  copy:
+    content: ""
+    dest: /var/log/celery-c3nav.log
+    force: no
+    group: c3nav
+    user: c3nav
+    mode: 0644
