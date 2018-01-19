@@ -6,7 +6,7 @@ After=network.target
 User=root
 Group=root
 WorkingDirectory=/opt/c3nav/src
-ExecStart=/opt/c3nav/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/run/gunicorn-c3nav.sock c3nav.wsgi:application
+ExecStart=/opt/c3nav/env/bin/gunicorn --access-logfile - --workers 8 --bind unix:/var/run/gunicorn-c3nav.sock c3nav.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
