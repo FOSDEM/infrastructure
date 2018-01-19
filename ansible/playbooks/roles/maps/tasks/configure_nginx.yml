@@ -8,3 +8,8 @@
     group: root
     mode: 0644
   notify: reload nginx
+
+- name: remove defualt config
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent

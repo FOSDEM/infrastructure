@@ -23,7 +23,8 @@
 
 - name: clone c3nav repo
   git:
-    repo: https://github.com/c3nav/c3nav.git
+    repo: https://github.com/johanvdw/c3nav.git
+    version: floor
     dest: /opt/c3nav
 
 - import_tasks: virtualenv.yml
