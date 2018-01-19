@@ -3,8 +3,8 @@ Description=gunicorn c3nav daemon
 After=network.target
 
 [Service]
-User=root
-Group=root
+User=c3nav
+Group=c3nav
 WorkingDirectory=/opt/c3nav/src
 ExecStart=/opt/c3nav/env/bin/gunicorn --access-logfile - --workers 8 --bind unix:/var/run/gunicorn-c3nav.sock c3nav.wsgi:application
 
