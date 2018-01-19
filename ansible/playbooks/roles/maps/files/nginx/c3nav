@@ -5,6 +5,9 @@ server {
     location /static/ {
         alias /opt/c3nav/src/c3nav/static.dist/;
     }
+    location /media/ {
+        alias /opt/c3nav/src/c3nav/media/;
+    }
     location / {
         include proxy_params;
         proxy_pass http://unix:/var/run/gunicorn-c3nav.sock;
