@@ -1,3 +1,13 @@
+- name: install the tmpfiles.d conf
+  become: yes
+  copy:
+    src: tmpfiles.d/c3nav.conf
+    dest: /usr/lib/tmpfiles.d
+
+- name: configure tmpfiles.d
+  become: yes
+  command: systemd-tmpfiles --create
+
 - name: install the c3nav gunicorn service
   copy:
     src: gunicorn-c3nav.service
