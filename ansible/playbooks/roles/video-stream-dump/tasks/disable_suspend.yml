@@ -1,0 +1,11 @@
+---
+- name: disable suspend and hibernate
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+    masked: yes
+  with_items:
+  - sleep.target
+  - suspend.target
+  - hibernate.target
+  - hybrid-sleep.target

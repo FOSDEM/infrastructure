@@ -79,11 +79,11 @@
   roles:
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
-- name: video-stream-dumper
-  hosts: video-stream-dumper
+- name: video-stream-dump
+  hosts: video-stream-dump
   remote_user: root
   roles:
-  - { role: video-stream-dumper, tags: [ 'video-stream-dumper' ] }
+  - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
 - name: video-streamer-backend
   hosts: video-streamer-backend

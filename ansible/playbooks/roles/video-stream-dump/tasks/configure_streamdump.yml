@@ -1,14 +1,29 @@
 ---
 - name: create stream dump directories
-  file: path=/mnt/storage/{{ item.host }} state=directory owner=root group=root mode=0755
+  file:
+    path: "/mnt/storage/{{ item.host }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
   with_items: "{{ video_dump_source }}"
 
 - name: install stream dump script
-  copy: src=streamdump.sh dest=/usr/local/bin/streamdump.sh owner=root group=root mode=0755
+  copy:
+    src: streamdump.sh
+    dest: /usr/local/bin/streamdump.sh
+    owner: root
+    group: root
+    mode: 0755
   register: streamdumpscript
 
 - name: install stream dump services
-  template: src=streamdump.service dest=/etc/systemd/system/streamdump-{{ item.host}}.service owner=root group=root mode=0644
+  template:
+    src: streamdump.service
+    dest: "/etc/systemd/system/streamdump-{{ item.host}}.service"
+    owner: root
+    group: root
+    mode: 0644
   with_items: "{{ video_dump_source }}"
   register: streamdump
 
@@ -18,14 +33,23 @@
   when: streamdump.changed
 
 - name: enable stream dump services
-  service: name=streamdump-{{ item.host }} enabled=yes state=started
+  service:
+    name: "streamdump-{{ item.host }}"
+    enabled: yes
+    state: started
   with_items: "{{ video_dump_source }}"
 
 - name: restart service if video-network-monitor service or script has been modified
-  service: name=streamdump-{{ item.host }} state=restarted
+  service:
+    name: "streamdump-{{ item.host }}"
+    state: restarted
   with_items: "{{ video_dump_source }}"
   when: streamdump.changed or streamdumpscript.changed
 
 - name: enable streamdump service
-  systemd: name=streamdump-{{ item.host }} enabled=yes state=started daemon_reload=yes
+  systemd:
+    name: "streamdump-{{ item.host }}"
+    enabled: yes
+    state: started
+    daemon_reload: yes
   with_items: "{{ video_dump_source }}"

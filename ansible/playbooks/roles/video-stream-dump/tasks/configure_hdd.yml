@@ -18,18 +18,38 @@
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the HDD disk
-  filesystem: fstype=ext4 dev={{ hdd_drive }}
+  filesystem:
+    fstype: ext4
+    dev: "{{ hdd_drive }}"
 
 - name: unmount HDD if it needs to be wiped
-  mount: src={{ hdd_drive }} name=/mnt/storage state=unmounted fstype=ext4
-  when: destroy_all_streamdumper_data is defined and destroy_all_streamdumper_data == True
+  mount:
+    src: "{{ hdd_drive }}"
+    name: /mnt/storage
+    state: unmounted
+    fstype: ext4
+  when:
+    - destroy_all_streamdump_data is defined
+    - destroy_all_streamdump_data == True
 
 - name: wipe all data on the HDD
-  filesystem: fstype=ext4 dev={{ hdd_drive }} force=yes
-  when: destroy_all_streamdumper_data is defined and destroy_all_streamdumper_data == True
+  filesystem:
+    fstype: ext4
+    dev: "{{ hdd_drive }}"
+    force: yes
+  when:
+    - destroy_all_streamdump_data is defined
+    - destroy_all_streamdump_data == True
 
 - name: create mount directory
-  file: path=/mnt/storage state=directory
+  file:
+    path: /mnt/storage
+    state: directory
 
 - name: mount HDD on /mnt/storage/
-  mount: name=/mnt/storage src={{ hdd_drive }} fstype=ext4 state=mounted opts=noatime
+  mount:
+    name: /mnt/storage
+    src: "{{ hdd_drive }}"
+    fstype: ext4
+    state: mounted
+    opts: auto,noatime,nofail

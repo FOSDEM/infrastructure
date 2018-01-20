@@ -57,7 +57,7 @@ playbook:
 
     --extra-vars '{"destroy_all_videobox_data": True}'
     --extra-vars '{"destroy_all_streambackend_data": True}'
-    --extra-vars '{"destroy_all_streamdumper_data": True}'
+    --extra-vars '{"destroy_all_streamdump_data": True}'
 
 Be careful. :)
 
