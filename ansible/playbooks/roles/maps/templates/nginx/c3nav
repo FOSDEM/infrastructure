@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name nav-test.fosdem.org;
+    server_name {{ ansible_hostname }};
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
         alias /opt/c3nav/src/c3nav/static.dist/;
@@ -10,7 +10,7 @@ server {
     }
     location / {
         include proxy_params;
-        proxy_pass http://unix:/var/run/gunicorn-c3nav.sock;
+        proxy_pass http://unix:/var/run/c3nav/gunicorn-c3nav.sock;
     }
 
     listen 443 ssl; # managed by Certbot
