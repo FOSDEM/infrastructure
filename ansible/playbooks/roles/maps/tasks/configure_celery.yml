@@ -28,5 +28,5 @@
     dest: /var/log/celery-c3nav.log
     force: no
     group: c3nav
-    user: c3nav
+    owner: c3nav
     mode: 0644
