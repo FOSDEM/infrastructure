@@ -13,6 +13,12 @@
   user:
     name: c3nav
 
+- name: clone c3nav repo
+  git:
+    repo: https://github.com/johanvdw/c3nav.git
+    version: floor
+    dest: /opt/c3nav
+
 - name: create c3nav data dir
   file:
     path: /opt/c3nav/data
@@ -20,12 +26,6 @@
     owner: c3nav
     group: c3nav
     mode: 0775
-
-- name: clone c3nav repo
-  git:
-    repo: https://github.com/johanvdw/c3nav.git
-    version: floor
-    dest: /opt/c3nav
 
 - import_tasks: virtualenv.yml
 
