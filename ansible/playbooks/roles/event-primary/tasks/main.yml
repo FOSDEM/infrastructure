@@ -1,0 +1,4 @@
+- name: Fix DHCP client config
+  copy:
+    src: dhclient.conf
+    dest: /etc/dhcp/dhclient.conf

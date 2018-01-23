@@ -10,6 +10,8 @@ rsyslog_rsyslog_d_files:
       - ':source , !isequal , "server-hostname" stop'
 
 caddy_features: http.prometheus
+caddy_systemd_capabilities_enabled: True
+caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
 caddy_config: |
   {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
     gzip
