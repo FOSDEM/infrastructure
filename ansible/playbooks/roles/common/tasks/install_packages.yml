@@ -8,9 +8,11 @@
     - binutils
     - ca-certificates
     - curl
+    - ethtool
     - file
     - git
     - htop
+    - ifmetric
     - iftop
     - inotify-tools
     - iotop
