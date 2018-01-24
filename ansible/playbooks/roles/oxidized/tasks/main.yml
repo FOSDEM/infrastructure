@@ -9,6 +9,11 @@
     - libssl-dev
     - pkg-config
 
+- name: Add ozidized group
+  group:
+    name: oxidized
+    system: yes
+
 - name: Add oxidized user
   user:
     name: oxidized
