@@ -1,0 +1,31 @@
+---
+- name: install NFS utilities and server
+  apt:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - nfs-common
+    - nfs-kernel-server
+
+- name: create export directories
+  file:
+    path: "{{ item.strip().split()[0] }}"
+    state: directory
+  with_items: "{{ nfs_exports }}"
+  notify: restart nfs
+
+- name: create the exports file
+  template:
+    src: nfs/exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nfs
+
+- name: enable and start NFS server
+  service:
+    name: nfs-kernel-server
+    state: started
+    enabled: yes
+  when: nfs_exports|length

@@ -6,6 +6,9 @@ sysctl_parameters: {
     "net.core.rmem_default": "8388608",
 }
 
+nfs_exports:
+  - /var/www/dump 51.15.0.0/16(ro) 2001:bc8::/32(ro) 10.0.0.0/8(ro)
+
 nginx_rtmp_publishers:
   - 31.22.21.130/32
   - 81.82.239.20/32
