@@ -1,0 +1,9 @@
+---
+- name: ensure that sreview is configured
+  template:
+    dest: /etc/sreview/config.pm
+    src: config.j2
+    owner: root
+    group: sreview
+    mode: 0660
+  register: sreview_config_fix

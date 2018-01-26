@@ -1,53 +1,46 @@
 ---
 - name: mount sreview home directory
   mount:
-    name: /home/sreview
-    src: 10.6.7.143:/home/sreview
+    name: /var/lib/sreview
+    src: encode-master.video.fosdem.org:/var/lib/sreview
     fstype: nfs
     state: mounted
 
-- name: mount sreview srv directories (J)
-  mount:
-    name: /srv/sreview/1/{{ item }}
-    src: 10.6.7.143:/srv/sreview/1/{{ item }}
-    fstype: nfs
-    state: mounted
-  with_items:
-    - J
-
-- name: mount sreview srv directories (H and K)
-  mount:
-    name: /srv/sreview/1/{{ item }}
-    src: 10.6.27.145:/srv/sreview/{{ item }}
-    fstype: nfs
-    state: mounted
-  with_items:
-    - H
-    - K
-
-- name: mount sreview srv directories (A and U)
-  mount:
-    name: /srv/sreview/1/{{ item }}
-    src: 10.6.14.93:/srv/sreview/{{ item }}
-    fstype: nfs
-    state: mounted
-  with_items:
-    - A
-    - U
-
-- name: mount sreview auxiliary directories
-  mount:
-    name: /srv/sreview/{{ item }}
-    src: 10.6.7.143:/srv/sreview/{{ item }}
-    fstype: nfs
-    state: mounted
-  with_items:
-    - output
-    - assets
-
-- name: mount gridengine cell
-  mount:
-    name: /var/lib/gridengine/sreview
-    src: 10.6.7.143:/var/lib/gridengine/sreview
-    fstype: nfs
-    state: mounted
+#- name: mount sreview srv directories (J)
+#  mount:
+#    name: /srv/sreview/1/{{ item }}
+#    src: 10.6.7.143:/srv/sreview/1/{{ item }}
+#    fstype: nfs
+#    state: mounted
+#  with_items:
+#    - J
+#
+#- name: mount sreview srv directories (H and K)
+#  mount:
+#    name: /srv/sreview/1/{{ item }}
+#    src: 10.6.27.145:/srv/sreview/{{ item }}
+#    fstype: nfs
+#    state: mounted
+#  with_items:
+#    - H
+#    - K
+#
+#- name: mount sreview srv directories (A and U)
+#  mount:
+#    name: /srv/sreview/1/{{ item }}
+#    src: 10.6.14.93:/srv/sreview/{{ item }}
+#    fstype: nfs
+#    state: mounted
+#  with_items:
+#    - A
+#    - U
+#
+#- name: mount sreview auxiliary directories
+#  mount:
+#    name: /srv/sreview/{{ item }}
+#    src: 10.6.7.143:/srv/sreview/{{ item }}
+#    fstype: nfs
+#    state: mounted
+#  with_items:
+#    - output
+#    - assets

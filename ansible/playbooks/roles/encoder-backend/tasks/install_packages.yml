@@ -1,4 +1,15 @@
 ---
+- name: "add sreview repo key"
+  apt_key: 
+    id: CF62318D5BBED48F33ACD5431B0006256FB29164
+    keyserver: keys.gnupg.net
+    state: present
+
+- name: "add sreview repository"
+  apt_repository:
+    update_cache: yes
+    repo: deb https://latin.grep.be/sreview stretch main
+
 - name: "install packages"
   apt: pkg={{ item }} state=latest install_recommends=no
   with_items:
@@ -28,4 +39,4 @@
     repo: deb ftp://mirror.boxed-it.com/pub/deb-multimedia/ stable main
 
 - name: "install deb-multimedia version of ffmpeg"
-  apt: pkg=ffmpeg state=latest default_release=jessie
+  apt: pkg=ffmpeg state=latest default_release=stretch

@@ -11,40 +11,15 @@
     mode: 0664
   register: hosts_fix
 
-- name: fix sgeadmin group
-  group:
-    name: sgeadmin
-    gid: 2001
-  register: fix_group
-
-- name: fix sgeadmin user
-  user:
-    name: sgeadmin
-    uid: 2001
-  register: fix_user
-
-- name: fix permissions on execd directory
-  file:
-    path: /var/spool/gridengine/execd
-    state: directory
-    owner: sgeadmin
-    group: sgeadmin
-
-- name: fix defaults file
-  copy:
-    src: gridengine.defaults
-    dest: /etc/default/gridengine
-  register: fix_defaults
-
 - name: install load script
   copy:
     src: load.sh
     dest: /usr/local/bin/load.sh
     mode: 0755
 
-- name: restart gridengine service
+- name: restart gridengine service when needed
   service:
     name: gridengine-exec
     enabled: yes
     state: started
-  when: hosts_fix.changed or fix_defaults.changed
+  when: hosts_fix.changed

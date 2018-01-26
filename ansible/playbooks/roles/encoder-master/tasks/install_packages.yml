@@ -1,0 +1,32 @@
+---
+- name: "add sreview repo key"
+  apt_key: 
+    id: CF62318D5BBED48F33ACD5431B0006256FB29164
+    keyserver: keys.gnupg.net
+    state: present
+
+- name: "add sreview repository"
+  apt_repository:
+    update_cache: yes
+    repo: deb https://latin.grep.be/sreview stretch main
+
+- name: "install prereqs"
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - dbconfig-pgsql
+
+- name: "install sreview"
+  apt: pkg={{ item }} state=latest install_recommends=yes
+  with_items:
+    - sreview-master
+    - postgresql-contrib
+    - pwgen
+    - nfs-kernel-server
+  register: sreview_installed
+
+- name: "ensure database exists"
+  become_user: sreview
+  become_method: sudo
+  become: true
+  command: sreview-config -a initdb
+  when: sreview_installed.changed

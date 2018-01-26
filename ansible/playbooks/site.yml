@@ -145,6 +145,13 @@
   roles:
   - { role: monitor, tags: [ 'monitor' ] }
 
+- name: encoder-master
+  hosts: encoder-master
+  remote_user: root
+  roles:
+  - scaleway
+  - { role: encoder-master, tags: [ 'encoder-master'] }
+
 - name: encoder-backend
   hosts: encoder-backend
   remote_user: root

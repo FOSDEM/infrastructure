@@ -1,0 +1,4 @@
+---
+- include: install_packages.yml
+- include: nfs.yml
+- include: postgresql.yml

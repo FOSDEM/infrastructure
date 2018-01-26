@@ -1,0 +1,14 @@
+---
+- name: "add exports"
+  blockinfile:
+    create: yes
+    dest: /etc/exports
+    block: |
+      /var/lib/sreview	10.0.0.0/8(rw,sync)
+  register: nfs_exported
+
+- name: "restart NFS server when needed"
+  service:
+    name: nfs-kernel-server
+    state: restarted
+  when: nfs_exported.changed

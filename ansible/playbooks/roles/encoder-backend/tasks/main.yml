@@ -3,3 +3,4 @@
 - include: users.yml
 - include: mounts.yml
 - include: gridengine.yml
+- include: sreview.yml
