@@ -1,0 +1,82 @@
+---
+- import_tasks: install_packages.yml
+
+- name: create c3nav dir
+  file:
+    path: /opt/c3nav
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
+- name: add c3nav user
+  user:
+    name: c3nav
+
+- name: clone c3nav repo
+  git:
+    repo: https://github.com/johanvdw/c3nav.git
+    version: floor
+    dest: /opt/c3nav
+
+- name: create c3nav data dir
+  file:
+    path: /opt/c3nav/data
+    state: directory
+    owner: c3nav
+    group: c3nav
+    mode: 0775
+
+- name: create configuration dir
+  file:
+    path: /etc/c3nav
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
+- name: copy configuration file
+  copy:
+    src: c3nav-tiles.ini
+    dest: /etc/c3nav/c3nav-tiles.ini
+    owner: root
+    mode: 0644
+
+- import_tasks: virtualenv.yml
+
+- name: install the tmpfiles.d conf
+  become: yes
+  copy:
+    src: tmpfiles.d/c3nav.conf
+    dest: /usr/lib/tmpfiles.d
+
+- name: configure tmpfiles.d
+  become: yes
+  command: systemd-tmpfiles --create
+
+- name: install the c3nav-tiles uwsgi service
+  template:
+    src: c3nav-tiles.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable c3nav-tiles service
+  service:
+    name: c3nav-tiles
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: copy nginx configuration
+  template:
+      src: nginx/c3nav-tiles
+      dest: /etc/nginx/sites-enabled/c3nav-tiles
+      force: no
+      owner: root
+      group: root
+      mode: 0644
+  notify: reload nginx
+
+
