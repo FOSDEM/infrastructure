@@ -8,6 +8,7 @@ User=c3nav
 Group=www-data
 Environment=C3NAV_UPSTREAM_BASE=https://nav-test.fosdem.org/
 Environment=C3NAV_TILE_SECRET_FILE=/opt/c3nav/data/.tile_secret
+Environment=C3NAV_DATA_DIR=/opt/c3nav/tiledata
 
 [Install]
 WantedBy=multi-user.target

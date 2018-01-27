@@ -19,9 +19,9 @@
     version: floor
     dest: /opt/c3nav
 
-- name: create c3nav data dir
+- name: create c3nav tiledata dir
   file:
-    path: /opt/c3nav/data
+    path: /opt/c3nav/tiledata
     state: directory
     owner: c3nav
     group: c3nav
