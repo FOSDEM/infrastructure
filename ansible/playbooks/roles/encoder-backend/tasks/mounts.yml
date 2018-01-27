@@ -6,41 +6,35 @@
     fstype: nfs
     state: mounted
 
-#- name: mount sreview srv directories (J)
-#  mount:
-#    name: /srv/sreview/1/{{ item }}
-#    src: 10.6.7.143:/srv/sreview/1/{{ item }}
-#    fstype: nfs
-#    state: mounted
-#  with_items:
-#    - J
-#
-#- name: mount sreview srv directories (H and K)
-#  mount:
-#    name: /srv/sreview/1/{{ item }}
-#    src: 10.6.27.145:/srv/sreview/{{ item }}
-#    fstype: nfs
-#    state: mounted
-#  with_items:
-#    - H
-#    - K
-#
-#- name: mount sreview srv directories (A and U)
-#  mount:
-#    name: /srv/sreview/1/{{ item }}
-#    src: 10.6.14.93:/srv/sreview/{{ item }}
-#    fstype: nfs
-#    state: mounted
-#  with_items:
-#    - A
-#    - U
-#
-#- name: mount sreview auxiliary directories
-#  mount:
-#    name: /srv/sreview/{{ item }}
-#    src: 10.6.7.143:/srv/sreview/{{ item }}
-#    fstype: nfs
-#    state: mounted
-#  with_items:
-#    - output
-#    - assets
+- name: ensure /srv/sreview exists
+  file:
+    path: /srv/sreview
+    state: directory
+
+- name: ensure /srv/sreview/incoming exists
+  file:
+    path: /srv/sreview/incoming
+    state: directory
+
+- name: mount backends
+  mount:
+    name: /srv/sreview/incoming/{{ item }}
+    src: stream{{ item }}.video.fosdem.org:/var/www/dump
+    fstype: nfs
+    state: mounted
+  with_items:
+    - backend0
+    - backend1
+    - backend2
+    - backend3
+    - backend4
+
+- name: mount working storage
+  mount:
+    name: /srv/sreview/{{ item }}
+    src: reviewstorage0.video.fosdem.org:/srv/sreview/{{ item }}
+    fstype: nfs
+    state: mounted
+  with_items:
+    - assets
+    - storage
