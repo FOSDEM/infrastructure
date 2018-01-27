@@ -43,6 +43,7 @@
     dest: /etc/c3nav/c3nav.cfg
     owner: root
     mode: 0644
+    force: no
 
 - include: configure_postgres.yml
 - include: configure_celery.yml
