@@ -12,6 +12,6 @@ do
 
 	echo begin
 	echo ${me}:tmpfree:${tmpfree}k
-	echo global:storage:${storage}k
+	echo global:storage:${storagefree}k
 	echo end
 done
