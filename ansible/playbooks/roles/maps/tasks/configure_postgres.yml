@@ -11,8 +11,6 @@
   postgresql_user:
      db: c3nav
      name: c3nav
-     password: c3nav
-     encrypted: True
 
 - name: create postgis extension in new db
   become: yes
