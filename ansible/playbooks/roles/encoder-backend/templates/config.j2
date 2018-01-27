@@ -11,7 +11,7 @@ $dbistring = 'dbi:Pg:dbname=\'sreview\';user=\'sreview\';password=\'{{ sreview_d
 $email_from = 'noreply@fosdem.org';
 
 # A filename of a Mojo::Template template to process, returning the email body. Required if notify_actions includes email.
-$email_template = '/srv/sreview/template-email.ep';
+$email_template = '/srv/sreview/assets/template-email.ep';
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
 $event = 'FOSDEM 2018';
@@ -54,19 +54,19 @@ $output_profiles = ['webm','copy'];
 #$postroll = undef;
 
 # An SVG template to be used as closing credits. Should have the same nominal dimensions (in pixels) as the video assets.
-$postroll_template = '/srv/sreview/template-open.svg';
+$postroll_template = '/srv/sreview/assets/template-open.svg';
 
 # An SVG template to be used as opening credits. Should have the same nominal dimensions (in pixels) as the video assets.
-$preroll_template = '/srv/sreview/template-close.svg';
+$preroll_template = '/srv/sreview/assets/template-close.svg';
 
 # The directory on the file system where files served by the webinterface should be stored
-#$pubdir = '/srv/sreview/web/public';
+$pubdir = '/srv/sreview/storage/';
 
 # A maximum number of jobs that should be submitted in a single loop in sreview-dispatch. 0 means no limit.
-#$query_limit = 1;
+$query_limit = 0;
 
 # The directory to which the output of scripts should be redirected
-#$script_output = '/srv/sreview/script-output';
+$script_output = '/var/lib/sreview/script-output';
 
 # A random secret key, used to encrypt the cookies.
 $secret = '{{ mojosecret }}';
@@ -93,7 +93,7 @@ $state_actions = {
 #$url_re = undef;
 
 # The URL on which SReview runs. Note that this is used by sreview-notify to generate URLs, not by sreview-web.
-#$urlbase = '';
+$urlbase = 'review.video.fosdem.org';
 
 # The URL prefix to be used for video data files
 #$vid_prefix = '';
