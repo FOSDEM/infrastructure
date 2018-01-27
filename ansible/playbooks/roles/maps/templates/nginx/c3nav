@@ -1,16 +1,16 @@
 server {
     listen 80;
-    server_name {{ ansible_hostname }};
+    server_name {{domain}};
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        alias /opt/c3nav/src/c3nav/static.dist/;
+        alias /opt/c3nav/src/c3nav/static.dist/;  
     }
     location /media/ {
         alias /opt/c3nav/src/c3nav/media/;
     }
     location / {
         include proxy_params;
-        proxy_pass http://unix:/var/run/c3nav/gunicorn-c3nav.sock;
+        proxy_pass http://unix://var/run/c3nav/gunicorn-c3nav.sock;
     }
 
     listen 443 ssl; # managed by Certbot
@@ -19,3 +19,4 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
+
