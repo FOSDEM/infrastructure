@@ -150,6 +150,7 @@
   remote_user: root
   roles:
   - scaleway
+  - { role: encoder-common, tags: [ 'encoder-master'] }
   - { role: encoder-master, tags: [ 'encoder-master'] }
 
 - name: encoder-backend
@@ -157,4 +158,5 @@
   remote_user: root
   roles:
   - scaleway
+  - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }
