@@ -73,10 +73,10 @@ $secret = '{{ mojosecret }}';
 
 # A hash that tells SReview what to do with a talk when it is in a given state. Mojo::Template is used to transform these.
 $state_actions = {
-  'cutting' => 'qsub -cwd -V -l cut -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-cut <%== $talkid %>',
-  'generating_previews' => 'qsub -cwd -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-previews <%== $talkid %>',
+  'cutting' => 'qsub -cwd -V -l cut -l storagefree=1G -l tmpfree=1G -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-cut <%== $talkid %>',
+  'generating_previews' => 'qsub -cwd -l storgefree=1 -l tmpfree=1GG -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-previews <%== $talkid %>',
   'notification' => 'qsub -cwd -V -l notify -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-notify <%== $talkid %>',
-  'transcoding' => 'qsub -cwd -V -q lowprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-transcode <%== $talkid %>',
+  'transcoding' => 'qsub -cwd -V -q lowprio.q -l storagefree=1G -l tmpfree=1G -e <%== $output_dir %> -o <%== $output_dir %> sreview-transcode <%== $talkid %>',
   'uploading' => 'qsub -q hiprio.q -cwd -V -l upload sreview-upload <%== $talkid %>'
 };
 
