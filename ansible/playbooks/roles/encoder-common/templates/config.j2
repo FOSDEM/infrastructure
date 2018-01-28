@@ -75,9 +75,9 @@ $secret = '{{ mojosecret }}';
 $state_actions = {
   'cutting' => 'qsub -cwd -V -l cut -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-cut <%== $talkid %>',
   'generating_previews' => 'qsub -cwd -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-previews <%== $talkid %>',
-  'notification' => 'sreview-notify <%== $talkid %>',
+  'notification' => 'qsub -cwd -V -l notify -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-notify <%== $talkid %>',
   'transcoding' => 'qsub -cwd -V -q lowprio.q -e <%== $output_dir %> -o <%== $output_dir %> sreview-transcode <%== $talkid %>',
-  'uploading' => 'qsub -q hiprio.q -l upload sreview-upload <%== $talkid %>'
+  'uploading' => 'qsub -q hiprio.q -cwd -V -l upload sreview-upload <%== $talkid %>'
 };
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
