@@ -7,3 +7,9 @@
     group: root
     mode: 0664
   register: hosts_fix
+
+- name: restart gridengine if needed
+  service:
+    name: gridengine-exec
+    state: restarted
+  when: host_fix.changed

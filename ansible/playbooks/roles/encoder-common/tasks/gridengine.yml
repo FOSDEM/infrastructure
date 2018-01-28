@@ -13,4 +13,3 @@
     name: gridengine-exec
     enabled: yes
     state: started
-  when: hosts_fix.changed
