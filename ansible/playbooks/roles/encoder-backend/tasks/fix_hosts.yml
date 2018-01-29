@@ -12,4 +12,4 @@
   service:
     name: gridengine-exec
     state: restarted
-  when: host_fix.changed
+  when: hosts_fix.changed

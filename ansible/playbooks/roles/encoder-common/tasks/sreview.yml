@@ -1,9 +1,14 @@
 ---
+- name: create the sreview configuration directory
+  file:
+    name: /etc/sreview
+    state: directory
+
 - name: ensure that sreview is configured
   template:
     dest: /etc/sreview/config.pm
     src: config.j2
     owner: root
-    group: sreview
-    mode: 0660
+    group: root
+    mode: 0664
   register: sreview_config_fix
