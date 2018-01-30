@@ -38,3 +38,4 @@
   with_items:
     - assets
     - storage
+    - output
