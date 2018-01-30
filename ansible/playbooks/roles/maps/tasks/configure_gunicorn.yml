@@ -17,7 +17,7 @@
     mode: 0644
 
 - name: enable c3nav gunicorn service
-  service:
+  systemd:
     name: gunicorn-c3nav
     state: started
     enabled: yes

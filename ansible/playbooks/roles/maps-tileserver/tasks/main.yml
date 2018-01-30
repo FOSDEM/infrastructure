@@ -63,7 +63,7 @@
     mode: 0644
 
 - name: enable c3nav-tiles service
-  service:
+  systemd:
     name: c3nav-tiles
     state: started
     enabled: yes

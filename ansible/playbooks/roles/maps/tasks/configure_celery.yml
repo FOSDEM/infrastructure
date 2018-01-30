@@ -16,7 +16,7 @@
     mode: 0644
 
 - name: enable c3nav celery service
-  service:
+  systemd:
     name: celery-c3nav
     state: started
     enabled: yes
