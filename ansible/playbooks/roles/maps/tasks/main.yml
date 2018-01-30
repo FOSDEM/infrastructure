@@ -12,6 +12,9 @@
 - name: add c3nav user
   user:
     name: c3nav
+    system: yes
+    createhome: no
+    home: /opt/c3nav
 
 - name: clone c3nav repo
   git:
