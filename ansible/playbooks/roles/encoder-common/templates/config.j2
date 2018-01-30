@@ -13,7 +13,7 @@ $email_from = 'noreply@fosdem.org';
 # A filename of a Mojo::Template template to process, returning the email body. Required if notify_actions includes email.
 $email_template = '/srv/sreview/assets/template-email.ep';
 
-$email_subject = "Your FOSDEM 2018 talk titled '<%== $title %>'";
+$email_subject = "Your FOSDEM 2018 talk titled '<%== \$title %>'\\";
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
 $event = 'FOSDEM 2018';
