@@ -48,7 +48,7 @@ $output_profiles = ['webm','copy'];
 #$outputdir = '/srv/sreview/output';
 
 # A regular expression to parse a filename into year, month, day, hour, minute, second, and room
-#$parse_re = '.*\\/(?<room>[^\\/]+)\\/(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})\\/(?<hour>\\d{2}):(?<minute>\\d{2}):(?<second>\\d{2})';
+$parse_re = '.*\\/(?<room>[^\\/]+)\\/(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).flv.mp4';
 
 # A PNG file to be used as closing credits. Will only be used if no postroll_template was defined. Should have the same dimensions as the video assets.
 #$postroll = undef;
