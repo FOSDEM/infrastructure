@@ -56,10 +56,10 @@ $parse_re = '.*\\/(?<room>[^\\/]+)\\/(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2
 #$postroll = undef;
 
 # An SVG template to be used as closing credits. Should have the same nominal dimensions (in pixels) as the video assets.
-$postroll_template = '/srv/sreview/assets/template-open.svg';
+$postroll_template = '/srv/sreview/assets/template-close.svg';
 
 # An SVG template to be used as opening credits. Should have the same nominal dimensions (in pixels) as the video assets.
-$preroll_template = '/srv/sreview/assets/template-close.svg';
+$preroll_template = '/srv/sreview/assets/template-open.svg';
 
 $preview_exten = 'mp4';
 
@@ -85,13 +85,9 @@ $state_actions = {
 };
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
-#$upload_actions = [
-#  [
-#    'echo',
-#    '<%== $file %>',
-#    'ready for upload'
-#  ]
-#];
+$upload_actions = [
+  [ 'rsync', '-zavHP', '<%== $file %>', 'wverhelst@rsync.fosdem.org:/srv/video/public/2018/' ]
+];
 
 # If set, used with parse_re in an s///g command to produce an input URL
 #$url_re = undef;
