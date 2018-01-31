@@ -40,6 +40,14 @@
     group: root
     mode: 0775
 
+- name: create log dir
+  file:
+    path: /var/log/c3nav
+    state: directory
+    owner: c3nav
+    group: c3nav
+    mode: 0775
+
 - name: copy configuration file
   copy:
     src: c3nav/c3nav.cfg

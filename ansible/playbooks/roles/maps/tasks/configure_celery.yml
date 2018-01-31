@@ -1,15 +1,15 @@
 ---
 - name: install the c3nav celery service configuration
   copy:
-    src: celery-c3nav.conf
-    dest: /etc/celery-c3nav.conf
+    src: celery.conf
+    dest: /etc/c3nav/celery.conf
     owner: root
     group: root
     mode: 0644
 
 - name: install the c3nav celery service
   copy:
-    src: celery-c3nav.service
+    src: c3nav-celery.service
     dest: /etc/systemd/system
     owner: root
     group: root
@@ -17,16 +17,8 @@
 
 - name: enable c3nav celery service
   systemd:
-    name: celery-c3nav
+    name: c3nav-celery
     state: started
     enabled: yes
     daemon_reload: yes
 
-- name: create logfile (with right permissions) if this does not exist
-  copy:
-    content: ""
-    dest: /var/log/celery-c3nav.log
-    force: no
-    group: c3nav
-    owner: c3nav
-    mode: 0644
