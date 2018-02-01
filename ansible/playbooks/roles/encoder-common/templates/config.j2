@@ -49,10 +49,10 @@ $output_subdirs = [ 'year', 'room', 'date' ];
 $parse_re = '.*\\/(?<room>[^\\/]+)\\/(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).flv.mp4';
 
 # A PNG file to be used as closing credits. Will only be used if no postroll_template was defined. Should have the same dimensions as the video assets.
-#$postroll = undef;
+$postroll = '/srv/sreview/assets/fosdem2018_sponsors_bg.png';
 
 # An SVG template to be used as closing credits. Should have the same nominal dimensions (in pixels) as the video assets.
-$postroll_template = '/srv/sreview/assets/template-close.svg';
+#$postroll_template = '/srv/sreview/assets/fosdem2018_sponsors_bg.png';
 
 # An SVG template to be used as opening credits. Should have the same nominal dimensions (in pixels) as the video assets.
 $preroll_template = '/srv/sreview/assets/template-open.svg';
