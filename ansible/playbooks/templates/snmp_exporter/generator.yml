@@ -1,0 +1,47 @@
+modules:
+  if_mib:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+    - system
+    - ifTable
+    - etherStatsTable
+    - ifXTable
+    lookups:
+    - old_index: ifIndex
+      new_index: ifAlias
+    - old_index: ifIndex
+      new_index: ifDescr
+    - old_index: ifIndex
+      # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
+      new_index: 1.3.6.1.2.1.31.1.1.1.1 # ifName
+  cisco_wlc:
+    auth:
+      community: "{{ snmp_community_ulb_wlc }}"
+    walk:
+    - system
+    - ifXTable
+    # Single entries from bsnDot11EssTable
+    - bsnDot11EssSsid
+    - bsnDot11EssNumberOfMobileStations
+    - bsnAPName
+    - bsnAPIfLoadChannelUtilization
+    # Single entries from bsnAPIfTable
+    - bsnApIfNoOfUsers
+    - bsnAPIfType
+    - bsnAPIfPhyChannelNumber
+    # Other tables
+    - bsnAPIfChannelNoiseInfoTable
+    - bsnAPIfDot11CountersTable
+    lookups:
+    - old_index: ifIndex
+      new_index: ifAlias
+    - old_index: ifIndex
+      new_index: ifDescr
+    - old_index: ifIndex
+      # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
+      new_index: 1.3.6.1.2.1.31.1.1.1.1 # ifName
+    - old_index: bsnAPDot3MacAddress
+      new_index: bsnAPName
+    - old_index: bsnDot11EssIndex
+      new_index: bsnDot11EssSsid
