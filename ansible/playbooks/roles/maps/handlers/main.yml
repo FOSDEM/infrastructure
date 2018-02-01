@@ -1,0 +1,14 @@
+---
+- name: reload nginx
+  service: name=nginx state=reloaded
+
+- name: reload redis
+  service: name=redis-server state=reloaded
+
+- name: reload postgres
+  service: name=postgres state=reloaded
+
+- name: clearmapcache
+  command: source /opt/c3nav/env/bin/activate && \
+           /opt/c3nav/src/manage.py clearmapcache --include-geometries \
+           --include-history
