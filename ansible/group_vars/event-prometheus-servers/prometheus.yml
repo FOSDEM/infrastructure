@@ -71,6 +71,7 @@ prometheus_snmp_default_targets:
 
 snmp_exporter_web_listen_address: "127.0.0.1:9116"
 snmp_exporter_config_file: "snmp_exporter/snmp.yml"
+snmp_exporter_log_level: debug
 
 blackbox_exporter_web_listen_address: "127.0.0.1:9115"
 blackbox_exporter_configuration_modules:
