@@ -8,9 +8,7 @@ cisco_wlc:
   - 1.3.6.1.4.1.14179.2.2.1.1.3
   - 1.3.6.1.4.1.14179.2.2.13.1.3
   - 1.3.6.1.4.1.14179.2.2.15
-  - 1.3.6.1.4.1.14179.2.2.2.1.15
-  - 1.3.6.1.4.1.14179.2.2.2.1.2
-  - 1.3.6.1.4.1.14179.2.2.2.1.4
+  - 1.3.6.1.4.1.14179.2.2.2
   - 1.3.6.1.4.1.14179.2.2.6
   metrics:
   - name: sysDescr
@@ -624,10 +622,10 @@ cisco_wlc:
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
       type: DisplayString
-  - name: bsnApIfNoOfUsers
-    oid: 1.3.6.1.4.1.14179.2.2.2.1.15
-    type: counter
-    help: No of Users associated with this radio. - 1.3.6.1.4.1.14179.2.2.2.1.15
+  - name: bsnAPIfSlotId
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.1
+    type: gauge
+    help: The slotId of this interface. - 1.3.6.1.4.1.14179.2.2.2.1.1
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
@@ -656,10 +654,357 @@ cisco_wlc:
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
       type: DisplayString
+  - name: bsnAPIfPhyChannelAssignment
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.3
+    type: gauge
+    help: If this value is true, then bsnAPDot11CurrentChannel in bsnAPIfDot11PhyDSSSTable
+      is assigned by dynamic algorithm and is read-only. - 1.3.6.1.4.1.14179.2.2.2.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
   - name: bsnAPIfPhyChannelNumber
     oid: 1.3.6.1.4.1.14179.2.2.2.1.4
     type: gauge
     help: Current channel number of the AP Interface - 1.3.6.1.4.1.14179.2.2.2.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyTxPowerControl
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.5
+    type: gauge
+    help: If this value is true, then bsnAPIfPhyTxPowerLevel is assigned by dynamic
+      algorithm and is read-only. - 1.3.6.1.4.1.14179.2.2.2.1.5
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyTxPowerLevel
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.6
+    type: gauge
+    help: The TxPowerLevel currently being used to transmit data - 1.3.6.1.4.1.14179.2.2.2.1.6
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyAntennaMode
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.7
+    type: gauge
+    help: Antenna Mode of the AP Interface - 1.3.6.1.4.1.14179.2.2.2.1.7
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyAntennaType
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.8
+    type: gauge
+    help: This attribute specified if the Antenna currently used by AP Radio is internal
+      or external - 1.3.6.1.4.1.14179.2.2.2.1.8
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyAntennaDiversity
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.9
+    type: gauge
+    help: Diversity doesn't apply to AP Radio of type 802.11a - 1.3.6.1.4.1.14179.2.2.2.1.9
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfCellSiteConfigId
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.10
+    type: gauge
+    help: In a cell site configuration, this would be the cell Id of this AP Interface
+      - 1.3.6.1.4.1.14179.2.2.2.1.10
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfNumberOfVaps
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.11
+    type: gauge
+    help: Number of WLANs currently active on this AP Interface. - 1.3.6.1.4.1.14179.2.2.2.1.11
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfOperStatus
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.12
+    type: gauge
+    help: Operational status of the interface. - 1.3.6.1.4.1.14179.2.2.2.1.12
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPortNumber
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.13
+    type: gauge
+    help: Port number on Airespace Switch on which the traffic from this AP interface
+      is received. - 1.3.6.1.4.1.14179.2.2.2.1.13
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyAntennaOptions
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.14
+    type: gauge
+    help: This attribute specifies the Antenna types supported by the AP Radio whether
+      it is internal or external or both - 1.3.6.1.4.1.14179.2.2.2.1.14
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnApIfNoOfUsers
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.15
+    type: counter
+    help: No of Users associated with this radio. - 1.3.6.1.4.1.14179.2.2.2.1.15
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfWlanOverride
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.16
+    type: gauge
+    help: This flag when disabled implies that all WLANs are available from this radio
+      - 1.3.6.1.4.1.14179.2.2.2.1.16
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPacketsSniffingFeature
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.17
+    type: gauge
+    help: This flag when enabled implies that AP will sniff the 802.11a/bg packets
+      - 1.3.6.1.4.1.14179.2.2.2.1.17
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfSniffChannel
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.18
+    type: gauge
+    help: This the 802.11a/bg-channel-number on which AP will sniff the packets. -
+      1.3.6.1.4.1.14179.2.2.2.1.18
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfSniffServerIPAddress
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.19
+    type: IpAddr
+    help: The machine ip address on which Airopeek application is running. - 1.3.6.1.4.1.14179.2.2.2.1.19
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfAntennaGain
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.20
+    type: gauge
+    help: Represents antenna gain in multiple of 0.5 dBi - 1.3.6.1.4.1.14179.2.2.2.1.20
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfChannelList
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.21
+    type: DisplayString
+    help: List of comma separated channels supported by this radio. - 1.3.6.1.4.1.14179.2.2.2.1.21
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfAbsolutePowerList
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.22
+    type: DisplayString
+    help: List of comma separated absolute power levels supported by this radio. -
+      1.3.6.1.4.1.14179.2.2.2.1.22
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfRegulatoryDomainSupport
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.23
+    type: gauge
+    help: If the regulatory domain on radio is supported or notSupported on the controller
+      - 1.3.6.1.4.1.14179.2.2.2.1.23
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfAdminStatus
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.34
+    type: gauge
+    help: Admin status of the interface. - 1.3.6.1.4.1.14179.2.2.2.1.34
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
