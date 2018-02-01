@@ -559,7 +559,7 @@ cisco_wlc:
       type: DisplayString
   - name: bsnAPName
     oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-    type: OctetString
+    type: DisplayString
     help: Name assigned to this AP - 1.3.6.1.4.1.14179.2.2.1.1.3
     indexes:
     - labelname: bsnAPDot3MacAddress
@@ -570,7 +570,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfLoadChannelUtilization
     oid: 1.3.6.1.4.1.14179.2.2.13.1.3
     type: gauge
@@ -586,7 +586,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfNoiseChannelNo
     oid: 1.3.6.1.4.1.14179.2.2.15.1.1
     type: gauge
@@ -604,7 +604,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDBNoisePower
     oid: 1.3.6.1.4.1.14179.2.2.15.1.21
     type: gauge
@@ -623,7 +623,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnApIfNoOfUsers
     oid: 1.3.6.1.4.1.14179.2.2.2.1.15
     type: counter
@@ -639,7 +639,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfType
     oid: 1.3.6.1.4.1.14179.2.2.2.1.2
     type: gauge
@@ -655,7 +655,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfPhyChannelNumber
     oid: 1.3.6.1.4.1.14179.2.2.2.1.4
     type: gauge
@@ -671,7 +671,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11TransmittedFragmentCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.1
     type: counter
@@ -689,7 +689,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11MulticastTransmittedFrameCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.2
     type: counter
@@ -706,7 +706,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11RetryCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.3
     type: counter
@@ -723,7 +723,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11MultipleRetryCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.4
     type: counter
@@ -740,7 +740,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11FrameDuplicateCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.5
     type: counter
@@ -757,7 +757,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11RTSSuccessCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.6
     type: counter
@@ -774,7 +774,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11RTSFailureCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.7
     type: counter
@@ -791,7 +791,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11ACKFailureCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.8
     type: counter
@@ -808,7 +808,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11ReceivedFragmentCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.9
     type: counter
@@ -825,7 +825,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11MulticastReceivedFrameCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.10
     type: counter
@@ -842,7 +842,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11FCSErrorCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.11
     type: counter
@@ -859,7 +859,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11TransmittedFrameCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.12
     type: counter
@@ -875,7 +875,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11WEPUndecryptableCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.13
     type: counter
@@ -895,7 +895,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   - name: bsnAPIfDot11FailedCount
     oid: 1.3.6.1.4.1.14179.2.2.6.1.33
     type: counter
@@ -913,7 +913,7 @@ cisco_wlc:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
-      type: OctetString
+      type: DisplayString
   auth:
     community: '{{ snmp_community_ulb_wlc }}'
     security_level: noAuthNoPriv

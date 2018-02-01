@@ -33,6 +33,9 @@ modules:
     # Other tables
     - bsnAPIfChannelNoiseInfoTable
     - bsnAPIfDot11CountersTable
+    overrides:
+      bsnAPName:
+        type: DisplayString
     lookups:
     - old_index: ifIndex
       new_index: ifAlias
