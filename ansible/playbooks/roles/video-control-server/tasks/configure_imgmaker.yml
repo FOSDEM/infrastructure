@@ -41,10 +41,10 @@
   with_items: "{{ controlserver_source }}"
   register: imgmaker
 
-- name: perform a daemon-reload if any of the imgmaker services have been modified
-  systemd:
-    daemon_reload: yes
-  when: imgmaker.changed
+#- name: perform a daemon-reload if any of the imgmaker services have been modified
+#  systemd:
+#    daemon_reload: yes
+#  when: imgmaker.changed
 
 - name: enable imgmaker services
   service: name=imgmaker-{{ item.roomname }} enabled=yes state=started
