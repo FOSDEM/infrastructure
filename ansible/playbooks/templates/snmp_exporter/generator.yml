@@ -7,6 +7,11 @@ modules:
     - ifTable
     - etherStatsTable
     - ifXTable
+    # CISCO-ENVMON-MIB
+    - ciscoEnvMonVoltageStatusTable
+    - ciscoEnvMonTemperatureStatusTable
+    - ciscoEnvMonFanStatusTable
+    - ciscoEnvMonSupplyStatusTable
     lookups:
     - old_index: ifIndex
       new_index: ifAlias
