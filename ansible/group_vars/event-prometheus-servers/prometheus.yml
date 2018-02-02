@@ -18,7 +18,7 @@ prometheus_scrape_configs:
     - "/etc/prometheus/file_sd/snmp_default.yml"
   metrics_path: /snmp
   params:
-    module: [default]
+    module: [if_mib]
   relabel_configs:
   - source_labels: [__address__]
     target_label: __param_target
