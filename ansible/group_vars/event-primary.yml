@@ -51,69 +51,6 @@ caddy_config: |
     }
   }
 
-
-grafana_conf_data: |
-  app_mode = development
-
-  [paths]
-  data = {{ grafana_dir_data }}
-  logs = {{ grafana_dir_log }}
-  plugins = {{ grafana_dir_plugins }}
-
-  [server]
-  protocol = http
-  http_port = {{ grafana_http_port }}
-  domain = {{ ansible_nodename }}
-
-  [database]
-  type = {{ grafana_database.type }}
-  host = {{ grafana_database.host }}
-  name = {{ grafana_database.name }}
-  user = {{ grafana_database.user }}
-  password = {{ grafana_database.password }}
-  path = {{ grafana_database.path }}
-
-  [session]
-
-  [analytics]
-  check_for_updates = true
-
-  [security]
-  admin_user = {{ grafana_admin_user }}
-  admin_password = {{ grafana_admin_password }}
-
-  [snapshots]
-
-  [users]
-
-  [auth.anonymous]
-
-  [auth.github]
-
-  [auth.google]
-
-  [auth.proxy]
-
-  [auth.basic]
-
-  [auth.ldap]
-
-  [smtp]
-
-  [emails]
-
-  [log]
-  mode = file
-  level = Info
-
-  [log.console]
-
-  [log.file]
-
-  [event_publisher]
-
-  [dashboards.json]
-
 dhcpd_mode: 'server'
 dhcpd_ipversion: '4'
 dhcpd_interfaces:

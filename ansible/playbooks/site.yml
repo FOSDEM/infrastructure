@@ -138,13 +138,6 @@
   roles:
   - { role: public-dashboard, tags: [ 'public-dashboard' ] }
 
-
-- name: monitor
-  hosts: monitor
-  remote_user: root
-  roles:
-  - { role: monitor, tags: [ 'monitor' ] }
-
 - name: encoder-master
   hosts: encoder-master
   remote_user: root
