@@ -24,17 +24,20 @@ caddy_config: |
     }
   }
   grafana.n.fosdem.net {
+    prometheus
     proxy / localhost:3000 {
       transparent
     }
   }
   prometheus.n.fosdem.net {
+    prometheus
     basicauth / admin {{ grafana_admin_password }}
     proxy / localhost:9090 {
       transparent
     }
   }
   prime.n.fosdem.net {
+    prometheus
     basicauth / admin {{ grafana_admin_password }}
     proxy / https://so2wcs.ulb.ac.be {
       transparent
@@ -42,9 +45,11 @@ caddy_config: |
     }
   }
   oxidized.n.fosdem.net {
+    prometheus
     basicauth / admin {{ grafana_admin_password }}
   }
   alertmanager.n.fosdem.net {
+    prometheus
     basicauth / admin {{ grafana_admin_password }}
     proxy / localhost:9093 {
       transparent
