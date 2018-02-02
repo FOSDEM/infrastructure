@@ -78,3 +78,11 @@ stream_backends:
 
   - room: ud2119
     backend: streambackend4.video.fosdem.org
+
+#new rooms
+
+  - room: ua2118
+    backend: streambackend3.video.fosdem.org
+
+  - room: ud2208
+    backend: streambackend3.video.fosdem.org

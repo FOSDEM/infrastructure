@@ -47,3 +47,9 @@ controlserver_source:
   - roomname: ud2120
 
   - roomname: ud2218a
+
+# replacement rooms
+
+  - roomname: ua2118
+
+  - roomname: ud2208
