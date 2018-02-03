@@ -12,6 +12,9 @@ modules:
     - ciscoEnvMonTemperatureStatusTable
     - ciscoEnvMonFanStatusTable
     - ciscoEnvMonSupplyStatusTable
+    # CISCO-ENTITY-QFP-MIB
+    - ceqfpUtilOutputNonPriorityPktRate
+    - ceqfpUtilProcessingLoad
     # CISCO-ENTITY-FRU-CONTROL-MIB
     #- cefcFRUPowerSupplyGroupTable
     #- cefcFRUPowerStatusTable
