@@ -29,7 +29,6 @@
   unarchive:
     src: "https://github.com/free/sql_exporter/releases/download/0.4/sql_exporter-0.4.linux-amd64.tar.gz"
     dest: "/opt/sql_exporter/"
-    remote_src: yes
     owner: sql-exporter
     group: sql-exporter
     copy: no
@@ -66,6 +65,6 @@
 
 - name: ensure service is started and enabled
   systemd:
-    name: sql-exporter
+    name: sql_exporter
     state: started
     enabled: yes

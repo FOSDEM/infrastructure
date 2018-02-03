@@ -1,0 +1,2 @@
+- name: restart sql_exporter
+  systemd: name=sql_exporter.service state=restarted
