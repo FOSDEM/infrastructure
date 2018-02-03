@@ -19,7 +19,7 @@ $email_subject = "Your FOSDEM 2018 talk titled '<%== \$title %>'\\";
 $event = 'FOSDEM 2018';
 
 # A filename pattern (glob) that tells SReview where to find new files
-$inputglob = '/srv/sreview/incoming/*/*/*.mp4';
+$inputglob = '/srv/sreview/incoming/*/*/201802031[1-9]*mp4';
 
 $input_profile = "FOSDEM";
 
@@ -84,7 +84,7 @@ $state_actions = {
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
 $upload_actions = [
-  [ 'rsync', '-zavRHP', '/srv/sreview/output/.<%== $relative_file %>', 'wverhelst@rsync.fosdem.org:/srv/video/public/' ]
+  [ 'rsync', '-zavRHP', '--remove-source-files', '/srv/sreview/output/.<%== $relative_file %>', 'wverhelst@rsync.fosdem.org:/srv/video/public/' ]
 ];
 
 # If set, used with parse_re in an s///g command to produce an input URL
