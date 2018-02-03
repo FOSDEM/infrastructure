@@ -126,7 +126,7 @@
   hosts: event-prometheus-servers
   tags: [event-prometheus-servers]
   roles:
-  - cloudalchemy.snmp-exporter
+  - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
   - cloudalchemy.blackbox-exporter
   - cloudalchemy.prometheus
   - prometheus-targets
