@@ -39,3 +39,10 @@
     - assets
     - storage
     - output
+
+- name: mount day 2 storage
+  mount:
+    name: /srv/sreview/storage/1/2018-02-04
+    src: reviewstorage0.video.fosdem.org:/srv/sreview
+    fstype: nfs
+    state: mounted
