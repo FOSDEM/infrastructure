@@ -79,6 +79,11 @@ prometheus_scrape_configs:
   - targets:
     - dashboard.fosdem.org
     - grafana.n.fosdem.net
+- job_name: 'reviews'
+  scrape_interval: 30s
+  static_configs:
+  - targets:
+    - encode-master.video.fosdem.org:9399
 
 prometheus_snmp_default_targets:
 - asr1k.n.fosdem.net
