@@ -1,0 +1,4 @@
+- targets:
+{% for host in prometheus_snmp_slow_targets %}
+  - {{ host }}
+{% endfor %}
