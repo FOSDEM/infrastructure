@@ -72,6 +72,13 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - fosdem.thepreview.be
+- job_name: 'grafana'
+  scrape_interval: "15s"
+  metrics_path: /metrcs
+  static_configs:
+  - targets:
+    - https://dashboard.fosdem.org
+    - https://grafana.n.fosdem.net
 
 prometheus_snmp_default_targets:
 - asr1k.n.fosdem.net
