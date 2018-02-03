@@ -1,0 +1,71 @@
+---
+
+- name: Create group
+  group:
+    name: sql-exporter
+    system: yes
+    state: present
+
+- name: Create user
+  user:
+    name: sql-exporter
+    system: yes
+    shell: "/sbin/nologin"
+    group: sql-exporter
+    createhome: no
+
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: sql-exporter
+    group: sql-exporter
+    mode: 0755
+  with_items:
+    - /opt/sql_exporter
+
+- name: Install binary
+  become: no
+  unarchive:
+    src: "https://github.com/free/sql_exporter/releases/download/0.4/sql_exporter-0.4.linux-amd64.tar.gz"
+    dest: "/opt/sql_exporter/"
+    remote_src: yes
+    owner: sql-exporter
+    group: sql-exporter
+    copy: no
+
+- name: configure exporter
+  template:
+    src: sql_exporter.yml.j2
+    dest: /opt/sql_exporter/sql_exporter.yml
+    owner: sql-exporter
+    group: sql-exporter
+    mode: 0644
+  notify:
+    - restart sql_exporter
+
+- name: Copy SQL configs
+  copy:
+    src: "{{ item }}"
+    dest: /opt/sql_exporter/
+    owner: sql-exporter
+    group: sql-exporter
+    mode: 0644
+  with_fileglob:
+  - sql_exporter/*.collector.yml
+
+- name: create systemd service unit
+  template:
+    src: sql_exporter.service.j2
+    dest: /etc/systemd/system/sql_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart sql_exporter
+
+- name: ensure service is started and enabled
+  systemd:
+    name: sql-exporter
+    state: started
+    enabled: yes

@@ -1,0 +1,13 @@
+[Unit]
+Description=SQL Exporter
+
+[Service]
+User=sql-exporter
+Group=sql-exporter
+ExecStart=/opt/sql_exporter/sql_exporter-0.4.linux-amd64/sql_exporter -config.file=/opt/sql_exporter/sql_exporter.yml
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

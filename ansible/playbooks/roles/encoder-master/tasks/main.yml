@@ -2,3 +2,4 @@
 - include: install_packages.yml
 - include: nfs.yml
 - include: postgresql.yml
+- include: sql_exporter.yml
