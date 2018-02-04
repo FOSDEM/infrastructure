@@ -1,0 +1,13 @@
+[Unit]
+Description=JSON Exporter
+
+[Service]
+User=json-exporter
+Group=json-exporter
+ExecStart=/opt/json_exporter/json_exporter https://api.fosdem.org/roomstatus/v1/listrooms /opt/json_exporter/config.yml
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

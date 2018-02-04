@@ -101,6 +101,11 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - encode-master.video.fosdem.org:9399
+- job_name: 'room_status'
+  scrape_interval: 15s
+  static_configs:
+  - targets:
+    - localhost:7979
 
 prometheus_snmp_default_targets:
 - asr1k.n.fosdem.net

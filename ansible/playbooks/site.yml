@@ -131,6 +131,7 @@
   - cloudalchemy.prometheus
   - prometheus-targets
   - cloudalchemy.alertmanager
+  - { role: json_exporter, tags: [ 'json_exporter' ] }
 
 - name: public-dashboard
   hosts: public-dashboard
