@@ -20,7 +20,7 @@ prometheus_scrape_configs:
   - files:
     - "/etc/prometheus/file_sd/prometheus.yml"
 - job_name: "node"
-  scrape_interval: 5s
+  scrape_interval: 15s
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/node.yml"
@@ -78,11 +78,11 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - localhost:9180
-- job_name: 'avq'
-  scrape_interval: "1s"
-  file_sd_configs:
-  - files:
-    - "/etc/prometheus/avq.yml"
+#- job_name: 'avq'
+#  scrape_interval: "1s"
+#  file_sd_configs:
+#  - files:
+#    - "/etc/prometheus/avq.yml"
 - job_name: 'swag'
   scrape_interval: "15s"
   metrics_path: /stats/stats.php
