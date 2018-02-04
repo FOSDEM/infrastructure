@@ -1,0 +1,21 @@
+# Room state as 2 meanings, fullness and alert, when 2 alert is on.
+# 0  room is empty and alert is 0
+# 1  room is full and alert is 0
+# 2  room is full and alert alert alert
+- name: fosdem_room
+  type: object
+  path: $[*]?(@.state == "2")
+  labels:
+    room: $.roomname
+  value:
+    emergency: 1
+    full: 1
+
+- name: fosdem_room
+  type: object
+  path: $[*]?(@.state != "2")
+  labels:
+    room: $.roomname
+  values:
+    full: $.state
+    emergency: 0
