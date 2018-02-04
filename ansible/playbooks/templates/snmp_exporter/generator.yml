@@ -32,7 +32,10 @@ modules:
       new_index: ciscoEnvMonSupplyStatusDescr
   cisco-rogue-ap-table:
     walk:
-      - bsnRogueAPTable
+      - bsnRogueAPDot11MacAddress
+      - bsnRogueAPSSID
+      - bsnRogueAPDetectingAPMacAddress
+      - bsnRogueAPTotalClients
     lookups:
     - old_index: bsnRogueAPDot11MacAddress
       new_index: bsnRogueAPSSID

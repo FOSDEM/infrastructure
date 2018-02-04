@@ -1,139 +1,14 @@
 cisco-rogue-ap-table:
   walk:
-  - 1.3.6.1.4.1.14179.2.1.7
+  - 1.3.6.1.4.1.14179.2.1.7.1.1
+  - 1.3.6.1.4.1.14179.2.1.7.1.11
+  - 1.3.6.1.4.1.14179.2.1.7.1.13
+  - 1.3.6.1.4.1.14179.2.1.7.1.8
   metrics:
   - name: bsnRogueAPDot11MacAddress
     oid: 1.3.6.1.4.1.14179.2.1.7.1.1
     type: PhysAddress48
     help: MAC Address of Rogue Station. - 1.3.6.1.4.1.14179.2.1.7.1.1
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPTotalDetectingAPs
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.2
-    type: gauge
-    help: Total number of Airespace APs that detected this rogue. - 1.3.6.1.4.1.14179.2.1.7.1.2
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPFirstReported
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.3
-    type: DisplayString
-    help: Time Stamp when this Rogue was First Detected. - 1.3.6.1.4.1.14179.2.1.7.1.3
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPLastReported
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.4
-    type: DisplayString
-    help: Time Stamp when this Rogue was Last Detected. - 1.3.6.1.4.1.14179.2.1.7.1.4
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPContainmentLevel
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.5
-    type: gauge
-    help: If the state of the rogue is contained, this specifies the level of containment
-      - 1.3.6.1.4.1.14179.2.1.7.1.5
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPType
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.6
-    type: gauge
-    help: This attribute specifies if the Rogue is of ad-hoc type or is an AP. - 1.3.6.1.4.1.14179.2.1.7.1.6
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPOnNetwork
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.7
-    type: gauge
-    help: This attribute specifies if the Rogue is on Wired Network or not. - 1.3.6.1.4.1.14179.2.1.7.1.7
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPTotalClients
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.8
-    type: gauge
-    help: Total number of Clients detected on this rogue. - 1.3.6.1.4.1.14179.2.1.7.1.8
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPRowStatus
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.9
-    type: gauge
-    help: Row Status - 1.3.6.1.4.1.14179.2.1.7.1.9
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPMaxDetectedRSSI
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.10
-    type: gauge
-    help: This is the max RSSI value of all the detctecting APs, which have detected
-      this rogue. - 1.3.6.1.4.1.14179.2.1.7.1.10
     indexes:
     - labelname: bsnRogueAPDot11MacAddress
       type: PhysAddress48
@@ -159,20 +34,6 @@ cisco-rogue-ap-table:
       labelname: bsnRogueAPSSID
       oid: 1.3.6.1.4.1.14179.2.1.7.1.11
       type: DisplayString
-  - name: bsnRogueAPDetectingAPRadioType
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.12
-    type: OctetString
-    help: Radio type of detecting APs - 1.3.6.1.4.1.14179.2.1.7.1.12
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
   - name: bsnRogueAPDetectingAPMacAddress
     oid: 1.3.6.1.4.1.14179.2.1.7.1.13
     type: PhysAddress48
@@ -187,68 +48,10 @@ cisco-rogue-ap-table:
       labelname: bsnRogueAPSSID
       oid: 1.3.6.1.4.1.14179.2.1.7.1.11
       type: DisplayString
-  - name: bsnRogueAPMaxRssiRadioType
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.14
+  - name: bsnRogueAPTotalClients
+    oid: 1.3.6.1.4.1.14179.2.1.7.1.8
     type: gauge
-    help: The radio type of detecting AP which received max RSSI value. - 1.3.6.1.4.1.14179.2.1.7.1.14
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPState
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.24
-    type: gauge
-    help: This attribute is use to specify the state in which the Rogue AP is user
-      can set the Rogue AP in alert, known or acknowledge state - 1.3.6.1.4.1.14179.2.1.7.1.24
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPClassType
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.25
-    type: gauge
-    help: The AP class type of the client detected. - 1.3.6.1.4.1.14179.2.1.7.1.25
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPChannel
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.26
-    type: gauge
-    help: This is the channel number of the last detecting APs, which has detected
-      this rogue. - 1.3.6.1.4.1.14179.2.1.7.1.26
-    indexes:
-    - labelname: bsnRogueAPDot11MacAddress
-      type: PhysAddress48
-      fixed_size: 6
-    lookups:
-    - labels:
-      - bsnRogueAPDot11MacAddress
-      labelname: bsnRogueAPSSID
-      oid: 1.3.6.1.4.1.14179.2.1.7.1.11
-      type: DisplayString
-  - name: bsnRogueAPDetectingAPName
-    oid: 1.3.6.1.4.1.14179.2.1.7.1.27
-    type: OctetString
-    help: AP name of the detecting AP which received max RSSI - 1.3.6.1.4.1.14179.2.1.7.1.27
+    help: Total number of Clients detected on this rogue. - 1.3.6.1.4.1.14179.2.1.7.1.8
     indexes:
     - labelname: bsnRogueAPDot11MacAddress
       type: PhysAddress48
