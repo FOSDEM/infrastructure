@@ -30,6 +30,12 @@ modules:
       new_index: ciscoEnvMonTemperatureStatusDescr
     - old_index: ciscoEnvMonTemperatureStatusIndex
       new_index: ciscoEnvMonSupplyStatusDescr
+  cisco-rogue-ap-table:
+    walk:
+      - bsnRogueAPTable
+    lookups:
+    - old_index: bsnRogueAPDot11MacAddress
+      new_index: bsnRogueAPSSID
   cisco_wlc:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
@@ -45,6 +51,8 @@ modules:
     - bsnAPIfChannelNoiseInfoTable
     - bsnAPIfDot11CountersTable
     - bsnAPIfTable # 1.3.6.1.4.1.14179.2.2.2
+    # Single entries from bsnAPIfSmtParamTable
+    - bsnAPIfDot11BSSID
     overrides:
       bsnAPName:
         type: DisplayString
