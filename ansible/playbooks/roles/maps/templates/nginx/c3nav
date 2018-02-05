@@ -1,5 +1,6 @@
 server {
     listen [::]:80;
+    listen 80;
     server_name {{domain}};
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
@@ -13,7 +14,8 @@ server {
         proxy_pass http://unix://var/run/c3nav/gunicorn-c3nav.sock;
     }
 
-    listen [::]:443 ssl; # managed by Certbot
+    listen [::]:443 ssl;
+    listen 443;
     ssl_certificate /etc/letsencrypt/live/{{domain}}/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/{{domain}}/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
