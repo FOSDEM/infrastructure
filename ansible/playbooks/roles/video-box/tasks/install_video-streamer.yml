@@ -14,6 +14,14 @@
     group: root
     mode: 0755
 
+- name: install sproxy binary
+  copy:
+    src: bin/sproxy
+    dest: /usr/local/bin/sproxy
+    owner: root
+    group: root
+    mode: 0755
+
 - name: create /usr/lib/firmware
   file:
     path: /usr/lib/firmware
@@ -39,13 +47,10 @@
     group: root
     mode: 0755
 
-- name: install video-streamer script
-  template:
-    src: video-streamer/video-streamer.sh
-    dest: /usr/local/bin/video-streamer.sh
-    owner: root
-    group: root
-    mode: 0755
+- name: remove video-streamer script
+  file:
+    path: /usr/local/bin/video-streamer.sh
+    state: absent
 
 - name: install video-recorder script
   template:
@@ -55,13 +60,10 @@
     group: root
     mode: 0755
 
-- name: install video-streamer service
-  template:
-    src: video-streamer/video-streamer.service
-    dest: /etc/systemd/system/video-streamer.service
-    owner: root
-    group: root
-    mode: 0644
+- name: remove video-streamer service
+  file:
+    path: /etc/systemd/system/video-streamer.service
+    state: absent
   register: videostreamer
 
 - name: install bmd-receiver service
@@ -99,11 +101,11 @@
     enabled: yes
     state: started
 
-- name: enable video-streamer service
-  service:
-    name: video-streamer
-    enabled: yes
-    state: started
+#- name: disable video-streamer service
+#  service:
+#    name: video-streamer
+#    enabled: no
+#    state: stopped
 
 # video-recorder IS NOT enabled by default/from ansible!
 # do not add it here.
@@ -121,12 +123,12 @@
     state: restarted
   when: videostreamer.changed
 
-- name: enable video-streamer service
-  systemd:
-    name: video-streamer
-    enabled: yes
-    state: started
-    daemon_reload: yes
+#- name: enable video-streamer service
+#  systemd:
+#    name: video-streamer
+#    enabled: no
+#    state: stopped
+#    daemon_reload: yes
 
 - name: enable bmd-receiver service
   systemd:

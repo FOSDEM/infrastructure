@@ -21,7 +21,6 @@ BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
 
-STREAM_DESTINATION = '{{ video_streamer_destination }}'
 NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
 LOGO_FILE =  '/usr/local/bin/logo.png'
@@ -136,11 +135,12 @@ def update_sysinfo(screen):
 
 	if ip_addr_v4 != False:
 		image.blit(font.render("IPv4: " + ip_addr_v4, 1, WHITE), (0, 45))
+		image.blit(font.render("stream: tcp://" + ip_addr_v4 + ":8898/", 1, WHITE), (0, 75))
 	else:
 		image.blit(font.render("IPv4: no IPv4 address", 1, RED), (0, 45))
+		image.blit(font.render("stream: n/a", 1, RED), (0, 75))
 
 	image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, 60))
-	image.blit(font.render("stream: " + STREAM_DESTINATION, 1, WHITE), (0, 75))
 
 	screen.blit(image,(10,120))
 
