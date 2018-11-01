@@ -11,10 +11,6 @@ sysctl_parameters: {
 ssd_drive: /dev/sda
 ssd_mount: /mnt/ssd
 
-# Partition layout of the SD card
-sd_boot: /dev/mmcblk0p1
-sd_root: /dev/mmcblk0p2
-
 # Our network device
 network_device: eth0
 
