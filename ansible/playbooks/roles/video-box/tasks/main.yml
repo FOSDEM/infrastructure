@@ -4,7 +4,6 @@
   with_items: "{{ video_streamer_config }}"
   when: "item.host == ansible_hostname"
 
-- include: install_lcd.yml
 - include: install_lenkeng_ir.yml
 - include: install_packages.yml
 - include: configure_ssd.yml
