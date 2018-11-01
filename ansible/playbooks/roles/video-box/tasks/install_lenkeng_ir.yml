@@ -28,12 +28,28 @@
     src: lenkeng/asound.conf
     dest: /etc/asound.conf
 
-- name: load the snd-aaci module in the running kernel
-  modprobe:
-    name: snd-aaci
-    state: present
+- name: create /etc/alsa
+  file:
+    path: /etc/alsa
+    state: directory
 
-- name: make loading the snd-aaci module persistent
-  lineinfile:
-    dest: /etc/modules
-    line: "snd-aaci"
+- name: touch /etc/alsa/state-daemon.conf
+  file:
+    path: /etc/alsa/state-daemon.conf
+    state: touch
+    mode: "0644"
+    modification_time: "preserve"
+    access_time: "preserve"
+
+- name: create a default alsa configuration file
+  copy:
+    src: lenkeng/asound.state
+    dest: /var/lib/alsa/asound.state
+    owner: root
+    group: root
+    mode: 0644
+
+- name: start the alsa-state service
+  service:
+    name: alsa-state.service
+    state: started
