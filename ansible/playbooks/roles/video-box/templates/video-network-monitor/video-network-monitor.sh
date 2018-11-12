@@ -8,7 +8,8 @@ while true; do
 	IP=$(ip addr show dev {{ network_device }} | grep 'inet '| cut -d' ' -f6)
 
 	if [ "$IP" = "" ]; then
-		service networking restart
+		systemctl stop ifup@eth0.service
+		systemctl start ifup@eth0.service
 	fi
 
 	sleep 10s
