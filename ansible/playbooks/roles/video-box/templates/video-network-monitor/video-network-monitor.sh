@@ -4,13 +4,13 @@
 # works if that is the case.
 
 while true; do
+	sleep 15s
+
 	# FIXME: we should support an IPv6-only network
 	IP=$(ip addr show dev {{ network_device }} | grep 'inet '| cut -d' ' -f6)
 
 	if [ "$IP" = "" ]; then
-		systemctl stop ifup@eth0.service
-		systemctl start ifup@eth0.service
+		systemctl stop ifup@{{ network_device }}.service
+		systemctl start ifup@{{ network_device }}s.service
 	fi
-
-	sleep 10s
 done
