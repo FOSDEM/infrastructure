@@ -1,0 +1,4 @@
+---
+- name: install sproxy
+  copy: src=sproxy/sproxy dest=/usr/local/bin/ owner=root group=root mode=0755
+  notify: restart voctoscripts

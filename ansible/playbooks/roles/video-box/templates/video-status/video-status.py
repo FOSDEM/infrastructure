@@ -21,7 +21,6 @@ BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
 
-STREAM_DESTINATION = '{{ video_streamer_destination }}'
 NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
 LOGO_FILE =  '/usr/local/bin/logo.png'
@@ -127,20 +126,25 @@ def update_sysinfo(screen):
 	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, 0))
 
 	if rec:
-		image.blit(font.render("REC", 1, RED), (230, 0))
+		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
+			pygame.draw.circle(image, RED, (240, 7), 6)
+		image.blit(font.render("RECORD", 1, RED), (250, 0))
 	else:
-		image.blit(font.render("NOREC", 1, WHITE), (230, 0))
+		pygame.draw.line(image, WHITE, (235,3), (235,11), 2) # Pause symbol line 1
+		pygame.draw.line(image, WHITE, (240,3), (240,11), 2) # Pause symbol line 1
+		image.blit(font.render("PAUSED", 1, WHITE), (250, 0))
 
 	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, 15))
 	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, 30))
 
 	if ip_addr_v4 != False:
 		image.blit(font.render("IPv4: " + ip_addr_v4, 1, WHITE), (0, 45))
+		image.blit(font.render("stream: tcp://" + ip_addr_v4 + ":8898/", 1, WHITE), (0, 75))
 	else:
 		image.blit(font.render("IPv4: no IPv4 address", 1, RED), (0, 45))
+		image.blit(font.render("stream: n/a", 1, RED), (0, 75))
 
 	image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, 60))
-	image.blit(font.render("stream: " + STREAM_DESTINATION, 1, WHITE), (0, 75))
 
 	screen.blit(image,(10,120))
 

@@ -16,6 +16,7 @@
     - git
     - python3-gi-cairo
     - rsync
+    - avahi-daemon
 
 - name: "install voctomix package from backports"
   apt:

@@ -6,7 +6,7 @@ confdir="`dirname "$0"`/../config/"
 
 while true; do
 	ffmpeg -y \
-	-i "${MULTICAST_SINK}${SOURCE_URL_PARAMETERS}" \
+	-i "tcp://localhost:8899" \
 	-c:v copy \
 	-strict -2 -c:a aac -ab 128k \
 	-flags:v +global_header  \

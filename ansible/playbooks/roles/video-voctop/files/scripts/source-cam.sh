@@ -5,7 +5,7 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/config.sh
 
 ffmpeg -y -nostdin \
-	-i "${SOURCE_CAM}${SOURCE_URL_PARAMETERS}" \
+	-i "${SOURCE_CAM}" \
 	-ac 2 \
 	-filter_complex "
 		[0:v] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE,setdar=16/9,setsar=1 [v] ;
