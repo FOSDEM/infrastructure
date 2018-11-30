@@ -17,6 +17,7 @@
     - inotify-tools
     - iotop
     - less
+    - libcap2-bin
     - lsof
     - ltrace
     - mediainfo
