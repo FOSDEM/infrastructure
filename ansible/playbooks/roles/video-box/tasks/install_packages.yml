@@ -8,3 +8,4 @@
     - fbi
     - fontconfig
     - python-pygame
+    - avahi-daemon
