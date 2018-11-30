@@ -126,9 +126,13 @@ def update_sysinfo(screen):
 	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, 0))
 
 	if rec:
-		image.blit(font.render("REC", 1, RED), (230, 0))
+		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
+			pygame.draw.circle(image, RED, (240, 7), 6)
+		image.blit(font.render("RECORD", 1, RED), (250, 0))
 	else:
-		image.blit(font.render("NOREC", 1, WHITE), (230, 0))
+		pygame.draw.line(image, WHITE, (235,3), (235,11), 2) # Pause symbol line 1
+		pygame.draw.line(image, WHITE, (240,3), (240,11), 2) # Pause symbol line 1
+		image.blit(font.render("PAUSED", 1, WHITE), (250, 0))
 
 	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, 15))
 	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, 30))
