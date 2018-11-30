@@ -11,217 +11,218 @@ hdd_drive: /dev/sdb
 
 video_dump_source:
   - host: aw1120-slides
-    source: udp://227.0.0.1:9000
+    source: tcp://aw1120-slides.local:8899/
 
   - host: aw1120-cam
-    source: udp://227.0.0.2:9000
+    source: tcp://aw1120-cam.local:8899/
 
   - host: aw1120-pip
-    source: udp://227.0.0.3:9000
+    source: tcp://aw1120-voctop.local:8899/
 
   - host: aw1121-slides
-    source: udp://227.0.1.1:9000
+    source: tcp://aw1121-slides.local:8899/
 
   - host: aw1121-cam
-    source: udp://227.0.1.2:9000
+    source: tcp://aw1121-cam.local:8899/
 
   - host: aw1121-pip
-    source: udp://227.0.1.3:9000
+    source: tcp://aw1121-voctop.local:8899/
 
   - host: ud2119-slides
-    source: udp://227.0.2.1:9000
+    source: tcp://ud2119-slides.local:8899/
 
   - host: ud2119-cam
-    source: udp://227.0.2.2:9000
+    source: tcp://ud2119-cam.local:8899/
 
   - host: ud2119-pip
-    source: udp://227.0.2.3:9000
+    source: tcp://ud2119-voctop.local:8899/
 
   - host: aw1125-slides
-    source: udp://227.0.3.1:9000
+    source: tcp://aw1125-slides.local:8899/
 
   - host: aw1125-cam
-    source: udp://227.0.3.2:9000
+    source: tcp://aw1125-cam.local:8899/
 
   - host: aw1125-pip
-    source: udp://227.0.3.3:9000
+    source: tcp://aw1125-voctop.local:8899/
 
   - host: aw1126-slides
-    source: udp://227.0.4.1:9000
+    source: tcp://aw1126-slides.local:8899/
 
   - host: aw1126-cam
-    source: udp://227.0.4.2:9000
+    source: tcp://aw1126-cam.local:8899/
 
   - host: aw1126-pip
-    source: udp://227.0.4.3:9000
+    source: tcp://aw1126-voctop.local:8899/
 
   - host: h1301-slides
-    source: udp://227.1.0.1:9000
+    source: tcp://h1301-slides.local:8899/
 
   - host: h1301-cam
-    source: udp://227.1.0.2:9000
+    source: tcp://h1301-cam.local:8899/
 
   - host: h1301-pip
-    source: udp://227.1.0.3:9000
+    source: tcp://h1301-voctop.local:8899/
 
   - host: h1302-slides
-    source: udp://227.1.1.1:9000
+    source: tcp://h1302-slides.local:8899/
 
   - host: h1302-cam
-    source: udp://227.1.1.2:9000
+    source: tcp://h1302-cam.local:8899/
 
   - host: h1302-pip
-    source: udp://227.1.1.3:9000
+    source: tcp://h1302-voctop.local:8899/
 
   - host: h1308-slides
-    source: udp://227.1.2.1:9000
+    source: tcp://h1308-slides.local:8899/
 
   - host: h1308-cam
-    source: udp://227.1.2.2:9000
+    source: tcp://h1308-cam.local:8899/
 
   - host: h1308-pip
-    source: udp://227.1.2.3:9000
+    source: tcp://h1308-voctop.local:8899/
 
   - host: h1309-slides
-    source: udp://227.1.3.1:9000
+    source: tcp://h1309-slides.local:8899/
 
   - host: h1309-cam
-    source: udp://227.1.3.2:9000
+    source: tcp://h1309-cam.local:8899/
 
   - host: h1309-pip
-    source: udp://227.1.3.3:9000
+    source: tcp://h1309-voctop.local:8899/
 
   - host: h2213-slides
-    source: udp://227.1.4.1:9000
+    source: tcp://h2213-slides.local:8899/
 
   - host: h2213-cam
-    source: udp://227.1.4.2:9000
+    source: tcp://h2213-cam.local:8899/
 
   - host: h2213-pip
-    source: udp://227.1.4.3:9000
+    source: tcp://h2213-voctop.local:8899/
 
   - host: h2214-slides
-    source: udp://227.1.5.1:9000
+    source: tcp://h2214-slides.local:8899/
 
   - host: h2214-cam
-    source: udp://227.1.5.2:9000
+    source: tcp://h2214-cam.local:8899/
 
   - host: h2214-pip
-    source: udp://227.1.5.3:9000
+    source: tcp://h2214-voctop.local:8899/
 
   - host: h2215-slides
-    source: udp://227.1.6.1:9000
+    source: tcp://h2215-slides.local:8899/
 
   - host: h2215-cam
-    source: udp://227.1.6.2:9000
+    source: tcp://h2215-cam.local:8899/
 
   - host: h2215-pip
-    source: udp://227.1.6.3:9000
+    source: tcp://h2215-voctop.local:8899/
 
   - host: janson-slides
-    source: udp://227.2.0.1:9000
+    source: tcp://janson-slides.local:8899/
 
   - host: janson-cam
-    source: udp://227.2.0.2:9000
+    source: tcp://janson-cam.local:8899/
 
   - host: janson-pip
-    source: udp://227.2.0.3:9000
+    source: tcp://janson-voctop.local:8899/
 
   - host: k1105-slides
-    source: udp://227.3.0.1:9000
+    source: tcp://k1105-slides.local:8899/
 
   - host: k1105-cam
-    source: udp://227.3.0.2:9000
+    source: tcp://k1105-cam.local:8899/
 
   - host: k1105-pip
-    source: udp://227.3.0.3:9000
+    source: tcp://k1105-voctop.local:8899/
 
   - host: k3201-slides
-    source: udp://227.3.1.1:9000
+    source: tcp://k3201-slides.local:8899/
 
   - host: k3201-cam
-    source: udp://227.3.1.2:9000
+    source: tcp://k3201-cam.local:8899/
 
   - host: k3201-pip
-    source: udp://227.3.1.3:9000
+    source: tcp://k3201-voctop.local:8899/
 
   - host: k3401-slides
-    source: udp://227.3.2.1:9000
+    source: tcp://k3401-slides.local:8899/
 
   - host: k3401-cam
-    source: udp://227.3.2.2:9000
+    source: tcp://k3401-cam.local:8899/
 
   - host: k3401-pip
-    source: udp://227.3.2.3:9000
+    source: tcp://k3401-voctop.local:8899/
 
   - host: k4201-slides
-    source: udp://227.3.3.1:9000
+    source: tcp://k4201-slides.local:8899/
 
   - host: k4201-cam
-    source: udp://227.3.3.2:9000
+    source: tcp://k4201-cam.local:8899/
 
   - host: k4201-pip
-    source: udp://227.3.3.3:9000
+    source: tcp://k4201-voctop.local:8899/
 
   - host: k4401-slides
-    source: udp://227.3.4.1:9000
+    source: tcp://k4401-slides.local:8899/
 
   - host: k4401-cam
-    source: udp://227.3.4.2:9000
+    source: tcp://k4401-cam.local:8899/
 
   - host: k4401-pip
-    source: udp://227.3.4.3:9000
+    source: tcp://k4401-voctop.local:8899/
 
   - host: k4601-slides
-    source: udp://227.3.5.1:9000
+    source: tcp://k4601-slides.local:8899/
 
   - host: k4601-cam
-    source: udp://227.3.5.2:9000
+    source: tcp://k4601-cam.local:8899/
 
   - host: k4601-pip
-    source: udp://227.3.5.3:9000
+    source: tcp://k4601-voctop.local:8899/
 
   - host: ua2114-slides
-    source: udp://227.4.0.1:9000
+    source: tcp://ua2114-slides.local:8899/
 
   - host: ua2114-cam
-    source: udp://227.4.0.2:9000
+    source: tcp://ua2114-cam.local:8899/
 
   - host: ua2114-pip
-    source: udp://227.4.0.3:9000
+    source: tcp://ua2114-voctop.local:8899/
 
   - host: ua2220-slides
-    source: udp://227.4.1.1:9000
+    source: tcp://ua2220-slides.local:8899/
 
   - host: ua2220-cam
-    source: udp://227.4.1.2:9000
+    source: tcp://ua2220-cam.local:8899/
 
   - host: ua2220-pip
-    source: udp://227.4.1.3:9000
+    source: tcp://ua2220-voctop.local:8899/
 
   - host: ub2252a-slides
-    source: udp://227.4.2.1:9000
+    source: tcp://ub2252a-slides.local:8899/
 
   - host: ub2252a-cam
-    source: udp://227.4.2.2:9000
+    source: tcp://ub2252a-cam.local:8899/
 
   - host: ub2252a-pip
-    source: udp://227.4.2.3:9000
+    source: tcp://ub2252a-voctop.local:8899/
 
   - host: ud2120-slides
-    source: udp://227.4.3.1:9000
+    source: tcp://ud2120-slides.local:8899/
 
   - host: ud2120-cam
-    source: udp://227.4.3.2:9000
+    source: tcp://ud2120-cam.local:8899/
 
   - host: ud2120-pip
-    source: udp://227.4.3.3:9000
+    source: tcp://ud2120-voctop.local:8899/
 
   - host: ud2218a-slides
-    source: udp://227.4.4.1:9000
+    source: tcp://ud2218a-slides.local:8899/
 
   - host: ud2218a-cam
-    source: udp://227.4.4.2:9000
+    source: tcp://ud2218a-cam.local:8899/
 
   - host: ud2218a-pip
-    source: udp://227.4.4.3:9000
+    source: tcp://ud2218a-voctop.local:8899/
+
