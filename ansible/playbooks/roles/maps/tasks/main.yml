@@ -56,7 +56,6 @@
     mode: 0644
     force: no
 
-- include: configure_postgres.yml
 - include: configure_celery.yml
 - include: configure_gunicorn.yml
 - include: configure_nginx.yml
