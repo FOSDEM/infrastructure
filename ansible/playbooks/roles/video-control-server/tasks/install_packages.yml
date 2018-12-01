@@ -6,3 +6,7 @@
     - nginx
     - php7.0
     - php7.0-fpm
+    - isc-dhcp-server
+    - influxdb
+    - influxdb-client
+    - grafana
