@@ -1,0 +1,19 @@
+[Unit]
+
+{% for config in vocto_config %}
+{% if inventory_hostname ==  config.room + "-voctop.video.fosdem.org" %}
+
+Description={{ config.room }} audio-fetcher
+
+[Service]
+ExecStart=/usr/local/bin/audio-fetcher {{ config.room }}
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+{% endif %}
+{% endfor %}
+
+[Install]
+WantedBy=multi-user.target

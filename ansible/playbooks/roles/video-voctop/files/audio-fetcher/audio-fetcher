@@ -1,0 +1,99 @@
+#!/usr/bin/python
+
+import os
+import re
+import requests
+import subprocess
+import sys
+import time
+
+
+def initsession():
+	global httpsession
+	s = requests.Session()
+	httpsession = s
+
+
+def submitdata(rawdata):
+	global httpsession
+	r = None
+
+	retry = True
+	tries = 0
+
+	data = ""
+
+	for line in rawdata:
+		data += line
+
+	while retry:
+		tries += 1
+		retry = False
+		url = 'http://{remote}/write?db={db}'.format(remote='localhost:control.video.fosdem.org', db='ebur')
+		try:
+			try:
+				r = httpsession.post(url, data = data, timeout = (10, 180))
+			except ValueError as e:
+				# requests v. 2.2 does not support tuple for timeout, leaving the larger value only:
+				r = httpsession.post(url, data = zdata, timeout = 180)
+		except (requests.ConnectionError, requests.Timeout, requests.HTTPError):
+			retry = True
+			r = None
+			initsession()
+		if r is not None:
+			if r.status_code == 400:
+				c.logger.critical("Broken data, {d}".format(d = data))
+				return True # do not retry this piece of data
+			if r.status_code == 401:
+				c.logger.critical("Auth failed")
+				initsession()
+				return False
+			if r.status_code != 204:
+				c.logger.critical("Failed submitting data, {s}".format(s = r.text))
+				initsession()
+				return False
+		if tries > 10:
+			return False
+
+	return True
+
+
+
+if len(sys.argv)!=2:
+	print "Usage: thiscrap roomname"
+	exit(2)
+
+roomname = sys.argv[1]
+
+initsession()
+devnull = open(os.devnull, 'wb')
+pipe = subprocess.Popen("ffmpeg -nostats -i tcp://localhost:11000/ -filter_complex ebur128 -f null -", shell=True, stderr=subprocess.PIPE, stdout=devnull).stderr
+
+pushdata = []
+
+while True:
+	line = pipe.readline().strip()
+	#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023    M: -33.2 S:-120.7     I: -34.8 LUFS     LRA:   0.0 LU'
+	matches = re.split(r'\[Parsed_ebur.*t:[ ]*([0-9.-]*).*M:[ ]*([0-9.-]*).*S:[ ]*([0-9.-]*).*I:[ ]*([0-9.-]*)', line)
+	
+	#print "%s" % line
+
+	if len(matches)<5:
+		continue
+
+	#print "%r" % matches
+
+	dataline = 'ebur,stream=' + roomname + ' '
+	dataline += 'M=' + matches[2] + ",S=" + matches[3] + ",I=" + matches[4]
+
+	ts = int(time.time() * 1000000000)
+
+	dataline += " " + str(ts) + "\n"
+	#print "%s" % dataline
+
+	pushdata.append(dataline)
+
+	if len(pushdata)>2:
+		submitdata(pushdata)
+		pushdata = []
+

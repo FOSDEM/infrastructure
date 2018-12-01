@@ -1,0 +1,30 @@
+---
+
+- name: "install packages"
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - python-requests
+
+- name: install audiofetcher service
+  template:
+    src: templates/audio-fetcher.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart vocto
+
+- name: install audio-fetcher binary
+  copy:
+    src: files/audio-fetcher/audio-fetcher
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+
+- name: enable and start all audiofetcher
+  service:
+    name: audio-fetcher
+    state: started
+    enabled: yes
+    daemon_reload: yes

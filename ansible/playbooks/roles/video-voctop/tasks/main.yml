@@ -3,4 +3,5 @@
 - include: disable_suspend.yml
 - include: install_sproxy.yml
 - include: install_voctocore.yml
+- include: install_audio_fetcher.yml
   tags: voctocore
