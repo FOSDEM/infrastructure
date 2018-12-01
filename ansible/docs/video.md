@@ -35,7 +35,7 @@ simultaneously.
 
 Start recording:
 
-winkekatze
+    ansible video-box -a "systemctl start video-recorder.service"
 
 Stop recording:
 
