@@ -98,8 +98,10 @@ def update_sysinfo(screen):
 	#	ip_addr_v6 = False
 
 	try:
-		ip_addr_v4 = re.search('\sinet\ ([^\s]+)', ip_addr).groups()[0]
+		ip_prefix_v4 = re.search('\sinet\ ([^\s]+)', ip_addr).groups()[0]
+		ip_addr_v4 = re.search('\sinet\ ([^\s]+)/', ip_addr).groups()[0]
 	except AttributeError:
+		ip_prefix_v4 = False
 		ip_addr_v4 = False
 
 	# MAC address
@@ -138,7 +140,7 @@ def update_sysinfo(screen):
 	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, 30))
 
 	if ip_addr_v4 != False:
-		image.blit(font.render("IPv4: " + ip_addr_v4, 1, WHITE), (0, 45))
+		image.blit(font.render("IPv4: " + ip_prefix_v4, 1, WHITE), (0, 45))
 		image.blit(font.render("stream: tcp://" + ip_addr_v4 + ":8898/", 1, WHITE), (0, 75))
 	else:
 		image.blit(font.render("IPv4: no IPv4 address", 1, RED), (0, 45))
