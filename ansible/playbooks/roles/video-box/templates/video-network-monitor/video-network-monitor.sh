@@ -11,6 +11,6 @@ while true; do
 
 	if [ "$IP" = "" ]; then
 		systemctl stop ifup@{{ network_device }}.service
-		systemctl start ifup@{{ network_device }}s.service
+		systemctl start ifup@{{ network_device }}.service
 	fi
 done
