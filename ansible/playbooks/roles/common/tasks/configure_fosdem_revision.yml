@@ -1,0 +1,4 @@
+---
+- name: configure /etc/fosdem_revision
+  template: src=fosdem_revision dest=/etc/fosdem_revision owner=root group=root mode=0644
+
