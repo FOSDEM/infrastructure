@@ -4,8 +4,6 @@ controlserver_source:
 
   - roomname: aw1121
 
-  - roomname: ud2119
-
   - roomname: aw1125
 
   - roomname: aw1126
@@ -40,16 +38,19 @@ controlserver_source:
 
   - roomname: ua2114
 
+  - roomname: ua2118
+
   - roomname: ua2220
+
+  - roomname: ub2147
 
   - roomname: ub2252a
 
+  - roomname: ud2119
+
   - roomname: ud2120
+
+  - roomname: ud2208
 
   - roomname: ud2218a
 
-# replacement rooms
-
-  - roomname: ua2118
-
-  - roomname: ud2208

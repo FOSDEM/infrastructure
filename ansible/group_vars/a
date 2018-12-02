@@ -1,15 +1,3 @@
----
-sysctl_parameters: {
-    "net.core.wmem_max": "8388608",
-    "net.core.wmem_default": "8388608",
-    "net.core.rmem_max": "8388608",
-    "net.core.rmem_default": "8388608",
-}
-
-# Where is our dump disk supposed to be?
-hdd_drive: /dev/sdb
-
-video_dump_source:
   - host: aw1120-slides
     source: tcp://aw1120-slides.video.fosdem.org:8899/
 
