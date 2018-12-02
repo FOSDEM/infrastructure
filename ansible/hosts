@@ -5,7 +5,7 @@ server001.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 
 [video-control-server]
-control.video.fosdem.org
+control.video.fosdem.org ansible_host=172.22.10.202
 
 [public-dashboard]
 dashboard.fosdem.org
@@ -96,24 +96,23 @@ k4601-slides.video.fosdem.org
 k4601-cam.video.fosdem.org
 ua2114-slides.video.fosdem.org
 ua2114-cam.video.fosdem.org
+ua2118-slides.video.fosdem.org
+ua2118-cam.video.fosdem.org
 ua2220-slides.video.fosdem.org
 ua2220-cam.video.fosdem.org
+ub2147-slides.video.fosdem.org
+ub2147-cam.video.fosdem.org
 ub2252a-slides.video.fosdem.org
 ub2252a-cam.video.fosdem.org
 ud2119-slides.video.fosdem.org
 ud2119-cam.video.fosdem.org
 ud2120-slides.video.fosdem.org
 ud2120-cam.video.fosdem.org
+ud2208-slides.video.fosdem.org
+ud2208-cam.video.fosdem.org
 ud2218a-slides.video.fosdem.org
 ud2218a-cam.video.fosdem.org
-spare0-slides.video.fosdem.org
-spare0-cam.video.fosdem.org
-spare1-slides.video.fosdem.org
-spare1-cam.video.fosdem.org
-spare2-slides.video.fosdem.org
-spare2-cam.video.fosdem.org
-spare3-slides.video.fosdem.org
-spare3-cam.video.fosdem.org
+
 
 [video-voctop]
 aw1120-voctop.video.fosdem.org
@@ -135,18 +134,17 @@ k4201-voctop.video.fosdem.org
 k4401-voctop.video.fosdem.org
 k4601-voctop.video.fosdem.org
 ua2114-voctop.video.fosdem.org
+ua2118-voctop.video.fosdem.org
 ua2220-voctop.video.fosdem.org
+ub2147-voctop.video.fosdem.org
 ub2252a-voctop.video.fosdem.org
+ud2208-voctop.video.fosdem.org
 ud2120-voctop.video.fosdem.org
 ud2218a-voctop.video.fosdem.org
 ud2119-voctop.video.fosdem.org
 spare0-voctop.video.fosdem.org
 spare1-voctop.video.fosdem.org
 spare2-voctop.video.fosdem.org
-
-#extra rooms
-ua2118-voctop.video.fosdem.org
-ud2208-voctop.video.fosdem.org
 
 [video-web-frontend]
 web0.video.fosdem.org
