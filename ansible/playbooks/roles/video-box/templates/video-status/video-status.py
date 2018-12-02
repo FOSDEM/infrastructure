@@ -21,6 +21,7 @@ BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
 
+GIT_REVISION = '{{ git_version.stdout }}'
 NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
 LOGO_FILE =  '/usr/local/bin/logo.png'
@@ -147,6 +148,8 @@ def update_sysinfo(screen):
 		image.blit(font.render("stream: n/a", 1, RED), (0, 75))
 
 	image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, 60))
+
+	image.blit(font.render("Revision: " + GIT_REVISION, 1, WHITE), (0, 90))
 
 	screen.blit(image,(10,120))
 
