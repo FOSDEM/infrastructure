@@ -8,8 +8,9 @@
     mode: 0755
 
 - name: "install packages"
-  apt: pkg={{ item }} state=latest
-  with_items:
+  apt:
+    state: latest
+    package:
     - bash-completion
     - curl
     - ffmpeg
@@ -20,9 +21,10 @@
 
 - name: "install voctomix package from backports"
   apt:
-    name: voctomix-core
     state: latest
     default_release: "{{ansible_distribution_release}}-backports"
+    package:
+    - voctomix-core
 
 - name: create scripts directory
   file:

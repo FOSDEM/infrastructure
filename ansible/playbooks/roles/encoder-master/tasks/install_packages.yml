@@ -11,13 +11,17 @@
     repo: deb https://latin.grep.be/sreview stretch main
 
 - name: "install prereqs"
-  apt: pkg={{ item }} state=latest install_recommends=no
-  with_items:
+  apt:
+    state: latest
+    install_recommends: no
+    package:
     - dbconfig-pgsql
 
 - name: "install sreview"
-  apt: pkg={{ item }} state=latest install_recommends=yes
-  with_items:
+  apt:
+    state: latest
+    install_recommends: yes
+    package:
     - sreview-master
     - postgresql-contrib
     - pwgen

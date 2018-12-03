@@ -2,8 +2,10 @@
 
 - name: install mtail
   apt:
-    pkg: mtail
     state: latest
+    default_release: stretch-backports
+    package:
+    - mtail
 
 - name: enable and start mtail service
   service:

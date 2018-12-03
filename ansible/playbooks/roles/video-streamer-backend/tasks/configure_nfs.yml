@@ -1,9 +1,8 @@
 ---
 - name: install NFS utilities and server
   apt:
-    name: "{{ item }}"
     state: installed
-  with_items:
+    package:
     - nfs-common
     - nfs-kernel-server
 

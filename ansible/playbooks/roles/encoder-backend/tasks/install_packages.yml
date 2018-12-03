@@ -11,8 +11,10 @@
     repo: deb https://latin.grep.be/sreview stretch main
 
 - name: "install packages"
-  apt: pkg={{ item }} state=latest install_recommends=no
-  with_items:
+  apt:
+    state: latest
+    install_recommends: no
+    package:
     - nfs-common
     - gridengine-exec
     - bs1770gain
@@ -39,4 +41,8 @@
     repo: deb ftp://mirror.boxed-it.com/pub/deb-multimedia/ stable main
 
 - name: "install deb-multimedia version of ffmpeg"
-  apt: pkg=ffmpeg state=latest default_release=stretch
+  apt:
+    state: latest
+    default_release: stretch
+    package:
+    - ffmpeg
