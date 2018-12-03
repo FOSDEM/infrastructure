@@ -21,11 +21,14 @@ $config = array(
 "k4401" => "k4401-voctop.video.fosdem.org",
 "k4601" => "k4601-voctop.video.fosdem.org",
 "ua2114" => "ua2114-voctop.video.fosdem.org",
+"ua2118" => "ua2118-voctop.video.fosdem.org",
 "ua2220" => "ua2220-voctop.video.fosdem.org",
+"ub2147" => "ub2147-voctop.video.fosdem.org",
 "ub2252a" => "ub2252a-voctop.video.fosdem.org",
-"ud2119" => "ud2119-voctop.video.fosdem.org",
+"ud2208" => "ud2208-voctop.video.fosdem.org",
 "ud2120" => "ud2120-voctop.video.fosdem.org",
 "ud2218a" => "ud2218a-voctop.video.fosdem.org",
+"ud2119" => "ud2119-voctop.video.fosdem.org",
 );
 
 #$config = array("h1308" => "10.2.5.200");
