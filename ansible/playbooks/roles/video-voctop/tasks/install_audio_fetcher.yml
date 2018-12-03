@@ -1,8 +1,9 @@
 ---
 
 - name: "install packages"
-  apt: pkg={{ item }} state=latest
-  with_items:
+  apt:
+    state: latest
+    package:
     - python-requests
 
 - name: install audiofetcher service

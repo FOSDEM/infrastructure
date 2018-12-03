@@ -1,10 +1,11 @@
 ---
 - name: install ffmpeg from backports
   apt:
-    pkg: ffmpeg
     state: latest
     install_recommends: no
     default_release: "{{ansible_distribution_release}}-backports"
+    package:
+    - ffmpeg
 
 - name: install bmd-streamer binary
   copy:

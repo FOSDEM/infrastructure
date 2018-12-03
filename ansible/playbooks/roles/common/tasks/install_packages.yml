@@ -1,7 +1,9 @@
 ---
 - name: "Install packages"
-  apt: pkg={{ item }} state=latest install_recommends=no
-  with_items:
+  apt:
+    state: latest
+    install_recommends: no
+    package:
     - ack-grep
     - apt-transport-https
     - bash-completion
@@ -39,7 +41,9 @@
     dest: /root/.screenrc
 
 - name: "Install NTP time sync"
-  apt: pkg={{ item }} state=latest install_recommends=no
-  with_items:
+  apt:
+    state: latest
+    install_recommends: no
+    package:
     - chrony
   when: ansible_virtualization_role == "host"

@@ -1,10 +1,9 @@
 ---
 - name: "install packages"
   apt:
-    pkg: "{{ item }}"
     state: latest
     install_recommends: no
-  with_items:
+    package:
     - ffmpeg
     - sysstat
     - mpv

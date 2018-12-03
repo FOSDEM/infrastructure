@@ -1,10 +1,9 @@
 ---
 - name: "install packages"
   apt:
-    pkg: "{{ item }}"
     state: latest
     install_recommends: no
-  with_items:
+    package:
     - ffmpeg
     - libglib-object-introspection-perl
     - gir1.2-gstreamer-1.0
@@ -18,11 +17,10 @@
 
 - name: "install nginx from stretch-backports"
   apt:
-    pkg: "{{ item }}"
     state: latest
     install_recommends: no
     default_release: stretch-backports
-  with_items:
+    package:
     - libnginx-mod-rtmp
     - nginx-common
     - nginx-doc
