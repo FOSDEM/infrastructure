@@ -49,7 +49,7 @@
     mode: 0775
 
 - name: copy configuration file
-  copy:
+  template:
     src: c3nav/c3nav.cfg
     dest: /etc/c3nav/c3nav.cfg
     owner: root
