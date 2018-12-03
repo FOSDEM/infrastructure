@@ -56,6 +56,13 @@
     mode: 0644
     force: no
 
+- name: copy logo
+  copy:
+    src: media/logo.png 
+    dest: /opt/c3nav/data/media/logo.png
+    owner: root
+    mode: 0644
+
 - include: configure_celery.yml
 - include: configure_gunicorn.yml
 - include: configure_nginx.yml
