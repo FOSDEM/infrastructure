@@ -35,6 +35,7 @@ encoder4.video.fosdem.org system_hostname=encoder4
 video-streamer-backend
 video-streamer-frontend
 video-stream-dump
+video-external-stream-dump
 video-box
 video-voctop
 video-web-frontend
@@ -55,7 +56,9 @@ streamfrontend4.video.fosdem.org
 
 [video-stream-dump]
 streamdump0.video.fosdem.org
-streamdump1.video.fosdem.org
+
+[video-external-stream-dump]
+fosdem-external-streamdump.video.fosdem.org
 
 [video-box]
 aw1120-slides.video.fosdem.org

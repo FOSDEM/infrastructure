@@ -1,0 +1,10 @@
+---
+- name: "install packages"
+  apt:
+    state: latest
+    install_recommends: no
+    package:
+    - ffmpeg
+    - sysstat
+    - mpv
+    - avahi-daemon

@@ -85,6 +85,12 @@
   roles:
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
+- name: video-external-stream-dump
+  hosts: video-external-stream-dump
+  remote_user: root
+  roles:
+  - { role: video-external-stream-dump, tags: [ 'video-external-stream-dump' ] }
+
 - name: video-streamer-backend
   hosts: video-streamer-backend
   remote_user: root
