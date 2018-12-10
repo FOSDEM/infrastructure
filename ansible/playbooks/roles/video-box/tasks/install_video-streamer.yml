@@ -48,11 +48,6 @@
     group: root
     mode: 0755
 
-- name: remove video-streamer script
-  file:
-    path: /usr/local/bin/video-streamer.sh
-    state: absent
-
 - name: install video-recorder script
   template:
     src: video-streamer/video-recorder.sh
@@ -60,12 +55,6 @@
     owner: root
     group: root
     mode: 0755
-
-- name: remove video-streamer service
-  file:
-    path: /etc/systemd/system/video-streamer.service
-    state: absent
-  register: videostreamer
 
 - name: install bmd-receiver service
   template:
@@ -94,7 +83,7 @@
 - name: perform a daemon-reload if any service has been modified
   systemd:
     daemon_reload: yes
-  when: videostreamer.changed or bmdreceiver.changed or videorecorder.changed
+  when: bmdreceiver.changed or videorecorder.changed
 
 - name: enable bmd-receiver service
   service:
@@ -116,20 +105,7 @@
   service:
     name: bmd-receiver
     state: restarted
-  when: videostreamer.changed
-
-#- name: restart service if video-streamer.service has been modified
-#  service:
-#    name: video-streamer
-#    state: restarted
-#  when: videostreamer.changed
-
-#- name: enable video-streamer service
-#  systemd:
-#    name: video-streamer
-#    enabled: no
-#    state: stopped
-#    daemon_reload: yes
+  when: bmdreceiver.changed
 
 - name: enable bmd-receiver service
   systemd:
