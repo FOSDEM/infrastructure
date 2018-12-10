@@ -4,7 +4,6 @@
 # dependencies: fontconfig, python-pygame
 #
 # TODO:
-# * Read a config file on the box to find the stream URL
 # * Try to reduce CPU usage, currently at ~5%
 #   - less frequent updates of "static" data (MAC address, hostname,
 #     stream URL)
@@ -21,10 +20,16 @@ BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
 
-GIT_REVISION = '{{ git_version.stdout }}'
 NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
 LOGO_FILE =  '/usr/local/bin/logo.png'
+
+if os.path.exists('/etc/fosdem_revision'):
+        fp = open('/etc/fosdem_revision', "r")
+        GIT_REVISION = fp.read()
+        fp.close()
+else:
+        GIT_REVISION = 'revision not found'
 
 def main():
 	# Initialize the display
@@ -149,7 +154,7 @@ def update_sysinfo(screen):
 
 	image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, 60))
 
-	image.blit(font.render("Revision: " + GIT_REVISION, 1, WHITE), (0, 90))
+	image.blit(font.render("revision: " + GIT_REVISION, 1, WHITE), (0, 90))
 
 	screen.blit(image,(10,120))
 
