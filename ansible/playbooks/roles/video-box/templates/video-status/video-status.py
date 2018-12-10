@@ -26,7 +26,7 @@ LOGO_FILE =  '/usr/local/bin/logo.png'
 
 if os.path.exists('/etc/fosdem_revision'):
         fp = open('/etc/fosdem_revision', "r")
-        GIT_REVISION = fp.read()
+        GIT_REVISION = fp.read().rstrip()
         fp.close()
 else:
         GIT_REVISION = 'revision not found'
