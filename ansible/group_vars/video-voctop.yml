@@ -8,7 +8,7 @@ sysctl_parameters: {
 
 vocto_source_url_parameters: ?timeout=10000000&buffer_size=81921024&fifo_size=178481
 vocto_recording_directory: /mnt/video
-
+vocto_config:
   - room: aw1120
     stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/aw1120
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/aw1120

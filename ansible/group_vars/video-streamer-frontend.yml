@@ -7,84 +7,84 @@ sysctl_parameters: {
 }
 
 stream_backends:
-  - room:aw1120
+  - room: aw1120
     backend: streambackend0.video.fosdem.org
 
-  - room:aw1121
+  - room: aw1121
     backend: streambackend0.video.fosdem.org
 
-  - room:aw1125
+  - room: aw1125
     backend: streambackend0.video.fosdem.org
 
-  - room:aw1126
+  - room: aw1126
     backend: streambackend0.video.fosdem.org
 
-  - room:h1301
+  - room: h1301
     backend: streambackend0.video.fosdem.org
 
-  - room:h1302
+  - room: h1302
     backend: streambackend1.video.fosdem.org
 
-  - room:h1308
+  - room: h1308
     backend: streambackend1.video.fosdem.org
 
-  - room:h1309
+  - room: h1309
     backend: streambackend1.video.fosdem.org
 
-  - room:h2213
+  - room: h2213
     backend: streambackend1.video.fosdem.org
 
-  - room:h2214
+  - room: h2214
     backend: streambackend1.video.fosdem.org
 
-  - room:h2215
+  - room: h2215
     backend: streambackend1.video.fosdem.org
 
-  - room:janson
+  - room: janson
     backend: streambackend2.video.fosdem.org
 
-  - room:k1105
+  - room: k1105
     backend: streambackend2.video.fosdem.org
 
-  - room:k3201
+  - room: k3201
     backend: streambackend2.video.fosdem.org
 
-  - room:k3401
+  - room: k3401
     backend: streambackend2.video.fosdem.org
 
-  - room:k4201
+  - room: k4201
     backend: streambackend2.video.fosdem.org
 
-  - room:k4401
+  - room: k4401
     backend: streambackend2.video.fosdem.org
 
-  - room:k4601
+  - room: k4601
     backend: streambackend3.video.fosdem.org
 
-  - room:ua2114
+  - room: ua2114
     backend: streambackend3.video.fosdem.org
 
-  - room:ua2118
+  - room: ua2118
     backend: streambackend3.video.fosdem.org
 
-  - room:ua2220
+  - room: ua2220
     backend: streambackend3.video.fosdem.org
 
-  - room:ub2147
+  - room: ub2147
     backend: streambackend3.video.fosdem.org
 
-  - room:ub2252a
+  - room: ub2252a
     backend: streambackend3.video.fosdem.org
 
-  - room:ud2119
+  - room: ud2119
     backend: streambackend4.video.fosdem.org
 
-  - room:ud2120
+  - room: ud2120
     backend: streambackend4.video.fosdem.org
 
-  - room:ud2208
+  - room: ud2208
     backend: streambackend4.video.fosdem.org
 
-  - room:ud2218a
+  - room: ud2218a
     backend: streambackend4.video.fosdem.org
 
