@@ -8,7 +8,6 @@
     - libgeos-dev
     - librsvg2-bin
     - libagg-dev
-    - libagg-dev
     - libpng-dev
     - build-essential
     - libfreetype6-dev
@@ -18,10 +17,6 @@
     - libatlas-base-dev
     - gettext
     - redis-server
-    - postgresql
-    - postgis
-    - postgresql-9.6-postgis-2.3
-    - postgresql-9.6-postgis-2.3-scripts
     - libpq-dev
     - python3.6
     - python3.6-venv

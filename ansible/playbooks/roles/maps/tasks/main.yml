@@ -49,14 +49,20 @@
     mode: 0775
 
 - name: copy configuration file
-  copy:
+  template:
     src: c3nav/c3nav.cfg
     dest: /etc/c3nav/c3nav.cfg
     owner: root
     mode: 0644
     force: no
 
-- include: configure_postgres.yml
+- name: copy logo
+  copy:
+    src: media/logo.png 
+    dest: /opt/c3nav/data/media/logo.png
+    owner: root
+    mode: 0644
+
 - include: configure_celery.yml
 - include: configure_gunicorn.yml
 - include: configure_nginx.yml
