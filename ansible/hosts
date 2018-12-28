@@ -7,9 +7,6 @@ server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [public-dashboard]
 dashboard.fosdem.org
 
-#[monitor]
-#monitor.video.fosdem.org ansible_host=10.2.5.149
-
 [review]
 review.video.fosdem.org
 
