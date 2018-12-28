@@ -19,11 +19,11 @@
     file: path=/etc/apt/preferences.d/systemd state=absent
 
   - name: install systemd and dependencies
-    apt: name={{ item }}
-    with_items:
-    - dbus
-    - systemd
-    - systemd-sysv
+    apt:
+      package:
+      - dbus
+      - systemd
+      - systemd-sysv
     register: systemd_install
 
   - name: find out which process is PID 1
