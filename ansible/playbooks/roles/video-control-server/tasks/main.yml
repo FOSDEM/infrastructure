@@ -1,5 +1,4 @@
 ---
-- include: disable_suspend.yml
 - include: add_grafana_repo.yml
 - include: install_packages.yml
 - include: configure_imgmaker.yml

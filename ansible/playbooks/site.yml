@@ -65,6 +65,7 @@
   hosts: video-control-server
   remote_user: root
   roles:
+  - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-control-server, tags: [ 'video-control-server' ] }
 
 - name: video-box
@@ -77,12 +78,14 @@
   hosts: video-voctop
   remote_user: root
   roles:
+  - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
 - name: video-stream-dump
   hosts: video-stream-dump
   remote_user: root
   roles:
+  - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
 - name: video-external-stream-dump
