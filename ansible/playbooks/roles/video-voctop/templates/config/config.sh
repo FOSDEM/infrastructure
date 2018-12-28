@@ -5,7 +5,6 @@
 SOURCE_CAM="tcp://{{ config.room }}-cam.local:8898/"
 SOURCE_SLIDES="tcp://{{ config.room }}-slides.local:8898/"
 SOURCE_URL_PARAMETERS="{{ vocto_source_url_parameters }}"
-MULTICAST_SINK="{{ config.multicast_sink }}"
 STREAM_DESTINATION="{{ config.stream_destination }}"
 STREAM_BACKUP_DESTINATION="{{ config.stream_backup_destination }}"
 RECORDING_DIRECTORY="{{ vocto_recording_directory }}"
