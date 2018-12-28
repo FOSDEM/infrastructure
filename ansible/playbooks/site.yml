@@ -88,11 +88,11 @@
   - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
-- name: video-external-stream-dump
-  hosts: video-external-stream-dump
+- name: video-stream-dump-external
+  hosts: video-stream-dump-external
   remote_user: root
   roles:
-  - { role: video-external-stream-dump, tags: [ 'video-external-stream-dump' ] }
+  - { role: video-stream-dump-external, tags: [ 'video-stream-dump-external' ] }
 
 - name: video-streamer-backend
   hosts: video-streamer-backend
