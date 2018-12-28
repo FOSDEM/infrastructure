@@ -4,9 +4,6 @@ server001.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [event-secondary]
 server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 
-[video-control-server]
-control.video.fosdem.org ansible_host=172.22.10.202
-
 [public-dashboard]
 dashboard.fosdem.org
 
@@ -39,6 +36,10 @@ video-external-stream-dump
 video-box
 video-voctop
 video-web-frontend
+video-control-server
+
+[video-control-server]
+control.video.fosdem.org
 
 [video-streamer-backend]
 streambackend0.video.fosdem.org
