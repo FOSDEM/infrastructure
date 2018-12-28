@@ -120,7 +120,7 @@ vocto_config:
 
 
   - room: ub2252a
-    stream_destination: rtmp://streambackend3.video.fosdem.org:1935/stream/ub2252a
+    stream_destination: rtmp://streambackend4.video.fosdem.org:1935/stream/ub2252a
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ub2252a
 
 
