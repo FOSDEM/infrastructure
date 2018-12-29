@@ -5,7 +5,7 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/config.sh
 
 while true; do
-	ffmpeg -y \
+	ffmpeg -v error -y \
 	-i "tcp://localhost:8899" \
 	-c:v copy \
 	-strict -2 -c:a aac -ab 128k \

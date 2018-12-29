@@ -65,7 +65,7 @@ if len(sys.argv)!=2:
 
 roomname = sys.argv[1]
 
-ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -i tcp://localhost:11000/ -filter_complex ebur128 -f null -".split(' ')
+ffmpeg = "/usr/bin/ffmpeg -v error -nostats -nostdin -i tcp://localhost:11000/ -filter_complex ebur128 -f null -".split(' ')
 
 initsession()
 devnull = open(os.devnull, 'wb')

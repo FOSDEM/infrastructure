@@ -4,7 +4,7 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
-ffmpeg -y -nostdin \
+ffmpeg -v error -y -nostdin \
 	-i "${SOURCE_CAM}" \
 	-ac 2 \
 	-filter_complex "

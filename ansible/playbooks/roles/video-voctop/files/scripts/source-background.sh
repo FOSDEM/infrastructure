@@ -10,7 +10,7 @@ confdir="`dirname "$0"`/../config/"
 # thanks to felixs on hackint/#voctomix
 
 
-ffmpeg -re -y -f image2 -loop 1 -pixel_format yuv420p \
+ffmpeg -v error -re -y -f image2 -loop 1 -pixel_format yuv420p \
 	-framerate ${FRAMERATE} -video_size ${WIDTH}x${HEIGHT} \
 	-i $confdir/background.raw \
 	-c:v rawvideo -pix_fmt yuv420p \

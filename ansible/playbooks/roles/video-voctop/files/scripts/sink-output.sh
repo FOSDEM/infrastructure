@@ -4,7 +4,7 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
-ffmpeg -y -nostdin \
+ffmpeg -v error -y -nostdin \
 	-probesize 10M \
 	-analyzeduration 10M \
 	-i tcp://localhost:11000 \
