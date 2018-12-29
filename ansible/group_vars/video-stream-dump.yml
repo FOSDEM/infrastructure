@@ -7,7 +7,7 @@ sysctl_parameters: {
 }
 
 # Where is our dump disk supposed to be?
-hdd_drive: /dev/sdb
+hdd_drive: /dev/sdc
 
 video_dump_source:
   - host: aw1120-slides
