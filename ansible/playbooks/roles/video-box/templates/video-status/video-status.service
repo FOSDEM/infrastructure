@@ -6,7 +6,7 @@ After=video-streamer.service
 ExecStart=/usr/local/bin/video-status.py
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
-KillSignal=SIGKILL
+KillSignal=SIGTERM
 Restart=always
 
 [Install]
