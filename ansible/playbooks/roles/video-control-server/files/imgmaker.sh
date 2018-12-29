@@ -23,8 +23,7 @@ fi
 
 function ff_fetch {
 	# $0 host port file
-	$ffmpeg -v quiet -y -i tcp://"$1":"$2"'?timeout=1000000' -map 0:v -s 320x180 -q 5 -an -vframes 1 "${t}".jpg
-	mv ${t}.jpg $3
+	$ffmpeg -v quiet -y -i tcp://"$1":"$2"'?timeout=1000000' -map 0:v -s 320x180 -q 5 -an -vframes 1 "${t}".jpg && mv ${t}.jpg $3
 }
 
 mkdir -p ${ROOM}
