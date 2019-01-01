@@ -25,11 +25,11 @@ SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filenam
 LOGO_FILE =  '/usr/local/bin/logo.png'
 
 if os.path.exists('/etc/fosdem_revision'):
-        fp = open('/etc/fosdem_revision', "r")
-        GIT_REVISION = fp.read().rstrip()
-        fp.close()
+	fp = open('/etc/fosdem_revision', "r")
+	GIT_REVISION = fp.read().rstrip()
+	fp.close()
 else:
-        GIT_REVISION = 'revision not found'
+	GIT_REVISION = 'revision not found'
 
 def main():
 	# Initialize the display
@@ -166,3 +166,5 @@ def signal_handler(signum, frame):
 if __name__=="__main__":
 	signal.signal(signal.SIGHUP, signal_handler)
 	main()
+
+# vim: noai:ts=4:sw=4:noexpandtab

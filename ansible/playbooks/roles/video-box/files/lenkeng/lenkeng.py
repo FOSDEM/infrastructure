@@ -67,3 +67,5 @@ while key != ord('q'):
 	screen.refresh()
 
 curses.endwin()
+
+# vim: noai:ts=4:sw=4:noexpandtab
