@@ -7,6 +7,7 @@ import subprocess
 import sys
 import time
 
+from prometheus_client import start_http_server, Counter, Histogram, Info
 
 def initsession():
 	global httpsession
@@ -29,7 +30,7 @@ def submitdata(rawdata):
 	while retry:
 		tries += 1
 		retry = False
-                url = 'http://{remote}/write?db={db}'.format(remote='control.video.fosdem.org:8086', db='ebur')
+		url = 'http://{remote}/write?db={db}'.format(remote='control.video.fosdem.org:8086', db='ebur')
 		try:
 			try:
 				r = httpsession.post(url, data = data, timeout = (10, 180))
@@ -45,7 +46,7 @@ def submitdata(rawdata):
 				print "Broken data, {d}".format(d = data)
 				return True # do not retry this piece of data
 			if r.status_code == 401:
-			        print "Auth failed"
+				print "Auth failed"
 				initsession()
 				return False
 			if r.status_code != 204:
@@ -58,13 +59,16 @@ def submitdata(rawdata):
 	return True
 
 
-
+## Main
 if len(sys.argv)!=2:
 	print "Usage: thiscrap roomname"
 	exit(2)
 
 roomname = sys.argv[1]
 
+# Test with file.
+#ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -re -i FILENAME -filter_complex ebur128 -f null -".split(' ')
+# Listen for stream.
 ffmpeg = "/usr/bin/ffmpeg -v error -nostats -nostdin -i tcp://localhost:11000/ -filter_complex ebur128 -f null -".split(' ')
 
 initsession()
@@ -73,26 +77,42 @@ process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=d
 pipe = process.stderr
 pushdata = []
 
+# Audio histogram buckets
+audio_buckets = (-117.6, -110.3, -103.2, -96.2, -89.4, -82.8, -76.4, -70.1, -64.0, -58.1, -52.4, -46.9, -41.6, -36.5, -31.6, -27.0, -22.6, -18.5, -14.7, -11.2, -8.0, -5.2, -2.8, -1.0, -0.0)
+
+# Prometheus metrics
+room_name_info = Info('audio_fetcher_room_info', 'Audio fetcher info')
+audio_histogram = Histogram('audio_fetcher_r128_level_db', 'Audio stream EBU r128 audio level', buckets=audio_buckets)
+match_errors = Counter('audio_fetcher_line_match_errors', 'Number of times the ffmpeg output did not match')
+
+room_name_info.info({'room_name': roomname})
+
+# Startup Prometheus metrics endpoint
+start_http_server(9128)
+
 while True:
 	line = pipe.readline()
-        if len(line) == 0:
-            process.kill()
-            process.communicate()
-            process.wait()
-            pipe.close()
-            process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
-            pipe = process.stderr
-            continue
-        line = line.strip()
+	if len(line) == 0:
+		process.kill()
+		process.communicate()
+		process.wait()
+		pipe.close()
+		process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
+		pipe = process.stderr
+		continue
+	line = line.strip()
 	#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023    M: -33.2 S:-120.7     I: -34.8 LUFS     LRA:   0.0 LU'
 	matches = re.split(r'\[Parsed_ebur.*t:[ ]*([0-9.-]*).*M:[ ]*([0-9.-]*).*S:[ ]*([0-9.-]*).*I:[ ]*([0-9.-]*)', line)
 	
 	#print "%s" % line
 
 	if len(matches)<5:
+		match_errors.inc()
 		continue
 
 	#print "%r" % matches
+
+	audio_histogram.observe(float(matches[2]))
 
 	dataline = 'ebur,stream=' + roomname + ' '
 	dataline += 'M=' + matches[2] + ",S=" + matches[3] + ",I=" + matches[4]
@@ -108,3 +128,4 @@ while True:
 		submitdata(pushdata)
 		pushdata = []
 
+# vim: noai:ts=4:sw=4:noexpandtab
