@@ -5,6 +5,11 @@
     state: latest
     package:
     - python-requests
+    - python-pip
+
+- name: "install prometheus_client"
+  pip:
+    name: prometheus_client
 
 - name: install audiofetcher service
   template:
