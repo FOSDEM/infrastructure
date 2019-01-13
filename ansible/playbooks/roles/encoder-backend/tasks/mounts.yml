@@ -42,7 +42,7 @@
 
 - name: mount day 2 storage
   mount:
-    name: /srv/sreview/storage/1/2018-02-04
+    name: /srv/sreview/storage/1/2019-02-03
     src: reviewstorage1.video.fosdem.org:/srv/sreview
     fstype: nfs
     state: mounted
