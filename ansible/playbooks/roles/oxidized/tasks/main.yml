@@ -1,9 +1,10 @@
-- name: Install ruby packages
+- name: Install build packages
   apt:
     state: latest
     update_cache: true
     cache_valid_time: 3600
     package:
+    - build-essential
     - ruby
     - ruby-dev
     - cmake
@@ -11,6 +12,8 @@
     - libssh2-1-dev
     - libssl-dev
     - pkg-config
+    - libicu-dev
+    - libz-dev
 
 - name: Add ozidized group
   group:
@@ -28,4 +31,10 @@
     system: yes
 
 - name: Install oxidized
-  command: gem install oxidized oxidized-script oxidized-web
+  gem:
+    state: latest
+    name: "{{ item }}"
+  with_items:
+  - oxidized
+  - oxidized-script
+  - oxidized-web

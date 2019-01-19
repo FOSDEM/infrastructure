@@ -124,12 +124,12 @@
 - name: event-primary
   hosts: event-primary
   remote_user: root
+  tags: [event-primary]
   roles:
-  - { role: event-primary, tags: [ 'event-primary' ] }
+  - event-primary
   - rsyslog
   - debops.dhcpd
   - oxidized
-  - alertmanager
 
 - name: Event Prometheus servers
   hosts: event-prometheus-servers
@@ -137,9 +137,9 @@
   roles:
   - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
   - cloudalchemy.blackbox-exporter
-  - cloudalchemy.prometheus
-  - prometheus-targets
-  - cloudalchemy.alertmanager
+  - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
+  - { role: prometheus-targets, tags: ['prometheus', 'prometheus-targets' ] }
+  - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
   - { role: json_exporter, tags: [ 'json_exporter' ] }
 
 - name: public-dashboard

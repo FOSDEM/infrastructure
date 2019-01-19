@@ -4,9 +4,6 @@
 [submodule "ansible/playbooks/roles/netzwirt.bind"]
 	path = ansible/playbooks/roles/netzwirt.bind
 	url = https://github.com/netzwirt/ansible-bind.git
-[submodule "ansible/playbooks/roles/ansiblebit.grafana"]
-	path = ansible/playbooks/roles/ansiblebit.grafana
-	url = https://github.com/ansiblebit/grafana
 [submodule "ansible/playbooks/roles/antoiner77.caddy"]
 	path = ansible/playbooks/roles/antoiner77.caddy
 	url = https://github.com/antoiner77/caddy-ansible.git
@@ -31,3 +28,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.alertmanager"]
 	path = ansible/playbooks/roles/cloudalchemy.alertmanager
 	url = https://github.com/cloudalchemy/ansible-alertmanager.git
+[submodule "ansible/playbooks/roles/cloudalchemy.grafana"]
+	path = ansible/playbooks/roles/cloudalchemy.grafana
+	url = https://github.com/cloudalchemy/ansible-grafana.git

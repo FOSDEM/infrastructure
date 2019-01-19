@@ -29,6 +29,7 @@
     - screen
     - sipcalc
     - strace
+    - sudo
     - tcpdump
     - vim
     - vnstat

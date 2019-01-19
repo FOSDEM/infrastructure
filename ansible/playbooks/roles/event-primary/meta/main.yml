@@ -1,4 +1,4 @@
 dependencies:
   - dns
-  - ansiblebit.grafana
+  - cloudalchemy.grafana
   - antoiner77.caddy
