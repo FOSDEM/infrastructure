@@ -24,13 +24,6 @@ NETWORK_INTERFACE = '{{ network_device }}'
 SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
 LOGO_FILE =  '/usr/local/bin/logo.png'
 
-if os.path.exists('/etc/fosdem_revision'):
-	fp = open('/etc/fosdem_revision', "r")
-	GIT_REVISION = fp.read().rstrip()
-	fp.close()
-else:
-	GIT_REVISION = 'revision not found'
-
 def main():
 	# Initialize the display
 	size = width, height = 320, 240
@@ -154,7 +147,12 @@ def update_sysinfo(screen):
 
 	image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, 60))
 
-	image.blit(font.render("revision: " + GIT_REVISION, 1, WHITE), (0, 90))
+	if os.path.exists('/etc/fosdem_revision'):
+		fp = open('/etc/fosdem_revision', "r")
+		image.blit(font.render("revision: " + fp.read().rstrip(), 1, WHITE), (0, 90))
+		fp.close()
+	else:
+		image.blit(font.render("revision not found", 1, WHITE), (0, 90))
 
 	screen.blit(image,(10,120))
 
