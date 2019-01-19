@@ -7,6 +7,12 @@
   remote_user: root
   gather_facts: False
   pre_tasks:
+  - name: Verify Ansible meets version requirements.
+    assert:
+      that: "ansible_version.full is version_compare('2.7', '>=')"
+      msg: >
+        "You must update Ansible to at least 2.7."
+
   - name: install ansible dependencies (python)
     raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal python-pkg-resources) # install pkg-resources to avoid needlesly triggering the next test
     changed_when: false # raw has no change handler
