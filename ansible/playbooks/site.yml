@@ -32,16 +32,9 @@
     changed_when: false
 
   - name: reboot the box if needed
-    shell: sleep 2 && shutdown -r now "ansible dependencies installed"
-    async: 1
-    poll: 0
-    ignore_errors: true
+    reboot:
+      msg: "ansible dependencies installed"
     when: systemd_install.changed or pid1.stat.lnk_source != "/lib/systemd/systemd"
-
-  - name: waiting for the box to come back if it has been rebooted
-    local_action: wait_for host={{ ansible_ssh_host | default(inventory_hostname) }} port=22 connect_timeout=5 delay=15 timeout=120 state=started
-    when: systemd_install.changed or pid1.stat.lnk_source != "/lib/systemd/systemd"
-
 
 
 ###
