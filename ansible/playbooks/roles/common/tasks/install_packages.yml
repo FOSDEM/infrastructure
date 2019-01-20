@@ -9,6 +9,7 @@
     - bash-completion
     - binutils
     - ca-certificates
+    - chrony
     - curl
     - ethtool
     - file
@@ -41,10 +42,8 @@
     src: screenrc
     dest: /root/.screenrc
 
-- name: "Install NTP time sync"
-  apt:
-    state: latest
-    install_recommends: no
-    package:
-    - chrony
-  when: ansible_virtualization_role == "host"
+- name: Configure chrony
+  lineinfile:
+    path: /etc/chrony/chrony.conf
+    line: 'allow 127.0.0.1'
+  notify: restart chrony

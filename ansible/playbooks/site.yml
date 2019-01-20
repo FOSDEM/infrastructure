@@ -50,6 +50,7 @@
 - name: common roles
   hosts: all
   remote_user: root
+  tags: [common]
   roles:
   - common-repository-debian-backports
   - common
