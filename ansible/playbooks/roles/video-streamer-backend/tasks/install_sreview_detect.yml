@@ -1,11 +1,21 @@
 ---
-- name: Install the detect_files script
-  copy:
-   src: sreview/detect_files
-   dest: /usr/local/bin/detect_files
-   owner: root
-   group: root
-   mode: 0755
+- name: "add sreview repo key"
+  apt_key:
+    id: CF62318D5BBED48F33ACD5431B0006256FB29164
+    keyserver: keys.gnupg.net
+    state: present
+
+- name: "add sreview repository"
+  apt_repository:
+    update_cache: yes
+    repo: deb https://latin.grep.be/sreview stretch main
+
+- name: Install sreview-detect
+  apt:
+    state: latest
+    install_recommends: no
+    package:
+    - sreview-detect
 
 - name: create sreview config directory
   file:
@@ -17,15 +27,8 @@
 
 - name: Install the detect_files config file
   template:
-   src: sreview/config.pl.j2
-   dest: /etc/sreview/config.pl
+   src: sreview/config.pm.j2
+   dest: /etc/sreview/config.pm
    owner: fosdem
    group: root
    mode: 0660
-
-- name: Enable the cronjob
-  cron:
-    name: detect files for sreview
-    user: fosdem
-    special_time: hourly
-    job: "/usr/local/bin/detect_files >/home/fosdem/detect_files.lastlog 2>&1"
