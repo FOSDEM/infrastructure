@@ -16,8 +16,8 @@
     mode: 0755
 
 - name: Install the detect_files config file
-  copy:
-   src: sreview/config.pl
+  template:
+   src: sreview/config.pl.j2
    dest: /etc/sreview/config.pl
    owner: fosdem
    group: root
