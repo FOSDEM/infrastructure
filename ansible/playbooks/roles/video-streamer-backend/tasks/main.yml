@@ -3,4 +3,3 @@
 - include: mount_ssd.yml
 - include: configure_nginx.yml
 - include: configure_nfs.yml
-- include: install_sreview_detect.yml
