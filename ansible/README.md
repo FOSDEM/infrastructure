@@ -2,7 +2,7 @@
 
 ## Requirements
 
-We aim to be compatible with Ansible 2.2 and up.
+We aim to be compatible with Ansible 2.7 and up.
 
 ## Set up the vault password
 
