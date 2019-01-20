@@ -2,4 +2,4 @@
 - include: install_packages.yml
 - include: fix_hosts.yml
 - include: users.yml
-- include: mounts.yml
+- include: homedir.yml

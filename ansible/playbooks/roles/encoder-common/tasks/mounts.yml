@@ -1,11 +1,4 @@
 ---
-- name: mount sreview home directory
-  mount:
-    name: /var/lib/sreview
-    src: encode-master.video.fosdem.org:/var/lib/sreview
-    fstype: nfs
-    state: mounted
-
 - name: ensure /srv/sreview exists
   file:
     path: /srv/sreview
