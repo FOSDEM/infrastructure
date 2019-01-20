@@ -1,0 +1,24 @@
+---
+version: 2.1
+
+executors:
+  golang:
+    docker:
+    - image: circleci/golang:1.11
+
+jobs:
+  build:
+    executor: golang
+
+    steps:
+    - checkout
+    - run: echo "nothing ot do"
+
+workflows:
+  version: 2
+  infrastructure:
+    jobs:
+    - build:
+        filters:
+          tags:
+            only: /.*/
