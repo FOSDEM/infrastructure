@@ -1,9 +1,0 @@
-alertmanager_user:   prometheus
-alertmanager_group:  prometheus
-
-alertmanager_install_path: /srv/alertmanager
-alertmanager_config_path: /srv/alertmanager/config
-alertmanager_data_path: /srv/alertmanager/data
-
-alertmanager_version: 0.5.1
-alertmanager_download_url: https://github.com/prometheus/alertmanager/releases/download

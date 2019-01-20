@@ -1,0 +1,16 @@
+---
+alertmanager_smtp:
+  smarthost: 'localhost'
+
+alertmanager_route:
+  receiver: 'network email'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  group_by: [cluster, alertname]
+
+alertmanager_receivers:
+- name: 'network email'
+  email_configs:
+  - to: network@lists.fosdem.org
+    from: "prometheus@{{ ansible_hostname }}"
