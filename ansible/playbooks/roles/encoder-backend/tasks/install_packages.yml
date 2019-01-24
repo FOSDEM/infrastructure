@@ -23,6 +23,8 @@
     - libmoose-perl
     - sreview-encoder
     - inkscape
+    - libemail-simple-perl
+    - libemail-sender-perl
 
 - name: "add deb-multimedia key"
   apt_key:

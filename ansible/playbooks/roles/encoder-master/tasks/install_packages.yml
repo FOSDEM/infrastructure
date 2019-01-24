@@ -26,6 +26,8 @@
     - postgresql-contrib
     - pwgen
     - nfs-kernel-server
+    - libemail-simple-perl
+    - libemail-sender-perl
   register: sreview_installed
 
 - name: "ensure database exists"
