@@ -39,13 +39,13 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <td>	<form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="fs-p"><input type="submit" style="height:50px" value="fullscreen presenter"></form></td>
 <td>	<form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="fs-s"><input type="submit" style="height:50px" value="fullscreen slides"></form></td>
 </tr>
-<tr><td colspan=2><a href="tcp://<?php echo $room;?>-voctop.local:8899/" target=_blank><img id="output" src="/<?php echo $room;?>/room.jpg" width=480 height=270></a></td></tr>
+<tr><td colspan=2><img id="output" src="/<?php echo $room;?>/room.jpg" width=480 height=270></td></tr>
 <tr>
 <td>
-	<a href="tcp://<?php echo $room;?>-cam.local:8899/" target=_blank><img id="cam" src="/<?php echo $room;?>/cam.jpg" width==240 height=135></a>
+	<img id="cam" src="/<?php echo $room;?>/cam.jpg" width==240 height=135>
 </td>
 <td>
-	<a href="tcp://<?php echo $room;?>-slides.local:8899/" target=_blank><img id="grab" src="/<?php echo $room;?>/grab.jpg" width==240 height=135>
+	<img id="grab" src="/<?php echo $room;?>/grab.jpg" width==240 height=135>
 </td>
 </tr>
 <table>
