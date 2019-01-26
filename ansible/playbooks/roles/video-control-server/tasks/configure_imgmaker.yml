@@ -11,26 +11,21 @@
   copy: src=vocto.php dest=/var/www/html/vocto.php owner=root group=root mode=0644
   register: voctocontrolweb
 
-- name: install all.html view
-  copy: src=all.html dest=/var/www/html/all.html owner=root group=root mode=0644
-
-- name: install aw.html view
-  copy: src=aw.html dest=/var/www/html/aw.html owner=root group=root mode=0644
-
-- name: install cams.html view
-  copy: src=cams.html dest=/var/www/html/cams.html owner=root group=root mode=0644
-
-- name: install h.html view
-  copy: src=h.html dest=/var/www/html/h.html owner=root group=root mode=0644
-
-- name: install j.html view
-  copy: src=j.html dest=/var/www/html/j.html owner=root group=root mode=0644
-
-- name: install k.html view
-  copy: src=k.html dest=/var/www/html/k.html owner=root group=root mode=0644
-
-- name: install u.html view
-  copy: src=u.html dest=/var/www/html/u.html owner=root group=root mode=0644
+- name: install html views
+  copy: 
+    src: "{{ item }}"
+    dest: /var/www/html/
+    owner: root
+    group: root 
+    mode: 0644
+  with_items:
+    - all.html
+    - aw.html
+    - cams.html
+    - j.html
+    - k.html
+    - ua.html
+    - ud.html
 
 - name: install imgmaker script
   copy: src=imgmaker.sh dest=/usr/local/bin/imgmaker.sh owner=root group=root mode=0755
