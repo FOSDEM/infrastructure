@@ -127,9 +127,17 @@
   tags: [event-primary]
   roles:
   - event-primary
+  - hwraid
   - rsyslog
   - debops.dhcpd
   - oxidized
+
+- name: event-secondary
+  hosts: event-secondary
+  remote_user: root
+  tags: [event-secondary]
+  roles:
+  - hwraid
 
 - name: Event Prometheus servers
   hosts: event-prometheus-servers
