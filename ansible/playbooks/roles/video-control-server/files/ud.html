@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UD Rooms</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+    <tr>
+	<td>
+	  <b>ud2119</b><br/>
+	  <a href='tcp://ud2119-slides.local:8899/' target='_blank'>
+	  <img src="ud2119/cam.jpg"/><br/>
+	  <img src="ud2119/grab.jpg"/>
+	  <img src="ud2119/room.jpg"/></a>
+	</td>
+
+	<td>
+	  <b>ud2120</b><br/>
+	  <a href='tcp://ud2120-slides.local:8899/' target='_blank'>
+	  <img src="ud2120/cam.jpg"/><br/>
+	  <img src="ud2120/grab.jpg"/>
+	  <img src="ud2120/room.jpg"/></a>
+	</td>
+
+	<td>
+	  <b>ud2208</b><br/>
+	  <a href='tcp://ud2208-slides.local:8899/' target='_blank'>
+	  <img src="ud2208/cam.jpg"/><br/>
+	  <img src="ud2208/grab.jpg"/>
+	  <img src="ud2208/room.jpg"/></a>
+	</td>
+
+	<td>
+	  <b>ud2218a</b><br/>
+	  <a href='tcp://ud2218a-slides.local:8899/' target='_blank'>
+	  <img src="ud2218a/cam.jpg"/><br/>
+	  <img src="ud2218a/grab.jpg"/>
+	  <img src="ud2218a/room.jpg"/></a>
+	</td>
+    </tr>
+    </table>
+  </body>
+
+</html>
+
+
+
