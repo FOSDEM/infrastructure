@@ -2,8 +2,7 @@
 
 ## Video boxes (video-box role)
 
-Our video boxes run Bananian Linux for the time being. The idea is to switch to
-pure Debian in the future.
+Our video boxes run pure Debian, with a mainline kernel.
 
 To install a video box, simply insert an SD card with a vanilla Bananian Linux
 install on it and deploy the videobox role. The first time you will probably
