@@ -4,7 +4,7 @@
 
 Our video boxes run pure Debian, with a mainline kernel.
 
-To install a video box, simply insert an SD card with a vanilla Bananian Linux
+To install a video box, insert an SD card with a vanilla Debian Linux
 install on it and deploy the videobox role. The first time you will probably
 want to run it with `--ask-pass` (or `-k`). Subsequent runs can use your SSH
 key.
