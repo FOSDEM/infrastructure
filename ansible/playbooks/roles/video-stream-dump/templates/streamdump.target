@@ -1,0 +1,4 @@
+[Unit]
+Description=Streamdump target allowing to start/stop all streamdump-*.service instances at once
+[Install]
+WantedBy=multi-user.target
