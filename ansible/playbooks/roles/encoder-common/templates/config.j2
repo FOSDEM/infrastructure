@@ -11,9 +11,13 @@ $dbistring = 'dbi:Pg:dbname=\'sreview\';user=\'sreview\';password=\'{{ sreview_d
 $email_from = 'noreply@fosdem.org';
 
 # A filename of a Mojo::Template template to process, returning the email body. Required if notify_actions includes email.
-$email_template = '/srv/sreview/assets/template-email.ep';
+$notify_email_template = '/srv/sreview/assets/notify-email.ep';
 
-$email_subject = "Your FOSDEM 2019 talk titled '<%== \$title %>'\\";
+$notify_email_subject = "Your FOSDEM 2019 talk titled '<%== \$title %>'\\";
+
+$announce_email_template = '/srv/sreview/assets/announce-email.ep';
+
+$announce_email_subject = "RELEASED: Your FOSDEM 2019 talk titled '<%== $title %>'\\";
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
 $event = 'FOSDEM 2019';
