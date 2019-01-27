@@ -15,8 +15,7 @@
     owner: root
     group: root
     mode: 0755
-  notify:
-  - restart streamdump target
+  register: streamdumpscript
 
 - name: install stream dump services
   template:
@@ -26,9 +25,26 @@
     group: root
     mode: 0644
   with_items: "{{ video_dump_source }}"
-  register: video_stream_dump_services
-  notify:
-  - restart streamdump service
+  register: streamdump
+
+- name: perform a daemon-reload if any of the stream dump services have been modified
+  systemd:
+    daemon_reload: yes
+  when: streamdump.changed
+
+- name: enable stream dump services
+  service:
+    name: "streamdump-{{ item.host }}"
+    enabled: yes
+    state: started
+  with_items: "{{ video_dump_source }}"
+
+- name: restart service if video-network-monitor service or script has been modified
+  service:
+    name: "streamdump-{{ item.host }}"
+    state: restarted
+  with_items: "{{ video_dump_source }}"
+  when: streamdump.changed or streamdumpscript.changed
 
 - name: enable streamdump service
   systemd:
@@ -37,21 +53,3 @@
     state: started
     daemon_reload: yes
   with_items: "{{ video_dump_source }}"
-
-- name: install streamdump target
-  template:
-    src: streamdump.target
-    dest: /etc/systemd/system/streamdump.target
-    owner: root
-    group: root
-    mode: 0644
-  notifies:
-  - restart streamdump target
-
-- name: start and enable streamdump target
-  become: true
-  systemd:
-    daemon_reload: true
-    name: streamdump.target
-    state: started
-    enabled: true
