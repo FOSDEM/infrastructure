@@ -6,9 +6,6 @@ sysctl_parameters: {
     "net.core.rmem_default": "8388608",
 }
 
-# Where is our dump disk supposed to be?
-hdd_drive: /dev/sdc
-
 video_dump_source:
   - host: aw1120-slides
     source: tcp://aw1120-slides.video.fosdem.org:8899/

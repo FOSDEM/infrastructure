@@ -92,7 +92,7 @@
   hosts: video-stream-dump-external
   remote_user: root
   roles:
-  - { role: video-stream-dump-external, tags: [ 'video-stream-dump-external' ] }
+  - { role: video-stream-dump, tags: [ 'video-stream-dump-external' ] }
 
 - name: video-streamer-backend
   hosts: video-streamer-backend
