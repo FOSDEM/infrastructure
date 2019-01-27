@@ -1,0 +1,5 @@
+---
+video_stream_dump_hdd: /dev/sdc
+video_stream_dump_configure_hdd: true
+video_stream_dump_destroy_all_streamdump_data: false
+video_dump_source: []

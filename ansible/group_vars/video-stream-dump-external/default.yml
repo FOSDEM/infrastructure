@@ -1,0 +1,3 @@
+---
+# Disable hdd config on external. 
+video_stream_dump_configure_hdd: false

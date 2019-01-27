@@ -1,6 +1,6 @@
 - name: check if the dump disk is present
   stat:
-    path: "{{ hdd_drive }}"
+    path: "{{ video_stream_dump_hdd }}"
   register: hdd_status
 
 - name: fail if the dump disk is not present
@@ -9,37 +9,35 @@
   when: hdd_status.stat.isblk == False
 
 - name: detect existing partitions on the HDD
-  shell: fdisk -l {{ hdd_drive }} | grep ^\/ | wc -l
+  shell: fdisk -l {{ video_stream_dump_hdd }} | grep ^\/ | wc -l
   register: number_of_partitions
   changed_when: False
 
 - name: wipe existing HDD partition table
-  shell: dd if=/dev/zero of={{ hdd_drive }} bs=512 count=1
+  shell: dd if=/dev/zero of={{ video_stream_dump_hdd }} bs=512 count=1
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the HDD disk
   filesystem:
     fstype: ext4
-    dev: "{{ hdd_drive }}"
+    dev: "{{ video_stream_dump_hdd }}"
 
 - name: unmount HDD if it needs to be wiped
   mount:
-    src: "{{ hdd_drive }}"
+    src: "{{ video_stream_dump_hdd }}"
     name: /mnt/storage
     state: unmounted
     fstype: ext4
   when:
-    - destroy_all_streamdump_data is defined
-    - destroy_all_streamdump_data == True
+    - video_stream_dump_destroy_all_streamdump_data == True
 
 - name: wipe all data on the HDD
   filesystem:
     fstype: ext4
-    dev: "{{ hdd_drive }}"
+    dev: "{{ video_stream_dump_hdd }}"
     force: yes
   when:
-    - destroy_all_streamdump_data is defined
-    - destroy_all_streamdump_data == True
+    - video_stream_dump_destroy_all_streamdump_data == True
 
 - name: create mount directory
   file:
@@ -49,7 +47,7 @@
 - name: mount HDD on /mnt/storage/
   mount:
     name: /mnt/storage
-    src: "{{ hdd_drive }}"
+    src: "{{ video_stream_dump_hdd }}"
     fstype: ext4
     state: mounted
     opts: auto,noatime,nofail
