@@ -1,5 +1,6 @@
 [Unit]
 Description={{ item.host }} stream dump service
+PartOf=streamdump.target
 
 [Service]
 ExecStart=/usr/local/bin/streamdump.sh {{ item.source }} /mnt/storage/{{ item.host }}/
@@ -9,4 +10,4 @@ KillSignal=SIGKILL
 Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=streamdump.target
