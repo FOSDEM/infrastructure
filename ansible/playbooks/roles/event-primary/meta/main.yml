@@ -1,4 +1,0 @@
-dependencies:
-  - dns
-  - cloudalchemy.grafana
-  - antoiner77.caddy

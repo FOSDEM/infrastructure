@@ -67,6 +67,7 @@
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-control-server, tags: [ 'video-control-server' ] }
+  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: video-box
   hosts: video-box
@@ -126,11 +127,13 @@
   remote_user: root
   tags: [event-primary]
   roles:
-  - event-primary
+  - dhclient
   - hwraid
   - rsyslog
   - debops.dhcpd
+  - dns
   - oxidized
+  - antoiner77.caddy
 
 - name: event-secondary
   hosts: event-secondary
@@ -145,6 +148,7 @@
   roles:
   - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
   - cloudalchemy.blackbox-exporter
+  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
   - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
   - { role: prometheus-targets, tags: ['prometheus', 'prometheus-targets' ] }
   - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
