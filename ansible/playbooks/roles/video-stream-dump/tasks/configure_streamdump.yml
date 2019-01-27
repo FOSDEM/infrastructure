@@ -45,7 +45,7 @@
     owner: root
     group: root
     mode: 0644
-  notifies:
+  notify:
   - restart streamdump target
 
 - name: start and enable streamdump target

@@ -13,4 +13,4 @@
     name: "streamdump-{{ item.host }}.service"
     state: restarted
   with_items: "video_stream_dump_services.results"
-  when: item | changed
+  when: item is changed
