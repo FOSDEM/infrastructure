@@ -11,4 +11,3 @@
     - isc-dhcp-server
     - influxdb
     - influxdb-client
-    - grafana
