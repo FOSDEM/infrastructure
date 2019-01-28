@@ -1,0 +1,22 @@
+---
+dhcpd_mode: 'server'
+dhcpd_ipversion: '4'
+dhcpd_interfaces:
+- eth5
+dhcpd_lease_time: 1
+dhcpd_nameservers:
+- 8.8.8.8
+- 8.8.4.4
+dhcpd_subnets:
+- subnet: '185.175.218.0'
+  netmask: '255.255.255.0'
+  options: |
+    option domain-name-servers 8.8.8.8, 8.8.4.4;
+  routers: [ '185.175.218.254' ]
+  pools:
+  - comment: 'default pool'
+    range: '185.175.218.200 185.175.218.239'
+dhcpd_hosts:
+- hostname: 'gleb'
+  address: '185.175.218.212'
+  ethernet: '00:21:cc:6c:f8:1f'
