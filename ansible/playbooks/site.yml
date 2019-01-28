@@ -130,7 +130,6 @@
   - dhclient
   - hwraid
   - rsyslog
-  - debops.dhcpd
   - dns
   - oxidized
   - antoiner77.caddy
