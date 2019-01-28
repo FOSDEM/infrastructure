@@ -7,12 +7,6 @@
 [submodule "ansible/playbooks/roles/antoiner77.caddy"]
 	path = ansible/playbooks/roles/antoiner77.caddy
 	url = https://github.com/antoiner77/caddy-ansible.git
-[submodule "ansible/playbooks/roles/debops.dhcpd"]
-	path = ansible/playbooks/roles/debops.dhcpd
-	url = https://github.com/debops/ansible-dhcpd.git
-[submodule "ansible/playbooks/roles/debops.secret"]
-	path = ansible/playbooks/roles/debops.secret
-	url = https://github.com/debops/ansible-secret.git
 [submodule "ansible/playbooks/roles/cloudalchemy.prometheus"]
 	path = ansible/playbooks/roles/cloudalchemy.prometheus
 	url = https://github.com/cloudalchemy/ansible-prometheus.git
