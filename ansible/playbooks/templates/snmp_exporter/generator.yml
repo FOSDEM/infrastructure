@@ -3,7 +3,7 @@ modules:
     auth:
       community: "{{ snmp_community_fosdem_default }}"
     walk:
-    - system
+    - 1.3.6.1.2.1.1 # system, conflict with PowerNet-MIB
     - ifTable
     - etherStatsTable
     - ifXTable
@@ -19,17 +19,22 @@ modules:
     #- cefcFRUPowerSupplyGroupTable
     #- cefcFRUPowerStatusTable
     lookups:
-    - old_index: ifIndex
-      new_index: ifAlias
-    - old_index: ifIndex
-      new_index: ifDescr
-    - old_index: ifIndex
+    - source_indexes: [ ifIndex ]
+      lookup: ifAlias
+      keep_source_indexes: true
+    - source_indexes: [ ifIndex ]
+      lookup: ifDescr
+      keep_source_indexes: true
+    - source_indexes: [ ifIndex ]
       # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
-      new_index: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-    - old_index: ciscoEnvMonTemperatureStatusIndex
-      new_index: ciscoEnvMonTemperatureStatusDescr
-    - old_index: ciscoEnvMonTemperatureStatusIndex
-      new_index: ciscoEnvMonSupplyStatusDescr
+      lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
+      keep_source_indexes: true
+    - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
+      lookup: ciscoEnvMonTemperatureStatusDescr
+      keep_source_indexes: true
+    - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
+      lookup: ciscoEnvMonSupplyStatusDescr
+      keep_source_indexes: true
   cisco-rogue-ap-table:
     walk:
       - bsnRogueAPDot11MacAddress
@@ -37,13 +42,14 @@ modules:
       - bsnRogueAPDetectingAPMacAddress
       - bsnRogueAPTotalClients
     lookups:
-    - old_index: bsnRogueAPDot11MacAddress
-      new_index: bsnRogueAPSSID
+    - source_indexes: [ bsnRogueAPDot11MacAddress ]
+      lookup: bsnRogueAPSSID
+      keep_source_indexes: true
   cisco_wlc:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
     walk:
-    - system
+    - 1.3.6.1.2.1.1 # system, conflict with PowerNet-MIB
     - ifXTable
     # Single entries from bsnDot11EssTable # 1.3.6.1.4.1.14179.2.1.1
     - bsnDot11EssSsid
@@ -60,14 +66,19 @@ modules:
       bsnAPName:
         type: DisplayString
     lookups:
-    - old_index: ifIndex
-      new_index: ifAlias
-    - old_index: ifIndex
-      new_index: ifDescr
-    - old_index: ifIndex
+    - source_indexes: [ ifIndex ]
+      lookup: ifAlias
+      keep_source_indexes: true
+    - source_indexes: [ ifIndex ]
+      lookup: ifDescr
+      keep_source_indexes: true
+    - source_indexes: [ ifIndex ]
       # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
-      new_index: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-    - old_index: bsnAPDot3MacAddress
-      new_index: bsnAPName
-    - old_index: bsnDot11EssIndex
-      new_index: bsnDot11EssSsid
+      lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
+      keep_source_indexes: true
+    - source_indexes: [ bsnAPDot3MacAddress ]
+      lookup: bsnAPName
+      keep_source_indexes: true
+    - source_indexes: [ bsnDot11EssIndex ]
+      lookup: bsnDot11EssSsid
+      keep_source_indexes: true
