@@ -986,7 +986,7 @@ cisco_wlc:
       type: DisplayString
   - name: bsnAPIfSniffServerIPAddress
     oid: 1.3.6.1.4.1.14179.2.2.2.1.19
-    type: IpAddr
+    type: InetAddressIPv4
     help: The machine ip address on which Airopeek application is running. - 1.3.6.1.4.1.14179.2.2.2.1.19
     indexes:
     - labelname: bsnAPDot3MacAddress
@@ -1342,9 +1342,6 @@ cisco_wlc:
       type: DisplayString
   auth:
     community: '{{ snmp_community_ulb_wlc }}'
-    security_level: noAuthNoPriv
-    auth_protocol: MD5
-    priv_protocol: DES
 if_mib:
   walk:
   - 1.3.6.1.2.1.1
@@ -2785,6 +2782,3 @@ if_mib:
       type: gauge
   auth:
     community: '{{ snmp_community_fosdem_default }}'
-    security_level: noAuthNoPriv
-    auth_protocol: MD5
-    priv_protocol: DES
