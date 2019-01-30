@@ -12,13 +12,13 @@ rsyslog_rsyslog_d_files:
 caddy_features: http.prometheus
 caddy_systemd_capabilities_enabled: True
 caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
+caddy_additional_args: '-email network@lists.fosdem.org'
 caddy_update: yes
 caddy_config: |
   {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
-    gzip
-    tls network@lists.fosdem.org
-    root /var/www
     prometheus
+    gzip
+    root /var/www
     log /var/log/caddy/access.log
     proxy / localhost:3000 {
       transparent
