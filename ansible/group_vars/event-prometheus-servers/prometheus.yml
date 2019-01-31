@@ -122,6 +122,11 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - localhost:7979
+- job_name: 'voctop_audio_fetcher'
+  scrape_interval: 5s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/voctop_audio_fetcher.yml"
 
 prometheus_snmp_default_targets:
 - asr1k.n.fosdem.net

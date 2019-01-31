@@ -1,0 +1,5 @@
+---
+prometheus_hostgroup_targets:
+- name: voctop_audio_fetcher
+  hostgroup: video-voctop
+  port: 9128
