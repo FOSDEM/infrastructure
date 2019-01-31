@@ -1,0 +1,7 @@
+---
+grafana_security:
+  admin_user: admin
+  admin_password: "{{ grafana_admin_password }}"
+grafana_auth:
+  anonymous:
+    org_role: Viewer
