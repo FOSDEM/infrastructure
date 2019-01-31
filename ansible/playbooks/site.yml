@@ -133,6 +133,7 @@
   - dns
   - oxidized
   - antoiner77.caddy
+  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: event-secondary
   hosts: event-secondary
@@ -147,7 +148,6 @@
   roles:
   - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
   - cloudalchemy.blackbox-exporter
-  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
   - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
   - { role: prometheus-targets, tags: ['prometheus', 'prometheus-targets' ] }
   - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
