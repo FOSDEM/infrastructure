@@ -156,8 +156,10 @@
 - name: public-dashboard
   hosts: public-dashboard
   remote_user: root
+  tags: [public-dashboard]
   roles:
-  - { role: public-dashboard, tags: [ 'public-dashboard' ] }
+  - antoiner77.caddy
+  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: encoder-master
   hosts: encoder-master
