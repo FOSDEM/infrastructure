@@ -63,11 +63,14 @@ cisco-rogue-ap-table:
       labelname: bsnRogueAPSSID
       oid: 1.3.6.1.4.1.14179.2.1.7.1.11
       type: DisplayString
-cisco_wlc_if:
+cisco_wlc_base:
   walk:
   - 1.3.6.1.2.1.1
   - 1.3.6.1.2.1.2.2
   - 1.3.6.1.2.1.31.1.1
+  - 1.3.6.1.4.1.14179.1.1.5
+  - 1.3.6.1.4.1.14179.2.1.1.1.2
+  - 1.3.6.1.4.1.14179.2.1.1.1.38
   metrics:
   - name: sysDescr
     oid: 1.3.6.1.2.1.1.1
@@ -1088,19 +1091,18 @@ cisco_wlc_if:
       labelname: ifName
       oid: 1.3.6.1.2.1.31.1.1.1.1
       type: DisplayString
-  auth:
-    community: '{{ snmp_community_ulb_wlc }}'
-cisco_wlc_wifi:
-  walk:
-  - 1.3.6.1.4.1.14179.2.1.1.1.2
-  - 1.3.6.1.4.1.14179.2.1.1.1.38
-  - 1.3.6.1.4.1.14179.2.2.1.1.3
-  - 1.3.6.1.4.1.14179.2.2.13.1.3
-  - 1.3.6.1.4.1.14179.2.2.15
-  - 1.3.6.1.4.1.14179.2.2.2
-  - 1.3.6.1.4.1.14179.2.2.3.1.30
-  - 1.3.6.1.4.1.14179.2.2.6
-  metrics:
+  - name: agentCurrentCPUUtilization
+    oid: 1.3.6.1.4.1.14179.1.1.5.1
+    type: gauge
+    help: Current CPU Load of the switch in percentage. - 1.3.6.1.4.1.14179.1.1.5.1
+  - name: agentTotalMemory
+    oid: 1.3.6.1.4.1.14179.1.1.5.2
+    type: gauge
+    help: Total RAM of the switch in Kbytes. - 1.3.6.1.4.1.14179.1.1.5.2
+  - name: agentFreeMemory
+    oid: 1.3.6.1.4.1.14179.1.1.5.3
+    type: gauge
+    help: Free RAM of the switch in Kbytes. - 1.3.6.1.4.1.14179.1.1.5.3
   - name: bsnDot11EssSsid
     oid: 1.3.6.1.4.1.14179.2.1.1.1.2
     type: DisplayString
@@ -1127,10 +1129,51 @@ cisco_wlc_wifi:
       labelname: bsnDot11EssSsid
       oid: 1.3.6.1.4.1.14179.2.1.1.1.2
       type: DisplayString
+  auth:
+    community: '{{ snmp_community_ulb_wlc }}'
+cisco_wlc_wifi:
+  walk:
+  - 1.3.6.1.4.1.14179.2.2.1.1.3
+  - 1.3.6.1.4.1.14179.2.2.1.1.37
+  - 1.3.6.1.4.1.14179.2.2.1.1.6
+  - 1.3.6.1.4.1.14179.2.2.13.1.3
+  - 1.3.6.1.4.1.14179.2.2.15
+  - 1.3.6.1.4.1.14179.2.2.2
+  - 1.3.6.1.4.1.14179.2.2.3.1.30
+  - 1.3.6.1.4.1.14179.2.2.6
+  metrics:
   - name: bsnAPName
     oid: 1.3.6.1.4.1.14179.2.2.1.1.3
     type: DisplayString
     help: Name assigned to this AP - 1.3.6.1.4.1.14179.2.2.1.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPAdminStatus
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.37
+    type: gauge
+    help: Admin State of the AP - 1.3.6.1.4.1.14179.2.2.1.1.37
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPOperationStatus
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.6
+    type: gauge
+    help: Operation State of the AP - 1.3.6.1.4.1.14179.2.2.1.1.6
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
