@@ -141,6 +141,7 @@
   tags: [event-secondary]
   roles:
   - hwraid
+  - { role: coredns, tags: [ 'coredns' ] }
   - { role: antoiner77.caddy, tags: [ 'caddy' ] }
 
 - name: Event Prometheus servers

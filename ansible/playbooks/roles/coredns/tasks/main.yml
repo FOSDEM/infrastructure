@@ -1,0 +1,78 @@
+- name: Create coredns user
+  user:
+    name: "{{ coredns_user }}"
+    system: yes
+    createhome: yes
+    home: "{{ coredns_path }}"
+
+- name: Creating coredns dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ coredns_user }}"
+    mode: 0755
+  with_items:
+    - "{{ coredns_path }}"
+    - "{{ coredns_path }}/zones"
+    - "{{ coredns_path }}/keys"
+
+- name: untar coredns tarball
+  unarchive:
+    src: "{{ coredns_download_url }}/v{{ coredns_version }}/coredns_{{ coredns_version }}_{{ ansible_system | lower }}_{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}.tgz"
+    dest: "{{ coredns_path }}"
+    mode: 0755
+    owner: "{{ coredns_user }}"
+    copy: no
+  notify:
+  - restart coredns
+
+- name: Set coredns capabilities
+  capabilities:
+    path: "{{ coredns_path }}/coredns"
+    capability: cap_net_bind_service+ep
+  notify:
+  - restart coredns
+
+- name: Copy zone files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ coredns_path }}/zones/"
+    owner: "{{ coredns_user }}"
+    mode: 0644
+  with_fileglob:
+    - coredns/zones/*
+  notify:
+  - reload coredns
+
+- name: Copy dnssec keys
+  copy:
+    src: "{{ item }}"
+    dest: "{{ coredns_path }}/keys/"
+    owner: "{{ coredns_user }}"
+    mode: 0600
+  with_fileglob:
+    - coredns/keys/*
+  notify:
+  - reload coredns
+
+- name: Install config file
+  copy:
+    content: "{{ coredns_config }}"
+    dest: "{{ coredns_path }}/Corefile"
+    owner: "{{ coredns_user }}"
+  notify:
+  - reload coredns
+
+- name: Install coredns systemd service file
+  template:
+    src: coredns.service.j2
+    dest: /etc/systemd/system/coredns.service
+  notify:
+  - restart coredns
+
+- name: Enable and start coredns service
+  systemd:
+    name: coredns
+    state: started
+    enabled: yes
+    daemon_reload: yes

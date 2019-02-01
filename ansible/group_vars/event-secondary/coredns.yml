@@ -1,0 +1,9 @@
+coredns_config: |
+  .:53 {
+    dns64 {
+      upstream 8.8.8.8:53
+    }
+    proxy . 8.8.8.8:53
+    prometheus
+    errors
+  }
