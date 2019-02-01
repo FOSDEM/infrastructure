@@ -69,7 +69,7 @@ roomname = sys.argv[1]
 # Test with file.
 #ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -re -i FILENAME -filter_complex ebur128 -f null -".split(' ')
 # Listen for stream.
-ffmpeg = "/usr/bin/ffmpeg -v error -nostats -nostdin -i tcp://localhost:11000/ -filter_complex ebur128 -f null -".split(' ')
+ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -i tcp://localhost:11000/ -filter_complex ebur128 -f null -".split(' ')
 
 initsession()
 devnull = open(os.devnull, 'wb')
