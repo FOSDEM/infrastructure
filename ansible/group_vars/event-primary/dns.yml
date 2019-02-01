@@ -7,9 +7,13 @@ bind_zones:
     type: master
 
 bind_acls:
-  fosdem-dualstack:
+  fosdem:
+    - 151.216.128.0/17
     - 185.175.216.0/22
+    - 2001:67C:1810::/48
+  fosdem-dualstack:
     - 151.216.128.0/19
+    - 185.175.216.0/22
     - 2001:67C:1810:F055::1/64
   fosdem-v6only:
     - 2001:67C:1810:F051::1/64
@@ -17,8 +21,7 @@ bind_acls:
     - ::1/128
 
 bind_recursion_allowed_clients:
-  - fosdem-dualstack
-  - fosdem-v6only
+  - fosdem
 
 bind_dns64_clients:
   - fosdem-v6only
