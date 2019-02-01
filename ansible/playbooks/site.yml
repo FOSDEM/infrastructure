@@ -130,7 +130,7 @@
   - dhclient
   - hwraid
   - rsyslog
-  - dns
+  - { role: netzwirt.bind, tags: [ 'dns' ] }
   - oxidized
   - { role: antoiner77.caddy, tags: [ 'caddy' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
