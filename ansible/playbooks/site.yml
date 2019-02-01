@@ -132,7 +132,7 @@
   - rsyslog
   - dns
   - oxidized
-  - antoiner77.caddy
+  - { role: antoiner77.caddy, tags: [ 'caddy' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: event-secondary
@@ -141,6 +141,7 @@
   tags: [event-secondary]
   roles:
   - hwraid
+  - { role: antoiner77.caddy, tags: [ 'caddy' ] }
 
 - name: Event Prometheus servers
   hosts: event-prometheus-servers
