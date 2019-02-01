@@ -141,12 +141,9 @@ prometheus_snmp_default_targets:
 - aw-sw.n.fosdem.net
 - j-sw.n.fosdem.net
 - h-sw.n.fosdem.net
-- noc-sw.n.fosdem.net
 - core-sw.n.fosdem.net
 
-prometheus_snmp_slow_targets:
-- video-switch-1-sw.n.fosdem.net
-- video-switch-2-sw.n.fosdem.net
+prometheus_snmp_slow_targets: []
 
 snmp_exporter_web_listen_address: "127.0.0.1:9116"
 snmp_exporter_config_file: "snmp_exporter/snmp.yml"
