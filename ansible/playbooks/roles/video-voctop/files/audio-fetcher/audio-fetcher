@@ -84,6 +84,7 @@ audio_buckets = (-117.6, -110.3, -103.2, -96.2, -89.4, -82.8, -76.4, -70.1, -64.
 room_name_info = Info('audio_fetcher_room_info', 'Audio fetcher info')
 audio_histogram = Histogram('audio_fetcher_r128_level_db', 'Audio stream EBU r128 audio level', buckets=audio_buckets)
 match_errors = Counter('audio_fetcher_line_match_errors', 'Number of times the ffmpeg output did not match')
+audio_s_level = Gauge('audio_fetcher_loudness_db', "Audio stream EBU r128 loudness 3000 level')
 
 room_name_info.info({'room_name': roomname})
 
@@ -113,6 +114,7 @@ while True:
 	#print "%r" % matches
 
 	audio_histogram.observe(float(matches[2]))
+	audio_s_level.set(float(matches[3]))
 
 	dataline = 'ebur,stream=' + roomname + ' '
 	dataline += 'M=' + matches[2] + ",S=" + matches[3] + ",I=" + matches[4]
