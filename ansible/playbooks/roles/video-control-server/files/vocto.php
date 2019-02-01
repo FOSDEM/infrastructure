@@ -2,17 +2,22 @@
 
 require_once(dirname(__FILE__)."/config.php");
 
+
+
 if (empty($_GET['room']) ) {
-	echo "<h1>Get a room.</h1><br>";
-	foreach ($config as $r => $h ) {
-		echo '<a href="/vocto.php?room='.$r.'">'.$r.'</a><br>';
+	if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) {
+		$spl = explode('-', $_SERVER['PHP_AUTH_USER']);
+		$room = strtolower($spl[1]);
+	} else {
+		echo "<h1>Get a room.</h1><br>";
+		foreach ($config as $r => $h ) {
+			echo '<a href="/vocto.php?room='.$r.'">'.$r.'</a><br>';
+		}
+		exit();
 	}
-	exit();
+} else {
+	$room = strtolower($_GET['room']);
 }
-
-
-$room = strtolower($_GET['room']);
-
 if (empty($config[$room])) {
 	echo "<h1>room not found.</h1><br>";
 	foreach ($config as $r => $h ) {
