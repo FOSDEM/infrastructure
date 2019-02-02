@@ -30,8 +30,8 @@ vocto_config:
 
 
   - room: h1301
-    stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/h1301
-    stream_backup_destination: rtmp://strm.ludost.net:1935/st/h1301
+    stream_destination: rtmp://streambackend0.video.fosdem.org:1935/stream/ub5132
+    stream_backup_destination: rtmp://strm.ludost.net:1935/st/ub5132
 
 
   - room: h1302
