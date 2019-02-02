@@ -107,11 +107,11 @@ prometheus_scrape_configs:
   - targets:
     - localhost:9180
 - job_name: 'swag'
-  scrape_interval: "15s"
+  scrape_interval: "5s"
   metrics_path: /stats/stats.php
   static_configs:
   - targets:
-    - fosdem.thepreview.be
+    - pos.fosdem.org
 - job_name: 'grafana'
   scrape_interval: "15s"
   scheme: https
