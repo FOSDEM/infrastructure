@@ -66,6 +66,7 @@
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
+  - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-control-server, tags: [ 'video-control-server' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
@@ -80,6 +81,7 @@
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
+  - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
 - name: video-stream-dump
@@ -87,6 +89,7 @@
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
+  - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
 - name: video-stream-dump-external

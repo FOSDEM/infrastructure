@@ -17,6 +17,7 @@ ssh_users:
 
 timezone: "Europe/Brussels"
 
+node_exporter_textfile_dir: /var/lib/node_exporter
 node_exporter_enabled_collectors:
   - ntp
   - systemd:

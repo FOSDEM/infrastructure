@@ -15,7 +15,7 @@ ssd_mount: /mnt/ssd
 network_device: eth0
 
 # Prometheus node exporter should write to the SSD instead of the SD
-node_exporter_textfiles_path: /mnt/ssd/node-exporter/textfiles/
+node_exporter_textfile_dir: /mnt/ssd/node-exporter/textfiles/
 node_exporter_install_path: /mnt/ssd/node-exporter/
 
 # Location for the screenshot dumps
