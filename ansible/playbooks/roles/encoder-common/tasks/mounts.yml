@@ -39,3 +39,10 @@
     src: reviewstorage1.video.fosdem.org:/srv/sreview
     fstype: nfs
     state: mounted
+
+- name: mount extra storage
+  mount:
+    name: /srv/sreview/extra
+    src: reviewstorage2.video.fosdem.org:/srv/sreview
+    fstype: nfs
+    state: mounted
