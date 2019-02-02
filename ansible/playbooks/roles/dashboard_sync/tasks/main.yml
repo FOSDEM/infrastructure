@@ -17,6 +17,6 @@
   cron:
     name: sync dashboards
     user: fosdem
-    minute: '*/5'
+    minute: '*/1'
     job: /usr/local/bin/sync_grafana_dashboards.sh
     cron_file: sync_grafana_dashboards
