@@ -137,6 +137,20 @@ prometheus_scrape_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/voctop_audio_fetcher.yml"
+- job_name: 'blackbox_http'
+  static_configs:
+  - files:
+    - '/etc/prometheus/file_sd/blackbox_http_targets.yml'
+  metrics_path: /probe
+     params:
+       module: [http_2xx]  # Look for a HTTP 200 response.
+     relabel_configs:
+       - source_labels: [__address__]
+         target_label: __param_target
+       - source_labels: [__param_target]
+         target_label: instance
+       - target_label: __address__
+         replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
 
 prometheus_snmp_default_targets:
 - asr1k.n.fosdem.net
