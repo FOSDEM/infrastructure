@@ -1,0 +1,25 @@
+---
+groups:
+- name: Audio
+  interval: 15s
+  rules:
+    - record: instance:audio_fetcher_r128_level_db_bucket:rate15s
+      expr: rate(audio_fetcher_r128_level_db_bucket[15s])
+    - record: instance:audio_fetcher_r128_level_db_bucket:q10
+      expr: >
+        histogram_quantile(
+          0.10,
+          instance:audio_fetcher_r128_level_db_bucket:rate15s
+        )
+    - record: instance:audio_fetcher_r128_level_db_bucket:q50
+      expr: >
+        histogram_quantile(
+          0.50,
+          instance:audio_fetcher_r128_level_db_bucket:rate15s
+        )
+    - record: instance:audio_fetcher_r128_level_db_bucket:q95
+      expr: >
+        histogram_quantile(
+          0.95,
+          instance:audio_fetcher_r128_level_db_bucket:rate15s
+        )
