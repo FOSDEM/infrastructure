@@ -1,0 +1,6 @@
+[Unit]
+Description=power_supply metrics
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/local/bin/power_supply_metrics.sh | sponge {{ node_exporter_textfile_dir }}/power_supply.prom'

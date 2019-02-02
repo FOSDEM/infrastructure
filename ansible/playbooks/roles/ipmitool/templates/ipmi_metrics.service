@@ -3,4 +3,4 @@ Description=ipmi metrics
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c '/usr/local/sbin/ipmi_sensor_prometheus.py > {{ node_exporter_textfiles_path }}/ipmi.prom'
+ExecStart=/bin/sh -c '/usr/local/sbin/ipmi_sensor_prometheus.py > {{ node_exporter_textfile_dir }}/ipmi.prom'
