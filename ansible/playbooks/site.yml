@@ -160,6 +160,7 @@
   tags: [public-dashboard]
   roles:
   - antoiner77.caddy
+  - { role: dashboard_sync, tags: [ 'dashboard_sync' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: encoder-master

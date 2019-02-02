@@ -1,0 +1,22 @@
+---
+- name: Deploy sync ruby script
+  copy:
+    src: sync_grafana_dashboards.rb
+    dest: /usr/local/bin/sync_grafana_dashboards.rb
+    owner: root
+    mode: 0755
+
+- name: Deploy sync shell wrapper
+  template:
+    src: sync_grafana_dashboards.sh
+    dest: /usr/local/bin/sync_grafana_dashboards.sh
+    owner: root
+    mode: 0755
+
+- name: Setup cron sync
+  cron:
+    name: sync dashboards
+    user: fosdem
+    minute: '*/5'
+    job: /usr/local/bin/sync_grafana_dashboards.sh
+    cron_file: sync_grafana_dashboards
