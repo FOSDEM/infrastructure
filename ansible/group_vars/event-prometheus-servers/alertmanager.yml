@@ -20,6 +20,14 @@ alertmanager_route:
   repeat_interval: 4h
   group_by: [alertname]
 
+alertmanager_child_routes:
+  - match:
+      team: network
+    receiver: 'network irc'
+  - match:
+      team: video
+    receiver: 'video irc'
+
 alertmanager_receivers:
 - name: 'network email'
   email_configs:

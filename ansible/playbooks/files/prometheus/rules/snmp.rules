@@ -1,0 +1,25 @@
+groups:
+- name: SNMP
+  interval: 1m
+  rules:
+  - record: instance:ifHCInOctets:rate1m
+    expr: >
+      sum without (ifDescr, ifIndex, ifName, ifAlias) (
+        rate(ifHCInOctets[1m])
+      )
+  - record: instance:ifHCOutOctets:rate5m
+    expr: >
+      sum without (ifDescr, ifIndex, ifName, ifAlias) (
+        rate(ifHCOutOctets[1m])
+      )
+  - alert: NetworkTrunkSaturation
+    expr: >
+      (rate(ifHCInOctets{ifAlias=~"--- Trunk .* ---"}[5m]) * 8) /
+      (ifHighSpeed * 1000 * 1000) * 100 > 50
+    for: 5m
+    labels:
+      team: network
+      severity: warning
+    annotations:
+      summary: Switch Trunk {{ $labels.instance }} is saturated
+      description: '{{ $labels.instance }} Trunk port {{ $labels.ifAlias }} is {{ $value | printf "%.2f" }}% saturdated'
