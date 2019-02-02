@@ -1,0 +1,53 @@
+---
+groups:
+- name: NTP
+  interval: 30s
+  rules:
+  - alert: NodeNTPDrifting
+    expr: abs(node_ntp_offset_seconds) * 1000 > 200
+    for: 5m
+    labels:
+      team: network
+      severity: warning
+    annotations:
+      summary: "Node clock is drifting"
+      description: "The node system clock is drifting by {{ $value }} milliseconds."
+- name: Node Disk
+  interval: 30s
+  rules:
+  - alert: FilesystemReadOnly
+    expr: node_filesystem_readonly{fstype=~"(ext.|vfat)",instance!~".*video.fosdem.org:9100"} == 1
+    for: 2m
+    labels:
+      team: network
+      severity: warning
+    annotations:
+      summary: "Filesystem is read-only"
+      description: "The node filesystem {{ $labels.instance }}:{{ $labels.mountpoint }} is read-only."
+  - alert: FilesystemReadOnly
+    expr: node_filesystem_readonly{fstype=~"(ext.|vfat)",instance=~".*video.fosdem.org:9100"} == 1
+    for: 2m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: "Filesystem is read-only"
+      description: "The node filesystem {{ $labels.instance }}:{{ $labels.mountpoint }} is read-only."
+  - alert: DiskFullSoon
+    expr: predict_linear(node_filesystem_avail_bytes{fstype=~"(ext.|vfat)",instance!~".*video.fosdem.org:9100"}[30m], 2 * 3600) < 0
+    for: 5m
+    labels:
+      team: network
+      severity: warning
+    annotations:
+      summary: "Filesystem will fill soon"
+      description: "The node filesystem {{ $labels.instance }}:{{ $labels.mountpoint }} will be full in less than 2 hours."
+  - alert: DiskFullSoon
+    expr: predict_linear(node_filesystem_avail_bytes{fstype=~"(ext.|vfat)",instance=~".*video.fosdem.org:9100"}[30m], 2 * 3600) < 0
+    for: 5m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: "Filesystem is read-only"
+      description: "The node filesystem {{ $labels.instance }}:{{ $labels.mountpoint }} is read-only."

@@ -23,3 +23,14 @@ groups:
           0.95,
           instance:audio_fetcher_r128_level_db_bucket:rate15s
         )
+- name: Video
+  rules:
+  - alert: VideoRecorderFailed
+    expr: node_systemd_unit_state{name=~"video-recorder.service",state="failed"} == 1
+    for: 2m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Video Recorder Service Failed
+      description: 'Video Recorder systemd service on {{ $labels.instance }} is failed'
