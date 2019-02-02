@@ -148,6 +148,7 @@
 
 - name: Event Prometheus servers
   hosts: event-prometheus-servers
+  remote_user: root
   tags: [event-prometheus-servers]
   roles:
   - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
