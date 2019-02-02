@@ -27,7 +27,7 @@
 - name: Install binary
   become: no
   unarchive:
-    src: "https://github.com/free/sql_exporter/releases/download/0.4/sql_exporter-0.4.linux-amd64.tar.gz"
+    src: "https://github.com/free/sql_exporter/releases/download/0.5/sql_exporter-0.5.linux-amd64.tar.gz"
     dest: "/opt/sql_exporter/"
     owner: sql-exporter
     group: sql-exporter
