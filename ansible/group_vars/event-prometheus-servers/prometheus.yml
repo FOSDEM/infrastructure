@@ -1,5 +1,13 @@
 prometheus_web_listen_address: ":9090"
 
+prometheus_remote_write:
+- url: "{{ fosdem_remote_write_url }}"
+  basic_auth:
+    username: "{{ fosdem_remote_write_username }}"
+    password:  "{{ fosdem_remote_write_password }}"
+  queue_config:
+    min_shards: 30
+
 prometheus_alertmanager_config:
 - static_configs:
   - targets:
