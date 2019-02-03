@@ -23,3 +23,6 @@
 - include: configure_fosdem_revision.yml
 - include: install_packages.yml
 - include: configure_sshd.yml
+- include: chrony.yml
+  tags:
+  - chrony

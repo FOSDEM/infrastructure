@@ -144,3 +144,9 @@ vocto_config:
     stream_backup_destination: rtmp://strm.ludost.net:1935/st/ud2218a
 
 
+# Setup NTP
+chrony_upstream:
+  server:
+  - server001.sk1-510.k.ulb.bru.fosdem.net
+  - server002.sk1-510.k.ulb.bru.fosdem.net
+  - 185.175.218.254
