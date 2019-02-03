@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
-                        2019020100 ; serial
+                        2019030101 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -36,3 +36,9 @@ prometheus     IN       CNAME   server001.fosdem.net.
 
 alertmanager-2 IN       CNAME   server002.fosdem.net.
 prometheus-2   IN       CNAME   server002.fosdem.net.
+
+;TVs
+tv0            IN       A       151.216.160.13
+tv0            IN       AAAA    2001:67c:1810:f052:212:fbff:feb0:20ec
+tv1            IN       A       151.216.160.7
+tv1            IN       AAAA    2001:67c:1810:f052:212:fbff:feb0:211b
