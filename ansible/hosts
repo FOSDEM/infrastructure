@@ -19,7 +19,7 @@ encoder1.video.fosdem.org system_hostname=encoder1
 encoder2.video.fosdem.org system_hostname=encoder2
 encoder3.video.fosdem.org system_hostname=encoder3
 encoder4.video.fosdem.org system_hostname=encoder4
-#encoder5.video.fosdem.org system_hostname=encoder5
+encoder5.video.fosdem.org system_hostname=encoder5 ansible_host=51.15.97.231
 #encoder6.video.fosdem.org system_hostname=encoder6
 #encoder7.video.fosdem.org system_hostname=encoder7
 #encoder8.video.fosdem.org system_hostname=encoder8
