@@ -9,7 +9,6 @@
     - bash-completion
     - binutils
     - ca-certificates
-    - chrony
     - curl
     - ethtool
     - file
@@ -41,9 +40,3 @@
   copy:
     src: screenrc
     dest: /root/.screenrc
-
-- name: Configure chrony
-  lineinfile:
-    path: /etc/chrony/chrony.conf
-    line: 'allow 127.0.0.1'
-  notify: restart chrony

@@ -1,0 +1,22 @@
+---
+- name: Purge ntp
+  apt:
+    state: absent
+    purge: true
+    package:
+    - ntp
+
+- name: Install packages
+  apt:
+    state: latest
+    install_recommends: no
+    package:
+    - chrony
+
+- name: Configure
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    mode: 0644
+  notify: restart chrony

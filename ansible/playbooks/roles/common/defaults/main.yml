@@ -1,0 +1,6 @@
+---
+chrony_allow:
+- 127.0.0.1
+chrony_upstream:
+  pool:
+  - 0.europe.pool.ntp.org
