@@ -25,6 +25,10 @@ encoder5.video.fosdem.org system_hostname=encoder5 ansible_host=51.15.97.231
 #encoder8.video.fosdem.org system_hostname=encoder8
 #encoder9.video.fosdem.org system_hostname=encoder9
 
+[tv]
+tv0.n.fosdem.net
+tv1.n.fosdem.net
+
 [video:children]
 video-streamer-backend
 video-streamer-frontend
