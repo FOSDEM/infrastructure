@@ -1,7 +1,7 @@
 {{ ansible_managed | comment }}
 # Welcome to the chrony configuration file. See chrony.conf(5) for more
 # information about usuable directives.
-{% for type, list in chrony_upstream.iteritems() %}
+{% for type, list in chrony_upstream.items() %}
 {% for upstream in list %}
 {{ type }} {{ upstream }} iburst
 {% endfor %}
