@@ -1,4 +1,13 @@
 ---
+- name: Add influx key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: Add influx repo
+  apt_repository:
+    filename: influxdb
+    repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+
 - name: "install packages"
   apt:
     state: latest
