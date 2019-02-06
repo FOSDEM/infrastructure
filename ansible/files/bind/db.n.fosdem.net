@@ -1,6 +1,6 @@
 $TTL 3600
 @               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
-                        2019030101 ; serial
+                        2019030600 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -33,6 +33,7 @@ grafana        IN       CNAME   server001.fosdem.net.
 oxidized       IN       CNAME   server001.fosdem.net.
 prime          IN       CNAME   server001.fosdem.net.
 prometheus     IN       CNAME   server001.fosdem.net.
+wlc            IN       CNAME   server001.fosdem.net.
 
 alertmanager-2 IN       CNAME   server002.fosdem.net.
 prometheus-2   IN       CNAME   server002.fosdem.net.

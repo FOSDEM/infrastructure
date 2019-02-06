@@ -46,3 +46,10 @@ caddy_config: |
       transparent
     }
   }
+  wlc.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ wlc_admin_password }}
+    proxy / 172.33.17.250:443 {
+      transparent
+    }
+  }
