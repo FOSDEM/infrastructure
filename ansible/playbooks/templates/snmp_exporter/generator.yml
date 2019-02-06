@@ -35,6 +35,11 @@ modules:
     - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
       lookup: ciscoEnvMonSupplyStatusDescr
       keep_source_indexes: true
+  cisco_dhcp_server:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+      - cDhcpv4HCCounters
   cisco-rogue-ap-table:
     walk:
       - bsnRogueAPDot11MacAddress
