@@ -1,5 +1,5 @@
 ---
-caddy_features: http.prometheus,http.ipfilter
+caddy_features: http.prometheus,http.ipfilter,http.jwt,http.login
 caddy_systemd_capabilities_enabled: True
 caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
 caddy_additional_args: '-email network@lists.fosdem.org'
@@ -48,7 +48,16 @@ caddy_config: |
   }
   wlc.n.fosdem.net {
     prometheus
-    basicauth / admin {{ wlc_admin_password }}
+    jwt {
+      path /
+      redirect /login
+      allow sub admin
+    }
+    login {
+      success_url /
+      login-path /login
+      simple admin={{ wlc_admin_password }}
+    }
     proxy / https://172.33.17.250 {
       transparent
       insecure_skip_verify
