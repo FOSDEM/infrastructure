@@ -121,5 +121,7 @@ $urlbase = 'https://review.video.fosdem.org';
 
 $cleanup = 'all';
 
+$eventurl_format = 'https://video.fosdem.org/2019/<% $room =~ s/ \(.*//;%><%= $room %>/<%= $slug %>.webm';
+
 # Do not remove this, perl needs it
 1;
