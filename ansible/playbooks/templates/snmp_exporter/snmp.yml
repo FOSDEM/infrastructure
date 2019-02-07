@@ -131,6 +131,10 @@ cisco_wlc_base:
   - 1.3.6.1.4.1.14179.1.1.5
   - 1.3.6.1.4.1.14179.2.1.1.1.2
   - 1.3.6.1.4.1.14179.2.1.1.1.38
+  - 1.3.6.1.4.1.14179.2.2.1.1.3
+  - 1.3.6.1.4.1.14179.2.2.13
+  get:
+  - 1.3.6.1.4.1.14179.2.3.1.13.0
   metrics:
   - name: sysDescr
     oid: 1.3.6.1.2.1.1.1
@@ -1189,19 +1193,130 @@ cisco_wlc_base:
       labelname: bsnDot11EssSsid
       oid: 1.3.6.1.4.1.14179.2.1.1.1.2
       type: DisplayString
+  - name: bsnAPIfLoadRxUtilization
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.1
+    type: gauge
+    help: This is the percentage of time the Airespace AP receiver is busy operating
+      on packets - 1.3.6.1.4.1.14179.2.2.13.1.1
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfLoadTxUtilization
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.2
+    type: gauge
+    help: This is the percentage of time the Airespace AP transmitter is busy operating
+      on packets - 1.3.6.1.4.1.14179.2.2.13.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfLoadChannelUtilization
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.3
+    type: gauge
+    help: Channel Utilization - 1.3.6.1.4.1.14179.2.2.13.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfLoadNumOfClients
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.4
+    type: gauge
+    help: This is the number of clients attached to this Airespace AP at the last
+      measurement interval(This comes from APF) - 1.3.6.1.4.1.14179.2.2.13.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPoorSNRClients
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.24
+    type: gauge
+    help: This is the number of clients with poor SNR attached to this Airespace AP
+      at the last measurement interval ( This comes from APF ). - 1.3.6.1.4.1.14179.2.2.13.1.24
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnSensorTemperature
+    oid: 1.3.6.1.4.1.14179.2.3.1.13
+    type: gauge
+    help: Current Internal Temperature of the unit in Centigrade - 1.3.6.1.4.1.14179.2.3.1.13
   auth:
     community: '{{ snmp_community_ulb_wlc }}'
 cisco_wlc_wifi:
   walk:
-  - 1.3.6.1.4.1.14179.2.2.1.1.3
-  - 1.3.6.1.4.1.14179.2.2.1.1.37
-  - 1.3.6.1.4.1.14179.2.2.1.1.6
-  - 1.3.6.1.4.1.14179.2.2.13.1.3
-  - 1.3.6.1.4.1.14179.2.2.15
+  - 1.3.6.1.4.1.14179.2.2.1
   - 1.3.6.1.4.1.14179.2.2.2
   - 1.3.6.1.4.1.14179.2.2.3.1.30
-  - 1.3.6.1.4.1.14179.2.2.6
   metrics:
+  - name: bsnAPDot3MacAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.1
+    type: PhysAddress48
+    help: The MAC address of an AP. - 1.3.6.1.4.1.14179.2.2.1.1.1
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPNumOfSlots
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.2
+    type: gauge
+    help: Number of Radio Interfaces on the Airespace AP - 1.3.6.1.4.1.14179.2.2.1.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
   - name: bsnAPName
     oid: 1.3.6.1.4.1.14179.2.2.1.1.3
     type: DisplayString
@@ -1216,10 +1331,24 @@ cisco_wlc_wifi:
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
       type: DisplayString
-  - name: bsnAPAdminStatus
-    oid: 1.3.6.1.4.1.14179.2.2.1.1.37
+  - name: bsnAPLocation
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.4
+    type: OctetString
+    help: User specified location of this AP - 1.3.6.1.4.1.14179.2.2.1.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPMonitorOnlyMode
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.5
     type: gauge
-    help: Admin State of the AP - 1.3.6.1.4.1.14179.2.2.1.1.37
+    help: Monitor Only Mode Setting. - 1.3.6.1.4.1.14179.2.2.1.1.5
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
@@ -1244,53 +1373,358 @@ cisco_wlc_wifi:
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
       type: DisplayString
-  - name: bsnAPIfLoadChannelUtilization
-    oid: 1.3.6.1.4.1.14179.2.2.13.1.3
-    type: gauge
-    help: Channel Utilization - 1.3.6.1.4.1.14179.2.2.13.1.3
+  - name: bsnAPSoftwareVersion
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.8
+    type: DisplayString
+    help: Major Minor Software Version of AP - 1.3.6.1.4.1.14179.2.2.1.1.8
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
       fixed_size: 6
-    - labelname: bsnAPIfSlotId
-      type: gauge
     lookups:
     - labels:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
       type: DisplayString
-  - name: bsnAPIfNoiseChannelNo
-    oid: 1.3.6.1.4.1.14179.2.2.15.1.1
-    type: gauge
-    help: Channel Number on AP - 1.3.6.1.4.1.14179.2.2.15.1.1
+  - name: bsnAPBootVersion
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.9
+    type: DisplayString
+    help: Major Minor Boot Version of AP - 1.3.6.1.4.1.14179.2.2.1.1.9
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
       fixed_size: 6
-    - labelname: bsnAPIfSlotId
-      type: gauge
-    - labelname: bsnAPIfNoiseChannelNo
-      type: gauge
     lookups:
     - labels:
       - bsnAPDot3MacAddress
       labelname: bsnAPName
       oid: 1.3.6.1.4.1.14179.2.2.1.1.3
       type: DisplayString
-  - name: bsnAPIfDBNoisePower
-    oid: 1.3.6.1.4.1.14179.2.2.15.1.21
-    type: gauge
-    help: This is the average noise power in dBm on each channel that is available
-      to Airespace AP - 1.3.6.1.4.1.14179.2.2.15.1.21
+  - name: bsnAPPrimaryMwarName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.10
+    type: OctetString
+    help: sysName of the Airespace Switch which is suppose to be the Primary MWAR(switch)
+      of the AP with which AP should associate - 1.3.6.1.4.1.14179.2.2.1.1.10
     indexes:
     - labelname: bsnAPDot3MacAddress
       type: PhysAddress48
       fixed_size: 6
-    - labelname: bsnAPIfSlotId
-      type: gauge
-    - labelname: bsnAPIfNoiseChannelNo
-      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPReset
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.11
+    type: gauge
+    help: Set this attribute to reset the AP - 1.3.6.1.4.1.14179.2.2.1.1.11
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPStatsTimer
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.12
+    type: gauge
+    help: Configures the time interval in secs after which bsnAPDot11Counters Stats
+      is sent from AP to Switch - 1.3.6.1.4.1.14179.2.2.1.1.12
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPPortNumber
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.13
+    type: gauge
+    help: Port on the Switch on which this APs traffic is coming through. - 1.3.6.1.4.1.14179.2.2.1.1.13
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPModel
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.16
+    type: DisplayString
+    help: AP Model - 1.3.6.1.4.1.14179.2.2.1.1.16
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPSerialNumber
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.17
+    type: DisplayString
+    help: AP Serial Number. - 1.3.6.1.4.1.14179.2.2.1.1.17
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPClearConfig
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.18
+    type: gauge
+    help: Set this attribute to clear AP configuration and reset it to factory defaults
+      - 1.3.6.1.4.1.14179.2.2.1.1.18
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnApIpAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.19
+    type: InetAddressIPv4
+    help: IP address of the AP - 1.3.6.1.4.1.14179.2.2.1.1.19
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPMirrorMode
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.20
+    type: gauge
+    help: If enabled, then this AP's Client's Data is mirrored and this AP's clients
+      are dynamically added to the switch's mirrored MAC list. - 1.3.6.1.4.1.14179.2.2.1.1.20
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPRemoteModeSupport
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.21
+    type: gauge
+    help: This specifies if the the Remote Mode is supported on this AP or not - 1.3.6.1.4.1.14179.2.2.1.1.21
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPType
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.22
+    type: gauge
+    help: This is the model of the AP in enumeration. - 1.3.6.1.4.1.14179.2.2.1.1.22
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPSecondaryMwarName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.23
+    type: OctetString
+    help: sysName of the Airespace Switch which is suppose to be the Secondary MWAR(switch)
+      of the AP with which AP should associate if Primary Switch(configured through
+      bsnAPPrimaryMwarName) is not available - 1.3.6.1.4.1.14179.2.2.1.1.23
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPTertiaryMwarName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.24
+    type: OctetString
+    help: sysName of the Airespace Switch which is suppose to be the Tertiary MWAR(switch)
+      of the AP with which AP should associate - 1.3.6.1.4.1.14179.2.2.1.1.24
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIsStaticIP
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.25
+    type: gauge
+    help: This flag when disabled implies that AP will use DHCP to get the IP address
+      - 1.3.6.1.4.1.14179.2.2.1.1.25
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPNetmask
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.26
+    type: InetAddressIPv4
+    help: The Netmask of the IP address of the AP. - 1.3.6.1.4.1.14179.2.2.1.1.26
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPGateway
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.27
+    type: InetAddressIPv4
+    help: The Gateway for the AP. - 1.3.6.1.4.1.14179.2.2.1.1.27
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPStaticIPAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.28
+    type: InetAddressIPv4
+    help: The Static IP-Address configuration for the AP - 1.3.6.1.4.1.14179.2.2.1.1.28
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPBridgingSupport
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.29
+    type: gauge
+    help: This specifies if this AP is a Bridging AP - 1.3.6.1.4.1.14179.2.2.1.1.29
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPGroupVlanName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.30
+    type: OctetString
+    help: The AP Group to which this AP has been associated with - 1.3.6.1.4.1.14179.2.2.1.1.30
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIOSVersion
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.31
+    type: DisplayString
+    help: IOS Version of IOS Cisco AP - 1.3.6.1.4.1.14179.2.2.1.1.31
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPCertificateType
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.32
+    type: gauge
+    help: Enum values denoting AP Certificate Type - 1.3.6.1.4.1.14179.2.2.1.1.32
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPEthernetMacAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.33
+    type: PhysAddress48
+    help: The Ethernet MAC address of the AP. - 1.3.6.1.4.1.14179.2.2.1.1.33
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPAdminStatus
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.37
+    type: gauge
+    help: Admin State of the AP - 1.3.6.1.4.1.14179.2.2.1.1.37
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
     lookups:
     - labels:
       - bsnAPDot3MacAddress
@@ -1701,6 +2135,52 @@ cisco_wlc_wifi:
       type: PhysAddress48
       fixed_size: 6
     - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  auth:
+    community: '{{ snmp_community_ulb_wlc }}'
+cisco_wlc_wifi_rf:
+  walk:
+  - 1.3.6.1.4.1.14179.2.2.1.1.3
+  - 1.3.6.1.4.1.14179.2.2.14.1.2
+  - 1.3.6.1.4.1.14179.2.2.15.1.21
+  - 1.3.6.1.4.1.14179.2.2.6
+  metrics:
+  - name: bsnAPIfInterferencePower
+    oid: 1.3.6.1.4.1.14179.2.2.14.1.2
+    type: gauge
+    help: Power of Interference from other 802.11 networks on this channel - 1.3.6.1.4.1.14179.2.2.14.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    - labelname: bsnAPIfInterferenceChannelNo
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDBNoisePower
+    oid: 1.3.6.1.4.1.14179.2.2.15.1.21
+    type: gauge
+    help: This is the average noise power in dBm on each channel that is available
+      to Airespace AP - 1.3.6.1.4.1.14179.2.2.15.1.21
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    - labelname: bsnAPIfNoiseChannelNo
       type: gauge
     lookups:
     - labels:

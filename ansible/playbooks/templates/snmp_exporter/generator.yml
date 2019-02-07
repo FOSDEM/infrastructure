@@ -62,6 +62,12 @@ modules:
     # Single entries from bsnDot11EssTable # 1.3.6.1.4.1.14179.2.1.1
     - bsnDot11EssSsid
     - bsnDot11EssNumberOfMobileStations
+    # Other WLC metrics
+    - bsnSensorTemperature
+    - bsnAPIfLoadParametersTable # 1.3.6.1.4.1.14179.2.2.13 - 250ms
+    overrides:
+      bsnAPName:
+        type: DisplayString
     lookups:
     - source_indexes: [ ifIndex ]
       lookup: ifAlias
@@ -76,22 +82,31 @@ modules:
     - source_indexes: [ bsnDot11EssIndex ]
       lookup: bsnDot11EssSsid
       keep_source_indexes: true
+    - source_indexes: [ bsnAPDot3MacAddress ]
+      lookup: bsnAPName
+      keep_source_indexes: true
   cisco_wlc_wifi:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
     walk:
-    # bsnAPEntry
-    - bsnAPName # 1.3.6.1.4.1.14179.2.2.1.1.3 - 30ms
-    - bsnAPAdminStatus # 1.3.6.1.4.1.14179.2.2.1.1.37 - 30ms
-    - bsnAPOperationStatus # 1.3.6.1.4.1.14179.2.2.1.1.6 - 30ms
-    # bsnAPIfLoadParametersTable
-    - bsnAPIfLoadChannelUtilization # 1.3.6.1.4.1.14179.2.2.13.1.3 - 42ms
-    # Other tables
-    - bsnAPIfChannelNoiseInfoTable # 1.3.6.1.4.1.14179.2.2.15 - 1.2s
-    - bsnAPIfDot11CountersTable # 1.3.6.1.4.1.14179.2.2.6 - 650ms
+    - bsnAPTable # 1.3.6.1.4.1.14179.2.2.1 - 1s
     - bsnAPIfTable # 1.3.6.1.4.1.14179.2.2.2 - 1.0s
-    # Single entries from bsnAPIfSmtParamTable
+    # Single entry from bsnAPIfSmtParamTable
     - bsnAPIfDot11BSSID # 1.3.6.1.4.1.14179.2.2.3.1.30 - 50ms
+    overrides:
+      bsnAPName:
+        type: DisplayString
+    lookups:
+    - source_indexes: [ bsnAPDot3MacAddress ]
+      lookup: bsnAPName
+      keep_source_indexes: true
+  cisco_wlc_wifi_rf:
+    auth:
+      community: "{{ snmp_community_ulb_wlc }}"
+    walk:
+    - bsnAPIfDot11CountersTable # 1.3.6.1.4.1.14179.2.2.6 - 650ms
+    - bsnAPIfInterferencePower # 1.3.6.1.4.1.14179.2.2.14.1.2 - 600ms
+    - bsnAPIfDBNoisePower # 1.3.6.1.4.1.14179.2.2.15.1.21 - 600ms
     overrides:
       bsnAPName:
         type: DisplayString
