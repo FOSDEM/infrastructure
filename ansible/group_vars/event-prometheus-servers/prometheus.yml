@@ -117,14 +117,30 @@ prometheus_scrape_configs:
   - target_label: __address__
     replacement: 127.0.0.1:9116  # SNMP exporter.
 - job_name: 'snmp_wlc_wifi'
-  scrape_interval: 60s
-  scrape_timeout: 20s
+  scrape_interval: 30s
+  scrape_timeout: 25s
   static_configs:
     - targets:
       - 172.33.17.250
   metrics_path: /snmp
   params:
     module: [cisco_wlc_wifi]
+  relabel_configs:
+  - source_labels: [__address__]
+    target_label: __param_target
+  - source_labels: [__param_target]
+    target_label: instance
+  - target_label: __address__
+    replacement: 127.0.0.1:9116  # SNMP exporter.
+- job_name: 'snmp_wlc_wifi_rf'
+  scrape_interval: 30s
+  scrape_timeout: 25s
+  static_configs:
+    - targets:
+      - 172.33.17.250
+  metrics_path: /snmp
+  params:
+    module: [cisco_wlc_wifi_rf]
   relabel_configs:
   - source_labels: [__address__]
     target_label: __param_target
