@@ -152,6 +152,10 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - localhost:9180
+- job_name: 'snmp_exporter'
+  static_configs:
+  - targets:
+    - localhost:9116
 - job_name: 'swag'
   scrape_interval: "5s"
   metrics_path: /stats/stats.php
