@@ -1,0 +1,7 @@
+---
+fosdem_backup_hour: 23
+fosdem_backup_dirs:
+- /etc
+- /root
+- /home
+- /var/lib/prometheus

@@ -157,6 +157,7 @@
   - { role: prometheus-targets, tags: ['prometheus', 'prometheus-targets' ] }
   - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
   - { role: json_exporter, tags: [ 'json_exporter' ] }
+  - { role: paulfantom.restic, tags: [ 'backup' ] }
 
 - name: public-dashboard
   hosts: public-dashboard
