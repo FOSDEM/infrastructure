@@ -1,0 +1,16 @@
+---
+restic_repos:
+- name: "{{ fosdem_backup_username }}"
+  url: "rest:https://{{ fosdem_backup_username }}:{{ fosdem_backup_password }}@{{ fosdem_backup_server }}/{{ fosdem_backup_username }}/"
+  password: "{{ fosdem_backup_key }}"
+  jobs:
+  - command: "restic backup --exclude-caches {{ fosdem_backup_dirs | join(' ') }}"
+    at: '10 {{ fosdem_backup_hour }} * * *'
+  retention_time: '40 {{ (fosdem_backup_hour + 12) % 24 }} * * *'
+  retention:
+    last: 2
+    hourly: 4
+    daily: 10
+    weekly: 9
+    monthly: 3
+    yearly: 10

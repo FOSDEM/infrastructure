@@ -25,3 +25,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.grafana"]
 	path = ansible/playbooks/roles/cloudalchemy.grafana
 	url = https://github.com/cloudalchemy/ansible-grafana.git
+[submodule "ansible/playbooks/roles/paulfantom.restic"]
+	path = ansible/playbooks/roles/paulfantom.restic
+	url = https://github.com/paulfantom/ansible-restic.git
