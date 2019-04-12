@@ -8,6 +8,13 @@
     filename: influxdb
     repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
 
+- name: Remove obsolete packages
+  apt:
+    state: absent
+    purge: yes
+    package:
+    - influxdb-client
+
 - name: "install packages"
   apt:
     state: latest
@@ -20,4 +27,3 @@
     - php7.0-fpm
     - isc-dhcp-server
     - influxdb
-    - influxdb-client
