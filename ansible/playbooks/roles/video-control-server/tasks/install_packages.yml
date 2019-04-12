@@ -13,6 +13,7 @@
     state: latest
     install_recommends: no
     package:
+    - avahi-daemon
     - ffmpeg
     - nginx
     - php7.0
