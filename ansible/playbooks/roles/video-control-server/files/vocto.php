@@ -44,6 +44,10 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <td>	<form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="fs-p"><input type="submit" style="height:50px" value="fullscreen presenter"></form></td>
 <td>	<form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="fs-s"><input type="submit" style="height:50px" value="fullscreen slides"></form></td>
 </tr>
+<tr>
+<td>	<form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="nostream"><input type="submit" style="height:50px" value="nostream"></form></td>
+<td>	<form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="live"><input type="submit" style="height:50px" value="live"></form></td>
+</tr>
 <tr><td colspan=2><img id="output" src="/<?php echo $room;?>/room.jpg" width=480 height=270></td></tr>
 <tr>
 <td>
@@ -74,6 +78,8 @@ if ($param === 'ssp-p') $cmd = array('set_video_a cam1', 'set_video_b grabber', 
 if ($param === 'ssp-s') $cmd = array('set_video_b cam1', 'set_video_a grabber', 'set_composite_mode side_by_side_preview');
 if ($param === 'fs-p') $cmd = array('set_video_a cam1', 'set_composite_mode fullscreen');
 if ($param === 'fs-s') $cmd = array('set_video_a grabber', 'set_composite_mode fullscreen');
+if ($param === 'nostream') $cmd = array('set_stream_blank pause');
+if ($param === 'live') $cmd = array('set_stream_live');
 
 $fp=fsockopen($host, 9999, $errno, $errstr, 30);
 
