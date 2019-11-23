@@ -20,4 +20,3 @@
     - php7.0-fpm
     - isc-dhcp-server
     - influxdb
-    - influxdb-client
