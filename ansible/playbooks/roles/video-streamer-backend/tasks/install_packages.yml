@@ -14,14 +14,9 @@
     - gstreamer1.0-plugins-ugly
     - gstreamer1.0-libav
     - libdbd-pg-perl
-
-- name: "install nginx from stretch-backports"
-  apt:
-    state: latest
-    install_recommends: no
-    default_release: stretch-backports
-    package:
-    - libnginx-mod-rtmp
+    - vlc-bin
+    - vlc-plugin-base
     - nginx-common
     - nginx-doc
     - nginx-extras
+

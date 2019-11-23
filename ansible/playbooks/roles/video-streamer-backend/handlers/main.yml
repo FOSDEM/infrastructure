@@ -8,3 +8,19 @@
   service:
     name: nfs-kernel-server
     state: restarted
+
+- name: restart vlc-fetcher target
+  become: true
+  systemd:
+    daemon_reload: true
+    name: vlc-fetcher.target
+    state: restarted
+
+- name: restart vlc-fetcher service
+  become: true
+  systemd:
+    daemon_reload: true
+    name: "{{ item }}"
+    state: restarted
+  with_items: "vlc_fetcher_services"
+
