@@ -14,7 +14,7 @@ nginx_rtmp_publishers:
   - 81.82.239.20/32
   - 185.175.218.0/24
 
-ssd_drive: /dev/sda
+ssd_drive: /dev/sdb
 
 nginx_dump_rooms:
   - aw1120
