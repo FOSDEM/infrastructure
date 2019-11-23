@@ -102,7 +102,6 @@
   hosts: video-streamer-backend
   remote_user: root
   roles:
-  - scaleway
   - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
   - mtail
 
@@ -110,7 +109,6 @@
   hosts: video-streamer-frontend
   remote_user: root
   roles:
-  - scaleway
   - { role: video-streamer-frontend, tags: [ 'video-streamer-frontend' ] }
   - mtail
 
@@ -118,7 +116,6 @@
   hosts: video-web-frontend
   remote_user: root
   roles:
-  - scaleway
   - { role: video-web-frontend, tags: [ 'video-web-frontend' ] }
 
 
@@ -172,7 +169,6 @@
   hosts: encoder-master
   remote_user: root
   roles:
-  - scaleway
   - { role: encoder-common, tags: [ 'encoder-master'] }
   - { role: encoder-master, tags: [ 'encoder-master'] }
 
@@ -180,6 +176,5 @@
   hosts: encoder-backend
   remote_user: root
   roles:
-  - scaleway
   - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }
