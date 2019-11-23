@@ -40,8 +40,6 @@
   - sink-output.sh
   - source-cam.sh
   - source-slides.sh
-  - streamcast.sh
-  - streamcast_backup.sh
   notify: restart voctoscripts
 
 - name: create config directory
@@ -96,5 +94,3 @@
   - vocto-sink-output
   - vocto-source-cam
   - vocto-source-slides
-  - streamcast
-  - streamcast_backup
