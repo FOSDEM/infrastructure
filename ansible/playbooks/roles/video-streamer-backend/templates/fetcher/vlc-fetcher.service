@@ -4,10 +4,10 @@ PartOf=vlc-fetcher.target
 
 [Service]
 ExecStart=/usr/local/bin/vlc-fetcher.sh tcp://{{ item }}-voctop.video.fosdem.org:8899/ {{ item }}
-ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
-Restart=on-failure
+Restart=always
+RestartSec=3
 User=www-data
 Group=www-data
 
