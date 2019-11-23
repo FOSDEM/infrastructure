@@ -12,11 +12,14 @@ ffmpeg -v error -y -nostdin \
 	-aspect 16:9 \
 	-c:v libx264 \
 	-g 45 \
+	-filter_complex "[0:a]channelsplit=channel_layout=stereo[left][right]" \
 	-maxrate:v:0 2000k -bufsize:v:0 8192k \
 	-pix_fmt:0 yuv420p -profile:v:0 main -b:v 512k \
 	-preset:v:0 veryfast \
 	\
-	-ac 2 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map 0:v \
-	-map 0:a \
+	-map '[left]:1' \
+	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
+	-map '[right]:2' \
+	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-y -f mpegts - | /usr/local/bin/sproxy
