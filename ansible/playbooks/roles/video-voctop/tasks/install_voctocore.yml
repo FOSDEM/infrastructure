@@ -38,7 +38,6 @@
   copy: src=scripts/{{ item }} dest=/opt/scripts/ owner=root group=root mode=0755
   with_items:
   - sink-output.sh
-  - source-background.sh
   - source-cam.sh
   - source-slides.sh
   - streamcast.sh
@@ -58,7 +57,7 @@
   with_items:
   - defaults.sh
   - voctocore.ini
-  - background.raw
+  - background.png
   notify: restart vocto
 
 - name: patch videomix.py to use our defaults
@@ -95,7 +94,6 @@
   with_items:
   - voctocore
   - vocto-sink-output
-  - vocto-source-background
   - vocto-source-cam
   - vocto-source-slides
   - streamcast

@@ -7,7 +7,6 @@
   service: name={{item}} state=restarted
   with_items:
   - vocto-sink-output
-  - vocto-source-background
   - vocto-source-cam
   - vocto-source-slides
   - streamcast
