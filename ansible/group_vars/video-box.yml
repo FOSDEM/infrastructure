@@ -27,11 +27,3 @@ video_screenshot_filename: screenshot.jpg
 
 # Video streamer configuration
 video_streamer_ffmpeg_options: "overrun_nonfatal=1&buffer_size=81921024&fifo_size=178481"
-
-# Setup NTP
-chrony_upstream:
-  server:
-  - 0.europe.pool.ntp.org
-  - 1.europe.pool.ntp.org
-  - 2.europe.pool.ntp.org
-  - 3.europe.pool.ntp.org

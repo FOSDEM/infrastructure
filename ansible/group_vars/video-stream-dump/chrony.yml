@@ -1,7 +1,0 @@
----
-# Setup NTP
-chrony_upstream:
-  server:
-  - server001.sk1-510.k.ulb.bru.fosdem.net
-  - server002.sk1-510.k.ulb.bru.fosdem.net
-  - 185.175.218.254
