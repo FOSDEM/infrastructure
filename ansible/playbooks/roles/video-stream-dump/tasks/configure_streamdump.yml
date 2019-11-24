@@ -1,57 +1,9 @@
----
-- name: create stream dump directories
-  file:
-    path: "/mnt/storage/{{ item.host }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-  with_items: "{{ video_dump_source }}"
 
-- name: install stream dump script
-  copy:
-    src: streamdump.sh
-    dest: /usr/local/bin/streamdump.sh
-    owner: root
-    group: root
-    mode: 0755
-  notify:
-  - restart streamdump target
+- name: Loop for streamdump type
+  include: configure_streamdump_simple.yml
+  with_items:
+  - cam
+  - slides
+  - voctop
 
-- name: install stream dump services
-  template:
-    src: streamdump.service
-    dest: "/etc/systemd/system/streamdump-{{ item.host}}.service"
-    owner: root
-    group: root
-    mode: 0644
-  with_items: "{{ video_dump_source }}"
-  register: video_stream_dump_services
-  notify:
-  - restart streamdump service
-
-- name: enable streamdump service
-  systemd:
-    name: "streamdump-{{ item.host }}"
-    enabled: yes
-    state: started
-    daemon_reload: yes
-  with_items: "{{ video_dump_source }}"
-
-- name: install streamdump target
-  template:
-    src: streamdump.target
-    dest: /etc/systemd/system/streamdump.target
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-  - restart streamdump target
-
-- name: start and enable streamdump target
-  become: true
-  systemd:
-    daemon_reload: true
-    name: streamdump.target
-    state: started
-    enabled: true
+- include: streamdump_target.ym

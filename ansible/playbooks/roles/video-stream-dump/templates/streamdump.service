@@ -1,9 +1,9 @@
 [Unit]
-Description={{ item.host }} stream dump service
+Description={{ item }}-{{ boxtype }} stream dump service
 PartOf=streamdump.target
 
 [Service]
-ExecStart=/usr/local/bin/streamdump.sh {{ item.source }} /mnt/storage/{{ item.host }}/
+ExecStart=/usr/local/bin/streamdump.sh 'tcp://{{ item }}-{{ boxtype}}.video.fosdem.org:8898/?timeout=2000000' /mnt/storage/{{ item }}-{{ boxtype }}/
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
