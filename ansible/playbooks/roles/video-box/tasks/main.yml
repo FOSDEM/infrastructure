@@ -2,6 +2,7 @@
 - include: install_lenkeng_ir.yml
 - include: install_packages.yml
 - include: configure_ssd.yml
+- include: configure_modules.yml
 - include: install_video-network-monitor.yml
 - include: install_video-bmd-monitor.yml
 - include: install_video-streamer.yml
