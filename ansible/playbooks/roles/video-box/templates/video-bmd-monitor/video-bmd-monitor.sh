@@ -7,7 +7,7 @@ BMDTIMEOUT=15
 touch $LOGFILE
 
 # If we catch anything new in the bmdstreamer log
-while inotifywait -e modify $LOGFILE 2>>/dev/null ; do
+while inotifywait -e modify $LOGFILE > /dev/null 2>&1 ; do
     # Check if it's a 'no signal' event being logged
 
     NOSIGNAL=$(tail -n $BMDTIMEOUT $LOGFILE | grep "no signal$" | wc -l)
