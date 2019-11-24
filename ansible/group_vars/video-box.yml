@@ -10,8 +10,6 @@ sysctl_parameters: {
     "net.ipv4.tcp_keepalive_probes" : "5",
 }
 
-}
-
 # Where is our SSD drive supposed to be?
 ssd_drive: /dev/sda
 ssd_mount: /mnt/ssd
