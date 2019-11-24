@@ -39,19 +39,6 @@
     mode: 0644
   notify: reload nginx
 
-- name: intstall the rtmp configuration
-  template:
-    src: nginx/nginx-rtmp.conf
-    dest: /etc/nginx/nginx-rtmp.conf
-  notify: reload nginx
-
-- name: patch nginx.conf to include the rtmp configuration
-  lineinfile:
-    dest: /etc/nginx/nginx.conf
-    line: "include /etc/nginx/nginx-rtmp.conf;"
-    state: present
-  notify: reload nginx
-
 - name: Add mtail metrics to ngninx
   copy:
     src: nginx/mtail.conf
