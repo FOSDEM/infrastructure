@@ -21,28 +21,6 @@
     raw: test -e /usr/lib/python2.7/dist-packages/pkg_resources.py || (apt-get -y update && apt-get install -y python-pkg-resources)
     changed_when: false # raw has no change handler
 
-  - name: remove custom systemd preferences
-    file: path=/etc/apt/preferences.d/systemd state=absent
-
-  - name: install systemd and dependencies
-    apt:
-      package:
-      - dbus
-      - systemd
-      - systemd-sysv
-    register: systemd_install
-
-  - name: find out which process is PID 1
-    stat: path="/proc/1/exe"
-    register: pid1
-    changed_when: false
-
-  - name: reboot the box if needed
-    reboot:
-      msg: "ansible dependencies installed"
-    when: systemd_install.changed or pid1.stat.lnk_source != "/lib/systemd/systemd"
-
-
 ###
 ### Common roles
 ###
