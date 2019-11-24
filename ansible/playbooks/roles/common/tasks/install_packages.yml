@@ -21,7 +21,6 @@
     - less
     - libcap2-bin
     - lsof
-    - ltrace
     - mediainfo
     - mosh
     - mtr-tiny
@@ -35,6 +34,14 @@
     - vnstat
     - vcsh
     - zsh
+
+- name: "Install architecture-dependent packages"
+  apt:
+    state: latest
+    install_recommends: no
+    package:
+    - ltrace
+  when: (ansible_architecture == 'i386' or ansible_architecture == 'x86_64')
 
 - name: "Add root screenrc"
   copy:
