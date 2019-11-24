@@ -1,11 +1,20 @@
 ---
 
-- name: install mtail
+- name: install mtail from stretch-backports
   apt:
     state: latest
     default_release: stretch-backports
     package:
     - mtail
+  when: ansible_distribution_release == "stretch"
+
+- name: install mtail from main
+  apt:
+    state: latest
+    package:
+    - mtail
+  when: ansible_distribution_release != "stretch"
+
 
 - name: enable and start mtail service
   service:
