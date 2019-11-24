@@ -1,12 +1,12 @@
 [Unit]
 
-{% for config in vocto_config %}
-{% if inventory_hostname ==  config.room + "-voctop.video.fosdem.org" %}
+{% for room in video_rooms %}
+{% if inventory_hostname ==  room + "-voctop.video.fosdem.org" %}
 
-Description={{ config.room }} audio-fetcher
+Description={{ room }} audio-fetcher
 
 [Service]
-ExecStart=/usr/local/bin/audio-fetcher {{ config.room }}
+ExecStart=/usr/local/bin/audio-fetcher {{ room }}
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
