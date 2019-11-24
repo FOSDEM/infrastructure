@@ -1,9 +1,9 @@
 [Unit]
-Description={{ item }} fetcher dump service
-PartOf=vlc-fetcher.target
+Description={{ item }} vlc fetcher service
+PartOf=fetcher.target
 
 [Service]
-ExecStart=/usr/local/bin/vlc-fetcher.sh tcp://{{ item }}-voctop.video.fosdem.org:8899/ {{ item }}
+ExecStart=/usr/local/bin/fetcher.sh tcp://{{ item }}-voctop.video.fosdem.org:8899/ {{ item }}
 KillMode=control-group
 KillSignal=SIGKILL
 Restart=always
@@ -12,4 +12,4 @@ User=www-data
 Group=www-data
 
 [Install]
-WantedBy=vlc-fetcher.target
+WantedBy=fetcher.target

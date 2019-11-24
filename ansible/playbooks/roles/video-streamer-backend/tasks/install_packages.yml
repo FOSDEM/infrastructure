@@ -14,8 +14,8 @@
     - gstreamer1.0-plugins-ugly
     - gstreamer1.0-libav
     - libdbd-pg-perl
-    - vlc-bin
-    - vlc-plugin-base
+    - bin
+    - plugin-base
     - nginx-common
     - nginx-doc
     - nginx-extras

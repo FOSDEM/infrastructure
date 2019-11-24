@@ -1,48 +1,48 @@
 ---
-- name: install vlc-fetcher script
+- name: install fetcher script
   copy:
-    src: fetcher/vlc-fetcher.sh
-    dest: /usr/local/bin/vlc-fetcher.sh
+    src: fetcher/fetcher.sh
+    dest: /usr/local/bin/fetcher.sh
     owner: root
     group: root
     mode: 0755
   notify:
-  - restart vlc-fetcher target
+  - restart fetcher target
 
-- name: install vlc-fetcher services
+- name: install fetcher services
   template:
-    src: fetcher/vlc-fetcher.service
-    dest: "/etc/systemd/system/vlc-fetcher-{{ item }}.service"
+    src: fetcher/fetcher.service
+    dest: "/etc/systemd/system/fetcher-{{ item }}.service"
     owner: root
     group: root
     mode: 0644
   with_items: "{{ nginx_dump_rooms }}"
   register: vlc_fetcher_services
   notify:
-  - restart vlc-fetcher service
+  - restart fetcher service
 
-- name: enable vlc-fetcher service
+- name: enable fetcher service
   systemd:
-    name: "vlc-fetcher-{{ item }}"
+    name: "fetcher-{{ item }}"
     enabled: yes
     state: started
     daemon_reload: yes
   with_items: "{{ nginx_dump_rooms }}"
 
-- name: install vlc-fetcher target
+- name: install fetcher target
   template:
-    src: fetcher/vlc-fetcher.target
-    dest: /etc/systemd/system/vlc-fetcher.target
+    src: fetcher/fetcher.target
+    dest: /etc/systemd/system/fetcher.target
     owner: root
     group: root
     mode: 0644
   notify:
-  - restart vlc-fetcher target
+  - restart fetcher target
 
-- name: start and enable vlc-fetcher target
+- name: start and enable fetcher target
   become: true
   systemd:
     daemon_reload: true
-    name: vlc-fetcher.target
+    name: fetcher.target
     state: started
     enabled: true
