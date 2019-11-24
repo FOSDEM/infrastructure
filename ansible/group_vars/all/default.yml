@@ -3,13 +3,11 @@
 # The files refer to files in the common role
 ssh_users:
   - ben
-  - bert
   - brian
   - gerry
   - johan
   - luc
   - mark
-  - msuriar
   - nicolai
   - richih
   - vasil
