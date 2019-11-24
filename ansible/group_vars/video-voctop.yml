@@ -9,7 +9,6 @@ sysctl_parameters: {
     "net.ipv4.tcp_keepalive_probes" : "5",
 }
 
-}
 
 vocto_source_url_parameters: ?timeout=10000000&buffer_size=81921024&fifo_size=178481
 vocto_recording_directory: /mnt/video
