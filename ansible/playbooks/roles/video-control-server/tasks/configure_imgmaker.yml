@@ -1,7 +1,7 @@
 ---
 - name: create room name directories
-  file: path=/var/www/html/{{ item.roomname }} state=directory owner=root group=root mode=0755
-  with_items: "{{ controlserver_source }}"
+  file: path=/var/www/html/{{ item }} state=directory owner=root group=root mode=0755
+  with_items: "{{ video_rooms }}"
 
 - name: install voctocontrol webapp config
   copy: src=config.php dest=/var/www/html/config.php owner=root group=root mode=0644
@@ -32,8 +32,8 @@
   register: imgmakerscript
 
 - name: install imgmaker services
-  template: src=imgmaker.service dest=/etc/systemd/system/imgmaker-{{ item.roomname}}.service owner=root group=root mode=0644
-  with_items: "{{ controlserver_source }}"
+  template: src=imgmaker.service dest=/etc/systemd/system/imgmaker-{{ item }.service owner=root group=root mode=0644
+  with_items: "{{ video_rooms }}"
   register: imgmaker
 
 #- name: perform a daemon-reload if any of the imgmaker services have been modified
@@ -42,14 +42,14 @@
 #  when: imgmaker.changed
 
 - name: enable imgmaker services
-  service: name=imgmaker-{{ item.roomname }} enabled=yes state=started
-  with_items: "{{ controlserver_source }}"
+  service: name=imgmaker-{{ item }} enabled=yes state=started
+  with_items: "{{ video_rooms }}"
 
 - name: restart service if control-server service or script has been modified
-  service: name=imgmaker-{{ item.roomname }} state=restarted
-  with_items: "{{ controlserver_source }}"
+  service: name=imgmaker-{{ item }} state=restarted
+  with_items: "{{ video_rooms }}"
   when: imgmaker.changed or imgmakerscript.changed
 
 - name: enable imgmaker service
-  systemd: name=imgmaker-{{ item.roomname }} enabled=yes state=started daemon_reload=yes
-  with_items: "{{ controlserver_source }}"
+  systemd: name=imgmaker-{{ item }} enabled=yes state=started daemon_reload=yes
+  with_items: "{{ video_rooms }}"
