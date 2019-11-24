@@ -31,6 +31,7 @@ video_streamer_ffmpeg_options: "overrun_nonfatal=1&buffer_size=81921024&fifo_siz
 # Setup NTP
 chrony_upstream:
   server:
-  - server001.sk1-510.k.ulb.bru.fosdem.net
-  - server002.sk1-510.k.ulb.bru.fosdem.net
-  - 185.175.218.254
+  - 0.europe.pool.ntp.org
+  - 1.europe.pool.ntp.org
+  - 2.europe.pool.ntp.org
+  - 3.europe.pool.ntp.org
