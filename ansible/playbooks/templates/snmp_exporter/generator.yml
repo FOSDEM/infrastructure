@@ -18,38 +18,36 @@ modules:
     # CISCO-ENTITY-FRU-CONTROL-MIB
     #- cefcFRUPowerSupplyGroupTable
     #- cefcFRUPowerStatusTable
+    overrides:
+      ifAdminStatus:
+        type: EnumAsStateSet
+      ifAlias:
+        ignore: true # Lookup metric
+      ifDescr:
+        ignore: true # Lookup metric
+      ifName:
+        ignore: true # Lookup metric
+      ifOperStatus:
+        type: EnumAsStateSet
+      ifType:
+        type: EnumAsInfo
     lookups:
     - source_indexes: [ ifIndex ]
       lookup: ifAlias
-      keep_source_indexes: true
     - source_indexes: [ ifIndex ]
       lookup: ifDescr
-      keep_source_indexes: true
     - source_indexes: [ ifIndex ]
       # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
       lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-      keep_source_indexes: true
     - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
       lookup: ciscoEnvMonTemperatureStatusDescr
-      keep_source_indexes: true
     - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
       lookup: ciscoEnvMonSupplyStatusDescr
-      keep_source_indexes: true
   cisco_dhcp_server:
     auth:
       community: "{{ snmp_community_fosdem_default }}"
     walk:
       - cDhcpv4HCCounters
-  cisco-rogue-ap-table:
-    walk:
-      - bsnRogueAPDot11MacAddress
-      - bsnRogueAPSSID
-      - bsnRogueAPDetectingAPMacAddress
-      - bsnRogueAPTotalClients
-    lookups:
-    - source_indexes: [ bsnRogueAPDot11MacAddress ]
-      lookup: bsnRogueAPSSID
-      keep_source_indexes: true
   cisco_wlc_base:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
@@ -68,23 +66,30 @@ modules:
     overrides:
       bsnAPName:
         type: DisplayString
+      ifAdminStatus:
+        type: EnumAsStateSet
+      ifAlias:
+        ignore: true # Lookup metric
+      ifDescr:
+        ignore: true # Lookup metric
+      ifName:
+        ignore: true # Lookup metric
+      ifOperStatus:
+        type: EnumAsStateSet
+      ifType:
+        type: EnumAsInfo
     lookups:
     - source_indexes: [ ifIndex ]
       lookup: ifAlias
-      keep_source_indexes: true
     - source_indexes: [ ifIndex ]
       lookup: ifDescr
-      keep_source_indexes: true
     - source_indexes: [ ifIndex ]
       # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
       lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-      keep_source_indexes: true
     - source_indexes: [ bsnDot11EssIndex ]
       lookup: bsnDot11EssSsid
-      keep_source_indexes: true
     - source_indexes: [ bsnAPDot3MacAddress ]
       lookup: bsnAPName
-      keep_source_indexes: true
   cisco_wlc_wifi:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
@@ -96,10 +101,17 @@ modules:
     overrides:
       bsnAPName:
         type: DisplayString
+      bsnAPType:
+        type: EnumAsInfo
+      bsnAPIfType:
+        type: EnumAsInfo
+      bsnAPIfPhyAntennaMode:
+        type: EnumAsInfo
+      bsnAPIfPhyAntennaOptions:
+        type: EnumAsInfo
     lookups:
     - source_indexes: [ bsnAPDot3MacAddress ]
       lookup: bsnAPName
-      keep_source_indexes: true
   cisco_wlc_wifi_rf:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
@@ -113,4 +125,3 @@ modules:
     lookups:
     - source_indexes: [ bsnAPDot3MacAddress ]
       lookup: bsnAPName
-      keep_source_indexes: true
