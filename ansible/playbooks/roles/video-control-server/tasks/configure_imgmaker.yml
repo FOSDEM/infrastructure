@@ -32,7 +32,12 @@
   register: imgmakerscript
 
 - name: install imgmaker services
-  template: src=imgmaker.service dest=/etc/systemd/system/imgmaker-{{ item }.service owner=root group=root mode=0644
+  template:
+    src: imgmaker.service
+    dest: "/etc/systemd/system/imgmaker-{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
   with_items: "{{ video_rooms }}"
   register: imgmaker
 
