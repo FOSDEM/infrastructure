@@ -1,7 +1,8 @@
+---
 - name: detect existing partitions on the SSD
   shell: fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
   register: number_of_partitions
-  changed_when: False
+  changed_when: false
 
 - name: empty our mountpoint if the disk is not mounted, remove directory
   file:
@@ -39,7 +40,7 @@
   filesystem:
     fstype: ext4
     dev: "{{ ssd_drive }}"
-    force: yes
+    force: true
   when:
   - destroy_all_streambackend_data is defined
   - destroy_all_streambackend_data == True

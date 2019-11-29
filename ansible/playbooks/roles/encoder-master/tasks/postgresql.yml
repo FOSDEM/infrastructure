@@ -4,7 +4,7 @@
 
 - name: "ensure listen is on"
   blockinfile:
-    create: yes
+    create: true
     dest: /etc/postgresql/9.6/main/postgresql.conf
     block: |
       listen_addresses = '*'
@@ -12,7 +12,7 @@
 
 - name: "allow remote access to postgres db"
   blockinfile:
-    create: yes
+    create: true
     dest: /etc/postgresql/9.6/main/pg_hba.conf
     block: |
       host all all 10.0.0.0/8 md5

@@ -3,16 +3,16 @@
 - name: Create group
   group:
     name: sql-exporter
-    system: yes
+    system: true
     state: present
 
 - name: Create user
   user:
     name: sql-exporter
-    system: yes
+    system: true
     shell: "/sbin/nologin"
     group: sql-exporter
-    createhome: no
+    createhome: false
 
 - name: create directories
   file:
@@ -25,13 +25,13 @@
   - /opt/sql_exporter
 
 - name: Install binary
-  become: no
+  become: false
   unarchive:
     src: "https://github.com/free/sql_exporter/releases/download/0.5/sql_exporter-0.5.linux-amd64.tar.gz"
     dest: "/opt/sql_exporter/"
     owner: sql-exporter
     group: sql-exporter
-    copy: no
+    copy: false
 
 - name: configure exporter
   template:
@@ -67,4 +67,4 @@
   systemd:
     name: sql_exporter
     state: started
-    enabled: yes
+    enabled: true

@@ -24,13 +24,13 @@
 
 - name: perform a daemon-reload if video-screenshot.service has been modified
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: videoscreenshot.changed
 
 - name: enable video-screenshot service
   service:
     name: video-screenshot
-    enabled: yes
+    enabled: true
     state: started
 
 - name: restart service if video-screenshot.service has been modified

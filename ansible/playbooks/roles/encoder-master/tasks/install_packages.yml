@@ -7,20 +7,20 @@
 
 - name: "add sreview repository"
   apt_repository:
-    update_cache: yes
+    update_cache: true
     repo: deb https://latin.grep.be/sreview stretch main
 
 - name: "install prereqs"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - dbconfig-pgsql
 
 - name: "install sreview"
   apt:
     state: latest
-    install_recommends: yes
+    install_recommends: true
     package:
     - sreview-master
     - postgresql-contrib

@@ -24,9 +24,9 @@
 - name: enable fetcher service
   systemd:
     name: "fetcher-{{ item }}"
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true
   with_items: "{{ video_rooms }}"
 
 - name: install fetcher target

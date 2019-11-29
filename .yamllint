@@ -17,8 +17,15 @@ rules:
     level: error
   brackets:
     max-spaces-inside: 1
+  comments:
+    level: error
+  document-start:
     level: error
   indentation:
     spaces: 2
     indent-sequences: false
-  line-length: disable
+  line-length:
+    max: 160
+    level: warning
+  truthy:
+    level: error

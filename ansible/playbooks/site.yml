@@ -6,7 +6,7 @@
 - name: global pre tasks
   hosts: all
   remote_user: root
-  gather_facts: False
+  gather_facts: false
   pre_tasks:
   - name: Verify Ansible meets version requirements.
     assert:
@@ -15,12 +15,13 @@
         "You must update Ansible to at least 2.7."
 
   - name: install ansible dependencies (python)
-    raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal python-pkg-resources) # install pkg-resources to avoid needlesly triggering the next test
-    changed_when: false # raw has no change handler
+    # install pkg-resources to avoid needlesly triggering the next test
+    raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal python-pkg-resources)
+    changed_when: false  # raw has no change handler
 
   - name: install ansible dependencies (python-pkg-resources)
     raw: test -e /usr/lib/python2.7/dist-packages/pkg_resources.py || (apt-get -y update && apt-get install -y python-pkg-resources)
-    changed_when: false # raw has no change handler
+    changed_when: false  # raw has no change handler
 
 ###
 ### Common roles
