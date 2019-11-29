@@ -2,7 +2,7 @@
 - name: "install packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - git
     - libgeos-dev
@@ -27,4 +27,3 @@
     - python-psycopg2
     - python3-tk
     - nginx
-

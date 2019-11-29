@@ -23,4 +23,3 @@
     name: "{{ item.name }}"
     state: restarted
   with_items: "vlc_fetcher_services"
-

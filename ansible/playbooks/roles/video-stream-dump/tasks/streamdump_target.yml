@@ -1,3 +1,4 @@
+---
 - name: install streamdump target
   template:
     src: streamdump.target

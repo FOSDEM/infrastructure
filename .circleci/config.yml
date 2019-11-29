@@ -4,7 +4,10 @@ version: 2.1
 executors:
   golang:
     docker:
-    - image: circleci/golang:1.11
+    - image: circleci/golang:1.13
+  debian:
+    docker:
+    - image: debian:stable
 
 jobs:
   build:
@@ -12,13 +15,26 @@ jobs:
 
     steps:
     - checkout
-    - run: echo "nothing ot do"
+    - run: echo "nothing to do"
+  test:
+    executor: debian
+
+    steps:
+    - run: apt-get update
+    - run: apt-get -y install git openssh-client python3 python-pip
+    - run: pip install yamllint
+    - checkout
+    - run: yamllint ansible
 
 workflows:
   version: 2
   infrastructure:
     jobs:
     - build:
+        filters:
+          tags:
+            only: /.*/
+    - test:
         filters:
           tags:
             only: /.*/

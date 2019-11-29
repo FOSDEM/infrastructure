@@ -1,12 +1,13 @@
+---
 collector_name: sreview
 
 metrics:
-  - metric_name: talkstate
-    type: gauge
-    help: 'Number of talks in a given state'
-    key_labels:
-      - state
-    values:
-      - count
-    query: |
-      SELECT state, count(*) FROM talks GROUP BY state;
+- metric_name: talkstate
+  type: gauge
+  help: 'Number of talks in a given state'
+  key_labels:
+  - state
+  values:
+  - count
+  query: |
+    SELECT state, count(*) FROM talks GROUP BY state;

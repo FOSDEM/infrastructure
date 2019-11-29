@@ -1,5 +1,6 @@
+---
 - name: Create virtualenv
-  pip: 
+  pip:
     requirements: /opt/c3nav/src/requirements/production.txt
     virtualenv_python: python3.6
     virtualenv: /opt/c3nav/env

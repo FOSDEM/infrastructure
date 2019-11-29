@@ -32,8 +32,8 @@
     state: unmounted
     fstype: ext4
   when:
-    - destroy_all_streambackend_data is defined
-    - destroy_all_streambackend_data == True
+  - destroy_all_streambackend_data is defined
+  - destroy_all_streambackend_data == True
 
 - name: wipe all data on the SSD disk
   filesystem:
@@ -41,8 +41,8 @@
     dev: "{{ ssd_drive }}"
     force: yes
   when:
-    - destroy_all_streambackend_data is defined
-    - destroy_all_streambackend_data == True
+  - destroy_all_streambackend_data is defined
+  - destroy_all_streambackend_data == True
 
 - name: create mount directory
   file:

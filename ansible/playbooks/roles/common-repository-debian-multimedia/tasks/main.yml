@@ -13,5 +13,5 @@
 
 - name: "add deb-multimedia repository"
   apt_repository:
-    update_cache: yes
+    update_cache: true
     repo: "deb http://www.deb-multimedia.org {{ansible_distribution_release}} main non-free"

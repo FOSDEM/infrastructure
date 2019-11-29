@@ -1,3 +1,4 @@
+---
 - name: Install build packages
   apt:
     state: latest
@@ -18,17 +19,17 @@
 - name: Add ozidized group
   group:
     name: oxidized
-    system: yes
+    system: true
 
 - name: Add oxidized user
   user:
     name: oxidized
     group: oxidized
     home: /opt/oxidized
-    createhome: yes
+    createhome: true
     shell: /bin/bash
     comment: "oxidized user"
-    system: yes
+    system: true
 
 - name: Install oxidized
   gem:

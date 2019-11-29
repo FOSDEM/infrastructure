@@ -1,18 +1,17 @@
 ---
-
 - name: Create group
   group:
     name: json-exporter
-    system: yes
+    system: true
     state: present
 
 - name: Create user
   user:
     name: json-exporter
-    system: yes
+    system: true
     shell: "/sbin/nologin"
     group: json-exporter
-    createhome: no
+    createhome: false
 
 - name: create directories
   file:
@@ -22,10 +21,10 @@
     group: json-exporter
     mode: 0755
   with_items:
-    - /opt/json_exporter
+  - /opt/json_exporter
 
 - name: Install binary
-  become: no
+  become: false
   get_url:
     url: "https://www.dropbox.com/s/v3q3f6dtxjg8hk6/prometheus-json-exporter?dl=1"
     dest: "/opt/json_exporter/json_exporter"
@@ -42,7 +41,7 @@
     group: json-exporter
     mode: 0644
   notify:
-    - restart json_exporter
+  - restart json_exporter
 
 - name: create systemd service unit
   template:
@@ -52,10 +51,10 @@
     group: root
     mode: 0644
   notify:
-    - restart json_exporter
+  - restart json_exporter
 
 - name: ensure service is started and enabled
   systemd:
     name: json_exporter
     state: started
-    enabled: yes
+    enabled: true

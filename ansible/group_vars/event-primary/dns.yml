@@ -1,3 +1,4 @@
+---
 bind_zones:
   conference.fosdem.net:
     type: master
@@ -12,14 +13,14 @@ bind_acls:
   fosdem-v6only: "{{ fosdem_subnets.v6only }}"
   fosdem-temporary: "{{ fosdem_subnets.temporary }}"
   v6localhost:
-    - ::1/128
+  - ::1/128
 
 bind_recursion_allowed_clients:
-  - fosdem
-  - fosdem-temporary
+- fosdem
+- fosdem-temporary
 
 bind_dns64_clients:
-  - fosdem-v6only
-  - v6localhost
+- fosdem-v6only
+- v6localhost
 
-bind_authoritative_only: False
+bind_authoritative_only: false

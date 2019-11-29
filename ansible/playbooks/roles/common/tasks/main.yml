@@ -1,3 +1,4 @@
+---
 - name: Set go arch variable
   set_fact:
     go_arch: "amd64"
@@ -12,7 +13,7 @@
   shell: git log -1 '--date=format:%Y-%m-%d %H:%M' '--pretty=format:%cd %h'
   register: git_version
   delegate_to: localhost
-  changed_when: False
+  changed_when: false
 
 - include: configure_timezone.yml
 - include: configure_sysctl.yml

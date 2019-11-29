@@ -2,7 +2,7 @@
 - name: install ffmpeg from backports
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     default_release: "{{ansible_distribution_release}}-backports"
     package:
     - ffmpeg
@@ -15,15 +15,14 @@
     group: root
     mode: 0755
 
-
 - name: Unpack sproxy release
   unarchive:
     src: "https://github.com/FOSDEM/video-sproxy/releases/download/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
     dest: /usr/local/bin
-    remote_src: yes
+    remote_src: true
     mode: 0755
     owner: root
-    group: root 
+    group: root
 
 - name: create /usr/lib/firmware
   file:
@@ -84,20 +83,20 @@
 
 - name: perform a daemon-reload if any service has been modified
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: bmdreceiver.changed or videorecorder.changed
 
 - name: enable bmd-receiver service
   service:
     name: bmd-receiver
-    enabled: yes
+    enabled: true
     state: started
 
-#- name: disable video-streamer service
-#  service:
-#    name: video-streamer
-#    enabled: no
-#    state: stopped
+# - name: disable video-streamer service
+#   service:
+#     name: video-streamer
+#     enabled: false
+#     state: stopped
 
 # video-recorder IS NOT enabled by default/from ansible!
 # do not add it here.
@@ -112,6 +111,6 @@
 - name: enable bmd-receiver service
   systemd:
     name: bmd-receiver
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true

@@ -33,4 +33,3 @@
     default_release: testing
     package:
     - ffmpeg
-

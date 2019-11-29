@@ -22,7 +22,7 @@
     group: sql-exporter
     mode: 0755
   with_items:
-    - /opt/sql_exporter
+  - /opt/sql_exporter
 
 - name: Install binary
   become: no
@@ -41,7 +41,7 @@
     group: sql-exporter
     mode: 0644
   notify:
-    - restart sql_exporter
+  - restart sql_exporter
 
 - name: Copy SQL configs
   copy:
@@ -61,7 +61,7 @@
     group: root
     mode: 0644
   notify:
-    - restart sql_exporter
+  - restart sql_exporter
 
 - name: ensure service is started and enabled
   systemd:

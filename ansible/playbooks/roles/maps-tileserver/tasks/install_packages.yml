@@ -2,7 +2,7 @@
 - name: "install packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - git
     - nginx
@@ -11,4 +11,3 @@
     - python3-numpy
     - python3-pylibmc
     - memcached
-
