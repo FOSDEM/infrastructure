@@ -3,7 +3,7 @@
   apt:
     state: latest
     install_recommends: false
-    default_release: "{{ansible_distribution_release}}-backports"
+    default_release: "{{ ansible_distribution_release }}-backports"
     package:
     - ffmpeg
 
