@@ -1,3 +1,4 @@
+---
 - name: set custom hostname
   hostname: name={{ system_hostname }}
   when: system_hostname is defined

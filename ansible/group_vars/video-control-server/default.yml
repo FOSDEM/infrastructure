@@ -1,8 +1,7 @@
 ---
 
 sysctl_parameters: {
-    "net.ipv4.tcp_keepalive_time" : "10",
-    "net.ipv4.tcp_keepalive_intvl" : "5",
-    "net.ipv4.tcp_keepalive_probes" : "5",
+  "net.ipv4.tcp_keepalive_time": "10",
+  "net.ipv4.tcp_keepalive_intvl": "5",
+  "net.ipv4.tcp_keepalive_probes": "5",
 }
-

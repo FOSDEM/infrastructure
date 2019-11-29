@@ -9,7 +9,7 @@ alertmanager_config_flags_extra:
   log.level: debug
 
 alertmanager_smtp:
-  from:  "prometheus@{{ ansible_fqdn }}"
+  from: "prometheus@{{ ansible_fqdn }}"
   hello: "{{ ansible_fqdn }}"
   smarthost: 'mail.fosdem.org:25'
 
@@ -21,12 +21,12 @@ alertmanager_route:
   group_by: [alertname]
 
 alertmanager_child_routes:
-  - match:
-      team: network
-    receiver: 'network irc'
-  - match:
-      team: video
-    receiver: 'video irc'
+- match:
+    team: network
+  receiver: 'network irc'
+- match:
+    team: video
+  receiver: 'video irc'
 
 alertmanager_receivers:
 - name: 'network email'

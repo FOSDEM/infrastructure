@@ -36,6 +36,6 @@
     owner: root
     mode: 0644
   with_fileglob:
-    - mtail/*.mtail
+  - mtail/*.mtail
   notify:
   - restart mtail

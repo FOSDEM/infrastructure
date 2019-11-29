@@ -12,8 +12,8 @@
 - name: add c3nav user
   user:
     name: c3nav
-    system: yes
-    createhome: no
+    system: true
+    createhome: false
     home: /opt/c3nav
 
 - name: clone c3nav repo
@@ -56,13 +56,13 @@
 - import_tasks: virtualenv.yml
 
 - name: install the tmpfiles.d conf
-  become: yes
+  become: true
   copy:
     src: tmpfiles.d/c3nav.conf
     dest: /usr/lib/tmpfiles.d
 
 - name: configure tmpfiles.d
-  become: yes
+  become: true
   command: systemd-tmpfiles --create
 
 - name: install the c3nav-tiles uwsgi service
@@ -77,17 +77,15 @@
   systemd:
     name: c3nav-tiles
     state: started
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
 
 - name: copy nginx configuration
   template:
-      src: nginx/c3nav-tiles
-      dest: /etc/nginx/sites-enabled/c3nav-tiles
-      force: no
-      owner: root
-      group: root
-      mode: 0644
+    src: nginx/c3nav-tiles
+    dest: /etc/nginx/sites-enabled/c3nav-tiles
+    force: false
+    owner: root
+    group: root
+    mode: 0644
   notify: reload nginx
-
-

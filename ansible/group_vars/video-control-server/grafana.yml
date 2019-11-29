@@ -4,4 +4,3 @@ grafana_security:
   admin_password: "{{ grafana_admin_password }}"
   anonymous:
     org_role: Viewer
-

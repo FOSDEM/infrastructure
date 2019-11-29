@@ -1,10 +1,11 @@
+---
 prometheus_web_listen_address: ":9090"
 
 prometheus_remote_write:
 - url: "{{ fosdem_remote_write_url }}"
   basic_auth:
     username: "{{ fosdem_remote_write_username }}"
-    password:  "{{ fosdem_remote_write_password }}"
+    password: "{{ fosdem_remote_write_password }}"
   queue_config:
     min_shards: 30
 
@@ -104,8 +105,8 @@ prometheus_scrape_configs:
   scrape_interval: 15s
   scrape_timeout: 10s
   static_configs:
-    - targets:
-      - 172.33.17.250
+  - targets:
+    - 172.33.17.250
   metrics_path: /snmp
   params:
     module: [cisco_wlc_base]
@@ -120,8 +121,8 @@ prometheus_scrape_configs:
   scrape_interval: 30s
   scrape_timeout: 25s
   static_configs:
-    - targets:
-      - 172.33.17.250
+  - targets:
+    - 172.33.17.250
   metrics_path: /snmp
   params:
     module: [cisco_wlc_wifi]
@@ -136,8 +137,8 @@ prometheus_scrape_configs:
   scrape_interval: 30s
   scrape_timeout: 25s
   static_configs:
-    - targets:
-      - 172.33.17.250
+  - targets:
+    - 172.33.17.250
   metrics_path: /snmp
   params:
     module: [cisco_wlc_wifi_rf]
@@ -192,12 +193,12 @@ prometheus_scrape_configs:
   params:
     module: [http_2xx]  # Look for a HTTP 200 response.
   relabel_configs:
-    - source_labels: [__address__]
-      target_label: __param_target
-    - source_labels: [__param_target]
-      target_label: instance
-    - target_label: __address__
-      replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
+  - source_labels: [__address__]
+    target_label: __param_target
+  - source_labels: [__param_target]
+    target_label: instance
+  - target_label: __address__
+    replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
 - job_name: 'bind'
   scrape_interval: 15s
   static_configs:

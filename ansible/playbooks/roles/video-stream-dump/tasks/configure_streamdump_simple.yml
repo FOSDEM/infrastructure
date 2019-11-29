@@ -38,8 +38,7 @@
 - name: enable streamdump service
   systemd:
     name: "streamdump-{{ item }}-{{ boxtype }}"
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true
   with_items: "{{ video_rooms }}"
-

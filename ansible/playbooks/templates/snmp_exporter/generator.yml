@@ -1,9 +1,10 @@
+---
 modules:
   if_mib:
     auth:
       community: "{{ snmp_community_fosdem_default }}"
     walk:
-    - 1.3.6.1.2.1.1 # system, conflict with PowerNet-MIB
+    - 1.3.6.1.2.1.1  # system, conflict with PowerNet-MIB
     - ifTable
     - etherStatsTable
     - ifXTable
@@ -16,43 +17,43 @@ modules:
     - ceqfpUtilOutputNonPriorityPktRate
     - ceqfpUtilProcessingLoad
     # CISCO-ENTITY-FRU-CONTROL-MIB
-    #- cefcFRUPowerSupplyGroupTable
-    #- cefcFRUPowerStatusTable
+    # - cefcFRUPowerSupplyGroupTable
+    # - cefcFRUPowerStatusTable
     overrides:
       ifAdminStatus:
         type: EnumAsStateSet
       ifAlias:
-        ignore: true # Lookup metric
+        ignore: true  # Lookup metric
       ifDescr:
-        ignore: true # Lookup metric
+        ignore: true  # Lookup metric
       ifName:
-        ignore: true # Lookup metric
+        ignore: true  # Lookup metric
       ifOperStatus:
         type: EnumAsStateSet
       ifType:
         type: EnumAsInfo
     lookups:
-    - source_indexes: [ ifIndex ]
+    - source_indexes: [ifIndex]
       lookup: ifAlias
-    - source_indexes: [ ifIndex ]
+    - source_indexes: [ifIndex]
       lookup: ifDescr
-    - source_indexes: [ ifIndex ]
+    - source_indexes: [ifIndex]
       # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
-      lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-    - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
+      lookup: 1.3.6.1.2.1.31.1.1.1.1  # ifName
+    - source_indexes: [ciscoEnvMonTemperatureStatusIndex]
       lookup: ciscoEnvMonTemperatureStatusDescr
-    - source_indexes: [ ciscoEnvMonTemperatureStatusIndex ]
+    - source_indexes: [ciscoEnvMonTemperatureStatusIndex]
       lookup: ciscoEnvMonSupplyStatusDescr
   cisco_dhcp_server:
     auth:
       community: "{{ snmp_community_fosdem_default }}"
     walk:
-      - cDhcpv4HCCounters
+    - cDhcpv4HCCounters
   cisco_wlc_base:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
     walk:
-    - 1.3.6.1.2.1.1 # system, conflict with PowerNet-MIB
+    - 1.3.6.1.2.1.1  # system, conflict with PowerNet-MIB
     - ifTable
     - ifXTable
     # AIRESPACE-SWITCHING-MIB
@@ -62,42 +63,42 @@ modules:
     - bsnDot11EssNumberOfMobileStations
     # Other WLC metrics
     - bsnSensorTemperature
-    - bsnAPIfLoadParametersTable # 1.3.6.1.4.1.14179.2.2.13 - 250ms
+    - bsnAPIfLoadParametersTable  # 1.3.6.1.4.1.14179.2.2.13 - 250ms
     overrides:
       bsnAPName:
         type: DisplayString
       ifAdminStatus:
         type: EnumAsStateSet
       ifAlias:
-        ignore: true # Lookup metric
+        ignore: true  # Lookup metric
       ifDescr:
-        ignore: true # Lookup metric
+        ignore: true  # Lookup metric
       ifName:
-        ignore: true # Lookup metric
+        ignore: true  # Lookup metric
       ifOperStatus:
         type: EnumAsStateSet
       ifType:
         type: EnumAsInfo
     lookups:
-    - source_indexes: [ ifIndex ]
+    - source_indexes: [ifIndex]
       lookup: ifAlias
-    - source_indexes: [ ifIndex ]
+    - source_indexes: [ifIndex]
       lookup: ifDescr
-    - source_indexes: [ ifIndex ]
+    - source_indexes: [ifIndex]
       # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
-      lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-    - source_indexes: [ bsnDot11EssIndex ]
+      lookup: 1.3.6.1.2.1.31.1.1.1.1  # ifName
+    - source_indexes: [bsnDot11EssIndex]
       lookup: bsnDot11EssSsid
-    - source_indexes: [ bsnAPDot3MacAddress ]
+    - source_indexes: [bsnAPDot3MacAddress]
       lookup: bsnAPName
   cisco_wlc_wifi:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
     walk:
-    - bsnAPTable # 1.3.6.1.4.1.14179.2.2.1 - 1s
-    - bsnAPIfTable # 1.3.6.1.4.1.14179.2.2.2 - 1.0s
+    - bsnAPTable  # 1.3.6.1.4.1.14179.2.2.1 - 1s
+    - bsnAPIfTable  # 1.3.6.1.4.1.14179.2.2.2 - 1.0s
     # Single entry from bsnAPIfSmtParamTable
-    - bsnAPIfDot11BSSID # 1.3.6.1.4.1.14179.2.2.3.1.30 - 50ms
+    - bsnAPIfDot11BSSID  # 1.3.6.1.4.1.14179.2.2.3.1.30 - 50ms
     overrides:
       bsnAPName:
         type: DisplayString
@@ -110,18 +111,18 @@ modules:
       bsnAPIfPhyAntennaOptions:
         type: EnumAsInfo
     lookups:
-    - source_indexes: [ bsnAPDot3MacAddress ]
+    - source_indexes: [bsnAPDot3MacAddress]
       lookup: bsnAPName
   cisco_wlc_wifi_rf:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
     walk:
-    - bsnAPIfDot11CountersTable # 1.3.6.1.4.1.14179.2.2.6 - 650ms
-    - bsnAPIfInterferencePower # 1.3.6.1.4.1.14179.2.2.14.1.2 - 600ms
-    - bsnAPIfDBNoisePower # 1.3.6.1.4.1.14179.2.2.15.1.21 - 600ms
+    - bsnAPIfDot11CountersTable  # 1.3.6.1.4.1.14179.2.2.6 - 650ms
+    - bsnAPIfInterferencePower  # 1.3.6.1.4.1.14179.2.2.14.1.2 - 600ms
+    - bsnAPIfDBNoisePower  # 1.3.6.1.4.1.14179.2.2.15.1.21 - 600ms
     overrides:
       bsnAPName:
         type: DisplayString
     lookups:
-    - source_indexes: [ bsnAPDot3MacAddress ]
+    - source_indexes: [bsnAPDot3MacAddress]
       lookup: bsnAPName

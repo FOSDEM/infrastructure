@@ -12,20 +12,20 @@
   register: voctocontrolweb
 
 - name: install html views
-  copy: 
+  copy:
     src: "{{ item }}"
     dest: /var/www/html/
     owner: root
-    group: root 
+    group: root
     mode: 0644
   with_items:
-    - all.html
-    - aw.html
-    - cams.html
-    - j.html
-    - k.html
-    - ua.html
-    - ud.html
+  - all.html
+  - aw.html
+  - cams.html
+  - j.html
+  - k.html
+  - ua.html
+  - ud.html
 
 - name: install imgmaker script
   copy: src=imgmaker.sh dest=/usr/local/bin/imgmaker.sh owner=root group=root mode=0755

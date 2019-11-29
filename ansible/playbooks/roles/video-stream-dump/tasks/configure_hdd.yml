@@ -1,3 +1,4 @@
+---
 - name: check if the dump disk is present
   stat:
     path: "{{ video_stream_dump_hdd }}"
@@ -29,7 +30,7 @@
     state: unmounted
     fstype: ext4
   when:
-    - video_stream_dump_destroy_all_streamdump_data == True
+  - video_stream_dump_destroy_all_streamdump_data == True
 
 - name: wipe all data on the HDD
   filesystem:
@@ -37,7 +38,7 @@
     dev: "{{ video_stream_dump_hdd }}"
     force: yes
   when:
-    - video_stream_dump_destroy_all_streamdump_data == True
+  - video_stream_dump_destroy_all_streamdump_data == True
 
 - name: create mount directory
   file:

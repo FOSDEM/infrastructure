@@ -3,7 +3,7 @@
   unarchive:
     src: "https://github.com/FOSDEM/video-sproxy/releases/download/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
     dest: /usr/local/bin
-    remote_src: yes
+    remote_src: true
     mode: 0755
     owner: root
-    group: root 
+    group: root

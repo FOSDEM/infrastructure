@@ -1,4 +1,2 @@
-- targets:
-{% for host in prometheus_snmp_default_targets %}
-  - {{ host }}
-{% endfor %}
+---
+- targets: "{{ prometheus_snmp_default_targets }}"

@@ -2,7 +2,7 @@
 - name: "Install packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - ack-grep
     - apt-transport-https
@@ -38,7 +38,7 @@
 - name: "Install architecture-dependent packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - ltrace
   when: (ansible_architecture == 'i386' or ansible_architecture == 'x86_64')

@@ -1,3 +1,4 @@
+---
 - name: "configure sources.list"
   template:
     src: apt/sources.list.j2
@@ -9,10 +10,10 @@
 
 - name: "run apt update if we have modified the sources"
   apt:
-    update_cache: yes
+    update_cache: true
   when: apt_sources.changed
 
 - name: "run apt update if the cache is is stale"
   apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600

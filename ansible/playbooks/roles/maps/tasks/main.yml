@@ -12,8 +12,8 @@
 - name: add c3nav user
   user:
     name: c3nav
-    system: yes
-    createhome: no
+    system: true
+    createhome: false
     home: /opt/c3nav
 
 - name: clone c3nav repo
@@ -54,11 +54,11 @@
     dest: /etc/c3nav/c3nav.cfg
     owner: root
     mode: 0644
-    force: no
+    force: false
 
 - name: copy logo
   copy:
-    src: media/logo.png 
+    src: media/logo.png
     dest: /opt/c3nav/data/media/logo.png
     owner: root
     mode: 0644

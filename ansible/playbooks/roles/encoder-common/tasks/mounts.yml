@@ -16,11 +16,11 @@
     fstype: nfs
     state: mounted
   with_items:
-    - backend0
-    - backend1
-    - backend2
-    - backend3
-    - backend4
+  - backend0
+  - backend1
+  - backend2
+  - backend3
+  - backend4
 
 - name: mount working storage
   mount:
@@ -29,9 +29,9 @@
     fstype: nfs
     state: mounted
   with_items:
-    - assets
-    - storage
-    - output
+  - assets
+  - storage
+  - output
 
 - name: mount day 2 storage
   mount:

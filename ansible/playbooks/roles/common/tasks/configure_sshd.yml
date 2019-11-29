@@ -1,3 +1,4 @@
+---
 - name: disable ssh password login for root
   replace: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin\ yes$' replace='PermitRootLogin without-password'
   notify: reload ssh

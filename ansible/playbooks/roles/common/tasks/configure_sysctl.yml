@@ -7,4 +7,3 @@
 - name: reload sysctl
   command: /sbin/sysctl -p
   when: sysctl.changed
-

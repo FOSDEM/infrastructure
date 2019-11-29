@@ -1,2 +1,3 @@
+---
 - name: restart json_exporter
   systemd: name=json_exporter.service state=restarted
