@@ -1,3 +1,4 @@
+---
 - name: Deploy file_sd targets
   template:
     src: "{{ item }}"

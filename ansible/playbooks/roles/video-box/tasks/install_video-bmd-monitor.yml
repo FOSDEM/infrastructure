@@ -19,13 +19,13 @@
 
 - name: perform a daemon-reload if video-bmd-monitor.service has been modified
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: bmdmonitor.changed
 
 - name: enable video-bmd-monitor service
   service:
     name: video-bmd-monitor
-    enabled: yes
+    enabled: true
     state: started
 
 - name: restart service if video-bmd-monitor service  or script has been modified
@@ -37,6 +37,6 @@
 - name: enable video-bmd-monitor service
   systemd:
     name: video-bmd-monitor
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true

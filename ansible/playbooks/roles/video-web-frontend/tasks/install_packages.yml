@@ -2,7 +2,7 @@
 - name: "install packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - nginx-common
     - nginx-doc

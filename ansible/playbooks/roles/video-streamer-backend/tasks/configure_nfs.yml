@@ -26,5 +26,5 @@
   service:
     name: nfs-kernel-server
     state: started
-    enabled: yes
+    enabled: true
   when: nfs_exports|length

@@ -2,8 +2,8 @@
 - name: disable suspend and hibernate
   systemd:
     name: "{{ item }}"
-    enabled: no
-    masked: yes
+    enabled: false
+    masked: true
   with_items:
   - sleep.target
   - suspend.target

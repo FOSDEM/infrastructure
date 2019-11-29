@@ -12,7 +12,7 @@
 - name: restart gridengine service when needed
   service:
     name: gridengine-exec
-    enabled: yes
+    enabled: true
     state: started
   when: load_sh.changed
-  ignore_errors: yes
+  ignore_errors: true

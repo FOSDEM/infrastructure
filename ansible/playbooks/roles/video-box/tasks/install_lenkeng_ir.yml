@@ -2,7 +2,7 @@
 - name: install alsa-utils
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - alsa-utils
 

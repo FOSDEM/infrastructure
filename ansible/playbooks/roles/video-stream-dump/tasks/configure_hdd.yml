@@ -7,12 +7,12 @@
 - name: fail if the dump disk is not present
   fail:
     msg: "dump disk is missing"
-  when: hdd_status.stat.isblk == False
+  when: hdd_status.stat.isblk == false
 
 - name: detect existing partitions on the HDD
   shell: fdisk -l {{ video_stream_dump_hdd }} | grep ^\/ | wc -l
   register: number_of_partitions
-  changed_when: False
+  changed_when: false
 
 - name: wipe existing HDD partition table
   shell: dd if=/dev/zero of={{ video_stream_dump_hdd }} bs=512 count=1
@@ -36,7 +36,7 @@
   filesystem:
     fstype: ext4
     dev: "{{ video_stream_dump_hdd }}"
-    force: yes
+    force: true
   when:
   - video_stream_dump_destroy_all_streamdump_data == True
 

@@ -2,7 +2,7 @@
 - name: detect existing partitions on the SSD
   shell: fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
   register: number_of_partitions
-  changed_when: False
+  changed_when: false
 
 - name: wipe existing SSD partition table
   shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1

@@ -9,7 +9,7 @@
 - name: "install packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - ffmpeg
     - libglib-object-introspection-perl
@@ -29,7 +29,7 @@
 - name: "install ffmpeg from testing"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     default_release: testing
     package:
     - ffmpeg

@@ -2,7 +2,7 @@
 - name: "common: install packages"
   apt:
     state: latest
-    install_recommends: no
+    install_recommends: false
     package:
     - fbi
     - fontconfig
