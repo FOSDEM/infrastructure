@@ -9,6 +9,7 @@ ignore: |
   ansible/playbooks/roles/netzwirt.bind
   ansible/playbooks/roles/paulfantom.restic
   ansible/playbooks/roles/rsyslog
+  ansible/playbooks/templates/snmp_exporter/snmp.yml
 
 rules:
   braces:
