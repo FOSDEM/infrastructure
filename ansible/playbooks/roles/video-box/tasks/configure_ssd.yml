@@ -13,8 +13,16 @@
     fstype: ext4
     dev: "{{ ssd_drive }}"
 
+- name: deploy a stop process tool
+  template:
+    src: video-box/stop_ssd_procs.sh.j2
+    dest: /usr/local/bin/stop_ssd_procs.sh
+    mode: 0755
+    owner: root
+    group: root
+
 - name: stop processes using the SSD
-  shell: lsof | grep /mnt/ssd/ | sed 's/\s\s*/ /g' | cut -d' ' -f 2 | sort -u | while read line; do systemctl stop `systemctl status $line | head -n 1 | cut -d' ' -f 2`; done;
+  shell: /usr/local/sbin/stop_ssd_procs.sh
   when:
   - destroy_all_videobox_data is defined
   - destroy_all_videobox_data == True

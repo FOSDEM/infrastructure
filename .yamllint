@@ -26,6 +26,6 @@ rules:
     indent-sequences: false
   line-length:
     max: 160
-    level: warning
+    level: error
   truthy:
     level: error
