@@ -1,0 +1,23 @@
+---
+extends: default
+ignore: |
+  secrets.yml
+  *.sh
+  *.md
+  ansible/playbooks/roles/antoiner77.caddy
+  ansible/playbooks/roles/cloudalchemy.*
+  ansible/playbooks/roles/netzwirt.bind
+  ansible/playbooks/roles/paulfantom.restic
+  ansible/playbooks/roles/rsyslog
+
+rules:
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  indentation:
+    spaces: 2
+    indent-sequences: false
+  line-length: disable
