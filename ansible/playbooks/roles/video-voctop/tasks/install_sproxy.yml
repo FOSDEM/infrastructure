@@ -1,4 +1,9 @@
 ---
-- name: install sproxy
-  copy: src=sproxy/sproxy dest=/usr/local/bin/ owner=root group=root mode=0755
-  notify: restart voctoscripts
+- name: Unpack sproxy release
+  unarchive:
+    src: "https://github.com/FOSDEM/video-sproxy/releases/download/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: 0755
+    owner: root
+    group: root 

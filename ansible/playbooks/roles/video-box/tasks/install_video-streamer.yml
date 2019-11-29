@@ -15,13 +15,15 @@
     group: root
     mode: 0755
 
-- name: install sproxy binary
-  copy:
-    src: bin/sproxy
-    dest: /usr/local/bin/sproxy
-    owner: root
-    group: root
+
+- name: Unpack sproxy release
+  unarchive:
+    src: "https://github.com/FOSDEM/video-sproxy/releases/download/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
+    dest: /usr/local/bin
+    remote_src: yes
     mode: 0755
+    owner: root
+    group: root 
 
 - name: create /usr/lib/firmware
   file:

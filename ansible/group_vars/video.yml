@@ -44,3 +44,5 @@ video_rooms:
   - ud2208
   - ud2218a
   - spare0
+
+sproxy_release: v0.2.1
