@@ -15,14 +15,20 @@
     group: root
     mode: 0755
 
+
+- name: Verify sproxy version
+  shell: "/usr/local/bin/sproxy --version 2>/dev/null || true"
+  register: sproxy_installed_version
+
 - name: Unpack sproxy release
   unarchive:
-    src: "https://github.com/FOSDEM/video-sproxy/releases/download/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
+    src: "https://mirrors.ludost.net/FOSDEM/sproxy/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
     dest: /usr/local/bin
     remote_src: true
     mode: 0755
     owner: root
     group: root
+  when: sproxy_release != sproxy_installed_version.stdout
 
 - name: create /usr/lib/firmware
   file:
