@@ -1,9 +1,0 @@
----
-- name: reload ssh
-  service:
-    name: sshd
-    state: reloaded
-
-- name: reload systemd
-  systemd:
-    daemon_reload: true

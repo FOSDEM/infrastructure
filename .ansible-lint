@@ -14,4 +14,3 @@ exclude_paths:
 skip_list:
 - '403'  # Package installs should not use latest
 - '503'  # TODO(Issue 219) Tasks that run when changed should likely be handlers
-- '701'  # No 'galaxy_info' found

@@ -22,7 +22,7 @@
 
 - name: Install ipmi_metrics systemd service file
   notify:
-  - reload systemd
+  - restart ipmi_metrics.timer
   template:
     src: "{{ item }}"
     dest: "/etc/systemd/system/{{ item }}"
@@ -30,11 +30,16 @@
   - ipmi_metrics.service
   - ipmi_metrics.timer
 
-- name: Enable and start ipmi_metrics service/timer
-  service:
+- name: Enable ipmi_metrics service/timer
+  systemd:
     name: "{{ item }}"
-    state: started
     enabled: true
+    daemon_reload: true
   with_items:
   - ipmi_metrics.service
   - ipmi_metrics.timer
+
+- name: Start ipmi_metrics timer
+  systemd:
+    name: ipmi_metrics.timer
+    start: true
