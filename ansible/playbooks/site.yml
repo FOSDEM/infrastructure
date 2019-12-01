@@ -54,12 +54,14 @@
   hosts: video-box
   remote_user: root
   roles:
+  - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: video-box, tags: [ 'video-box' ] }
 
 - name: video-voctop
   hosts: video-voctop
   remote_user: root
   roles:
+  - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: laptop, tags: [ 'laptop' ] }
   - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }

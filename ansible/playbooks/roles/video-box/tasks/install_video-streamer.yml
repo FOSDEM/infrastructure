@@ -15,15 +15,6 @@
     group: root
     mode: 0755
 
-- name: Unpack sproxy release
-  unarchive:
-    src: "https://github.com/FOSDEM/video-sproxy/releases/download/{{ sproxy_release }}/sproxy-{{ sproxy_release }}.{{ ansible_architecture }}.tar.gz"
-    dest: /usr/local/bin
-    remote_src: true
-    mode: 0755
-    owner: root
-    group: root
-
 - name: create /usr/lib/firmware
   file:
     path: /usr/lib/firmware
