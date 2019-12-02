@@ -1,6 +1,8 @@
 ---
 - name: detect existing partitions on the SSD
-  shell: fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
+  shell: |
+    set -o pipefail
+    fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
   register: number_of_partitions
   changed_when: false
 
@@ -20,7 +22,7 @@
   when: number_of_partitions.stdout != "0"
 
 - name: wipe existing SSD partition table
-  shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1
+  shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1  # noqa 305
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the SSD disk
@@ -33,8 +35,7 @@
     state: unmounted
     fstype: ext4
   when:
-  - destroy_all_streambackend_data is defined
-  - destroy_all_streambackend_data == True
+  - destroy_all_streambackend_data
 
 - name: wipe all data on the SSD disk
   filesystem:
@@ -42,8 +43,7 @@
     dev: "{{ ssd_drive }}"
     force: true
   when:
-  - destroy_all_streambackend_data is defined
-  - destroy_all_streambackend_data == True
+  - destroy_all_streambackend_data
 
 - name: create mount directory
   file:

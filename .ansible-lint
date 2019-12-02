@@ -1,0 +1,16 @@
+---
+exclude_paths:
+- ansible/playbooks/roles/antoiner77.caddy
+- ansible/playbooks/roles/cloudalchemy.alertmanager
+- ansible/playbooks/roles/cloudalchemy.blackbox-exporter
+- ansible/playbooks/roles/cloudalchemy.grafana
+- ansible/playbooks/roles/cloudalchemy.node-exporter
+- ansible/playbooks/roles/cloudalchemy.prometheus
+- ansible/playbooks/roles/cloudalchemy.snmp-exporter
+- ansible/playbooks/roles/netzwirt.bind
+- ansible/playbooks/roles/paulfantom.restic
+- ansible/playbooks/roles/rsyslog
+
+skip_list:
+- '403'  # Package installs should not use latest
+- '503'  # TODO(Issue 219) Tasks that run when changed should likely be handlers

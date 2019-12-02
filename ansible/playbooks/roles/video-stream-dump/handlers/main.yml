@@ -12,5 +12,5 @@
     daemon_reload: true
     name: "streamdump-{{ item.host }}.service"
     state: restarted
-  with_items: "video_stream_dump_services.results"
+  with_items: "{{ video_stream_dump_services.results }}"
   when: item is changed

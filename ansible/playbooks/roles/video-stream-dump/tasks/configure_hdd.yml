@@ -7,15 +7,17 @@
 - name: fail if the dump disk is not present
   fail:
     msg: "dump disk is missing"
-  when: hdd_status.stat.isblk == false
+  when: not hdd_status.stat.isblk
 
 - name: detect existing partitions on the HDD
-  shell: fdisk -l {{ video_stream_dump_hdd }} | grep ^\/ | wc -l
+  shell: |
+    set -o pipefail
+    fdisk -l {{ video_stream_dump_hdd }} | grep ^\/ | wc -l
   register: number_of_partitions
   changed_when: false
 
 - name: wipe existing HDD partition table
-  shell: dd if=/dev/zero of={{ video_stream_dump_hdd }} bs=512 count=1
+  shell: dd if=/dev/zero of={{ video_stream_dump_hdd }} bs=512 count=1  # noqa 305
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the HDD disk
@@ -30,7 +32,7 @@
     state: unmounted
     fstype: ext4
   when:
-  - video_stream_dump_destroy_all_streamdump_data == True
+  - video_stream_dump_destroy_all_streamdump_data
 
 - name: wipe all data on the HDD
   filesystem:
@@ -38,7 +40,7 @@
     dev: "{{ video_stream_dump_hdd }}"
     force: true
   when:
-  - video_stream_dump_destroy_all_streamdump_data == True
+  - video_stream_dump_destroy_all_streamdump_data
 
 - name: create mount directory
   file:

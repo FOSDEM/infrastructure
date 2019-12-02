@@ -1,0 +1,7 @@
+---
+- name: restart ipmi_metrics.timer
+  become: true
+  systemd:
+    daemon_reload: true
+    name: ipmi_metrics.timer
+    state: restarted

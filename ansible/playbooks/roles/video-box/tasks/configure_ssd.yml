@@ -1,11 +1,13 @@
 ---
 - name: detect existing partitions on the SSD
-  shell: fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
+  shell: |
+    set -o pipefail
+    fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
   register: number_of_partitions
   changed_when: false
 
 - name: wipe existing SSD partition table
-  shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1
+  shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1  # noqa 305
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the SSD disk
@@ -22,10 +24,9 @@
     group: root
 
 - name: stop processes using the SSD
-  shell: /usr/local/sbin/stop_ssd_procs.sh
+  shell: /usr/local/sbin/stop_ssd_procs.sh  # noqa 305
   when:
-  - destroy_all_videobox_data is defined
-  - destroy_all_videobox_data == True
+  - destroy_all_videobox_data
 
 - name: unmount SSD if it needs to be wiped
   mount:
@@ -34,14 +35,12 @@
     state: unmounted
     fstype: ext4
   when:
-  - destroy_all_videobox_data is defined
-  - destroy_all_videobox_data == True
+  - destroy_all_videobox_data
 
 - name: wipe all data on the SSD disk
   filesystem: fstype=ext4 dev={{ ssd_drive }} force=yes
   when:
-  - destroy_all_videobox_data is defined
-  - destroy_all_videobox_data == True
+  - destroy_all_videobox_data
 
 - name: create mount directory
   file:

@@ -1,6 +1,6 @@
 ---
 - name: add debian backports repository
   apt_repository:
-    repo: "deb http://deb.debian.org/debian {{ansible_distribution_release}}-backports main contrib non-free"
+    repo: "deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free"
     state: present
     update_cache: true

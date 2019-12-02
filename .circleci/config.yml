@@ -5,9 +5,9 @@ executors:
   golang:
     docker:
     - image: circleci/golang:1.13
-  debian:
+  python:
     docker:
-    - image: debian:stable
+    - image: circleci/python:buster
 
 jobs:
   build:
@@ -17,14 +17,14 @@ jobs:
     - checkout
     - run: echo "nothing to do"
   test:
-    executor: debian
+    executor: python
 
     steps:
-    - run: apt-get update
-    - run: apt-get -y install git openssh-client python3 python-pip
-    - run: pip install yamllint
+    - run: pip install --user yamllint
+    - run: pip install --user ansible-lint
     - checkout
     - run: yamllint ansible
+    - run: ansible-lint ansible/playbooks/site.yml
 
 workflows:
   version: 2

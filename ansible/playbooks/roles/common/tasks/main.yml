@@ -10,7 +10,7 @@
   when: ansible_architecture == "armv7l"
 
 - name: get git version
-  shell: git log -1 '--date=format:%Y-%m-%d %H:%M' '--pretty=format:%cd %h'
+  shell: git log -1 '--date=format:%Y-%m-%d %H:%M' '--pretty=format:%cd %h'  # noqa 303 305
   register: git_version
   delegate_to: localhost
   changed_when: false
