@@ -10,8 +10,8 @@
 - name: download archive to local folder
   become: false
   get_url:
-    url: "https://github.com/FOSDEM/video-sproxy/releases/download/v{{ sproxy_version }}/sproxy-{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
-    dest: "/tmp/sproxy-{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
+    url: "https://github.com/FOSDEM/video-sproxy/releases/download/v{{ sproxy_version }}/sproxy-v{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
+    dest: "/tmp/sproxy-v{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
     checksum: "sha256:{{ sproxy_checksum }}"
   register: _sproxy_download_archive
   until: _sproxy_download_archive is succeeded
