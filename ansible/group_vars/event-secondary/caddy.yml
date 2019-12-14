@@ -1,9 +1,7 @@
 ---
 caddy_features: http.prometheus,http.ipfilter
 caddy_systemd_capabilities_enabled: true
-caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
 caddy_additional_args: '-email network@lists.fosdem.org'
-caddy_update: true
 caddy_config: |
   {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
     prometheus
