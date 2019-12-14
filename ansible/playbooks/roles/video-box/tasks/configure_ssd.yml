@@ -1,7 +1,6 @@
 ---
 - name: detect existing partitions on the SSD
   shell: |
-    set -o pipefail
     fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
   register: number_of_partitions
   changed_when: false

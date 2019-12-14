@@ -12,5 +12,6 @@ exclude_paths:
 - ansible/playbooks/roles/rsyslog
 
 skip_list:
+- '306'  # Shells that use pipes should set the pipefail option
 - '403'  # Package installs should not use latest
 - '503'  # TODO(Issue 219) Tasks that run when changed should likely be handlers
