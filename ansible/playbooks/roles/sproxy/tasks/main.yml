@@ -1,16 +1,22 @@
 ---
+- name: "Get version checksums"
+  set_fact:
+    sproxy_checksums: "{{ lookup('url', sproxy_url + '/v' + sproxy_version + '/sha256sums.txt', wantlist=True) | list }}"
+  delegate_to: localhost
+  run_once: true
+
 - name: "Get checksum for {{ sproxy_arch }} architecture"
   set_fact:
     sproxy_checksum: "{{ item.split(' ')[0] }}"
-  with_items:
-  - "{{ lookup('url', 'https://github.com/FOSDEM/video-sproxy/releases/download/v' + sproxy_version + '/sha256sums.txt', wantlist=True) | list }}"
+  with_items: "{{ sproxy_checksums }}"
   when:
   - "(sproxy_arch + '.tar.gz') in item"
+  delegate_to: localhost
 
 - name: download archive to local folder
   become: false
   get_url:
-    url: "https://github.com/FOSDEM/video-sproxy/releases/download/v{{ sproxy_version }}/sproxy-v{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
+    url: "{{ sproxy_url }}/v{{ sproxy_version }}/sproxy-v{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
     dest: "/tmp/sproxy-v{{ sproxy_version }}.{{ sproxy_arch }}.tar.gz"
     checksum: "sha256:{{ sproxy_checksum }}"
   register: _sproxy_download_archive
