@@ -4,3 +4,5 @@ chrony_allow:
 chrony_upstream:
   pool:
   - 0.europe.pool.ntp.org
+
+sysctl_parameters: {}

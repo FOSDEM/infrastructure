@@ -1,10 +1,7 @@
 ---
 - name: configure sysctl
-  template:
-    src: sysctl/10-fosdem.conf
-    dest: /etc/sysctl.d/10-fosdem.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify: reload sysctl
-  when: sysctl_parameters is defined
+  sysctl:
+    sysctl_file: /etc/sysctl.d/10-fosdem.conf
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_dict: "{{ sysctl_parameters }}"
