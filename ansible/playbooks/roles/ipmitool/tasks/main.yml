@@ -7,7 +7,9 @@
     mode: 0755
 
 - name: install kernel modules
-  modprobe: name={{ item }} state=present
+  modprobe:
+    name: "{{ item }}"
+    state: present
   with_items:
   - acpi_ipmi
   - ipmi_devintf

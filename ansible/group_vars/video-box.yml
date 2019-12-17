@@ -1,14 +1,12 @@
 ---
-sysctl_parameters: {
-  "vt.global_cursor_default": "0",
-  "net.core.wmem_max": "8388608",
-  "net.core.wmem_default": "8388608",
-  "net.core.rmem_max": "8388608",
-  "net.core.rmem_default": "8388608",
-  "net.ipv4.tcp_keepalive_time": "10",
-  "net.ipv4.tcp_keepalive_intvl": "5",
-  "net.ipv4.tcp_keepalive_probes": "5",
-}
+sysctl_parameters:
+  net.core.wmem_max: 8388608
+  net.core.wmem_default: 8388608
+  net.core.rmem_max: 8388608
+  net.core.rmem_default: 8388608
+  net.ipv4.tcp_keepalive_time: 10
+  net.ipv4.tcp_keepalive_intvl: 5
+  net.ipv4.tcp_keepalive_probes: 5
 
 # Where is our SSD drive supposed to be?
 ssd_drive: /dev/sda

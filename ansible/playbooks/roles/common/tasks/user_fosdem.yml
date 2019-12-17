@@ -1,10 +1,20 @@
 ---
 - name: add fosdem group
-  group: name=fosdem gid=1000
+  group:
+    name: fosdem
+    gid: 1000
 
 - name: add fosdem user
-  user: name=fosdem comment="FOSDEM user" uid=1000 group=fosdem shell=/bin/bash password=""
+  user:
+    name: fosdem
+    comment: "FOSDEM user"
+    uid: 1000
+    group: fosdem
+    shell: /bin/bash
+    password: ""
 
 - name: add ssh keys to fosdem user
-  authorized_key: user=fosdem key="{{ lookup('file', '../public_keys/'+item+'.pub') }}"
+  authorized_key:
+    user: fosdem
+    key: "{{ lookup('file', '../public_keys/'+item+'.pub') }}"
   with_items: "{{ ssh_users }}"
