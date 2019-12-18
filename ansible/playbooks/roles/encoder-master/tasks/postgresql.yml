@@ -1,6 +1,9 @@
 ---
 - name: "ensure postgresql is there"
-  apt: pkg=postgresql state=latest install_recommends=no
+  apt:
+    pkg: postgresql
+    state: latest
+    install_recommends: false
 
 - name: "ensure listen is on"
   blockinfile:

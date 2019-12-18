@@ -1,14 +1,29 @@
 ---
 - name: create room name directories
-  file: path=/var/www/html/{{ item }} state=directory owner=root group=root mode=0755
+  file:
+    path: "/var/www/html/{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
   with_items: "{{ video_rooms }}"
 
 - name: install voctocontrol webapp config
-  copy: src=config.php dest=/var/www/html/config.php owner=root group=root mode=0644
+  copy:
+    src: config.php
+    dest: /var/www/html/config.php
+    owner: root
+    group: root
+    mode: 0644
   register: voctocontrolconfig
 
 - name: install voctocontrol webapp
-  copy: src=vocto.php dest=/var/www/html/vocto.php owner=root group=root mode=0644
+  copy:
+    src: vocto.php
+    dest: /var/www/html/vocto.php
+    owner: root
+    group: root
+    mode: 0644
   register: voctocontrolweb
 
 - name: install html views
@@ -28,7 +43,12 @@
   - ud.html
 
 - name: install imgmaker script
-  copy: src=imgmaker.sh dest=/usr/local/bin/imgmaker.sh owner=root group=root mode=0755
+  copy:
+    src: imgmaker.sh
+    dest: /usr/local/bin/imgmaker.sh
+    owner: root
+    group: root
+    mode: 0755
   register: imgmakerscript
 
 - name: install imgmaker services
@@ -43,18 +63,27 @@
 
 # - name: perform a daemon-reload if any of the imgmaker services have been modified
 #   systemd:
-#     daemon_reload: yes
+#     daemon_reload: true
 #   when: imgmaker.changed
 
 - name: enable imgmaker services
-  service: name=imgmaker-{{ item }} enabled=yes state=started
+  service:
+    name: "imgmaker-{{ item }}"
+    enabled: true
+    state: started
   with_items: "{{ video_rooms }}"
 
 - name: restart service if control-server service or script has been modified
-  service: name=imgmaker-{{ item }} state=restarted
+  service:
+    name: "imgmaker-{{ item }}"
+    state: restarted
   with_items: "{{ video_rooms }}"
   when: imgmaker.changed or imgmakerscript.changed
 
 - name: enable imgmaker service
-  systemd: name=imgmaker-{{ item }} enabled=yes state=started daemon_reload=yes
+  systemd:
+    name: "imgmaker-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
   with_items: "{{ video_rooms }}"
