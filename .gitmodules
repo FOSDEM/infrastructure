@@ -4,9 +4,6 @@
 [submodule "ansible/playbooks/roles/netzwirt.bind"]
 	path = ansible/playbooks/roles/netzwirt.bind
 	url = https://github.com/netzwirt/ansible-bind.git
-[submodule "ansible/playbooks/roles/antoiner77.caddy"]
-	path = ansible/playbooks/roles/antoiner77.caddy
-	url = https://github.com/antoiner77/caddy-ansible.git
 [submodule "ansible/playbooks/roles/cloudalchemy.prometheus"]
 	path = ansible/playbooks/roles/cloudalchemy.prometheus
 	url = https://github.com/cloudalchemy/ansible-prometheus.git
@@ -28,3 +25,6 @@
 [submodule "ansible/playbooks/roles/paulfantom.restic"]
 	path = ansible/playbooks/roles/paulfantom.restic
 	url = https://github.com/paulfantom/ansible-restic.git
+[submodule "ansible/playbooks/roles/caddy-ansible.caddy"]
+	path = ansible/playbooks/roles/caddy-ansible.caddy
+	url = https://github.com/caddy-ansible/caddy-ansible.git

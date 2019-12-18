@@ -114,7 +114,7 @@
   - rsyslog
   - { role: netzwirt.bind, tags: [ 'dns' ] }
   - oxidized
-  - { role: antoiner77.caddy, tags: [ 'caddy' ] }
+  - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: event-secondary
@@ -123,7 +123,7 @@
   tags: [event-secondary]
   roles:
   - hwraid
-  - { role: antoiner77.caddy, tags: [ 'caddy' ] }
+  - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
 
 - name: Event Prometheus servers
   hosts: event-prometheus-servers
@@ -143,7 +143,7 @@
   remote_user: root
   tags: [public-dashboard]
   roles:
-  - antoiner77.caddy
+  - caddy-ansible.caddy
   - { role: dashboard_sync, tags: [ 'dashboard_sync' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
