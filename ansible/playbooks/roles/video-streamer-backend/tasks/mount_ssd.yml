@@ -25,7 +25,9 @@
   when: number_of_partitions.stdout != "0"
 
 - name: create a filesystem on the SSD disk
-  filesystem: fstype=ext4 dev={{ ssd_drive }}
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
 
 - name: unmount SSD if it needs to be wiped
   mount:

@@ -56,7 +56,12 @@
     mode: 0755
 
 - name: set standard configuration
-  copy: src=config/{{ item }} dest=/opt/config/{{ item }} owner=root group=root mode=0644
+  copy:
+    src: "config/{{ item }}"
+    dest: "/opt/config/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
   with_items:
   - defaults.sh
   - voctocore.ini

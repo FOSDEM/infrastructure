@@ -37,7 +37,10 @@
   - destroy_all_videobox_data
 
 - name: wipe all data on the SSD disk
-  filesystem: fstype=ext4 dev={{ ssd_drive }} force=yes
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
+    force: true
   when:
   - destroy_all_videobox_data
 
