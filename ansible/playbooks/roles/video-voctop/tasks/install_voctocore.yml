@@ -18,6 +18,7 @@
     - python3-gi-cairo
     - rsync
     - avahi-daemon
+    - i965-va-driver-shaders
 
 - name: "install voctomix package from backports"
   apt:
