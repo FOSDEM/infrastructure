@@ -105,3 +105,8 @@
   - vocto-sink-output
   - vocto-source-cam
   - vocto-source-slides
+
+- name: restart vocto scripts on sproxy change
+  shell: "echo changed"
+  notify: restart vocto
+  when: sproxy.changed
