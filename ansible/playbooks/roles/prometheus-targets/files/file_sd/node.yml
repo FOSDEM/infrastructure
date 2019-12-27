@@ -1,2 +1,0 @@
----
-- targets: "{{ hostvars | map('regex_replace', '(.*)', '\\1:9100') }}"

@@ -1,8 +1,0 @@
----
-prometheus_hostgroup_targets:
-- name: alertmanager
-  hostgroup: event-prometheus-servers
-  port: 9093
-- name: voctop_audio_fetcher
-  hostgroup: video-voctop
-  port: 9128
