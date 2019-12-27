@@ -27,6 +27,9 @@
 ### Common roles
 ###
 
+# Workaround for https://github.com/ansible/ansible/issues/57529
+- hosts: all
+
 - name: common roles
   hosts: all
   remote_user: root

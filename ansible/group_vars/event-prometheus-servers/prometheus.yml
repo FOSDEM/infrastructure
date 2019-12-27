@@ -34,6 +34,19 @@ prometheus_targets:
   snmp_dhcp_server:
   - targets:
     - asr1k.n.fosdem.net
+  snmp_idrac:
+  - targets:
+    - server001-mgmt.n.fosdem.net
+    - server002-mgmt.n.fosdem.net
+
+# Template to simplify scrape configs.
+fosdem_snmp_relabel_config:
+- source_labels: [__address__]
+  target_label: __param_target
+- source_labels: [__param_target]
+  target_label: instance
+- target_label: __address__
+  replacement: 127.0.0.1:9116  # SNMP exporter.
 
 prometheus_scrape_configs:
 - job_name: "prometheus"
@@ -61,13 +74,7 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [if_mib]
-  relabel_configs:
-  - source_labels: [__address__]
-    target_label: __param_target
-  - source_labels: [__param_target]
-    target_label: instance
-  - target_label: __address__
-    replacement: 127.0.0.1:9116  # SNMP exporter.
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_slow'
   scrape_interval: 90s
   scrape_timeout: 90s
@@ -78,13 +85,7 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [if_mib]
-  relabel_configs:
-  - source_labels: [__address__]
-    target_label: __param_target
-  - source_labels: [__param_target]
-    target_label: instance
-  - target_label: __address__
-    replacement: 127.0.0.1:9116  # SNMP exporter.
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_dhcp_server'
   scrape_interval: 15s
   static_configs:
@@ -94,13 +95,16 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [cisco_dhcp_server]
-  relabel_configs:
-  - source_labels: [__address__]
-    target_label: __param_target
-  - source_labels: [__param_target]
-    target_label: instance
-  - target_label: __address__
-    replacement: 127.0.0.1:9116  # SNMP exporter.
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_idrac'
+  scrape_interval: 60s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_idrac.yml"
+  metrics_path: /snmp
+  params:
+    module: [idrac]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_wlc_base'
   scrape_interval: 15s
   scrape_timeout: 10s
@@ -110,13 +114,7 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [cisco_wlc_base]
-  relabel_configs:
-  - source_labels: [__address__]
-    target_label: __param_target
-  - source_labels: [__param_target]
-    target_label: instance
-  - target_label: __address__
-    replacement: 127.0.0.1:9116  # SNMP exporter.
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_wlc_wifi'
   scrape_interval: 30s
   scrape_timeout: 25s
@@ -126,13 +124,7 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [cisco_wlc_wifi]
-  relabel_configs:
-  - source_labels: [__address__]
-    target_label: __param_target
-  - source_labels: [__param_target]
-    target_label: instance
-  - target_label: __address__
-    replacement: 127.0.0.1:9116  # SNMP exporter.
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_wlc_wifi_rf'
   scrape_interval: 30s
   scrape_timeout: 25s
@@ -142,13 +134,7 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [cisco_wlc_wifi_rf]
-  relabel_configs:
-  - source_labels: [__address__]
-    target_label: __param_target
-  - source_labels: [__param_target]
-    target_label: instance
-  - target_label: __address__
-    replacement: 127.0.0.1:9116  # SNMP exporter.
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'caddy'
   static_configs:
   - targets:

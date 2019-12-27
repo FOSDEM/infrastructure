@@ -2840,6 +2840,546 @@ cisco_wlc_wifi_rf:
       type: DisplayString
   auth:
     community: '{{ snmp_community_ulb_wlc }}'
+idrac:
+  walk:
+  - 1.3.6.1.4.1.15497.1.1.1.8
+  - 1.3.6.1.4.1.674.10892.5.4.600.60.1.7
+  - 1.3.6.1.4.1.674.10892.5.4.700.12
+  - 1.3.6.1.4.1.674.10892.5.4.700.20
+  metrics:
+  - name: powerSupplyStatus
+    oid: 1.3.6.1.4.1.15497.1.1.1.8.1.2
+    type: EnumAsStateSet
+    help: Represents the status of a power supply - 1.3.6.1.4.1.15497.1.1.1.8.1.2
+    indexes:
+    - labelname: powerSupplyIndex
+      type: gauge
+    lookups:
+    - labels:
+      - powerSupplyIndex
+      labelname: powerSupplyName
+      oid: 1.3.6.1.4.1.15497.1.1.1.8.1.4
+      type: DisplayString
+    enum_values:
+      1: powerSupplyNotInstalled
+      2: powerSupplyHealthy
+      3: powerSupplyNoAC
+      4: powerSupplyFaulty
+  - name: powerSupplyRedundancy
+    oid: 1.3.6.1.4.1.15497.1.1.1.8.1.3
+    type: EnumAsStateSet
+    help: Represents the status of a collection of one or more power supplies - 1.3.6.1.4.1.15497.1.1.1.8.1.3
+    indexes:
+    - labelname: powerSupplyIndex
+      type: gauge
+    lookups:
+    - labels:
+      - powerSupplyIndex
+      labelname: powerSupplyName
+      oid: 1.3.6.1.4.1.15497.1.1.1.8.1.4
+      type: DisplayString
+    enum_values:
+      1: powerSupplyRedundancyOK
+      2: powerSupplyRedundancyLost
+  - name: powerUsageCumulativeWattage
+    oid: 1.3.6.1.4.1.674.10892.5.4.600.60.1.7
+    type: gauge
+    help: 0600.0060.0001.0007 This attribute defines the total wattage used (in Watt-hours)
+      by this entity since the date and time specified by the powerUsageCumulativeWattageStartDateName
+      attribute. - 1.3.6.1.4.1.674.10892.5.4.600.60.1.7
+    indexes:
+    - labelname: powerUsageChassisIndex
+      type: gauge
+    - labelname: powerUsageIndex
+      type: gauge
+  - name: coolingDeviceStatus
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+    type: EnumAsStateSet
+    help: 0700.0012.0001.0005 This attribute defines the probe status of the cooling
+      device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: other
+      2: unknown
+      3: ok
+      4: nonCriticalUpper
+      5: criticalUpper
+      6: nonRecoverableUpper
+      7: nonCriticalLower
+      8: criticalLower
+      9: nonRecoverableLower
+      10: failed
+  - name: coolingDeviceReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.6
+    type: gauge
+    help: 0700.0012.0001.0006 This attribute defines the reading for a cooling device
+      of subtype other than coolingDeviceSubTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.12.1.6
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceType
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.7
+    type: EnumAsInfo
+    help: 0700.0012.0001.0007 This attribute defines the type of the cooling device.
+      - 1.3.6.1.4.1.674.10892.5.4.700.12.1.7
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: coolingDeviceTypeIsOther
+      2: coolingDeviceTypeIsUnknown
+      3: coolingDeviceTypeIsAFan
+      4: coolingDeviceTypeIsABlower
+      5: coolingDeviceTypeIsAChipFan
+      6: coolingDeviceTypeIsACabinetFan
+      7: coolingDeviceTypeIsAPowerSupplyFan
+      8: coolingDeviceTypeIsAHeatPipe
+      9: coolingDeviceTypeIsRefrigeration
+      10: coolingDeviceTypeIsActiveCooling
+      11: coolingDeviceTypeIsPassiveCooling
+  - name: coolingDeviceUpperNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.9
+    type: gauge
+    help: 0700.0012.0001.0009 This attribute defines the upper nonrecoverable threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.9
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceUpperCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.10
+    type: gauge
+    help: 0700.0012.0001.0010 This attribute defines the upper critical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.10
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceUpperNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.11
+    type: gauge
+    help: 0700.0012.0001.0011 This attribute defines the upper noncritical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.11
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceLowerNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.12
+    type: gauge
+    help: 0700.0012.0001.0012 This attribute defines the lower noncritical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.12
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceLowerCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.13
+    type: gauge
+    help: 0700.0012.0001.0013 This attribute defines the lower critical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.13
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceLowerNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.14
+    type: gauge
+    help: 0700.0012.0001.0014 This attribute defines the lower nonrecoverable threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.14
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDevicecoolingUnitIndexReference
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.15
+    type: gauge
+    help: 0700.0012.0001.0015 This attribute defines the index to the associated cooling
+      unit. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.15
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceSubType
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.16
+    type: EnumAsInfo
+    help: 0700.0012.0001.0016 This attribute defines the subtype of the cooling device.
+      - 1.3.6.1.4.1.674.10892.5.4.700.12.1.16
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: coolingDeviceSubTypeIsOther
+      2: coolingDeviceSubTypeIsUnknown
+      3: coolingDeviceSubTypeIsAFanThatReadsInRPM
+      4: coolingDeviceSubTypeIsAFanReadsONorOFF
+      5: coolingDeviceSubTypeIsAPowerSupplyFanThatReadsinRPM
+      6: coolingDeviceSubTypeIsAPowerSupplyFanThatReadsONorOFF
+      16: coolingDeviceSubTypeIsDiscrete
+  - name: coolingDeviceProbeCapabilities
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.17
+    type: gauge
+    help: 0700.0012.0001.0017 This attribute defines the probe capabilities of the
+      cooling device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.17
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: upperNonCriticalThresholdSetCapable
+      2: lowerNonCriticalThresholdSetCapable
+      4: upperNonCriticalThresholdDefaultCapable
+      8: lowerNonCriticalThresholdDefaultCapable
+  - name: coolingDeviceDiscreteReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.18
+    type: gauge
+    help: 0700.0012.0001.0018 This attribute defines the reading for a cooling device
+      of type coolingDeviceSubTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.12.1.18
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: coolingDeviceIsGood
+      2: coolingDeviceIsBad
+  - name: coolingDeviceFQDD
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.19
+    type: OctetString
+    help: 0700.0012.0001.0019 Fully qualified device descriptor (FQDD) of the cooling
+      device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.19
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: temperatureProbeStatus
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.5
+    type: EnumAsStateSet
+    help: 0700.0020.0001.0005 This attribute defines the probe status of the temperature
+      probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.5
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: other
+      2: unknown
+      3: ok
+      4: nonCriticalUpper
+      5: criticalUpper
+      6: nonRecoverableUpper
+      7: nonCriticalLower
+      8: criticalLower
+      9: nonRecoverableLower
+      10: failed
+  - name: temperatureProbeReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.6
+    type: gauge
+    help: 0700.0020.0001.0006 This attribute defines the reading for a temperature
+      probe of type other than temperatureProbeTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.20.1.6
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeType
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.7
+    type: EnumAsInfo
+    help: 0700.0020.0001.0007 This attribute defines the type of the temperature probe.
+      - 1.3.6.1.4.1.674.10892.5.4.700.20.1.7
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: temperatureProbeTypeIsOther
+      2: temperatureProbeTypeIsUnknown
+      3: temperatureProbeTypeIsAmbientESM
+      16: temperatureProbeTypeIsDiscrete
+  - name: temperatureProbeUpperNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.9
+    type: gauge
+    help: 0700.0020.0001.0009 This attribute defines the upper nonrecoverable threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.9
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeUpperCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.10
+    type: gauge
+    help: 0700.0020.0001.0010 This attribute defines the upper critical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.10
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeUpperNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.11
+    type: gauge
+    help: 0700.0020.0001.0011 This attribute defines the upper noncritical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.11
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeLowerNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.12
+    type: gauge
+    help: 0700.0020.0001.0012 This attribute defines the lower noncritical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.12
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeLowerCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.13
+    type: gauge
+    help: 0700.0020.0001.0013 This attribute defines the lower critical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.13
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeLowerNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.14
+    type: gauge
+    help: 0700.0020.0001.0014 This attribute defines the lower nonrecoverable threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.14
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeProbeCapabilities
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.15
+    type: gauge
+    help: 0700.0020.0001.0015 This attribute defines the probe capabilities of the
+      temperature probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.15
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: upperNonCriticalThresholdSetCapable
+      2: lowerNonCriticalThresholdSetCapable
+      4: upperNonCriticalThresholdDefaultCapable
+      8: lowerNonCriticalThresholdDefaultCapable
+  - name: temperatureProbeDiscreteReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.16
+    type: gauge
+    help: 0700.0020.0001.0016 This attribute defines the reading for a temperature
+      probe of type temperatureProbeTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.20.1.16
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: temperatureIsGood
+      2: temperatureIsBad
 if_mib:
   walk:
   - 1.3.6.1.2.1.1
