@@ -107,6 +107,6 @@
   - vocto-source-slides
 
 - name: restart vocto scripts on sproxy change
-  shell: "echo changed"
+  command: "/bin/true"
   notify: restart vocto
   when: sproxy.changed
