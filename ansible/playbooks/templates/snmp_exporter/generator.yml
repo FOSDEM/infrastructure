@@ -126,3 +126,62 @@ modules:
     lookups:
     - source_indexes: [bsnAPDot3MacAddress]
       lookup: bsnAPName
+  idrac:
+    walk:
+    - powerSupplyTable
+    - powerUsageCumulativeWattage
+    - coolingDeviceTable
+    - temperatureProbeTable
+    overrides:
+      powerSupplyStatus:
+        type: EnumAsStateSet
+      powerSupplyRedundancy:
+        type: EnumAsStateSet
+      powerSupplyIndex:
+        ignore: true  # Lookup metric
+      powerSupplyName:
+        ignore: true  # Lookup metric
+      coolingDevicechassisIndex:
+        ignore: true  # Lookup metric
+      coolingDeviceIndex:
+        ignore: true  # Lookup metric
+      coolingDeviceLocationName:
+        ignore: true  # Lookup metric
+        type: DisplayString
+      coolingDeviceStateSettings:
+        ignore: true
+      coolingDeviceStateCapabilities:
+        ignore: true
+      coolingDeviceStatus:
+        type: EnumAsStateSet
+      coolingDeviceType:
+        type: EnumAsInfo
+      coolingDeviceSubType:
+        type: EnumAsInfo
+      temperatureProbechassisIndex:
+        ignore: true  # Lookup metric
+      temperatureProbeIndex:
+        ignore: true  # Lookup metric
+      temperatureProbeLocationName:
+        ignore: true  # Lookup metric
+        type: DisplayString
+      temperatureProbeStateCapabilities:
+        ignore: true
+      temperatureProbeStateSettings:
+        ignore: true
+      temperatureProbeStatus:
+        type: EnumAsStateSet
+      temperatureProbeType:
+        type: EnumAsInfo
+    lookups:
+    - source_indexes:
+      - powerSupplyIndex
+      lookup: powerSupplyName
+    - source_indexes:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      lookup: coolingDeviceLocationName
+    - source_indexes:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      lookup: temperatureProbeLocationName
