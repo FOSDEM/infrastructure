@@ -97,7 +97,7 @@
   service:
     name: bmd-receiver
     state: restarted
-  when: bmdreceiver.changed
+  when: bmdreceiver.changed or sproxy.changed
 
 - name: enable bmd-receiver service
   systemd:

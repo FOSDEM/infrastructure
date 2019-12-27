@@ -18,6 +18,7 @@
     - python3-gi-cairo
     - rsync
     - avahi-daemon
+    - i965-va-driver-shaders
 
 - name: "install voctomix package from backports"
   apt:
@@ -104,3 +105,8 @@
   - vocto-sink-output
   - vocto-source-cam
   - vocto-source-slides
+
+- name: restart vocto scripts on sproxy change
+  shell: "echo changed"
+  notify: restart vocto
+  when: sproxy.changed
