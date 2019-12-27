@@ -136,7 +136,6 @@
   - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
   - cloudalchemy.blackbox-exporter
   - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
-  - { role: prometheus-targets, tags: ['prometheus', 'prometheus-targets' ] }
   - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
   - { role: json_exporter, tags: [ 'json_exporter' ] }
   - { role: paulfantom.restic, tags: [ 'backup' ] }

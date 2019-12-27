@@ -1,4 +1,14 @@
 ---
+fosdem_snmp_default_targets:
+- asr1k.n.fosdem.net
+- k-sw.n.fosdem.net
+- aw-sw.n.fosdem.net
+- j-sw.n.fosdem.net
+- h-sw.n.fosdem.net
+- core-sw.n.fosdem.net
+
+fosdem_snmp_slow_targets: []
+
 prometheus_web_listen_address: ":9090"
 
 prometheus_remote_write:
@@ -26,11 +36,17 @@ prometheus_alert_rules:
     summary: "{% raw %}Instance {{ $labels.instance }} down{% endraw %}"
 
 prometheus_targets:
+  alertmanager:
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '^(.*)$', '\\1:9093') | list }}"
   prometheus:
   - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '^(.*)$', '\\1:9090') | list }}"
   blackbox_http_targets:
   - targets:
     - 'https://api.fosdem.org/roomstatus/v1/listrooms'
+  node:
+  - targets: "{{ hostvars | map('regex_replace', '(.*)', '\\1:9100') }}"
+  snmp_default:
+  - targets: "{{ fosdem_snmp_default_targets }}"
   snmp_dhcp_server:
   - targets:
     - asr1k.n.fosdem.net
@@ -38,6 +54,10 @@ prometheus_targets:
   - targets:
     - server001-mgmt.n.fosdem.net
     - server002-mgmt.n.fosdem.net
+  snmp_slow:
+  - targets: "{{ fosdem_snmp_slow_targets }}"
+  voctop_audio_fetcher:
+  - targets: "{{ groups['video-voctop'] | map('regex_replace', '^(.*)$', '\\1:9128') | list }}"
 
 # Template to simplify scrape configs.
 fosdem_snmp_relabel_config:
@@ -190,16 +210,6 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - server001.sk1-510.k.ulb.bru.fosdem.net:9119
-
-prometheus_snmp_default_targets:
-- asr1k.n.fosdem.net
-- k-sw.n.fosdem.net
-- aw-sw.n.fosdem.net
-- j-sw.n.fosdem.net
-- h-sw.n.fosdem.net
-- core-sw.n.fosdem.net
-
-prometheus_snmp_slow_targets: []
 
 snmp_exporter_web_listen_address: "127.0.0.1:9116"
 snmp_exporter_config_file: "snmp_exporter/snmp.yml"
