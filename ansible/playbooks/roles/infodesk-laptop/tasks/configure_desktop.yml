@@ -26,7 +26,7 @@
 - name: enable gdm service
   systemd:
     name: gdm3
-    enabled: yes
+    enabled: true
     state: started
 
 - name: copy wallpaper
@@ -37,7 +37,7 @@
     group: fosdem
 
 - name: set gsettings_disable_lock_screen
-  become: yes
+  become: true
   become_user: fosdem
   dconf:
     key: "{{ item.key }}"

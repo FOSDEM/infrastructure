@@ -4,4 +4,4 @@
   user:
     name: fosdem
     groups: cdrom,plugdev,audio,video,lpadmin,lp,sudo,adm
-    append: yes
+    append: true
