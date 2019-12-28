@@ -1,5 +1,6 @@
 ---
 - include: install_packages.yml
+- include: configure_network.yml
 - include: configure_hardware.yml
 - include: configure_cups.yml
 - include: configure_desktop.yml

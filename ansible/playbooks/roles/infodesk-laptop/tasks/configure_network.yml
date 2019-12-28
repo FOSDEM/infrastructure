@@ -1,0 +1,9 @@
+---
+
+- name: unconfigure the network
+  copy:
+    src: network/interfaces
+    dest: /etc/network/interfaces
+    owner: root
+    group: root
+    mode: 0644
