@@ -1,0 +1,6 @@
+---
+- include: install_packages.yml
+- include: configure_hardware.yml
+- include: configure_cups.yml
+- include: configure_desktop.yml
+- include: configure_user_fosdem.yml

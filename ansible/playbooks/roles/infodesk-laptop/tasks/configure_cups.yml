@@ -1,0 +1,20 @@
+---
+- name: install printer packages
+  apt:
+    state: latest
+    package:
+    - cups
+    - cups-bsd
+    - cups-pdf
+    - printer-driver-all
+
+- name: add printer drivers
+  copy:
+    src: "printer/{{ item }}"
+    dest: "/etc/cups/ppd/{{ item }}"
+    owner: root
+    group: lp
+    mode: 0644
+  with_items:
+  - xerox-phaser-6510.ppd
+  - xerox-workcentre-6515.ppd

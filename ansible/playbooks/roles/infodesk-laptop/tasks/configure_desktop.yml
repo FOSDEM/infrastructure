@@ -1,0 +1,78 @@
+---
+- name: install desktop packages
+  apt:
+    state: latest
+    package:
+    - chromium
+    - filezilla
+    - gdm3
+    - hexchat
+    - hexchat-plugins
+    - libreoffice
+    - mtp-tools
+    - network-manager-gnome
+    - task-gnome-desktop
+    - terminator
+    - vlc
+
+- name: configure gdm3
+  copy:
+    src: gdm3/daemon.conf
+    dest: /etc/gdm3/daemon.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable gdm service
+  systemd:
+    name: gdm3
+    enabled: yes
+    state: started
+
+- name: copy wallpaper
+  copy:
+    src: wallpaper.png
+    dest: /home/fosdem/.wallpaper.png
+    owner: fosdem
+    group: fosdem
+
+- name: set gsettings_disable_lock_screen
+  become: yes
+  become_user: fosdem
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+  - key: /org/gnome/desktop/lockdown/disable-lock-screen
+    value: "true"
+
+  - key: /org/gnome/desktop/session/idle-delay
+    value: "3600"
+
+  - key: /org/gnome/settings-daemon/plugins/power/idle-dim
+    value: "false"
+
+  - key: /org/org/gnome/desktop/screensaver/idle-activation-enabled
+    value: "false"
+
+  - key: /org/org/gnome/desktop/screensaver/lock-enabled
+    value: "false"
+
+  - key: /org/org/gnome/settings-daemon/plugins/power/active
+    value: "true"
+
+  - key: /org/gnome/desktop/background/picture-uri
+    value: "'file:///home/fosdem/.wallpaper.png'"
+
+  - key: /org/gnome/desktop/background/picture-options
+    value: "'centered'"
+
+  - key: /org/gnome/desktop/background/primary-color
+    value: "'000000'"
+
+  - key: /org/gnome/desktop/background/secondary-color
+    value: "'000000'"
+
+  - key: /org/gnome/desktop/input-sources/sources
+    value: "[('xkb', 'gb+extd')]"

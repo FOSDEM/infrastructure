@@ -124,7 +124,6 @@ ud2208-slides.video.fosdem.org
 ud2218a-slides.video.fosdem.org
 spare0-slides.video.fosdem.org
 
-
 [video-voctop]
 aw1120-voctop.video.fosdem.org
 aw1121-voctop.video.fosdem.org
@@ -159,6 +158,9 @@ spare0-voctop.video.fosdem.org
 
 [video-web-frontend]
 web0.video.fosdem.org
+
+[infodesk-laptop]
+infodesk-laptop-1 ansible_host=185.175.218.188
 
 # Composite hosts
 [event-prometheus-servers:children]
