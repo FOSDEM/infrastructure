@@ -37,14 +37,14 @@ prometheus_alert_rules:
 
 prometheus_targets:
   alertmanager:
-  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '^(.*)$', '\\1:9093') | list }}"
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9093') | list }}"
   prometheus:
-  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '^(.*)$', '\\1:9090') | list }}"
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9090') | list }}"
   blackbox_http_targets:
   - targets:
     - 'https://api.fosdem.org/roomstatus/v1/listrooms'
   node:
-  - targets: "{{ hostvars | map('regex_replace', '(.*)', '\\1:9100') }}"
+  - targets: "{{ groups['all'] | map('regex_replace', '$', ':9100') | list }}"
   snmp_default:
   - targets: "{{ fosdem_snmp_default_targets }}"
   snmp_dhcp_server:
@@ -57,7 +57,7 @@ prometheus_targets:
   snmp_slow:
   - targets: "{{ fosdem_snmp_slow_targets }}"
   voctop_audio_fetcher:
-  - targets: "{{ groups['video-voctop'] | map('regex_replace', '^(.*)$', '\\1:9128') | list }}"
+  - targets: "{{ groups['video-voctop'] | map('regex_replace', '$', ':9128') | list }}"
 
 # Template to simplify scrape configs.
 fosdem_snmp_relabel_config:
