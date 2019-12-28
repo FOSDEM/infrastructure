@@ -6,7 +6,7 @@
 
 - name: create stream dump directories
   file:
-    path: "/mnt/storage/{{ item }}-{{ boxtype }}"
+    path: "/mnt/storage/{{ item }}-{{ box_type }}"
     state: directory
     owner: root
     group: root
@@ -26,7 +26,7 @@
 - name: install stream dump services
   template:
     src: streamdump.service
-    dest: "/etc/systemd/system/streamdump-{{ item }}-{{ boxtype }}.service"
+    dest: "/etc/systemd/system/streamdump-{{ item }}-{{ box_type }}.service"
     owner: root
     group: root
     mode: 0644
@@ -37,7 +37,7 @@
 
 - name: enable streamdump service
   systemd:
-    name: "streamdump-{{ item }}-{{ boxtype }}"
+    name: "streamdump-{{ item }}-{{ box_type }}"
     enabled: true
     state: started
     daemon_reload: true
