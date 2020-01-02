@@ -23,6 +23,11 @@
     group: root
     mode: 0644
 
+- name: generate en_GB.UTF-8 locale
+  locale_gen:
+    name: en_GB.UTF-8
+    state: present
+
 - name: enable gdm service
   systemd:
     name: gdm3
@@ -36,31 +41,43 @@
     owner: fosdem
     group: fosdem
 
-- name: set gsettings_disable_lock_screen
+- name: set dconf properties
   become: true
   become_user: fosdem
   dconf:
     key: "{{ item.key }}"
-    value: "{{ item.value }}"
+    value: "{{ item.value | string }}"
     state: present
   with_items:
+  - key: /system/locale
+    value: "'en_GB.UTF-8'"
+
   - key: /org/gnome/desktop/lockdown/disable-lock-screen
     value: "true"
 
   - key: /org/gnome/desktop/session/idle-delay
-    value: "3600"
+    value: "uint32 0"
 
   - key: /org/gnome/settings-daemon/plugins/power/idle-dim
     value: "false"
 
-  - key: /org/org/gnome/desktop/screensaver/idle-activation-enabled
+  - key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout
+    value: "1200"
+
+  - key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
+    value: "'nothing'"
+
+  - key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout
+    value: "1800"
+
+  - key: /org/gnome/desktop/screensaver/idle-activation-enabled
     value: "false"
 
-  - key: /org/org/gnome/desktop/screensaver/lock-enabled
+  - key: /org/gnome/desktop/screensaver/lock-enabled
     value: "false"
 
-  - key: /org/org/gnome/settings-daemon/plugins/power/active
-    value: "true"
+  - key: /org/gnome/desktop/sound/event-sounds
+    value: "false"
 
   - key: /org/gnome/desktop/background/picture-uri
     value: "'file:///home/fosdem/.wallpaper.png'"
