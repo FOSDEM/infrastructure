@@ -4,3 +4,8 @@
     daemon_reload: true
     name: gdm
     state: restarted
+
+- name: restart networkmanager
+  systemd:
+    name: NetworkManager
+    state: restarted

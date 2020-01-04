@@ -1,9 +1,21 @@
 ---
 
-- name: unconfigure the network
+- name: unconfigure the wired network
   copy:
     src: network/interfaces
     dest: /etc/network/interfaces
     owner: root
     group: root
     mode: 0644
+
+- name: configure wireless networks
+  copy:
+    src: "network/{{ item }}"
+    dest: "/etc/NetworkManager/system-connections/{{ item }}"
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
+  - FOSDEM
+  - FOSDEM-dualstack
+  notify: restart networkmanager
