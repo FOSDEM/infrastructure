@@ -1,0 +1,809 @@
+*PPD-Adobe: "4.3"
+
+*% Adobe Systems PostScript(R) Printer Description File
+*% Copyright 2009-2010 Xerox Corporation.
+
+
+*FileVersion: "5.662.0.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+
+*Manufacturer: "Xerox"
+*Product: "(Xerox WorkCentre 6515)"
+*PCFileName: "xrx6515.ppd"
+*PSVersion: "(3016.103) 6"
+*ShortNickName: "Xerox WorkCentre 6515"
+*ModelName: "Xerox WorkCentre 6515"
+*NickName: "Xerox WorkCentre 6515"
+*XRXHasPS: True
+*XRXHasBooklet: True
+
+*OpenGroup: InstallableOptions
+
+*OpenUI *XRXOptionDuplex/Optional Duplex Unit<3A>: Boolean
+*OrderDependency: 69.2 AnySetup *XRXOptionDuplex
+*DefaultXRXOptionDuplex: True
+*XRXOptionDuplex True/Installed: ""
+*XRXOptionDuplex False/Not Installed: ""
+*?XRXOptionDuplex: "
+ /RRCustomProcs /ProcSet findresource dup /duplexavailable known {
+   /duplexavailable get exec {(True)} {(False)} ifelse
+ }{
+   pop (False)
+ } ifelse
+ = flush
+"
+*End
+*OIDXRXOptionDuplex True: "2"
+*OIDXRXOptionDuplex False: ""
+*?OIDXRXOptionDuplex: ".1.3.6.1.2.1.43.13.4.1.1.1.2"
+*CloseUI: *XRXOptionDuplex
+
+*CloseGroup: InstallableOptions
+
+*% =============== Device Capabilities ===============
+*LanguageLevel: "3"
+*Protocols: BCP PJL TBCP
+*1284Modes Parallel: Compat Nibble ECP
+*1284DeviceID: "MANUFACTURER:XEROX;COMMAND SET:;MODEL:WorkCentre 6515;CLASS:PRINTER;COMPATIBLE ID:;DESCRIPTION:Xerox WorkCentre 6515;"
+
+*FreeVM: "23247104"
+*VMOption 768Meg/768MB: "23247104"
+*VMOption 1024Meg/1024MB: "23247104"
+
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*VariablePaperSize: True
+*LandscapeOrientation: Plus90
+*TTRasterizer: Type42
+*FileSystem: True
+
+*Throughput: "30"
+*Password: "()"
+*ExitServer: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not {
+     (WARNING: Cannot modify initial VM.) =
+     (Missing or invalid password.) =
+     (Please contact the author of this software.) = flush quit
+     } if
+"
+*End
+*Reset: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not {
+    (WARNING: Cannot reset printer.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+    } if
+ systemdict /quit get exec
+ (WARNING : Printer Reset Failed.) = flush
+"
+*End
+
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "300"
+*PrintPSErrors: True
+
+*% OutputMode Information ===================
+*DefaultResolution: 600dpi
+
+*AccurateScreensSupport: True
+
+*% UI Constraints
+
+*% Media size v/s Duplex Constraints
+*UIConstraints: *Duplex *PageSize Env10
+*UIConstraints: *Duplex *PageSize EnvMonarch
+*UIConstraints: *Duplex *PageSize EnvDL
+*UIConstraints: *Duplex *PageSize EnvC5
+*UIConstraints: *Duplex *PageSize A6
+*UIConstraints: *Duplex *PageSize B5
+*UIConstraints: *Duplex *PageSize B6
+*UIConstraints: *Duplex *PageSize 4x6Postcard
+*UIConstraints: *Duplex *PageSize 5x7
+*UIConstraints: *Duplex *PageSize EnvC6
+
+*% Duplex Installable options v/s Duplex Constraints
+*UIConstraints: *XRXOptionDuplex False *Duplex
+*UIConstraints: *Duplex *XRXOptionDuplex False
+
+*% Media size v/s Tray Constraints
+*UIConstraints: *PageSize A6 *InputSlot Tray2
+
+*UIConstraints: *PageSize B5 *InputSlot Tray1
+*UIConstraints: *PageSize B5 *InputSlot Bypass
+*UIConstraints: *PageSize B6 *InputSlot Tray1
+*UIConstraints: *PageSize B6 *InputSlot Tray2
+
+*UIConstraints: *PageSize Env10 *InputSlot Tray2
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray2
+*UIConstraints: *PageSize EnvDL *InputSlot Tray2
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray2
+*UIConstraints: *PageSize 4x6Postcard *InputSlot Tray2
+*UIConstraints: *PageSize 5x7 *InputSlot Tray2
+*UIConstraints: *PageSize EnvC6 *InputSlot Tray2
+*UIConstraints: *PageSize Statement *InputSlot Tray2
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot Tray2
+*UIConstraints: *PageSize 8x10 *InputSlot Tray2
+
+*%	Media Size v/s Media type Constraints
+*UIConstraints :*PageSize Env10 *MediaType Unspecified
+*UIConstraints :*MediaType Unspecified *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Plain
+*UIConstraints :*MediaType Plain *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Recycled
+*UIConstraints :*MediaType Recycled *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType PrepunchedPlain
+*UIConstraints :*MediaType PrepunchedPlain *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType LetterheadPlain
+*UIConstraints :*MediaType LetterheadPlain *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType ThinCardStock
+*UIConstraints :*MediaType ThinCardStock *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType LightweightCardstock
+*UIConstraints :*MediaType LightweightCardstock *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType GlossyCardstock
+*UIConstraints :*MediaType GlossyCardstock *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Bond
+*UIConstraints :*MediaType Bond *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Labels
+*UIConstraints :*MediaType Labels *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Preprinted
+*UIConstraints :*MediaType Preprinted *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType GlossyLightCard
+*UIConstraints :*MediaType GlossyLightCard *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Custom1
+*UIConstraints :*MediaType Custom1 *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Custom2
+*UIConstraints :*MediaType Custom2 *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Custom3
+*UIConstraints :*MediaType Custom3 *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Custom4
+*UIConstraints :*MediaType Custom4 *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Custom5
+*UIConstraints :*MediaType Custom5 *PageSize Env10
+*UIConstraints :*PageSize Env10 *MediaType Auto
+*UIConstraints :*MediaType Auto *PageSize Env10
+
+*UIConstraints :*PageSize EnvMonarch *MediaType Unspecified
+*UIConstraints :*MediaType Unspecified *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Plain
+*UIConstraints :*MediaType Plain *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Recycled
+*UIConstraints :*MediaType Recycled *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType PrepunchedPlain
+*UIConstraints :*MediaType PrepunchedPlain *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType LetterheadPlain
+*UIConstraints :*MediaType LetterheadPlain *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType ThinCardStock
+*UIConstraints :*MediaType ThinCardStock *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType LightweightCardstock
+*UIConstraints :*MediaType LightweightCardstock *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType GlossyCardstock
+*UIConstraints :*MediaType GlossyCardstock *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Bond
+*UIConstraints :*MediaType Bond *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Labels
+*UIConstraints :*MediaType Labels *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Preprinted
+*UIConstraints :*MediaType Preprinted *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType GlossyLightCard
+*UIConstraints :*MediaType GlossyLightCard *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Custom1
+*UIConstraints :*MediaType Custom1 *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Custom2
+*UIConstraints :*MediaType Custom2 *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Custom3
+*UIConstraints :*MediaType Custom3 *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Custom4
+*UIConstraints :*MediaType Custom4 *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Custom5
+*UIConstraints :*MediaType Custom5 *PageSize EnvMonarch
+*UIConstraints :*PageSize EnvMonarch *MediaType Auto
+*UIConstraints :*MediaType Auto *PageSize EnvMonarch
+
+*UIConstraints :*PageSize EnvDL *MediaType Unspecified
+*UIConstraints :*MediaType Unspecified *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Plain
+*UIConstraints :*MediaType Plain *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Recycled
+*UIConstraints :*MediaType Recycled *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType PrepunchedPlain
+*UIConstraints :*MediaType PrepunchedPlain *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType LetterheadPlain
+*UIConstraints :*MediaType LetterheadPlain *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType ThinCardStock
+*UIConstraints :*MediaType ThinCardStock *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType LightweightCardstock
+*UIConstraints :*MediaType LightweightCardstock *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType GlossyCardstock
+*UIConstraints :*MediaType GlossyCardstock *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Bond
+*UIConstraints :*MediaType Bond *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Labels
+*UIConstraints :*MediaType Labels *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Preprinted
+*UIConstraints :*MediaType Preprinted *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType GlossyLightCard
+*UIConstraints :*MediaType GlossyLightCard *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Custom1
+*UIConstraints :*MediaType Custom1 *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Custom2
+*UIConstraints :*MediaType Custom2 *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Custom3
+*UIConstraints :*MediaType Custom3 *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Custom4
+*UIConstraints :*MediaType Custom4 *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Custom5
+*UIConstraints :*MediaType Custom5 *PageSize EnvDL
+*UIConstraints :*PageSize EnvDL *MediaType Auto
+*UIConstraints :*MediaType Auto *PageSize EnvDL
+
+*UIConstraints :*PageSize EnvC5 *MediaType Unspecified
+*UIConstraints :*MediaType Unspecified *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Plain
+*UIConstraints :*MediaType Plain *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Recycled
+*UIConstraints :*MediaType Recycled *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType PrepunchedPlain
+*UIConstraints :*MediaType PrepunchedPlain *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType LetterheadPlain
+*UIConstraints :*MediaType LetterheadPlain *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType ThinCardStock
+*UIConstraints :*MediaType ThinCardStock *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType LightweightCardstock
+*UIConstraints :*MediaType LightweightCardstock *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType GlossyCardstock
+*UIConstraints :*MediaType GlossyCardstock *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Bond
+*UIConstraints :*MediaType Bond *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Labels
+*UIConstraints :*MediaType Labels *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Preprinted
+*UIConstraints :*MediaType Preprinted *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType GlossyLightCard
+*UIConstraints :*MediaType GlossyLightCard *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Custom1
+*UIConstraints :*MediaType Custom1 *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Custom2
+*UIConstraints :*MediaType Custom2 *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Custom3
+*UIConstraints :*MediaType Custom3 *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Custom4
+*UIConstraints :*MediaType Custom4 *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Custom5
+*UIConstraints :*MediaType Custom5 *PageSize EnvC5
+*UIConstraints :*PageSize EnvC5 *MediaType Auto
+*UIConstraints :*MediaType Auto *PageSize EnvC5
+
+*UIConstraints :*PageSize EnvC6 *MediaType Unspecified
+*UIConstraints :*MediaType Unspecified *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Plain
+*UIConstraints :*MediaType Plain *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Recycled
+*UIConstraints :*MediaType Recycled *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType PrepunchedPlain
+*UIConstraints :*MediaType PrepunchedPlain *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType LetterheadPlain
+*UIConstraints :*MediaType LetterheadPlain *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType ThinCardStock
+*UIConstraints :*MediaType ThinCardStock *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType LightweightCardstock
+*UIConstraints :*MediaType LightweightCardstock *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType GlossyCardstock
+*UIConstraints :*MediaType GlossyCardstock *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Bond
+*UIConstraints :*MediaType Bond *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Labels
+*UIConstraints :*MediaType Labels *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Preprinted
+*UIConstraints :*MediaType Preprinted *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType GlossyLightCard
+*UIConstraints :*MediaType GlossyLightCard *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Custom1
+*UIConstraints :*MediaType Custom1 *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Custom2
+*UIConstraints :*MediaType Custom2 *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Custom3
+*UIConstraints :*MediaType Custom3 *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Custom4
+*UIConstraints :*MediaType Custom4 *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Custom5
+*UIConstraints :*MediaType Custom5 *PageSize EnvC6
+*UIConstraints :*PageSize EnvC6 *MediaType Auto
+*UIConstraints :*MediaType Auto *PageSize EnvC6
+
+*%	Media type v/s  Tray Constraints
+*UIConstraints: *MediaType Envelope *InputSlot  Tray2
+
+
+*%	Media type v/s  Duplex Constraints
+*UIConstraints: *Duplex *MediaType Labels
+*UIConstraints: *Duplex *MediaType Envelope
+*UIConstraints: *Duplex *MediaType GlossyCardstock
+*UIConstraints: *Duplex *MediaType ThinCardStock
+
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 10 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter (8.5 x 11"): "2 dict dup /PageSize [612 792] put dup /CustomPageSize false put setpagedevice"
+*PageSize Legal/Legal (8.5 x 14"): "2 dict dup /PageSize [612 1008] put dup /CustomPageSize false put setpagedevice"
+*PageSize Statement/Statement (5.5 x 8.5"): "2 dict dup /PageSize [396 612] put dup /CustomPageSize false put setpagedevice"
+*PageSize Executive/Executive (7.25 x 10.5"): "2 dict dup /PageSize [522 756] put dup /CustomPageSize false put setpagedevice"
+*PageSize FanFoldGermanLegal/8.5 x 13": "2 dict dup /PageSize [612 936] put dup /CustomPageSize false put setpagedevice"
+*PageSize 8x10/8 x 10": "2 dict dup /PageSize [576 720] put dup /CustomPageSize false put setpagedevice"
+*PageSize 215x315/215 x 315 mm: "2 dict dup /PageSize [609 893] put dup /CustomPageSize false put setpagedevice"
+*PageSize A4/A4 (210 x 297 mm): "2 dict dup /PageSize [595 842] put dup /CustomPageSize false put setpagedevice"
+*PageSize A5/A5 (148 x 210 mm): "2 dict dup /PageSize [420 595] put dup /CustomPageSize false put setpagedevice"
+*PageSize A6/A6 (105 x 148 mm): "2 dict dup /PageSize [297 420] put dup /CustomPageSize false put setpagedevice"
+*PageSize B5/JIS B5 (182 x 257 mm): "2 dict dup /PageSize [516 729] put dup /CustomPageSize null put setpagedevice"
+*PageSize B6/JIS B6 (128 x 182 mm): "2 dict dup /PageSize [363 516] put dup /CustomPageSize null put setpagedevice"
+*PageSize 4x6Postcard/Postcard (4 x 6"): "2 dict dup /PageSize [288 432] put dup /CustomPageSize false put setpagedevice"
+*PageSize 5x7/5 x 7": "2 dict dup /PageSize [360 504] put dup /CustomPageSize false put setpagedevice"
+*PageSize EnvC6/C6 Envelope (114 x 162 mm): "2 dict dup /PageSize [323 459] put dup /CustomPageSize false put setpagedevice"
+*PageSize Env10/No. 10 Envelope (4.1 x 9.5"): "2 dict dup /PageSize [297 684] put dup /CustomPageSize false put setpagedevice"
+*PageSize EnvMonarch/Monarch Envelope (3.9 x 7.5"): "2 dict dup /PageSize [279 540] put dup /CustomPageSize false put setpagedevice"
+*PageSize EnvDL/DL Envelope (110 x 220 mm): "2 dict dup /PageSize [312 624] put dup /CustomPageSize false put setpagedevice"
+*PageSize EnvC5/C5 Envelope (162 x 229 mm): "2 dict dup /PageSize [459 649] put dup /CustomPageSize false put setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 10 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter (8.5 x 11"): "2 dict dup /PageSize [612 792] put dup /CustomPageSize false put setpagedevice"
+*PageRegion Legal/Legal (8.5 x 14"): "2 dict dup /PageSize [612 1008] put dup /CustomPageSize false put setpagedevice"
+*PageRegion Statement/Statement (5.5 x 8.5"): "2 dict dup /PageSize [396 612] put dup /CustomPageSize false put setpagedevice"
+*PageRegion Executive/Executive (7.25 x 10.5"): "2 dict dup /PageSize [522 756] put dup /CustomPageSize false put setpagedevice"
+*PageRegion FanFoldGermanLegal/8.5 x 13": "2 dict dup /PageSize [612 936] put dup /CustomPageSize false put setpagedevice"
+*PageRegion 8x10/8 x 10": "2 dict dup /PageSize [576 720] put dup /CustomPageSize false put setpagedevice"
+*PageRegion 215x315/215 x 315 mm: "2 dict dup /PageSize [609 893] put dup /CustomPageSize false put setpagedevice"
+*PageRegion A4/A4 (210 x 297 mm): "2 dict dup /PageSize [595 842] put dup /CustomPageSize false put setpagedevice"
+*PageRegion A5/A5 (148 x 210 mm): "2 dict dup /PageSize [420 595] put dup /CustomPageSize false put setpagedevice"
+*PageRegion A6/A6 (105 x 148 mm): "2 dict dup /PageSize [297 420] put dup /CustomPageSize false put setpagedevice"
+*PageRegion B5/JIS B5 (182 x 257 mm): "2 dict dup /PageSize [516 729] put dup /CustomPageSize null put setpagedevice"
+*PageRegion B6/JIS B6 (128 x 182 mm): "2 dict dup /PageSize [363 516] put dup /CustomPageSize null put setpagedevice"
+*PageRegion 4x6Postcard/Postcard (4 x 6"): "2 dict dup /PageSize [288 432] put dup /CustomPageSize false put setpagedevice"
+*PageRegion 5x7/5 x 7": "2 dict dup /PageSize [360 504] put dup /CustomPageSize false put setpagedevice"
+*PageRegion EnvC6/C6 Envelope (114 x 162 mm): "2 dict dup /PageSize [323 459] put dup /CustomPageSize false put setpagedevice"
+*PageRegion Env10/No. 10 Envelope (4.1 x 9.5"): "2 dict dup /PageSize [297 684] put dup /CustomPageSize false put setpagedevice"
+*PageRegion EnvMonarch/Monarch Envelope (3.9 x 7.5"): "2 dict dup /PageSize [279 540] put dup /CustomPageSize false put setpagedevice"
+*PageRegion EnvDL/DL Envelope (110 x 220 mm): "2 dict dup /PageSize [312 624] put dup /CustomPageSize false put setpagedevice"
+*PageRegion EnvC5/C5 Envelope (162 x 229 mm): "2 dict dup /PageSize [459 649] put dup /CustomPageSize false put setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter (8.5 x 11"): "14.199999809265 14.199999809265 597.799987792969 777.799987792969"
+*ImageableArea Legal/Legal (8.5 x 14"): "14.199999809265 14.199999809265 597.799987792969 993.799987792969"
+*ImageableArea Statement/Statement (5.5 x 8.5"): "11.34 11.34 384.66 600.66"
+*ImageableArea Executive/Executive (7.25 x 10.5"): "14.199999809265 14.199999809265 507.799987792969 741.799987792969"
+*ImageableArea FanFoldGermanLegal/8.5 x 13": "14.199999809265 14.199999809265 597.799987792969 921.799987792969"
+*ImageableArea 8x10/8 x 10":  "11.34 11.34 564.66 708.66"
+*ImageableArea 215x315/215 x 315 mm: "11.34 11.34 597.66 881.66"
+*ImageableArea A4/A4 (210 x 297 mm): "14.199999809265 14.199999809265 580.799987792969 827.799987792969"
+*ImageableArea A5/A5 (148 x 210 mm): "14.199999809265 14.199999809265 405.799987792969 580.799987792969"
+*ImageableArea A6/A6 (105 x 148 mm): "11.34 11.34 285.66 408.66"
+*ImageableArea B5/JIS B5 (182 x 257 mm): "14.199999809265 14.199999809265 501.799987792969 714.799987792969"
+*ImageableArea B6/JIS B6 (128 x 182 mm): "11.34 11.34 351.66 504.66"
+*ImageableArea 4x6Postcard/Postcard (4 x 6"): "11.34 11.34 276.66 420.66"
+*ImageableArea 5x7/5 x 7": "11.34 11.34 348.66 492.66"
+*ImageableArea EnvC6/C6 Envelope (114 x 162 mm): "11.34 11.34 311.66 447.66"
+*ImageableArea Env10/No. 10 Envelope (4.1 x 9.5"): "14.199999809265 14.199999809265 282.799987792969 669.799987792969"
+*ImageableArea EnvMonarch/Monarch Envelope (3.9 x 7.5"): "14.199999809265 14.199999809265 264.799987792969 525.799987792969"
+*ImageableArea EnvDL/DL Envelope (110 x 220 mm): "14.199999809265 14.199999809265 297.799987792969 609.799987792969"
+*ImageableArea EnvC5/C5 Envelope (162 x 229 mm): "14.199999809265 14.199999809265 444.799987792969 634.799987792969"
+
+
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter (8.5 x 11"): "612 792"
+*PaperDimension Legal/Legal (8.5 x 14"): "612 1008"
+*PaperDimension Statement/Statement (5.5 x 8.5"): "396 612"
+*PaperDimension Executive/Executive (7.25 x 10.5"): "522 756"
+*PaperDimension 8x10/8 x 10": "576 720"
+*PaperDimension 215x315/215 x 315 mm: "609 893"
+*PaperDimension A4/A4 (210 x 297 mm): "595 842"
+*PaperDimension A5/A5 (148 x 210 mm): "420 595"
+*PaperDimension A6/A6 (105 x 148 mm): "297 420"
+*PaperDimension B5/JIS B5 (182 x 257 mm): "516 729"
+*PaperDimension B6/JIS B6 (128 x 182 mm): "363 516"
+*PaperDimension 4x6Postcard/Postcard (4 x 6"): "288 432"
+*PaperDimension 5x7/5 x 7": "360 504"
+*PaperDimension EnvC6/C6 Envelope (114 x 162 mm): "323 459"
+*PaperDimension FanFoldGermanLegal/8.5 x 13": "612 936"
+*PaperDimension Env10/No. 10 Envelope (4.1 x 9.5"): "297 684"
+*PaperDimension EnvMonarch/Monarch Envelope (3.9 x 7.5"): "279 540"
+*PaperDimension EnvDL/DL Envelope (110 x 220 mm): "312 624"
+*PaperDimension EnvC5/C5 Envelope (162 x 229 mm): "459 649"
+
+
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1009"
+*HWMargins: 14.199999809265 14.199999809265 14.199999809265 14.199999809265
+*CustomPageSize True: "pop pop pop << /PageSize[5 -2 roll] /ImagingBBox null /CustomPageSize true >> xerox$pagedevice copy pop"
+*ParamCustomPageSize Width: 1 points 215 612
+*ParamCustomPageSize Height: 2 points 360 1009
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 1
+
+
+*OpenUI *Collate/Collated: Boolean
+*OrderDependency: 10.0 AnySetup *Collate
+*DefaultCollate: True
+*Collate False/Off: "<< /Collate false >> setpagedevice"
+*Collate True/On: "<< /Collate true >> setpagedevice"
+*CloseUI: *Collate
+
+*OpenUI *InputSlot/InputSlot: PickOne
+*OrderDependency: 10 AnySetup *InputSlot
+*DefaultInputSlot: Tray1
+*InputSlot Tray1/Tray 1: "<< (tray-1) xerox$MediaInputTray >> setpagedevice"
+*InputSlot Tray2/Tray 2: "<< (tray-2) xerox$MediaInputTray >> setpagedevice"
+*InputSlot Bypass/Bypass Tray: "<< (bypass-tray) xerox$MediaInputTray >> setpagedevice"
+*CloseUI: *InputSlot
+
+*OpenGroup: PaperOutput/Paper/Output
+
+*OpenUI *MediaType/Media Type: PickOne
+*OrderDependency: 10 AnySetup *MediaType
+*DefaultMediaType: Unspecified
+*MediaType Unspecified/Printer Default Type: "1 dict dup /MediaType (system-default) put setpagedevice"
+*MediaType Plain/Plain: "1 dict dup /MediaType (stationery) put setpagedevice"
+*MediaType Recycled/Recycled: "1 dict dup /MediaType (stationery-recycled) put setpagedevice"
+*MediaType PrepunchedPlain/Hole Punched: "1 dict dup /MediaType (stationery-pre-punched) put setpagedevice"
+*MediaType LetterheadPlain/Letterhead: "1 dict dup /MediaType (stationery-letterhead) put setpagedevice"
+*MediaType ThinCardStock/Cardstock: "1 dict dup /MediaType (cardstock) put setpagedevice"
+*MediaType LightweightCardstock/Lightweight Cardstock: "1 dict dup /MediaType (cardstock-lightweight) put setpagedevice"
+*MediaType GlossyCardstock/Glossy Cardstock: "1 dict dup /MediaType (cardstock-glossy) put setpagedevice"
+*MediaType Bond/Bond: "1 dict dup /MediaType (bond) put setpagedevice"
+*MediaType Labels/Labels: "1 dict dup /MediaType (labels) put setpagedevice"
+*MediaType Envelope/Envelope: "1 dict dup /MediaType (envelope) put setpagedevice"
+*MediaType Preprinted/Pre-Printed: "1 dict dup /MediaType (stationery-pre-printed) put setpagedevice"
+*MediaType GlossyLightCard/Lightweight Glossy Cardstock: "1 dict dup /MediaType (cardstock-lightweight-glossy) put setpagedevice"
+*MediaType Custom1/Custom Type 1: "1 dict dup /MediaType (custom1) put setpagedevice"
+*MediaType Custom2/Custom Type 2: "1 dict dup /MediaType (custom2) put setpagedevice"
+*MediaType Custom3/Custom Type 3: "1 dict dup /MediaType (custom3) put setpagedevice"
+*MediaType Custom4/Custom Type 4: "1 dict dup /MediaType (custom4) put setpagedevice"
+*MediaType Custom5/Custom Type 5: "1 dict dup /MediaType (custom5) put setpagedevice"
+*MediaType Auto/Automatically Select: "1 dict dup /MediaType (use-ready) put setpagedevice"
+*CloseUI: *MediaType
+
+*OpenUI *MediaColor/Media Color: PickOne
+*OrderDependency: 10 AnySetup *MediaColor
+*DefaultMediaColor: White
+*MediaColor Unspecified/Automatically Select: "1 dict dup /MediaColor (use-ready) put setpagedevice"
+*MediaColor SystemDefault/Printer Default Color: "1 dict dup /MediaColor (system-default) put setpagedevice"
+*MediaColor White/White: "1 dict dup /MediaColor (white) put setpagedevice"
+*MediaColor Blue/Blue: "1 dict dup /MediaColor (blue) put setpagedevice"
+*MediaColor Yellow/Yellow: "1 dict dup /MediaColor (yellow) put setpagedevice"
+*MediaColor Green/Green: "1 dict dup /MediaColor (green) put setpagedevice"
+*MediaColor Pink/Pink: "1 dict dup /MediaColor (pink) put setpagedevice"
+*MediaColor Ivory/Ivory: "1 dict dup /MediaColor (ivory) put setpagedevice"
+*MediaColor Gray/Gray: "1 dict dup /MediaColor (gray) put setpagedevice"
+*MediaColor Buff/Buff: "1 dict dup /MediaColor (buff) put setpagedevice"
+*MediaColor Goldenrod/Goldenrod: "1 dict dup /MediaColor (goldenrod) put setpagedevice"
+*MediaColor Red/Red: "1 dict dup /MediaColor (red) put setpagedevice"
+*MediaColor Orange/Orange: "1 dict dup /MediaColor (orange) put setpagedevice"
+*MediaColor CustomColor1/Custom Color 1: "1 dict dup /MediaColor (custom1) put setpagedevice"
+*MediaColor CustomColor2/Custom Color 2: "1 dict dup /MediaColor (custom2) put setpagedevice"
+*MediaColor CustomColor3/Custom Color 3: "1 dict dup /MediaColor (custom3) put setpagedevice"
+*MediaColor CustomColor4/Custom Color 4: "1 dict dup /MediaColor (custom4) put setpagedevice"
+*MediaColor CustomColor5/Custom Color 5: "1 dict dup /MediaColor (custom5) put setpagedevice"
+*MediaColor CustomColor6/Custom Color 6: "1 dict dup /MediaColor (custom6) put setpagedevice"
+*MediaColor CustomColor7/Custom Color 7: "1 dict dup /MediaColor (custom7) put setpagedevice"
+*MediaColor Other/Other Color: "1 dict dup /MediaColor (other) put setpagedevice"
+*CloseUI: *MediaColor
+
+*OpenUI *Duplex/2 Sided Printing: PickOne
+*OrderDependency: 100.0 AnySetup *Duplex
+*DefaultDuplex: DuplexNoTumble
+*Duplex None/1-Sided Print: "<< /Duplex false /Tumble false >> setpagedevice"
+*Duplex DuplexNoTumble/2 Sided Print: "<< /Duplex true /Tumble false >> setpagedevice"
+*Duplex DuplexTumble/2-Sided Print, Flip on Short Edge: "<< /Duplex true /Tumble true >> setpagedevice"
+*CloseUI: *Duplex
+
+*CloseGroup: PaperOutput
+
+*OpenGroup: PrintQuality/Print Quality/Color
+
+*OpenUI *OutputMode/Print Quality: PickOne
+*OrderDependency: 46.0 AnySetup *OutputMode
+*DefaultOutputMode: Standard
+*OutputMode Enhanced/Enhanced: "
+	<</PostRenderingEnhance true
+	/PostRenderingEnhanceDetails currentpagedevice
+	1 index get 1 dict copy
+	dup /Type 33 put
+	dup /OutputMode (enhanced) put
+	>> setpagedevice
+"
+*End
+*OutputMode Standard/Standard: "
+	<</PostRenderingEnhance true
+	/PostRenderingEnhanceDetails currentpagedevice
+	1 index get 1 dict copy
+	dup /Type 33 put
+	dup /OutputMode (standard) put
+	>> setpagedevice
+"
+*End
+*CloseUI: *OutputMode
+
+*CloseGroup: PrintQuality
+
+*JCLBegin:"<1B>%-12345X@PJL JOB<0A>"
+
+*%				Banner Sheet
+*JCLOpenUI *JCLBanner/Banner Sheet: Boolean
+*OrderDependency: 10.0 JCLSetup *JCLBanner
+*DefaultJCLBanner: False
+*JCLBanner True/Enabled: "@PJL SET JOBATTR=<22>@BANR=START<22><0A>"
+*JCLBanner False/Disabled: "@PJL SET JOBATTR=<22>@BANR=OFF<22><0A>"
+*JCLCloseUI: *JCLBanner
+
+*JCLOpenUI *JCLJobType/Job Type: PickOne
+*OrderDependency: 20.0 JCLSetup *JCLJobType
+*DefaultJCLJobType: Normal
+*JCLJobType Normal/Normal Print: "@PJL JOB MODE=PRINTER"
+*JCLCloseUI: *JCLJobType
+
+*JCLToPSInterpreter:"@PJL ENTER LANGUAGE = POSTSCRIPT<0A>"
+*JCLEnd:"<1B>%-12345X@PJL EOJ<0A><1B>%-12345X<0A>"
+
+
+*% =============== Font Information ===============
+
+*FCacheSize 768Meg: 1441792
+*FCacheSize 1024Meg: 1441792
+
+*DefaultFont: Courier
+
+*Font AlbertusMT-Italic: Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.001)" Standard ROM
+*Font AlbertusMT: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Compact: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(001.002)" Standard ROM
+*Font Apple-Chancery: Standard "(001.002)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(001.003)" Standard ROM
+*Font Arial-BoldMT: Standard "(001.003)" Standard ROM
+*Font Arial-ItalicMT: Standard "(001.003)" Standard ROM
+*Font ArialMT: Standard "(001.003)" Standard ROM
+*Font AvantGarde-Book: Standard "(003.000)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(003.000)" Standard ROM
+*Font AvantGarde-Demi: Standard "(003.000)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(003.000)" Standard ROM
+*Font Bodoni-Bold: Standard "(001.003)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Italic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Poster: Standard "(001.003)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(001.002)" Standard ROM
+*Font Bodoni: Standard "(001.003)" Standard ROM
+*Font Bookman-Demi: Standard "(003.000)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(003.000)" Standard ROM
+*Font Bookman-Light: Standard "(003.000)" Standard ROM
+*Font Bookman-LightItalic: Standard "(003.000)" Standard ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(001.000)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(001.002)" Standard ROM
+*Font Clarendon-Light: Standard "(001.002)" Standard ROM
+*Font Clarendon: Standard "(001.002)" Standard ROM
+*Font CooperBlack-Italic: Standard "(001.004)" Standard ROM
+*Font CooperBlack: Standard "(001.004)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.003)" Standard ROM
+*Font Coronet-Regular: Standard "(001.002)" Standard ROM
+*Font Courier-Bold: Standard "(004.000)" Standard ROM
+*Font Courier-BoldOblique: Standard "(004.000)" Standard ROM
+*Font Courier-Oblique: Standard "(004.000)" Standard ROM
+*Font Courier: Standard "(004.000)" Standard ROM
+*Font Eurostile-Bold: Standard "(001.002)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Eurostile: Standard "(001.003)" Standard ROM
+*Font Geneva: Standard "(001.000)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(001.002)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(001.002)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(001.003)" Standard ROM
+*Font GillSans-Condensed: Standard "(001.002)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(001.002)" Standard ROM
+*Font GillSans-Italic: Standard "(001.003)" Standard ROM
+*Font GillSans-Light: Standard "(001.002)" Standard ROM
+*Font GillSans-LightItalic: Standard "(001.003)" Standard ROM
+*Font GillSans: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.003)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.002)" Standard ROM
+*Font Goudy-Italic: Standard "(001.003)" Standard ROM
+*Font Goudy: Standard "(001.004)" Standard ROM
+*Font Helvetica-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow: Standard "(003.000)" Standard ROM
+*Font Helvetica-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica: Standard "(003.000)" Standard ROM
+*Font HoeflerText-Black: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font JoannaMT-Bold: Standard "(001.001)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Italic: Standard "(001.001)" Standard ROM
+*Font JoannaMT: Standard "(001.001)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.007)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(001.006)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LubalinGraph-Book: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(001.004)" Standard ROM
+*Font Marigold: Standard "(001.001)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.001)" Standard ROM
+*Font Monaco: Standard "(001.001)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Bold: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(003.000)" Standard ROM
+*Font NewYork: Standard "(001.000)" ExtendedRoman ROM
+*Font OCRBLetM: Standard "(1.05)" Standard ROM
+*Font Optima-Bold: Standard "(001.007)" Standard ROM
+*Font Optima-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Optima-Italic: Standard "(001.001)" Standard ROM
+*Font Optima: Standard "(001.006)" Standard ROM
+*Font Oxford: Standard "(001.001)" Standard ROM
+*Font Palatino-Bold: Standard "(003.000)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Palatino-Italic: Standard "(003.000)" Standard ROM
+*Font Palatino-Roman: Standard "(003.000)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(001.003)" Standard ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.002)" Standard ROM
+*Font Times-Bold: Standard "(003.000)" Standard ROM
+*Font Times-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Times-Italic: Standard "(003.000)" Standard ROM
+*Font Times-Roman: Standard "(003.000)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(001.004)" Standard ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPSMT: Standard "(001.003)" Standard ROM
+*Font Univers-Bold: Standard "(001.004)" Standard ROM
+*Font Univers-BoldExt: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(001.001)" Standard ROM
+*Font Univers-BoldOblique: Standard "(001.004)" Standard ROM
+*Font Univers-Condensed: Standard "(001.003)" Standard ROM
+*Font Univers-CondensedBold: Standard "(001.002)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(001.002)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(001.003)" Standard ROM
+*Font Univers-Extended: Standard "(001.001)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(001.001)" Standard ROM
+*Font Univers-Light: Standard "(001.004)" Standard ROM
+*Font Univers-LightOblique: Standard "(001.004)" Standard ROM
+*Font Univers-Oblique: Standard "(001.004)" Standard ROM
+*Font Univers: Standard "(001.004)" Standard ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(003.000)" Standard ROM
+*Font ZapfDingbats: Special "(002.000)" Special ROM
+
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+        /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse
+   } bind loop
+   (*) = flush
+ restore
+"
+*End
+
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+
+*% Printer Messages (verbatim from printer):
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "initializing"
+*Status: "idle"
+*Status: "holding"
+*Status: "busy"
+*Status: "waiting"
+*Status: "PrinterError: Service Call"
+*Status: "PrinterError: Drum&Toner Cartridge is Missing"
+*Status: "PrinterError: No Toner"
+*Status: "PrinterError: Left Hand Cover Open"
+*Status: "PrinterError: Cabinet Left Hand Cover Open"
+*Status: "PrinterError: Duplex Docking Cover Open"
+*Status: "PrinterError: Side Tray Docking Unit Open"
+*Status: "PrinterError: Side Tray Hand Cover Open"
+*Status: "PrinterError: Tray Lifter Failed"
+*Status: "PrinterError: Paper Jam"
+*Status: "PrinterError: Paper Jam at Fuser"
+*Status: "PrinterError: Paper Jam at Registration Roller"
+*Status: "PrinterError: Paper Jam at Duplex Module"
+*Status: "PrinterError: Paper Jam at Duplex Tray"
+*Status: "PrinterError: Paper Jam at Tray1"
+*Status: "PrinterError: Paper Jam at Tray2"
+*Status: "PrinterError: Paper Jam at Tray3"
+*Status: "PrinterError: Paper Jam at Tray4"
+*Status: "PrinterError: Paper Jam at Manual Feed Tray"
+*Status: "PrinterError: Paper Jam at Side Tray"
+*Status: "PrinterError: Center bin is Full"
+*Status: "PrinterError: Duplex Module Fail"
+*Status: "PrinterError: Tray is Missing"
+*Status: "PrinterError: Any Trays are Missing"
+*Status: "PrinterError: Out of Paper in All Trays"
+*Status: "PrinterError: Out of Paper"
+*Status: "PrinterError: Out of Paper in Maunal Feed Tray"
+
+*% Printer Error (format: %%[ PrinterError: <one of these> ]%%)
+*PrinterError: "Service Call"
+*PrinterError: "Drum&Toner Cartridge is Missing"
+*PrinterError: "No Toner"
+*PrinterError: "Left Hand Cover Open"
+*PrinterError: "Cabinet Left Hand Cover Open"
+*PrinterError: "Duplex Docking Cover Open"
+*PrinterError: "Side Tray Docking Unit Open"
+*PrinterError: "Side Tray Hand Cover Open"
+*PrinterError: "Tray Lifter Failed"
+*PrinterError: "Paper Jam"
+*PrinterError: "Paper Jam at Fuser"
+*PrinterError: "Paper Jam at Registration Roller"
+*PrinterError: "Paper Jam at Duplex Module"
+*PrinterError: "Paper Jam at Duplex Tray"
+*PrinterError: "Paper Jam at Tray1"
+*PrinterError: "Paper Jam at Tray2"
+*PrinterError: "Paper Jam at Tray3"
+*PrinterError: "Paper Jam at Tray4"
+*PrinterError: "Paper Jam at Manual Feed Tray"
+*PrinterError: "Paper Jam at Side Tray"
+*PrinterError: "Center bin is Full"
+*PrinterError: "Duplex Module Fail"
+*PrinterError: "Tray is Missing"
+*PrinterError: "Any Trays are Missing"
+*PrinterError: "Out of Paper in All Trays"
+*PrinterError: "Out of Paper"
+*PrinterError: "Out of Paper in Maunal Feed Tray"
+
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Serial"
+*Source: "Parallel"
+*Source: "LocalTalk"
+*Source: "EtherTalk"
+*Source: "RemotePrinter"
+*Source: "PrintServer"
+*Source: "LPR"
+*Source: "Internal"
+
+*% Color Separation Information =====================
+*DefaultGuaranteedMaxSeparations: 1
+*GuaranteedMaxSeparations 4: ""
+*GuaranteedMaxSeparations 3: ""
+*GuaranteedMaxSeparations 2: ""
+*GuaranteedMaxSeparations 1: ""
+*?GuaranteedMaxSeparations: "
+    currentpagedevice /MaxSeparations get ="
+*End
+*% End of xrx6515.ppd

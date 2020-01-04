@@ -1,0 +1,6 @@
+---
+- name: restart gdm
+  systemd:
+    daemon_reload: true
+    name: gdm
+    state: restarted

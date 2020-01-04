@@ -103,6 +103,12 @@
   roles:
   - { role: video-web-frontend, tags: [ 'video-web-frontend' ] }
 
+- name: infosesk laptops
+  hosts: infodesk-laptop
+  remote_user: root
+  tags: [infodesk-laptop]
+  roles:
+  - { role: infodesk-laptop, tags: [ 'infodesk-laptop' ] }
 
 ##
 ## Specific roles

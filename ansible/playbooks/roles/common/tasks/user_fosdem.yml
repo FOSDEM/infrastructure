@@ -11,7 +11,7 @@
     uid: 1000
     group: fosdem
     shell: /bin/bash
-    password: ""
+    password: "{{ user_fosdem_password|default('') }}"
 
 - name: add ssh keys to fosdem user
   authorized_key:

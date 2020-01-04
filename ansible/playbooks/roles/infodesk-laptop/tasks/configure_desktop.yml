@@ -1,0 +1,95 @@
+---
+- name: install desktop packages
+  apt:
+    state: latest
+    package:
+    - chromium
+    - filezilla
+    - gdm3
+    - hexchat
+    - hexchat-plugins
+    - libreoffice
+    - mtp-tools
+    - network-manager-gnome
+    - task-gnome-desktop
+    - terminator
+    - vlc
+
+- name: configure gdm3
+  copy:
+    src: gdm3/daemon.conf
+    dest: /etc/gdm3/daemon.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: generate en_GB.UTF-8 locale
+  locale_gen:
+    name: en_GB.UTF-8
+    state: present
+
+- name: enable gdm service
+  systemd:
+    name: gdm3
+    enabled: true
+    state: started
+
+- name: copy wallpaper
+  copy:
+    src: wallpaper.png
+    dest: /home/fosdem/.wallpaper.png
+    owner: fosdem
+    group: fosdem
+
+- name: set dconf properties
+  become: true
+  become_user: fosdem
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+  - key: /system/locale
+    value: "'en_GB.UTF-8'"
+
+  - key: /org/gnome/desktop/lockdown/disable-lock-screen
+    value: "true"
+
+  - key: /org/gnome/desktop/session/idle-delay
+    value: "uint32 0"
+
+  - key: /org/gnome/settings-daemon/plugins/power/idle-dim
+    value: "false"
+
+  - key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout
+    value: "1200"
+
+  - key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
+    value: "'nothing'"
+
+  - key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout
+    value: "1800"
+
+  - key: /org/gnome/desktop/screensaver/idle-activation-enabled
+    value: "false"
+
+  - key: /org/gnome/desktop/screensaver/lock-enabled
+    value: "false"
+
+  - key: /org/gnome/desktop/sound/event-sounds
+    value: "false"
+
+  - key: /org/gnome/desktop/background/picture-uri
+    value: "'file:///home/fosdem/.wallpaper.png'"
+
+  - key: /org/gnome/desktop/background/picture-options
+    value: "'centered'"
+
+  - key: /org/gnome/desktop/background/primary-color
+    value: "'000000'"
+
+  - key: /org/gnome/desktop/background/secondary-color
+    value: "'000000'"
+
+  - key: /org/gnome/desktop/input-sources/sources
+    value: "[('xkb', 'gb+extd')]"
