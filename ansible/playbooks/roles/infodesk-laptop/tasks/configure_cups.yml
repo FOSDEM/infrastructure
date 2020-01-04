@@ -31,7 +31,7 @@
     dest: "/etc/cups/printers.conf"
     owner: root
     group: lp
-    mode: 0640
+    mode: 0600
 
 - name: start cupsd again
   systemd:
