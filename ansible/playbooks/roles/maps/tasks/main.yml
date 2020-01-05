@@ -19,7 +19,7 @@
 - name: clone c3nav repo
   git:
     repo: https://github.com/johanvdw/c3nav.git
-    version: floor
+    version: fosdem_2020
     dest: /opt/c3nav
 
 - name: create c3nav data dir
