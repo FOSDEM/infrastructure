@@ -30,6 +30,14 @@
     group: c3nav
     mode: 0775
 
+- name: create c3nav media dir
+  file:
+    path: /opt/c3nav/data/media
+    state: directory
+    owner: c3nav
+    group: c3nav
+    mode: 0775
+
 - import_tasks: virtualenv.yml
 
 - name: create configuration dir
