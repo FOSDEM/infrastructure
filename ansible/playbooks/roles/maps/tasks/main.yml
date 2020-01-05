@@ -19,12 +19,20 @@
 - name: clone c3nav repo
   git:
     repo: https://github.com/johanvdw/c3nav.git
-    version: floor
+    version: fosdem_2020
     dest: /opt/c3nav
 
 - name: create c3nav data dir
   file:
     path: /opt/c3nav/data
+    state: directory
+    owner: c3nav
+    group: c3nav
+    mode: 0775
+
+- name: create c3nav media dir
+  file:
+    path: /opt/c3nav/data/media
     state: directory
     owner: c3nav
     group: c3nav

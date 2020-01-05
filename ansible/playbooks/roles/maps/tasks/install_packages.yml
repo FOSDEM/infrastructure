@@ -24,6 +24,8 @@
     - virtualenv
     - python3.6-dev
     - libmemcached-dev
-    - python-psycopg2
+    - python3-psycopg2
+    - python-setuptools
+    - python3-setuptools
     - python3-tk
     - nginx
