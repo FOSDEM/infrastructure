@@ -5,3 +5,4 @@ fosdem_backup_dirs:
 - /root
 - /home
 - /var/lib/prometheus
+- /var/log
