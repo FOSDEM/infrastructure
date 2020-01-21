@@ -13,14 +13,14 @@ $email_from = 'noreply@fosdem.org';
 # A filename of a Mojo::Template template to process, returning the email body. Required if notify_actions includes email.
 $notify_email_template = '/srv/sreview/assets/notify-email.ep';
 
-$notify_email_subject = "Your FOSDEM 2019 talk titled '<%== \$title %>'\\";
+$notify_email_subject = "Your FOSDEM 2020 talk titled '<%== \$title %>'\\";
 
 $announce_email_template = '/srv/sreview/assets/announce-email.ep';
 
-$announce_email_subject = "RELEASED: Your FOSDEM 2019 talk titled '<%== \$title %>'\\";
+$announce_email_subject = "RELEASED: Your FOSDEM 2020 talk titled '<%== \$title %>'\\";
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
-$event = 'FOSDEM 2019';
+$event = 'FOSDEM 2020';
 
 $extra_profiles = {
         FOSDEM => {
@@ -73,7 +73,7 @@ $parse_re = '.*\\/(?<room>[^\\/]+)(?<stream>(-[^\\/-]+)?)\\/(?<year>\\d{4})(?<mo
 $postroll = '/srv/sreview/assets/postroll.png';
 
 # An SVG template to be used as closing credits. Should have the same nominal dimensions (in pixels) as the video assets.
-#$postroll_template = '/srv/sreview/assets/fosdem2019_sponsors_bg.png';
+#$postroll_template = '/srv/sreview/assets/fosdem2020_sponsors_bg.png';
 
 # An SVG template to be used as opening credits. Should have the same nominal dimensions (in pixels) as the video assets.
 $preroll_template = '/srv/sreview/assets/preroll.svg';
@@ -121,7 +121,7 @@ $urlbase = 'https://review.video.fosdem.org';
 
 $cleanup = 'all';
 
-$eventurl_format = 'https://video.fosdem.org/2019/<% $room =~ s/ \(.*//;%><%= $room %>/<%= $slug %>.webm';
+$eventurl_format = 'https://video.fosdem.org/2020/<% $room =~ s/ \(.*//;%><%= $room %>/<%= $slug %>.webm';
 
 # Do not remove this, perl needs it
 1;
