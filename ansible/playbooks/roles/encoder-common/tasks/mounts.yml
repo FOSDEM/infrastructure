@@ -17,32 +17,14 @@
     state: mounted
   with_items:
   - backend0
-  - backend1
-  - backend2
-  - backend3
-  - backend4
 
 - name: mount working storage
   mount:
     name: /srv/sreview/{{ item }}
-    src: reviewstorage0.video.fosdem.org:/srv/sreview/{{ item }}
+    src: reviewstorage.video.fosdem.org:/srv/sreview/{{ item }}
     fstype: nfs
     state: mounted
   with_items:
   - assets
   - storage
   - output
-
-- name: mount day 2 storage
-  mount:
-    name: /srv/sreview/storage/1/2019-02-03
-    src: reviewstorage1.video.fosdem.org:/srv/sreview
-    fstype: nfs
-    state: mounted
-
-- name: mount extra storage
-  mount:
-    name: /srv/sreview/extra
-    src: reviewstorage2.video.fosdem.org:/srv/sreview
-    fstype: nfs
-    state: mounted
