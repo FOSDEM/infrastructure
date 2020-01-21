@@ -16,12 +16,12 @@
     fstype: nfs
     state: mounted
   with_items:
-  - backend0
+  - 10.0.0.2
 
 - name: mount working storage
   mount:
     name: /srv/sreview/{{ item }}
-    src: reviewstorage.video.fosdem.org:/srv/sreview/{{ item }}
+    src: 10.0.0.8:/srv/sreview/{{ item }}
     fstype: nfs
     state: mounted
   with_items:
