@@ -11,13 +11,13 @@ dashboard.fosdem.org
 review.video.fosdem.org
 
 [encoder-master]
-encode-master.video.fosdem.org
+encode-master.video.fosdem.org ansible_host=88.198.109.66 ansible_ssh_user=root
 
 [encoder-backend]
 encoder0.video.fosdem.org system_hostname=encoder0
 encoder1.video.fosdem.org system_hostname=encoder1
-#encoder2.video.fosdem.org system_hostname=encoder2
-#encoder3.video.fosdem.org system_hostname=encoder3
+encoder2.video.fosdem.org system_hostname=encoder2
+encoder3.video.fosdem.org system_hostname=encoder3
 #encoder4.video.fosdem.org system_hostname=encoder4
 #encoder5.video.fosdem.org system_hostname=encoder5
 #encoder6.video.fosdem.org system_hostname=encoder6
