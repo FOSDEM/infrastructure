@@ -9,6 +9,12 @@
     path: /srv/sreview/incoming
     state: directory
 
+- name: ensure NFS mount software is installed
+  apt:
+    state: latest
+    package:
+    - nfs-common
+
 - name: mount backends
   mount:
     name: /srv/sreview/incoming/{{ item }}
