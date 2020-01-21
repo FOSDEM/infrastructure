@@ -17,12 +17,10 @@
 
 - name: mount backends
   mount:
-    name: /srv/sreview/incoming/{{ item }}
-    src: stream{{ item }}.video.fosdem.org:/var/www/dump
+    name: /srv/sreview/incoming
+    src: 10.0.0.2:/var/www/dump
     fstype: nfs
     state: mounted
-  with_items:
-  - 10.0.0.2
 
 - name: mount working storage
   mount:
