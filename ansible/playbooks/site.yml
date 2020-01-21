@@ -166,5 +166,6 @@
   hosts: encoder-backend
   remote_user: root
   roles:
+  - { role: common-repository-debian-multimedia, tags: ['encoder-backend'] }
   - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }

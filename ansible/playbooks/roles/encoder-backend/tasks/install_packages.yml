@@ -26,25 +26,9 @@
     - libemail-simple-perl
     - libemail-sender-perl
 
-- name: "add deb-multimedia key"
-  apt_key:
-    id: A401FF99368FA1F98152DE755C808C2B65558117
-    keyserver: keys.gnupg.net
-    state: present
-
-- name: "set deb-multimedia preferences"
-  copy:
-    src: deb-multimedia.pref
-    dest: /etc/apt/preferences.d/deb-multimedia.pref
-
-- name: "add deb-multimedia repository"
-  apt_repository:
-    update_cache: true
-    repo: deb ftp://mirror.boxed-it.com/pub/deb-multimedia/ stable main
-
 - name: "install deb-multimedia version of ffmpeg"
   apt:
     state: latest
-    default_release: stretch
+    default_release: buster
     package:
     - ffmpeg
