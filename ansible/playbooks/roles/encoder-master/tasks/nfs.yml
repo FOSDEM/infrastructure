@@ -9,6 +9,6 @@
 
 - name: "restart NFS server when needed"
   service:
-    name: nfs-kernel-server
+    name: nfs-server
     state: restarted
   when: nfs_exported.changed
