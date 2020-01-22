@@ -15,6 +15,7 @@
     state: latest
     install_recommends: false
     package:
+    - cpp
     - nfs-common
     - gridengine-exec
     - bs1770gain
