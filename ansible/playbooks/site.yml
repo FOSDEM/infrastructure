@@ -155,6 +155,12 @@
   - { role: dashboard_sync, tags: [ 'dashboard_sync' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
+- name: encoder-storage
+  hosts: encoder-storage
+  remote_user: root
+  roles:
+  - { role: encoder-storage, tags: [ 'encoder-storage'] }
+
 - name: encoder-master
   hosts: encoder-master
   remote_user: root

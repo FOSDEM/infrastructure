@@ -10,6 +10,9 @@ dashboard.fosdem.org
 [review]
 review.video.fosdem.org
 
+[encoder-storage]
+reviewstorage.video.fosdem.org
+
 [encoder-master]
 encode-master.video.fosdem.org
 
