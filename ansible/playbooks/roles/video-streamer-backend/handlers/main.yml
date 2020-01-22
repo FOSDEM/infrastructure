@@ -6,7 +6,7 @@
 
 - name: restart nfs
   service:
-    name: nfs-kernel-server
+    name: nfs-server
     state: restarted
 
 - name: restart fetcher target

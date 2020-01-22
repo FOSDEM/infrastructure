@@ -24,7 +24,7 @@
 
 - name: enable and start NFS server
   service:
-    name: nfs-kernel-server
+    name: nfs-server
     state: started
     enabled: true
   when: nfs_exports|length
