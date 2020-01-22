@@ -4,7 +4,7 @@ Description=SQL Exporter
 [Service]
 User=sql-exporter
 Group=sql-exporter
-ExecStart=/opt/sql_exporter/sql_exporter-0.5.linux-amd64/sql_exporter -config.file=/opt/sql_exporter/sql_exporter.yml
+ExecStart=/opt/sql_exporter/sql_exporter-{{ sql_exporter_version }}.linux-amd64/sql_exporter -config.file=/opt/sql_exporter/sql_exporter.yml
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always
