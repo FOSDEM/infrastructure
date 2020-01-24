@@ -121,7 +121,8 @@
   - dhclient
   - hwraid
   - rsyslog
-  - { role: netzwirt.bind, tags: [ 'dns' ] }
+  - { role: fosdem.bind, tags: [ 'dns' ] }
+  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
   - oxidized
   - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
   - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
@@ -132,6 +133,8 @@
   tags: [event-secondary]
   roles:
   - hwraid
+  - { role: fosdem.bind, tags: [ 'dns' ] }
+  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
   - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
 
 - name: Event Prometheus servers

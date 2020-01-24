@@ -15,6 +15,12 @@ bind_acls:
   v6localhost:
   - ::1/128
 
+bind_statistics_channels:
+- inet: 127.0.0.1
+  port: 8053
+  allow:
+  - 127.0.0.1
+
 bind_recursion_allowed_clients:
 - fosdem
 - fosdem-temporary
