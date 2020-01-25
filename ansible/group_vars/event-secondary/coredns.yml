@@ -1,0 +1,3 @@
+---
+coredns_dns_port: 5300
+coredns_config_file: Corefile.j2

@@ -1,0 +1,32 @@
+{{ ansible_managed | comment }}
+
+conference.fosdem.net {
+  file zones/db.conference.fosdem.net
+}
+
+n.fosdem.net {
+  file zones/db.n.fosdem.net
+}
+
+v.conference.fosdem.net {
+  file zones/db.v.conference.fosdem.net
+}
+
+# Recursive forwarding
+. {
+  prometheus :9153
+  log
+  cache
+  acl {
+    # Localhosts
+    allow net ::1 127.0.0.0/8
+{% for subnet, list in fosdem_subnets.items() %}
+    # FOSDEM subnet {{ subnet }}
+    allow net {{ list | join(" ") }}
+{% endfor %}
+    # FOSDEM server private 1918 space
+    allow net 192.168.0.0/16
+    block
+  }
+  forward . 8.8.8.8 1.1.1.1 8.8.4.4 1.0.0.1
+}

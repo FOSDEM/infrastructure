@@ -31,3 +31,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.bind_exporter"]
 	path = ansible/playbooks/roles/cloudalchemy.bind_exporter
 	url = https://github.com/cloudalchemy/ansible-bind_exporter.git
+[submodule "ansible/playbooks/roles/cloudalchemy.coredns"]
+	path = ansible/playbooks/roles/cloudalchemy.coredns
+	url = https://github.com/cloudalchemy/ansible-coredns.git

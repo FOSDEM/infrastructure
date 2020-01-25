@@ -45,6 +45,8 @@ prometheus_targets:
   blackbox_http_targets:
   - targets:
     - 'https://api.fosdem.org/roomstatus/v1/listrooms'
+  coredns:
+  - targets: "{{ groups['event-secondary'] | map('regex_replace', '$', ':9153') | list }}"
   node:
   - targets: "{{ groups['all'] | map('regex_replace', '$', ':9100') | list }}"
   snmp_default:
@@ -90,6 +92,10 @@ prometheus_scrape_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/bind.yml"
+- job_name: "coredns"
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/coredns.yml"
 - job_name: 'snmp_default'
   scrape_interval: 30s
   scrape_timeout: 30s
