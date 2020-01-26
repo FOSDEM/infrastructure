@@ -1,10 +1,12 @@
+{{ ansible_managed | comment }}
+
 [Unit]
 Description=JSON Exporter
 
 [Service]
 User=json-exporter
 Group=json-exporter
-ExecStart=/opt/json_exporter/json_exporter https://api.fosdem.org/roomstatus/v1/listrooms /opt/json_exporter/config.yml
+ExecStart=/usr/local/bin/json_exporter https://api.fosdem.org/roomstatus/v1/listrooms /etc/json_exporter/config.yml
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always

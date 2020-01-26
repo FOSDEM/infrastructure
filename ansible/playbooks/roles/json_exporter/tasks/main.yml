@@ -1,4 +1,9 @@
 ---
+- import_tasks: preflight.yml
+  become: true
+  tags:
+  - json_exporter_install
+
 - name: Create group
   group:
     name: json-exporter
@@ -15,28 +20,21 @@
 
 - name: create directories
   file:
-    path: "{{ item }}"
+    path: /etc/json_exporter
     state: directory
     owner: json-exporter
     group: json-exporter
     mode: 0755
-  with_items:
-  - /opt/json_exporter
 
-- name: Install binary
-  become: false
-  get_url:
-    url: "https://www.dropbox.com/s/v3q3f6dtxjg8hk6/prometheus-json-exporter?dl=1"
-    dest: "/opt/json_exporter/json_exporter"
-    owner: json-exporter
-    group: json-exporter
-    mode: 0755
-    checksum: sha256:a24ec394f87a57558fc062b13b639a561b1b39ccb75631b3e7a4c00e8ccacbcc
+- import_tasks: install.yml
+  become: true
+  tags:
+  - json_exporter_install
 
 - name: configure exporter
   copy:
     src: config.yml
-    dest: /opt/json_exporter/config.yml
+    dest: /etc/json_exporter/config.yml
     owner: json-exporter
     group: json-exporter
     mode: 0644
