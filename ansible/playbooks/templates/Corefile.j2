@@ -28,5 +28,6 @@ v.conference.fosdem.net {
     allow net 192.168.0.0/16
     block
   }
-  forward . 8.8.8.8 1.1.1.1 8.8.4.4 1.0.0.1
+  # Quad9 unsecured upstream.
+  forward . 2620:fe::10 2620:fe::fe:10
 }
