@@ -1,3 +1,5 @@
 ---
 coredns_dns_port: 5300
 coredns_config_file: Corefile.j2
+# Custom binary built with dns64 plugin: https://github.com/coredns/coredns/pull/3534
+coredns_binary_local_dir: ~/src/superq/coredns
