@@ -6,12 +6,13 @@
     owner: root
     group: root
     mode: 0644
-  register: apt_sources
+  notify:
+  - update apt cache
 
-- name: "run apt update if we have modified the sources"
-  apt:
-    update_cache: true
-  when: apt_sources.changed
+- name: cleanup old backports config
+  apt_repository:
+    repo: "deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free"
+    state: absent
 
 - name: "run apt update if the cache is is stale"
   apt:

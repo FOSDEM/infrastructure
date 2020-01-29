@@ -10,3 +10,7 @@
     daemon_reload: true
     name: sshd
     state: reloaded
+
+- name: update apt cache
+  apt:
+    update_cache: true
