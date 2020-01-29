@@ -26,6 +26,16 @@
     mode: 0644
   register: voctocontrolweb
 
+- name: install integration with roomfull api
+  # note this also requires apikeys.php to be present
+  # this should be copied manually or added to the ansible vault
+  copy:
+    src: room_status.php
+    dest: /var/www/html/room_status.php
+    owner: root
+    group: root
+    mode: 0644
+
 - name: install html views
   copy:
     src: "{{ item }}"
