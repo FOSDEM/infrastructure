@@ -39,7 +39,7 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <label for="room_status">Room Status:</label>
    <select id="room_status">
     <option value="" disabled selected></option>
-	<option value="0">empty</option>
+	<option value="0">open</option>
 	<option value="1">full</option>
    </select>
 </form>
