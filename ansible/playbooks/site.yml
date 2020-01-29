@@ -35,7 +35,6 @@
   remote_user: root
   tags: [common]
   roles:
-  - common-repository-debian-backports
   - common
   - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
 
