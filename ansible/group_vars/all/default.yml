@@ -13,6 +13,7 @@ ssh_users:
 - richih
 - vasil
 - wouter
+- peter
 
 timezone: "Europe/Brussels"
 
