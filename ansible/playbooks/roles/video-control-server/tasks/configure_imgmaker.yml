@@ -30,7 +30,7 @@
   # note this also requires apikeys.php to be present
   # this should be copied manually or added to the ansible vault
   copy:
-    src: vocto.php
+    src: room_status.php
     dest: /var/www/html/room_status.php
     owner: root
     group: root
