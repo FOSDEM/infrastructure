@@ -1,0 +1,7 @@
+<?php
+$api_keys = array(
+{% for room, key in video_control_server_apikeys.items() | list %}
+  "{{ room }}"=>"{{ key }}",
+{% endfor %}
+)
+?>

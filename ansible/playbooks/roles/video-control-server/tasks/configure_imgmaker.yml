@@ -8,49 +8,22 @@
     mode: 0755
   with_items: "{{ video_rooms }}"
 
-- name: install voctocontrol webapp config
-  copy:
-    src: config.php
-    dest: /var/www/html/config.php
-    owner: root
-    group: root
-    mode: 0644
-  register: voctocontrolconfig
-
-- name: install voctocontrol webapp
-  copy:
-    src: vocto.php
-    dest: /var/www/html/vocto.php
-    owner: root
-    group: root
-    mode: 0644
-  register: voctocontrolweb
-
-- name: install integration with roomfull api
-  # note this also requires apikeys.php to be present
-  # this should be copied manually or added to the ansible vault
-  copy:
-    src: room_status.php
-    dest: /var/www/html/room_status.php
-    owner: root
-    group: root
-    mode: 0644
-
-- name: install html views
+- name: install html files
   copy:
     src: "{{ item }}"
-    dest: /var/www/html/
+    dest: "/var/www/html/"
     owner: root
     group: root
     mode: 0644
-  with_items:
-  - all.html
-  - aw.html
-  - cams.html
-  - j.html
-  - k.html
-  - ua.html
-  - ud.html
+  with_fileglob: "html/*"
+
+- name: deploy api keys
+  template:
+    src: apikeys.php.j2
+    dest: /var/www/html/apikeys.php
+    owner: root
+    group: root
+    mode: 0644
 
 - name: install imgmaker script
   copy:
