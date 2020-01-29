@@ -1,0 +1,6 @@
+---
+- name: restart nftables
+  systemd:
+    daemon_reload: true
+    name: nftables.service
+    state: restarted
