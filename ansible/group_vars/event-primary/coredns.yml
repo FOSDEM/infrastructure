@@ -5,10 +5,10 @@ coredns_config_file: Corefile.j2
 coredns_binary_local_dir: ~/src/superq/coredns
 
 fosdem_dns_dns64_addrs:
-- '2001:67c:1810:f054::ffff:6400'
+- '2001:67c:1810:f054::ffff:64'
 
 fosdem_dns_dualstack_addrs:
 - '127.0.0.1'
 - '::1'
-- '185.175.216.252'
-- '2001:67c:1810:f054::ffff:5300'
+- '185.175.216.251'
+- '2001:67c:1810:f054::ffff:53'
