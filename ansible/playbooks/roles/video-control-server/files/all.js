@@ -3,6 +3,11 @@ function create_add (tag, parent) {
   parent.appendChild(el);
   return el;
 }
+function getSearchParams () {
+  return window.location.search.slice(1)
+    .split('&').map(exp => exp.split('='))
+    .reduce((params, exp) => Object.assign({}, params, {[exp[0]]: exp[1]}), {});
+}
 function fetch_images() {
   return Array.from(document.getElementsByTagName('img'));
 }
@@ -29,14 +34,21 @@ function add_room (room_code, parent) {
   `;
 }
 function init (cols) {
+  var params = getSearchParams();
+  console.log(params);
   var listTable = document.querySelector('#list tbody');
   listTable.innerHTML = '';
   cols = cols || 10;
   fetch('./config.json')
     .then(res => res.json())
-    .then(conf => Object.keys(conf))
-    .then(rooms => {
-      rows = Math.ceil(rooms.length / cols)
+    // .then(conf => Object.keys(conf))
+    .then(buildings => {
+      var rooms = params.building && buildings[params.building]
+        ? Object.keys(buildings[params.building])
+        : Object.keys(buildings)
+          .reduce((rooms, building) => [].concat(rooms, Object.keys(buildings[building])), []);
+      cols = rooms.length < cols ? rooms.length : cols;
+      rows = Math.ceil(rooms.length / cols);
       new Array(rows).fill({})
         .map(() => create_add('tr', listTable))
         .map((row, y) => new Array(cols).fill({})
