@@ -2,6 +2,7 @@
 exclude_paths:
 - ansible/playbooks/roles/caddy-ansible.caddy
 - ansible/playbooks/roles/cloudalchemy.alertmanager
+- ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay
 - ansible/playbooks/roles/cloudalchemy.blackbox-exporter
 - ansible/playbooks/roles/cloudalchemy.grafana
 - ansible/playbooks/roles/cloudalchemy.node-exporter

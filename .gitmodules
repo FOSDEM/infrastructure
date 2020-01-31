@@ -34,3 +34,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.coredns"]
 	path = ansible/playbooks/roles/cloudalchemy.coredns
 	url = https://github.com/cloudalchemy/ansible-coredns.git
+[submodule "ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay"]
+	path = ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay
+	url = https://github.com/cloudalchemy/ansible-alertmanager-irc-relay.git

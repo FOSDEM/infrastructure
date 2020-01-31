@@ -121,6 +121,7 @@
   - hwraid
   - rsyslog
   - { role: fosdem.bind, tags: [ 'dns' ] }
+  - { role: cloudalchemy.alertmanager-irc-relay, tags: [ 'alertmanager-irc-relay' ] }
   - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
   - oxidized
   - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
