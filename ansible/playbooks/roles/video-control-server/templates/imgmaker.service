@@ -2,7 +2,7 @@
 Description={{ item.roomname }} image maker service
 
 [Service]
-ExecStart=/usr/local/bin/imgmaker.sh /var/www/html/{{ item.roomname }} {{ item.roomname }}-voctop.local
+ExecStart=/usr/local/bin/imgmaker.sh /var/www/html/{{ item.roomname }} {{ item.roomname }}-voctop.video.fosdem.org
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
