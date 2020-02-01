@@ -34,3 +34,28 @@ groups:
     annotations:
       summary: Video Recorder Service Failed
       description: 'Video Recorder systemd service on {{ $labels.instance }} is failed'
+  - alert: VoctopOverheating
+    expr: >
+      avg without (sensor) (
+        avg_over_time(node_hwmon_temp_celsius{chip=~"platform_coretemp_.*",instance=~".*video.fosdem.org:9100"}[5m])
+      ) > 75
+    for: 1m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Video voctop overheating
+      description: 'Video Voctop CPU overheating on {{ $labels.instance }}'
+  - alert: HighPacketLoss
+    expr: >
+      (
+        rate(node_netstat_Tcp_RetransSegs{instance=~".*(voctop|slides|cam).video.fosdem.org:9100"}[1m]) /
+        rate(node_netstat_Tcp_OutSegs{instance=~".*(voctop|slides|cam).video.fosdem.org:9100"}[1m])
+      ) * 100 > 1
+    for: 2m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Node has high packet loss
+      description: '{{ $labels.instance }} has {{ $value printf "%.1f" }}% packet loss'
