@@ -9,6 +9,7 @@ exclude_paths:
 - ansible/playbooks/roles/cloudalchemy.prometheus
 - ansible/playbooks/roles/cloudalchemy.snmp-exporter
 - ansible/playbooks/roles/netzwirt.bind
+- ansible/playbooks/roles/nickjj.docker
 - ansible/playbooks/roles/paulfantom.restic
 - ansible/playbooks/roles/rsyslog
 
