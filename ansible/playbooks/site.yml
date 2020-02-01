@@ -133,6 +133,7 @@
   remote_user: root
   tags: [event-secondary]
   roles:
+  - dhclient
   - hwraid
   - { role: cloudalchemy.coredns, tags: [ 'coredns' ] }
   - { role: fosdem.bind, tags: [ 'dns' ] }

@@ -1,5 +1,5 @@
 ---
 - name: Fix DHCP client config
-  copy:
+  template:
     src: dhclient.conf
     dest: /etc/dhcp/dhclient.conf
