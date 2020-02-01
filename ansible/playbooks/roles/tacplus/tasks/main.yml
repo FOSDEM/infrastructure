@@ -16,6 +16,6 @@
     name: tacplus
     image: ajoldham/tacplus
     ports:
-      - "49:49"
+    - "49:49"
     volumes:
-      - "/var/lib/tacplus:/etc/tacacs+"
+    - "/var/lib/tacplus:/etc/tacacs+"
