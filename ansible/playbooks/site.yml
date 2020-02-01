@@ -136,6 +136,7 @@
   - dhclient
   - hwraid
   - { role: nickjj.docker, tags: [ 'docker' ] }
+  - { role: tacplus, tags: [ 'tacplus' ] }
   - { role: cloudalchemy.coredns, tags: [ 'coredns' ] }
   - { role: fosdem.bind, tags: [ 'dns' ] }
   - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
