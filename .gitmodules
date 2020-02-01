@@ -37,3 +37,6 @@
 [submodule "ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay"]
 	path = ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay
 	url = https://github.com/cloudalchemy/ansible-alertmanager-irc-relay.git
+[submodule "ansible/playbooks/roles/nickjj.docker"]
+	path = ansible/playbooks/roles/nickjj.docker
+	url = https://github.com/nickjj/ansible-docker.git
