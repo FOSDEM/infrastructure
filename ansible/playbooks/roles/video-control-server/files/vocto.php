@@ -42,6 +42,7 @@ if (empty($_GET['w']) && empty($argv[1])) {
 	<option value="0">open</option>
 	<option value="1">full</option>
    </select>
+   <input type="hidden" id="room" value="<?php echo $room?>" />
 </form>
 </div>
 <table>
@@ -73,6 +74,7 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <script>
 (function() {
     var room_status = document.getElementById('room_status');
+    var room_name = document.getElementById('room').value;
 	room_status.onchange = function(){
 		room_status.value;
 		const http = new XMLHttpRequest();
@@ -82,6 +84,19 @@ if (empty($_GET['w']) && empty($argv[1])) {
 
 		http.onreadystatechange=(e)=>{
 			console.log(http.responseText);
+		}
+	}
+	if (room_status.value == ""){
+		const http = new XMLHttpRequest();
+		const get_room_url = "get_room_status.php?room="+room_name;
+		http.open("GET", get_room_url);
+		http.responseType = 'json';
+		http.send();
+
+		http.onreadystatechange=(e)=>{
+			var room = http.response;
+			console.log(room);
+			room_status.value = room.state;
 		}
 	}
 })();	
