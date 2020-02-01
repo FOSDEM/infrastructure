@@ -1,5 +1,5 @@
 ---
 - name: Fix DHCP client config
   template:
-    src: dhclient.conf
+    src: dhclient.conf.j2
     dest: /etc/dhcp/dhclient.conf
