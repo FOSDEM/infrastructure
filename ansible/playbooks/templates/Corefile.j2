@@ -12,12 +12,34 @@ v.conference.fosdem.net {
   file zones/db.v.conference.fosdem.net
 }
 
-# Recursive forwarding
+# Recursive forwarding DNS64
 . {
   prometheus :9153
+  bind {{ fosdem_dns_dns64_addrs | join(" ") }}
   log
   cache
   dns64
+  acl {
+    # Localhosts
+    allow net ::1 127.0.0.0/8
+{% for subnet, list in fosdem_subnets.items() %}
+    # FOSDEM subnet {{ subnet }}
+    allow net {{ list | join(" ") }}
+{% endfor %}
+    # FOSDEM server private 1918 space
+    allow net 192.168.0.0/16
+    block
+  }
+  # Quad9 unsecured upstream.
+  forward . 2620:fe::10 2620:fe::fe:10
+}
+
+# Recursive forwarding dualstack
+. {
+  prometheus :9153
+  bind {{ fosdem_dns_dualstack_addrs | join(" ") }}
+  log
+  cache
   acl {
     # Localhosts
     allow net ::1 127.0.0.0/8
