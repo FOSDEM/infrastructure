@@ -2,3 +2,5 @@
 alertmanager_irc_relay_http_port: 8667
 alertmanager_irc_relay_irc_nickname: fosdem-bot
 alertmanager_irc_relay_irc_realname: fosdem-bot
+alertmanager_irc_relay_channels:
+- name: "#fosdem-alerts"
