@@ -29,8 +29,8 @@ encoder3.video.fosdem.org system_hostname=encoder3
 #encoder9.video.fosdem.org system_hostname=encoder9
 
 [tv]
-tv0.n.fosdem.net
-tv1.n.fosdem.net
+# tv0.n.fosdem.net
+# tv1.n.fosdem.net
 
 [video:children]
 video-streamer-backend
@@ -47,10 +47,10 @@ control.video.fosdem.org
 
 [video-streamer-backend]
 streambackend0.video.fosdem.org
-streambackend1.video.fosdem.org
-streambackend2.video.fosdem.org
-streambackend3.video.fosdem.org
-streambackend4.video.fosdem.org
+#streambackend1.video.fosdem.org
+#streambackend2.video.fosdem.org
+#streambackend3.video.fosdem.org
+#streambackend4.video.fosdem.org
 
 [video-streamer-frontend]
 streamfrontend0.video.fosdem.org
@@ -78,8 +78,8 @@ h2213-cam.video.fosdem.org
 h2214-cam.video.fosdem.org
 h2215-cam.video.fosdem.org
 janson-cam.video.fosdem.org
-k1105-cam.video.fosdem.org
-k3201-cam.video.fosdem.org
+# k1105-cam.video.fosdem.org (cheap box)
+# k3201-cam.video.fosdem.org (cheap box)
 k3401-cam.video.fosdem.org
 k4201-cam.video.fosdem.org
 k4401-cam.video.fosdem.org
@@ -89,13 +89,13 @@ ua2220-cam.video.fosdem.org
 ub2147-cam.video.fosdem.org
 ub2252a-cam.video.fosdem.org
 ub4136-cam.video.fosdem.org
-ub5132-cam.video.fosdem.org
-ub5230-cam.video.fosdem.org
+# ub5132-cam.video.fosdem.org (sunday only)
+# ub5230-cam.video.fosdem.org (sunday only)
 ud2119-cam.video.fosdem.org
 ud2120-cam.video.fosdem.org
 ud2208-cam.video.fosdem.org
 ud2218a-cam.video.fosdem.org
-spare0-cam.video.fosdem.org
+# spare0-cam.video.fosdem.org (spare)
 aw1120-slides.video.fosdem.org
 aw1121-slides.video.fosdem.org
 aw1125-slides.video.fosdem.org
@@ -108,8 +108,8 @@ h2213-slides.video.fosdem.org
 h2214-slides.video.fosdem.org
 h2215-slides.video.fosdem.org
 janson-slides.video.fosdem.org
-k1105-slides.video.fosdem.org
-k3201-slides.video.fosdem.org
+# k1105-slides.video.fosdem.org (cheap box)
+# k3201-slides.video.fosdem.org (cheap box)
 k3401-slides.video.fosdem.org
 k4201-slides.video.fosdem.org
 k4401-slides.video.fosdem.org
@@ -119,13 +119,13 @@ ua2220-slides.video.fosdem.org
 ub2147-slides.video.fosdem.org
 ub2252a-slides.video.fosdem.org
 ub4136-slides.video.fosdem.org
-ub5132-slides.video.fosdem.org
-ub5230-slides.video.fosdem.org
+# ub5132-slides.video.fosdem.org (sunday only)
+# ub5230-slides.video.fosdem.org (sunday only)
 ud2119-slides.video.fosdem.org
 ud2120-slides.video.fosdem.org
 ud2208-slides.video.fosdem.org
 ud2218a-slides.video.fosdem.org
-spare0-slides.video.fosdem.org
+# spare0-slides.video.fosdem.org (spare)
 
 [video-voctop]
 aw1120-voctop.video.fosdem.org
@@ -163,7 +163,7 @@ spare0-voctop.video.fosdem.org
 web0.video.fosdem.org
 
 [infodesk-laptop]
-infodesk-laptop-1 ansible_host=185.175.218.188
+# infodesk-laptop-1 ansible_host=185.175.218.188
 
 # Composite hosts
 [event-prometheus-servers:children]
