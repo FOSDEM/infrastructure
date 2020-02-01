@@ -11,6 +11,11 @@
     dest: /var/lib/tacplus/tac_plus.conf
     mode: 0644
 
+- name: install python-docker
+  apt:
+    package:
+    - python-docker
+
 - name: Create TACPLUS container
   docker_container:
     name: tacplus
