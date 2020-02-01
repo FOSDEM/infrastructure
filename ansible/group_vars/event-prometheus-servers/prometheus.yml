@@ -51,6 +51,8 @@ prometheus_targets:
   - targets: "{{ groups['all'] | map('regex_replace', '$', ':9100') | list }}"
   snmp_default:
   - targets: "{{ fosdem_snmp_default_targets }}"
+  snmp_cdp:
+  - targets: "{{ fosdem_snmp_default_targets }}"
   snmp_dhcp_server:
   - targets:
     - asr1k.n.fosdem.net
@@ -117,6 +119,16 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [if_mib]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_cdp'
+  scrape_interval: 120s
+  static_configs:
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_cdp.yml"
+  metrics_path: /snmp
+  params:
+    module: [cisco_cdp]
   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_dhcp_server'
   scrape_interval: 15s

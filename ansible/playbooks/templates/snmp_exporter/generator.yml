@@ -44,6 +44,28 @@ modules:
       lookup: ciscoEnvMonTemperatureStatusDescr
     - source_indexes: [ciscoEnvMonTemperatureStatusIndex]
       lookup: ciscoEnvMonSupplyStatusDescr
+  cisco_cdp:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+    - cdpCacheAddress
+    - cdpCacheSysName
+    - cdpCacheDeviceIndex
+    - cdpCachePrimaryMgmtAddr
+    - cdpCachePhysLocation
+    - cdpCacheLastChange
+    - cdpCacheDeviceId
+    - cdpCacheDevicePort
+    - cdpCachePlatform
+    - cdpCacheNativeVLAN
+    lookups:
+    - source_indexes:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      lookup: cdpCacheDeviceId
+    overrides:
+      cdpCacheDeviceId:
+        ignore: true
   cisco_dhcp_server:
     auth:
       community: "{{ snmp_community_fosdem_default }}"
