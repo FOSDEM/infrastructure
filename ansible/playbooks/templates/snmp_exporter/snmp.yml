@@ -492,25 +492,25 @@ cisco_health:
       6: notFunctioning
   - name: ciscoEnvMonSupplyStatusIndex
     oid: 1.3.6.1.4.1.9.9.13.1.5.1.1
-    type: EnumAsInfo
+    type: gauge
     help: Unique index for the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.1
     indexes:
     - labelname: ciscoEnvMonSupplyStatusIndex
-      type: EnumAsInfo
+      type: gauge
   - name: ciscoEnvMonSupplyStatusDescr
     oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
     type: EnumAsStateSet
     help: Textual description of the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.2
     indexes:
     - labelname: ciscoEnvMonSupplyStatusIndex
-      type: EnumAsInfo
+      type: gauge
   - name: ciscoEnvMonSupplyState
     oid: 1.3.6.1.4.1.9.9.13.1.5.1.3
     type: EnumAsStateSet
     help: The current state of the power supply being instrumented. - 1.3.6.1.4.1.9.9.13.1.5.1.3
     indexes:
     - labelname: ciscoEnvMonSupplyStatusIndex
-      type: EnumAsInfo
+      type: gauge
     enum_values:
       1: normal
       2: warning
@@ -524,7 +524,7 @@ cisco_health:
     help: The power supply source - 1.3.6.1.4.1.9.9.13.1.5.1.4
     indexes:
     - labelname: ciscoEnvMonSupplyStatusIndex
-      type: EnumAsInfo
+      type: gauge
     enum_values:
       1: unknown
       2: ac

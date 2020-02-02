@@ -94,8 +94,6 @@ modules:
         type: EnumAsStateSet
       ciscoEnvMonSupplyState:
         type: EnumAsStateSet
-      ciscoEnvMonSupplyStatusIndex:
-        type: EnumAsInfo
   cisco_wlc_base:
     auth:
       community: "{{ snmp_community_ulb_wlc }}"
