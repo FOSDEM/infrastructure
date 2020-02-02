@@ -1,0 +1,4 @@
+---
+grafana_plugins:
+- jdbranham-diagram-panel
+- vonage-status-panel
