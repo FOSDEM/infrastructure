@@ -5,7 +5,10 @@ rsyslog_rsyslog_d_files:
     settings:
     - 'module(load="imudp")'
     - 'input(type="imudp" port="514")'
-    - "if $syslogfacility-text == 'local7' then /var/log/router-log/combined"
+    - "if $syslogfacility-text == 'local7' then /var/log/rsyslog/network-combined"
+    - "if $syslogfacility-text == 'local6' then /var/log/rsyslog/tacacs-combined"
+    - "if $syslogfacility-text == 'local5' then /var/log/rsyslog/video-combined"
+    - "if $syslogfacility-text == 'local4' then /var/log/rsyslog/applications-combined"
     - '$template DynFile,"/var/log/router-log/%FROMHOST%"'
     - ':source , !isequal , "server-hostname" ?DynFile'
     - ':source , !isequal , "server-hostname" stop'
