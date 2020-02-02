@@ -226,6 +226,313 @@ cisco_dhcp_server:
       was received. - 1.3.6.1.4.1.9.10.102.1.9.12
   auth:
     community: '{{ snmp_community_fosdem_default }}'
+cisco_health:
+  walk:
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.12
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.13
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.17
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.19
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.3
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.4
+  - 1.3.6.1.4.1.9.9.13.1.2
+  - 1.3.6.1.4.1.9.9.13.1.3
+  - 1.3.6.1.4.1.9.9.13.1.4
+  - 1.3.6.1.4.1.9.9.13.1.5
+  metrics:
+  - name: cpmCPUMemoryUsed
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.12
+    type: gauge
+    help: The overall CPU wide system memory which is currently under use. - 1.3.6.1.4.1.9.9.109.1.1.1.1.12
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUMemoryFree
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.13
+    type: gauge
+    help: The overall CPU wide system memory which is currently free. - 1.3.6.1.4.1.9.9.109.1.1.1.1.13
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUMemoryHCUsed
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.17
+    type: gauge
+    help: The overall CPU wide system memory which is currently under use - 1.3.6.1.4.1.9.9.109.1.1.1.1.17
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUMemoryHCFree
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.19
+    type: gauge
+    help: The overall CPU wide system memory which is currently free - 1.3.6.1.4.1.9.9.109.1.1.1.1.19
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUTotal5sec
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.3
+    type: gauge
+    help: The overall CPU busy percentage in the last 5 second period - 1.3.6.1.4.1.9.9.109.1.1.1.1.3
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUTotal1min
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.4
+    type: gauge
+    help: The overall CPU busy percentage in the last 1 minute period - 1.3.6.1.4.1.9.9.109.1.1.1.1.4
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.1
+    type: gauge
+    help: Unique index for the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.2.1.1
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.2
+    type: DisplayString
+    help: Textual description of the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.2.1.2
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageStatusValue
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.3
+    type: gauge
+    help: The current measurement of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.2.1.3
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageThresholdLow
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.4
+    type: gauge
+    help: The lowest value that the associated instance of the object ciscoEnvMonVoltageStatusValue
+      may obtain before an emergency shutdown of the managed device is initiated.
+      - 1.3.6.1.4.1.9.9.13.1.2.1.4
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageThresholdHigh
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.5
+    type: gauge
+    help: The highest value that the associated instance of the object ciscoEnvMonVoltageStatusValue
+      may obtain before an emergency shutdown of the managed device is initiated.
+      - 1.3.6.1.4.1.9.9.13.1.2.1.5
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageLastShutdown
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.6
+    type: gauge
+    help: The value of the associated instance of the object ciscoEnvMonVoltageStatusValue
+      at the time an emergency shutdown of the managed device was last initiated -
+      1.3.6.1.4.1.9.9.13.1.2.1.6
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageState
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.7
+    type: gauge
+    help: The current state of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.2.1.7
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonTemperatureStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.1
+    type: gauge
+    help: Unique index for the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.3.1.1
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+    type: DisplayString
+    help: Textual description of the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.3.1.2
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureStatusValue
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.3
+    type: gauge
+    help: The current measurement of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.3.1.3
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureThreshold
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.4
+    type: gauge
+    help: The highest value that the associated instance of the object ciscoEnvMonTemperatureStatusValue
+      may obtain before an emergency shutdown of the managed device is initiated.
+      - 1.3.6.1.4.1.9.9.13.1.3.1.4
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureLastShutdown
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.5
+    type: gauge
+    help: The value of the associated instance of the object ciscoEnvMonTemperatureStatusValue
+      at the time an emergency shutdown of the managed device was last initiated -
+      1.3.6.1.4.1.9.9.13.1.3.1.5
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureState
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.6
+    type: gauge
+    help: The current state of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.3.1.6
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonFanStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.4.1.1
+    type: gauge
+    help: Unique index for the fan being instrumented - 1.3.6.1.4.1.9.9.13.1.4.1.1
+    indexes:
+    - labelname: ciscoEnvMonFanStatusIndex
+      type: gauge
+  - name: ciscoEnvMonFanStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.4.1.2
+    type: DisplayString
+    help: Textual description of the fan being instrumented - 1.3.6.1.4.1.9.9.13.1.4.1.2
+    indexes:
+    - labelname: ciscoEnvMonFanStatusIndex
+      type: gauge
+  - name: ciscoEnvMonFanState
+    oid: 1.3.6.1.4.1.9.9.13.1.4.1.3
+    type: EnumAsStateSet
+    help: The current state of the fan being instrumented. - 1.3.6.1.4.1.9.9.13.1.4.1.3
+    indexes:
+    - labelname: ciscoEnvMonFanStatusIndex
+      type: gauge
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonSupplyStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.1
+    type: EnumAsInfo
+    help: Unique index for the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.1
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: EnumAsInfo
+  - name: ciscoEnvMonSupplyStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+    type: EnumAsStateSet
+    help: Textual description of the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.2
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: EnumAsInfo
+  - name: ciscoEnvMonSupplyState
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.3
+    type: EnumAsStateSet
+    help: The current state of the power supply being instrumented. - 1.3.6.1.4.1.9.9.13.1.5.1.3
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: EnumAsInfo
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonSupplySource
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.4
+    type: gauge
+    help: The power supply source - 1.3.6.1.4.1.9.9.13.1.5.1.4
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: EnumAsInfo
+    enum_values:
+      1: unknown
+      2: ac
+      3: dc
+      4: externalPowerSupply
+      5: internalRedundant
+  auth:
+    community: '{{ snmp_community_fosdem_default }}'
 cisco_wlc_base:
   walk:
   - 1.3.6.1.2.1.1
@@ -3553,10 +3860,6 @@ if_mib:
   - 1.3.6.1.2.1.16.1.1
   - 1.3.6.1.2.1.2.2
   - 1.3.6.1.2.1.31.1.1
-  - 1.3.6.1.4.1.9.9.13.1.2
-  - 1.3.6.1.4.1.9.9.13.1.3
-  - 1.3.6.1.4.1.9.9.13.1.4
-  - 1.3.6.1.4.1.9.9.13.1.5
   - 1.3.6.1.4.1.9.9.715.1.1.6.1.10
   - 1.3.6.1.4.1.9.9.715.1.1.6.1.14
   metrics:
@@ -4983,256 +5286,6 @@ if_mib:
       labelname: ifName
       oid: 1.3.6.1.2.1.31.1.1.1.1
       type: DisplayString
-  - name: ciscoEnvMonVoltageStatusIndex
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.1
-    type: gauge
-    help: Unique index for the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.2.1.1
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-  - name: ciscoEnvMonVoltageStatusDescr
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.2
-    type: DisplayString
-    help: Textual description of the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.2.1.2
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-  - name: ciscoEnvMonVoltageStatusValue
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.3
-    type: gauge
-    help: The current measurement of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.2.1.3
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-  - name: ciscoEnvMonVoltageThresholdLow
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.4
-    type: gauge
-    help: The lowest value that the associated instance of the object ciscoEnvMonVoltageStatusValue
-      may obtain before an emergency shutdown of the managed device is initiated.
-      - 1.3.6.1.4.1.9.9.13.1.2.1.4
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-  - name: ciscoEnvMonVoltageThresholdHigh
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.5
-    type: gauge
-    help: The highest value that the associated instance of the object ciscoEnvMonVoltageStatusValue
-      may obtain before an emergency shutdown of the managed device is initiated.
-      - 1.3.6.1.4.1.9.9.13.1.2.1.5
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-  - name: ciscoEnvMonVoltageLastShutdown
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.6
-    type: gauge
-    help: The value of the associated instance of the object ciscoEnvMonVoltageStatusValue
-      at the time an emergency shutdown of the managed device was last initiated -
-      1.3.6.1.4.1.9.9.13.1.2.1.6
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-  - name: ciscoEnvMonVoltageState
-    oid: 1.3.6.1.4.1.9.9.13.1.2.1.7
-    type: gauge
-    help: The current state of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.2.1.7
-    indexes:
-    - labelname: ciscoEnvMonVoltageStatusIndex
-      type: gauge
-    enum_values:
-      1: normal
-      2: warning
-      3: critical
-      4: shutdown
-      5: notPresent
-      6: notFunctioning
-  - name: ciscoEnvMonTemperatureStatusIndex
-    oid: 1.3.6.1.4.1.9.9.13.1.3.1.1
-    type: gauge
-    help: Unique index for the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.3.1.1
-    indexes:
-    - labelname: ciscoEnvMonTemperatureStatusIndex
-      type: gauge
-    lookups:
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonTemperatureStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-      type: DisplayString
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonSupplyStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-      type: DisplayString
-  - name: ciscoEnvMonTemperatureStatusDescr
-    oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-    type: DisplayString
-    help: Textual description of the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.3.1.2
-    indexes:
-    - labelname: ciscoEnvMonTemperatureStatusIndex
-      type: gauge
-    lookups:
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonTemperatureStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-      type: DisplayString
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonSupplyStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-      type: DisplayString
-  - name: ciscoEnvMonTemperatureStatusValue
-    oid: 1.3.6.1.4.1.9.9.13.1.3.1.3
-    type: gauge
-    help: The current measurement of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.3.1.3
-    indexes:
-    - labelname: ciscoEnvMonTemperatureStatusIndex
-      type: gauge
-    lookups:
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonTemperatureStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-      type: DisplayString
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonSupplyStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-      type: DisplayString
-  - name: ciscoEnvMonTemperatureThreshold
-    oid: 1.3.6.1.4.1.9.9.13.1.3.1.4
-    type: gauge
-    help: The highest value that the associated instance of the object ciscoEnvMonTemperatureStatusValue
-      may obtain before an emergency shutdown of the managed device is initiated.
-      - 1.3.6.1.4.1.9.9.13.1.3.1.4
-    indexes:
-    - labelname: ciscoEnvMonTemperatureStatusIndex
-      type: gauge
-    lookups:
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonTemperatureStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-      type: DisplayString
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonSupplyStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-      type: DisplayString
-  - name: ciscoEnvMonTemperatureLastShutdown
-    oid: 1.3.6.1.4.1.9.9.13.1.3.1.5
-    type: gauge
-    help: The value of the associated instance of the object ciscoEnvMonTemperatureStatusValue
-      at the time an emergency shutdown of the managed device was last initiated -
-      1.3.6.1.4.1.9.9.13.1.3.1.5
-    indexes:
-    - labelname: ciscoEnvMonTemperatureStatusIndex
-      type: gauge
-    lookups:
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonTemperatureStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-      type: DisplayString
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonSupplyStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-      type: DisplayString
-  - name: ciscoEnvMonTemperatureState
-    oid: 1.3.6.1.4.1.9.9.13.1.3.1.6
-    type: gauge
-    help: The current state of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.3.1.6
-    indexes:
-    - labelname: ciscoEnvMonTemperatureStatusIndex
-      type: gauge
-    lookups:
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonTemperatureStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
-      type: DisplayString
-    - labels:
-      - ciscoEnvMonTemperatureStatusIndex
-      labelname: ciscoEnvMonSupplyStatusDescr
-      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-      type: DisplayString
-    enum_values:
-      1: normal
-      2: warning
-      3: critical
-      4: shutdown
-      5: notPresent
-      6: notFunctioning
-  - name: ciscoEnvMonFanStatusIndex
-    oid: 1.3.6.1.4.1.9.9.13.1.4.1.1
-    type: gauge
-    help: Unique index for the fan being instrumented - 1.3.6.1.4.1.9.9.13.1.4.1.1
-    indexes:
-    - labelname: ciscoEnvMonFanStatusIndex
-      type: gauge
-  - name: ciscoEnvMonFanStatusDescr
-    oid: 1.3.6.1.4.1.9.9.13.1.4.1.2
-    type: DisplayString
-    help: Textual description of the fan being instrumented - 1.3.6.1.4.1.9.9.13.1.4.1.2
-    indexes:
-    - labelname: ciscoEnvMonFanStatusIndex
-      type: gauge
-  - name: ciscoEnvMonFanState
-    oid: 1.3.6.1.4.1.9.9.13.1.4.1.3
-    type: gauge
-    help: The current state of the fan being instrumented. - 1.3.6.1.4.1.9.9.13.1.4.1.3
-    indexes:
-    - labelname: ciscoEnvMonFanStatusIndex
-      type: gauge
-    enum_values:
-      1: normal
-      2: warning
-      3: critical
-      4: shutdown
-      5: notPresent
-      6: notFunctioning
-  - name: ciscoEnvMonSupplyStatusIndex
-    oid: 1.3.6.1.4.1.9.9.13.1.5.1.1
-    type: gauge
-    help: Unique index for the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.1
-    indexes:
-    - labelname: ciscoEnvMonSupplyStatusIndex
-      type: gauge
-  - name: ciscoEnvMonSupplyStatusDescr
-    oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
-    type: DisplayString
-    help: Textual description of the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.2
-    indexes:
-    - labelname: ciscoEnvMonSupplyStatusIndex
-      type: gauge
-  - name: ciscoEnvMonSupplyState
-    oid: 1.3.6.1.4.1.9.9.13.1.5.1.3
-    type: gauge
-    help: The current state of the power supply being instrumented. - 1.3.6.1.4.1.9.9.13.1.5.1.3
-    indexes:
-    - labelname: ciscoEnvMonSupplyStatusIndex
-      type: gauge
-    enum_values:
-      1: normal
-      2: warning
-      3: critical
-      4: shutdown
-      5: notPresent
-      6: notFunctioning
-  - name: ciscoEnvMonSupplySource
-    oid: 1.3.6.1.4.1.9.9.13.1.5.1.4
-    type: gauge
-    help: The power supply source - 1.3.6.1.4.1.9.9.13.1.5.1.4
-    indexes:
-    - labelname: ciscoEnvMonSupplyStatusIndex
-      type: gauge
-    enum_values:
-      1: unknown
-      2: ac
-      3: dc
-      4: externalPowerSupply
-      5: internalRedundant
   - name: ceqfpUtilOutputNonPriorityPktRate
     oid: 1.3.6.1.4.1.9.9.715.1.1.6.1.10
     type: counter
