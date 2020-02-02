@@ -6,4 +6,4 @@ alertmanager_irc_relay_channels:
 - name: "#fosdem-alerts"
 
 alertmanager_irc_relay_notice_template: >
-  {% raw %}{{ range .Alerts }}Alert {{ .Labels.alertname }} on {{ .Labels.instance }} is {{ .Status }}\n{{ end }}{% endraw %}
+  {% raw %}{{ range .Alerts }}Alert {{ .Labels.alertname }} on {{ .Labels.instance }} is {{ .Status }}  {{ end }}{% endraw %}
