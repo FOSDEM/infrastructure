@@ -11,6 +11,10 @@ fosdem_snmp_slow_targets: []
 
 prometheus_web_listen_address: ":9090"
 
+prometheus_external_labels:
+  cluster: ulb
+  replica: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
+
 prometheus_remote_write:
 - url: "{{ fosdem_remote_write_url }}"
   basic_auth:
