@@ -4,3 +4,6 @@ alertmanager_irc_relay_irc_nickname: fosdem-bot
 alertmanager_irc_relay_irc_realname: fosdem-bot
 alertmanager_irc_relay_channels:
 - name: "#fosdem-alerts"
+
+alertmanager_irc_relay_notice_template: >
+  {% raw %}{{ range .Alerts }}Alert {{ .Labels.alertname }} on {{ .Labels.instance }} is {{ .Status }}\n{{ end }}{% endraw %}

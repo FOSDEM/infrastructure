@@ -16,9 +16,11 @@ alertmanager_smtp:
 alertmanager_route:
   receiver: 'alert irc'
   group_wait: 30s
-  group_interval: 1m
+  group_interval: 2m
   repeat_interval: 4h
-  group_by: [alertname]
+  group_by:
+  - alertname
+  - cluster
 
 alertmanager_child_routes: []
 # - match:
