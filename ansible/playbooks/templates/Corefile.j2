@@ -1,14 +1,20 @@
 {{ ansible_managed | comment }}
 
 conference.fosdem.net {
+  bind {{ fosdem_dns_dualstack_addrs | join(" ") }} {{ fosdem_dns_dns64_addrs | join(" ") }} 
+  log
   file zones/db.conference.fosdem.net
 }
 
 n.fosdem.net {
+  bind {{ fosdem_dns_dualstack_addrs | join(" ") }} {{ fosdem_dns_dns64_addrs | join(" ") }} 
+  log
   file zones/db.n.fosdem.net
 }
 
 v.conference.fosdem.net {
+  bind {{ fosdem_dns_dualstack_addrs | join(" ") }} {{ fosdem_dns_dns64_addrs | join(" ") }} 
+  log
   file zones/db.v.conference.fosdem.net
 }
 
