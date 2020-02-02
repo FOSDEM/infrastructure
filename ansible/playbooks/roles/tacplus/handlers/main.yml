@@ -1,5 +1,5 @@
 ---
-- name: restart_tacplus
+- name: restart tacplus
   docker_container:
     name: tacplus
     restart: true
