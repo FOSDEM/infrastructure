@@ -10,6 +10,7 @@
     src: tac_plus.conf.j2
     dest: /var/lib/tacplus/tac_plus.conf
     mode: 0644
+  notify: Restart_tacplus
 
 - name: install python-docker
   apt:
