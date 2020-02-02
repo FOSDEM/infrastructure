@@ -56,6 +56,8 @@ prometheus_targets:
   snmp_dhcp_server:
   - targets:
     - asr1k.n.fosdem.net
+  snmp_cisco_health:
+  - targets: "{{ fosdem_snmp_default_targets }}"
   snmp_idrac:
   - targets:
     - server001-mgmt.n.fosdem.net
@@ -139,6 +141,16 @@ prometheus_scrape_configs:
   metrics_path: /snmp
   params:
     module: [cisco_dhcp_server]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_cisco_health'
+  scrape_interval: 30s
+  static_configs:
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_cisco_health.yml"
+  metrics_path: /snmp
+  params:
+    module: [cisco_health]
   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_idrac'
   scrape_interval: 60s
