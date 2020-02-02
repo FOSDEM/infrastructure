@@ -1,7 +1,7 @@
 ---
 docker__default_daemon_json: |
   "experimental" : true,
-  "log-driver": "syslog"
+  "log-driver": "syslog",
   "log-opts": {
     "syslog-address": "udp://server001.sk1-510.k.ulb.bru.fosdem.net:514"
   },
