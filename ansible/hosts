@@ -32,16 +32,6 @@ encoder3.video.fosdem.org system_hostname=encoder3
 # tv0.n.fosdem.net
 # tv1.n.fosdem.net
 
-[video:children]
-video-streamer-backend
-video-streamer-frontend
-video-stream-dump
-video-stream-dump-external
-video-box
-video-voctop
-video-web-frontend
-video-control-server
-
 [video-control-server]
 control.video.fosdem.org
 
@@ -165,7 +155,31 @@ web0.video.fosdem.org
 [infodesk-laptop]
 # infodesk-laptop-1 ansible_host=185.175.218.188
 
-# Composite hosts
+## Composite host groups
+[encoder:children]
+encoder-storage
+encoder-master
+encoder-backend
+
 [event-prometheus-servers:children]
 event-primary
 event-secondary
+
+[video:children]
+video-box
+video-control-server
+video-stream-dump
+video-stream-dump-external
+video-streamer-backend
+video-streamer-frontend
+video-voctop
+video-web-frontend
+
+[node_exporter:children]
+encoder
+event-prometheus-servers
+public-dashboard
+review
+tv
+# video
+video-streamer-backend

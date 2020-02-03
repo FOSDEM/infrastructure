@@ -1,11 +1,11 @@
 ---
 fosdem_snmp_default_targets:
 - asr1k.n.fosdem.net
-- k-sw.n.fosdem.net
-- aw-sw.n.fosdem.net
-- j-sw.n.fosdem.net
-- h-sw.n.fosdem.net
 - core-sw.n.fosdem.net
+- aw-sw.n.fosdem.net
+# - h-sw.n.fosdem.net
+# - j-sw.n.fosdem.net
+# - k-sw.n.fosdem.net
 
 fosdem_snmp_slow_targets: []
 
@@ -25,9 +25,7 @@ prometheus_remote_write:
 
 prometheus_alertmanager_config:
 - static_configs:
-  - targets:
-    - "server001.sk1-510.k.ulb.bru.fosdem.net:9093"
-    - "server002.sk1-510.k.ulb.bru.fosdem.net:9093"
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9093') | list }}"
 
 prometheus_alert_rules:
 - alert: InstanceDown
@@ -54,7 +52,7 @@ prometheus_targets:
   docker:
   - targets: "{{ groups['event-secondary'] | map('regex_replace', '$', ':9323') | list }}"
   node:
-  - targets: "{{ groups['all'] | map('regex_replace', '$', ':9100') | list }}"
+  - targets: "{{ groups['node_exporter'] | map('regex_replace', '$', ':9100') | list }}"
   snmp_default:
   - targets: "{{ fosdem_snmp_default_targets }}"
   snmp_cdp:
@@ -70,8 +68,8 @@ prometheus_targets:
     - server002-mgmt.n.fosdem.net
   snmp_slow:
   - targets: "{{ fosdem_snmp_slow_targets }}"
-  voctop_audio_fetcher:
-  - targets: "{{ groups['video-voctop'] | map('regex_replace', '$', ':9128') | list }}"
+  # voctop_audio_fetcher:
+  # - targets: "{{ groups['video-voctop'] | map('regex_replace', '$', ':9128') | list }}"
 
 # Template to simplify scrape configs.
 fosdem_snmp_relabel_config:
@@ -114,7 +112,6 @@ prometheus_scrape_configs:
 - job_name: 'snmp_default'
   scrape_interval: 30s
   scrape_timeout: 30s
-  static_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/snmp_default.yml"
@@ -125,7 +122,6 @@ prometheus_scrape_configs:
 - job_name: 'snmp_slow'
   scrape_interval: 90s
   scrape_timeout: 90s
-  static_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/snmp_slow.yml"
@@ -135,7 +131,6 @@ prometheus_scrape_configs:
   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_cdp'
   scrape_interval: 120s
-  static_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/snmp_cdp.yml"
@@ -145,7 +140,6 @@ prometheus_scrape_configs:
   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_dhcp_server'
   scrape_interval: 15s
-  static_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/snmp_dhcp_server.yml"
@@ -155,7 +149,6 @@ prometheus_scrape_configs:
   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'snmp_cisco_health'
   scrape_interval: 30s
-  static_configs:
   file_sd_configs:
   - files:
     - "/etc/prometheus/file_sd/snmp_cisco_health.yml"
@@ -172,36 +165,36 @@ prometheus_scrape_configs:
   params:
     module: [idrac]
   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
-- job_name: 'snmp_wlc_base'
-  scrape_interval: 15s
-  scrape_timeout: 10s
-  static_configs:
-  - targets:
-    - 172.33.17.250
-  metrics_path: /snmp
-  params:
-    module: [cisco_wlc_base]
-  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
-- job_name: 'snmp_wlc_wifi'
-  scrape_interval: 30s
-  scrape_timeout: 25s
-  static_configs:
-  - targets:
-    - 172.33.17.250
-  metrics_path: /snmp
-  params:
-    module: [cisco_wlc_wifi]
-  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
-- job_name: 'snmp_wlc_wifi_rf'
-  scrape_interval: 30s
-  scrape_timeout: 25s
-  static_configs:
-  - targets:
-    - 172.33.17.250
-  metrics_path: /snmp
-  params:
-    module: [cisco_wlc_wifi_rf]
-  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+# - job_name: 'snmp_wlc_base'
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   static_configs:
+#   - targets:
+#     - 172.33.17.250
+#   metrics_path: /snmp
+#   params:
+#     module: [cisco_wlc_base]
+#   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+# - job_name: 'snmp_wlc_wifi'
+#   scrape_interval: 30s
+#   scrape_timeout: 25s
+#   static_configs:
+#   - targets:
+#     - 172.33.17.250
+#   metrics_path: /snmp
+#   params:
+#     module: [cisco_wlc_wifi]
+#   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+# - job_name: 'snmp_wlc_wifi_rf'
+#   scrape_interval: 30s
+#   scrape_timeout: 25s
+#   static_configs:
+#   - targets:
+#     - 172.33.17.250
+#   metrics_path: /snmp
+#   params:
+#     module: [cisco_wlc_wifi_rf]
+#   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
 - job_name: 'caddy'
   static_configs:
   - targets:
@@ -210,12 +203,12 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - localhost:9116
-- job_name: 'swag'
-  scrape_interval: "5s"
-  metrics_path: /stats/stats.php
-  static_configs:
-  - targets:
-    - pos.fosdem.org
+# - job_name: 'swag'
+#   scrape_interval: "5s"
+#   metrics_path: /stats/stats.php
+#   static_configs:
+#   - targets:
+#     - pos.fosdem.org
 - job_name: 'grafana'
   scrape_interval: "15s"
   scheme: https
@@ -228,16 +221,16 @@ prometheus_scrape_configs:
   static_configs:
   - targets:
     - encode-master.video.fosdem.org:9399
-- job_name: 'room_status'
-  scrape_interval: 15s
-  static_configs:
-  - targets:
-    - localhost:7979
-- job_name: 'voctop_audio_fetcher'
-  scrape_interval: 5s
-  file_sd_configs:
-  - files:
-    - "/etc/prometheus/file_sd/voctop_audio_fetcher.yml"
+# - job_name: 'room_status'
+#   scrape_interval: 15s
+#   static_configs:
+#   - targets:
+#     - localhost:7979
+# - job_name: 'voctop_audio_fetcher'
+#   scrape_interval: 5s
+#   file_sd_configs:
+#   - files:
+#     - "/etc/prometheus/file_sd/voctop_audio_fetcher.yml"
 - job_name: 'blackbox_http'
   file_sd_configs:
   - files:
