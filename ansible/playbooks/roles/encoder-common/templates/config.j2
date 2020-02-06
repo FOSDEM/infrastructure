@@ -33,7 +33,13 @@ $extra_profiles = {
                         },
                         video_bitrate => "512",
                 }
-        }
+        },
+	webm_high => {
+		parent => "webm",
+		settings => {
+			video_bitrate => "1800",
+		}
+	}
 };
 
 # A filename pattern (glob) that tells SReview where to find new files
