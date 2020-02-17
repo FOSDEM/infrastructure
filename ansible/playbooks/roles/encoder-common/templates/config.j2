@@ -28,10 +28,12 @@ $extra_profiles = {
                 settings => {
                         extra_params => {
                                 g => "45",
-                                profile => "main",
-                                preset => "veryfast"
+				probesize => "10M",
+				"qmin:v:0" => 1,
+				analyzeduration => "10M",
+				"bufsize:v" => "8192k",
                         },
-                        video_bitrate => "512",
+                        video_bitrate => "1000",
                 }
         },
 	webm_high => {
