@@ -37,9 +37,9 @@
     mode: 0644
 
 - name: install html views
-  copy:
+  template:
     src: "{{ item }}"
-    dest: /var/www/html/
+    dest: /var/www/html/{{ item }}
     owner: root
     group: root
     mode: 0644
