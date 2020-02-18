@@ -19,3 +19,29 @@
     name: nfs-server
     state: restarted
   when: reviewstorage_nfs_exported.changed
+
+- name: "create assets directory"
+  file:
+    path: /srv/sreview/assets
+    state: directory
+
+- name: "create other directories"
+  file:
+    path: /srv/sreview/{{ item }}
+    state: directory
+    owner: 2000
+    group: 2000
+  with_items:
+  - storage
+  - output
+
+- name: "Create email templates"
+  template:
+    dest: /srv/sreview/assets/{{ item }}
+    src: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - announce_email.ep.j2
+  - notify_email.ep.j2

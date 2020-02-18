@@ -1,0 +1,27 @@
+Hi!
+
+This is to inform you that your talk at {{ event.fullname }}, with title
+
+<%== $title %>
+
+has been fully transcoded and uploaded to
+
+% my $room = $talk->room;
+% $room =~ s/ \(.*//;
+https://video.fosdem.org/{{ event.year }}/<%== $room . '/' . $talk->slug . ".mp4" %>
+https://video.fosdem.org/{{ event.year }}/<%== $room . '/' . $talk->slug . ".webm" %>
+
+Please note however, that it will still take a while for our mirrors to
+pick up the video; before that happens, you will not be able to watch
+it. Mirror sync may take up to a couple of hours in the worst case.
+
+Additionally, your video will also be linked to from the schedule;
+however, this too may take a while.
+
+Should you encounter any issues with your recording, you may contact us
+via:
+
+email: video@fosdem.org
+IRC: irc.freenode.net, #fosdem-video
+
+Thanks for your assistance,
