@@ -28,7 +28,7 @@
       <tr>
 {% roomcount = 0 %}
 {% for room in rooms %}
-{%   if room.recorded == 'yes' %}
+{%   if room.recorded %}
 {%      roomcount++ %}
         <td>
           {{ room.name }}<br/>
