@@ -9,3 +9,10 @@
     src: nftables.conf.j2
     dest: /etc/nftables.conf
   notify: restart nftables
+
+- name: Ensure nftables service is enabled and started
+  systemd:
+    daemon_reload: true
+    name: nftables.service
+    state: started
+    enabled: true
