@@ -1,21 +1,21 @@
 #!/usr/sbin/nft -f
 
-{{ ansible-managed | comment }}
+{{ ansible_managed | comment }}
 
 flush ruleset
 
 table inet filter {
 	chain input {
-		type filter hook input priority filter; policy accept;
-		ip saddr != 10.0.0.0/8 tcp dport 111 drop
-		ip saddr != 10.0.0.0/8 udp dport 111 drop
+		type filter hook input priority 0; policy accept;
+		ip saddr != 10.0.0.0/8 tcp dport sunrpc drop
+		ip saddr != 10.0.0.0/8 udp dport sunrpc drop
 	}
 
 	chain forward {
-		type filter hook forward priority filter; policy accept;
+		type filter hook forward priority 0; policy accept;
 	}
 
 	chain output {
-		type filter hook output priority filter; policy accept;
+		type filter hook output priority 0; policy accept;
 	}
 }
