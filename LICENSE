@@ -1,0 +1,47 @@
+Too long; didn't read:
+
+ * Do whatever you want with the code, it can also be used under
+   the conditions of the MIT license (just like nanoc itself)
+
+ * Do whatever you want with the content, but please attribute it
+   to us (CC-BY)
+
+ * Don't use our trademarks (the FOSDEM name and the "gear" logo)
+   without our explicit consent.
+
+For any inquiries, contact us at <info@fosdem.org>.
+
+
+The following applies to all non-software content in this repository with the
+exception of the FOSDEM wordmark and the "gear" logo (which are registered
+trademarks of FOSDEM VZW).
+
+Copyright (c) 2012-2014 FOSDEM VZW
+
+This work is licensed under the Creative Commons Attribution 2.0
+Belgium License. To view a copy of this license, visit
+http://creativecommons.org/licenses/by/2.0/be/ or send a letter to Creative
+Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+
+The following applies to all software in this repository.
+
+Copyright (c) 2012-2014 FOSDEM VZW
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
