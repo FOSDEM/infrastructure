@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Control.video.fosdem.org - K Streams</title>
+    <style>
+      img { 
+	height: 100px;
+      }
+      td {
+	width: 100px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+	images = document.getElementsByTagName('img');
+	for(var i = 0; i < images.length; i++) {
+	  src = images[i].src + '?';
+	  src = src.split('?')[0]
+	  images[i].src = src + '?' + Date.now()
+	}
+
+      }, 10000);
+    </script>
+  </head>
+
+  <body>
+    <table border="1">
+    <tr>
+{% roomcount = 0 %}
+{% for room in rooms %}
+{%   if room.recorded && room.name[:1] == 'K' %}
+{%     roomcount++ %}
+	<td>
+	  <b>{{ room.name }}</b><br/>
+	  <a href='tcp://{{ room.streamname }}-cam.local:8899/' target='_blank'><img src="{{ room.streamname }}/cam.jpg"/></a><br/>
+	  <a href='tcp://{{ room.streamname }}-slides.local:8899/' target='_blank'><img src="{{ room.streamname }}/grab.jpg"/></a>
+	  <a href='tcp://{{ room.streamname }}-voctop.local:8899/' target='_blank'><img src="{{ room.streamname }}/room.jpg"/></a>
+	</td>
+{%     if roomcount >= 10 %}
+{%       roomcount = 0 %}
+      </tr>
+      <tr>
+{%     endif %}
+{%   endif %}
+{% endfor %}
+    </tr>
+    </table>
+  </body>
+
+</html>

@@ -1,0 +1,58 @@
+Hi!
+
+This is to inform you that your talk at {{ event.fullname }}, with title
+
+<%== $title %>
+
+is now available for you to review.
+
+Please help us reviewing this talk, so that we can release it sooner. If
+you don't do so, we will eventually get around to it ourselves, but that
+might take a while.
+% my $corrections = $talk->corrections;
+% if (exists ($corrections->{serial})) {
+
+We note that this is not the first time you receive this email; this is
+because the video has been reviewed a first time (possibly not by you --
+check the Cc list, above). For your information, the following
+corrections were applied to this video:
+
+Review counter: <%== $corrections->{serial} %>
+Start time offset: <%== $corrections->{offset_start} %>
+Length adjust: <%== $corrections->{length_adj} %>
+A/V sync correction: <%== $corrections->{offset_audio} %>
+Audio channel selection: Channel <%== $corrections->{audio_channel} %>
+% if (defined($talk->apology)) {
+
+Additionally, this talk has an apology note configured:
+
+  "<%== $talk->apology %>"
+
+If the talk is released, the above note will be shown on a "We're sorry,
+but we had some technical problems"-type interstitial slide between the
+opening credits and the actual talk.
+
+Should you wish to see it changed, please contact the FOSDEM video team
+(see below).
+% }
+
+Don't worry if you don't understand what the above means. The review
+system will have taken your input, and created a new preview video.
+Please review it, and confirm it if all is well.
+% } else {
+We note that this talk may have been previously submitted without any
+changes been made to it. This is unlikely to have worked very well, so
+we reset the talk to the editing stage.
+% }
+
+Should you encounter any issues with your recording, you may contact us
+via:
+
+email: video@fosdem.org
+IRC: irc.freenode.net, #fosdem-video
+
+To review, please go to the following URL:
+
+<%== $url %>
+
+Thanks for your assistance!
