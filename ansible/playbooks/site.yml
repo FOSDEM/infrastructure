@@ -103,6 +103,12 @@
   roles:
   - { role: video-web-frontend, tags: [ 'video-web-frontend' ] }
 
+- name: video-web-frontend
+  hosts: video-bbb
+  remote_user: root
+  roles:
+  - { role: video-bbb, tags: [ 'video-bbb' ] }
+
 - name: infosesk laptops
   hosts: infodesk-laptop
   remote_user: root

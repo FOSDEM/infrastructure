@@ -152,6 +152,9 @@ spare0-voctop.video.fosdem.org
 [video-web-frontend]
 web0.video.fosdem.org
 
+[video-bbb]
+bbb1.video.fosdem.org ansible_host=135.181.41.169
+
 [infodesk-laptop]
 # infodesk-laptop-1 ansible_host=185.175.218.188
 
@@ -174,6 +177,7 @@ video-streamer-backend
 video-streamer-frontend
 video-voctop
 video-web-frontend
+video-bbb
 
 [node_exporter:children]
 encoder
