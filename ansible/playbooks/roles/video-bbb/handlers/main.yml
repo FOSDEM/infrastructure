@@ -1,0 +1,25 @@
+---
+- name: restart vocto
+  service:
+    name: voctocore
+    state: restarted
+  notify: restart voctoscripts
+
+- name: restart voctoscripts
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+  - vocto-sink-output
+  - vocto-source-cam
+  - vocto-source-slides
+
+- name: restart voctocore
+  service:
+    name: voctocore
+    state: restarted
+
+- name: restart systemd-logind
+  service:
+    name: systemd-logind
+    state: restarted
