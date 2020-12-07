@@ -1,0 +1,4 @@
+---
+firewall_rules:
+  - proto: tcp
+    dports: [80, 443, 1935]

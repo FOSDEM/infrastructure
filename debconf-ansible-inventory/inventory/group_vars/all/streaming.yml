@@ -1,0 +1,54 @@
+---
+streaming:
+  rtmp_publishers:
+    - 127.0.0.0/8
+    - ::1/128
+    # Voctomix-sandbox:
+    - 135.181.88.10
+  backend:
+    server_name: vogol-sandbox.video.fosdem.org
+    inventory_hostname: vogol-sandbox.video.fosdem.org
+    ips:
+      - 135.181.88.10
+    rtmp_push_uris:
+      - rtmp://vogol-sandbox.video.fosdem.org/front
+    data_root: /srv/streaming
+  frontend:
+    onsite: vogol-sandbox.video.fosdem.org
+    data_root: /srv/streaming-frontend
+  rooms:
+    - main
+  method: rtmp
+  rtmp:
+    vaapi: false
+    location: "rtmp://vogol-sandbox.video.fosdem.org:1935/stream/{{ room_name }} live=1"
+  hq_config:
+    hls_bandwidth: 2176000
+    video_bitrate: 2000 # kbps
+    audio_bitrate: 128000 # bps
+    keyframe_period: 60 # seconds
+    width: 1280
+  adaptive:
+    video_codec: libx264
+    audio_codec: aac
+    variants:
+      high:
+        hls_bandwidth: 1152000
+        video_bitrate: 1024k
+        audio_bitrate: 128k
+        extra_settings: -tune zerolatency -preset veryfast -crf 23
+        width: 900
+      mid:
+        hls_bandwidth: 448000
+        video_bitrate: 768k
+        audio_bitrate: 96k
+        extra_settings: -tune zerolatency -preset veryfast -crf 23
+        width: 720
+      low:
+        hls_bandwidth: 288000
+        video_bitrate: 256k
+        audio_bitrate: 48k
+        extra_settings: -tune zerolatency -preset veryfast -crf 23
+        width: 480
+  dump: False
+  mix_channels: false
