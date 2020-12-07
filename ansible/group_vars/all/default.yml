@@ -2,6 +2,7 @@
 # SSH keys to deploy (override them in host_vars if ever necessary)
 # The files refer to files in the common role
 ssh_users:
+- agk
 - brian
 - gerry
 - gouthamve
@@ -10,10 +11,10 @@ ssh_users:
 - mark
 - msuriar
 - nicolai
+- peter
 - richih
 - vasil
 - wouter
-- peter
 
 timezone: "Europe/Brussels"
 
