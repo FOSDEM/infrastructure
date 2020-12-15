@@ -4,6 +4,10 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
+# Set the main input to the mixer to the prerecorded video
+{ echo "set_video_a cam1"; } | telnet localhost 9999
+
+# Ingest prerecorded video into vocto
 ffmpeg -y -nostdin \
 	-i "${SOURCE_RECORDING_DIR}/${1}.mp4" \
 	-ac 2 \
