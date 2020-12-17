@@ -21,3 +21,6 @@ ffmpeg -y -nostdin \
 	-c:a pcm_s16le \
 	-f matroska \
 	tcp://localhost:10000
+	
+# Set the main input to the mixer to the q&a stream video
+{ echo "set_video_a grabber"; } | telnet localhost 9999
