@@ -8,7 +8,7 @@ confdir="`dirname "$0"`/../config/"
 { echo "set_video_a cam1"; } | telnet localhost 9999
 
 # Ingest prerecorded video into vocto
-ffmpeg -y -nostdin \
+ffmpeg -y -re -nostdin \
 	-i "${SOURCE_RECORDING_DIR}/${1}.mp4" \
 	-ac 2 \
 	-filter_complex "
