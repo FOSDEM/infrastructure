@@ -34,8 +34,6 @@ ffmpeg -re -y -nostdin \
 
 { echo "set_video_a grabber"; } | telnet localhost 9999
 
-sleep 1s:
-
 # Ingest q&a video stream into vocto
 # Do not set timeout. This will make ffmpeg think you want to set up an rtmp server for listening.
 ffmpeg -y -nostdin \
