@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## file takes event id from penta of video as input
+
 confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
