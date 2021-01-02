@@ -1,0 +1,7 @@
+---
+- name: "install packages"
+  apt:
+    state: latest
+    package:
+    - nginx-full
+    - libnginx-mod-rtmp
