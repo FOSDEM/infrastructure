@@ -11,8 +11,7 @@
     state: restarted
   with_items:
   - vocto-sink-output
-  - vocto-source-cam
-  - vocto-source-slides
+  - vocto-source-recordings
 
 - name: restart voctocore
   service:
@@ -22,4 +21,9 @@
 - name: restart systemd-logind
   service:
     name: systemd-logind
+    state: restarted
+
+- name: restart nginx
+  service:
+    name: nginx
     state: restarted

@@ -5,3 +5,14 @@
     package:
     - nginx-full
     - libnginx-mod-rtmp
+
+- name: "install nginx configuration"
+  copy:
+    src: "scripts/{{ item }}"
+    dest: /etc/nginx/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - nginx.conf
+  notify: restart nginx
