@@ -19,7 +19,7 @@ else:
 
 print("Parsing the schedule file...")
 pentaparse = ET.parse(penta).getroot()
-rooms=sorted(list(set([slugify(r.get('name')) for r in pentaparse.findall('.//room') if r.get('name')])))
+rooms=sorted(list(set([slugify(r.get('name'),separator='') for r in pentaparse.findall('.//room') if r.get('name')])))
 
 output=''
 
