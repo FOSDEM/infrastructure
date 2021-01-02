@@ -154,7 +154,6 @@ web0.video.fosdem.org
 
 [video-bbb]
 bbb1.video.fosdem.org ansible_host=135.181.41.169
-bbofs-vocto.video.fosdem.org
 dapacheopenoffice-vocto.video.fosdem.org
 dblockchain-vocto.video.fosdem.org
 dbsd-vocto.video.fosdem.org

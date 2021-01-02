@@ -3,6 +3,7 @@
 from slugify import slugify
 import json
 import os
+import re
 import sys
 import wget
 import xml.etree.ElementTree as ET 
@@ -19,7 +20,9 @@ else:
 
 print("Parsing the schedule file...")
 pentaparse = ET.parse(penta).getroot()
-rooms=sorted(list(set([slugify(r.get('name'),separator='') for r in pentaparse.findall('.//room') if r.get('name')])))
+'''Match only devrooms, keynotes, lightning talks, main tracks'''
+pattern='^[D,K,L,M]'
+rooms=sorted(list(set([slugify(r.get('name'),separator='') for r in pentaparse.findall('.//room') if r.get('name') and re.match(pattern,r.get('name')) ])))
 
 output=''
 

@@ -14,7 +14,6 @@ chrony_upstream:
 # All rooms being recorded by the video team
 
 video_rooms:
-- bbofs
 - dapacheopenoffice
 - dblockchain
 - dbsd
