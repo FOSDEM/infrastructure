@@ -30,3 +30,12 @@ for r in rooms:
 f = open('/tmp/ansible_hosts_voctos', 'w')
 f.write(output)
 f.close()
+
+output=''
+print('Creating ansible group_vars/video.yml')
+for r in rooms:
+    output += '- ' + r + '\n'
+
+f = open('/tmp/video.yml', 'w')
+f.write(output)
+f.close()
