@@ -37,8 +37,7 @@
     mode: 0755
   with_items:
   - sink-output.sh
-  - source-cam.sh
-  - source-slides.sh
+  - source-recordings.sh
   notify: restart voctoscripts
 
 - name: create config directory

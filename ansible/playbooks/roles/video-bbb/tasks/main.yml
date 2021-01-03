@@ -1,4 +1,4 @@
 ---
 - include: install_voctocore.yml
-- include: install_audio_fetcher.yml
+- include: install_nginxrtmp.yml
   tags: voctocore
