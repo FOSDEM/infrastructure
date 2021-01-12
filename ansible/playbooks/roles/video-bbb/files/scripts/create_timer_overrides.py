@@ -69,19 +69,3 @@ for e in events:
     subprocess.check_call(['systemctl', 'enable', timer_template ])
     subprocess.check_call(['systemctl', 'enable',  timer ])
     subprocess.check_call(['systemctl', 'start', timer ])
-
-'''print('Downloading recordings into local cache...')
-print('Creating video cache directory...')
-try:
-    os.makedirs(video_cache_dir, mode=0o755)
-except:
-    pass
-for e in events:
-    xpath_string=".//event[@id='" + e + "']/links/link"
-    for l in pentaparse.findall(xpath_string):
-        url=l.get('href')
-        if 'mp4' in url:
-            print('Downloading event '+ e + ' video url ' + url + '\n')
-            download_path = video_cache_dir + '/' + e + '.mp4'
-            print(download_path)
-            wget.download(url, download_path)'''
