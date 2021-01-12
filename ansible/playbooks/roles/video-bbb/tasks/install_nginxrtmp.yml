@@ -1,7 +1,7 @@
 ---
 - name: "install nginx configuration"
   copy:
-    src: "scripts/{{ item }}"
+    src: "{{ item }}"
     dest: /etc/nginx/
     owner: root
     group: root
