@@ -3,8 +3,8 @@
   file:
     path: "{{ vocto_recording_directory }}"
     state: directory
-    owner: root
-    group: root
+    owner: sreview
+    group: fosdem
     mode: 0755
 
 - name: "install packages"
