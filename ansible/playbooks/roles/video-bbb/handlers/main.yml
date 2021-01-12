@@ -11,7 +11,7 @@
     state: restarted
   with_items:
   - vocto-sink-output
-  - vocto-source-recordings
+  - vocto-source-recording
 
 - name: restart voctocore
   service:
