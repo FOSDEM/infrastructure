@@ -59,6 +59,7 @@
   - defaults.sh
   - voctocore.ini
   - background.png
+  - streamkeysalt.sh
   notify: restart vocto
 
 - name: patch videomix.py to use our defaults
