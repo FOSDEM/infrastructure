@@ -5,7 +5,10 @@
 confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
+. ${confdir}/streamkeysalt.sh
 previous_event_id=$(</tmp/previous_event_id)
+
+STREAMKEY=$(echo -n $1.$SALT | sha256sum||cut -d' ' -f1)
 
 # TODO:
 # Set vocto output to fullscreen intermediate loop
@@ -39,7 +42,7 @@ ffmpeg -re -y -nostdin \
 # Ingest q&a video stream into vocto
 # Do not set timeout. This will make ffmpeg think you want to set up an rtmp server for listening.
 ffmpeg -y -nostdin \
-	-i "rtmp://localhost/stream/${1}" \
+	-i "rtmp://localhost/stream/${STREAMKEY}" \
 	-ac 2 \
 	-filter_complex "
 		[0:v] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE,setdar=16/9,setsar=1 [v] ;
