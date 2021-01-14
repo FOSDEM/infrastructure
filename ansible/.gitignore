@@ -9,4 +9,5 @@ playbooks/roles/video-streamer-backend/files/sreview/config.pl
 playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.crt
 playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.key
 playbooks/roles/video-control-server/files/nginx/htpasswd
+playbooks/roles/video-bbb/files/config/streamkeysalt.sh
 .vault-password
