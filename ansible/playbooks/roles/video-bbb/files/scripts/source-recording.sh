@@ -8,7 +8,7 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/streamkeysalt.sh
 previous_event_id=$(</tmp/previous_event_id)
 
-STREAMKEY=$(echo -n $1.$SALT | sha256sum||cut -d' ' -f1)
+STREAMKEY=$(echo -n $1.$SALT | sha256sum| cut -d' ' -f1)
 
 # TODO:
 # Set vocto output to fullscreen intermediate loop
