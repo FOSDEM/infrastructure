@@ -22,6 +22,8 @@ print("Parsing the schedule file...")
 pentaparse = ET.parse(penta).getroot()
 '''Match only devrooms, keynotes, lightning talks, main tracks'''
 pattern='^[D,K,L,M]'
+fullrooms=sorted(list(set([r.get('name') for r in pentaparse.findall('.//room') if r.get('name') and re.match(pattern,r.get('name')) ])))
+
 rooms=sorted(list(set([slugify(r.get('name'),separator='') for r in pentaparse.findall('.//room') if r.get('name') and re.match(pattern,r.get('name')) ])))
 
 output=''
@@ -42,3 +44,14 @@ for r in rooms:
 f = open('/tmp/video.yml', 'w')
 f.write(output)
 f.close()
+
+output=''
+print('Creating live.fosdem.org mappings')
+for r in fullrooms:
+    output += "\t\t'"+ slugify(r,separator='') + "' => '" + r +"',\n"
+
+f = open('/tmp/config.php', 'w')
+f.write(output)
+f.close()
+
+
