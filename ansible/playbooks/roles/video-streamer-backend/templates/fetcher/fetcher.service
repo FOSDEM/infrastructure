@@ -3,7 +3,7 @@ Description={{ item }} vlc fetcher service
 PartOf=fetcher.target
 
 [Service]
-ExecStart=/usr/local/bin/fetcher.sh tcp://{{ item }}-voctop.video.fosdem.org:8899/?timeout=3000000 {{ item }}
+ExecStart=/usr/local/bin/fetcher.sh tcp://{{ item }}-vocto.video.fosdem.org:8899/?timeout=3000000 {{ item }}
 KillMode=control-group
 KillSignal=SIGKILL
 Restart=always
