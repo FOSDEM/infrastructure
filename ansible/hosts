@@ -48,6 +48,11 @@ streamfrontend1.video.fosdem.org
 streamfrontend2.video.fosdem.org
 streamfrontend3.video.fosdem.org
 streamfrontend4.video.fosdem.org
+streamfrontend5.video.fosdem.org
+streamfrontend6.video.fosdem.org
+streamfrontend7.video.fosdem.org
+streamfrontend8.video.fosdem.org
+streamfrontend9.video.fosdem.org
 
 [video-stream-dump]
 streamdump0.video.fosdem.org
