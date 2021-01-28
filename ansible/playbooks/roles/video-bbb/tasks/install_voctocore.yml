@@ -103,7 +103,6 @@
   with_items:
   - voctocore
   - vocto-sink-output
-  - vocto-source-slide
 
 - name: restart vocto scripts on sproxy change
   command: "/bin/true"
