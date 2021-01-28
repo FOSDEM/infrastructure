@@ -7,7 +7,7 @@
     group: root
     mode: 0644
   with_items:
-    - nginx.conf
+  - nginx.conf
   notify: restart nginx
 
 - name: "install packages"
@@ -16,4 +16,3 @@
     package:
     - nginx-full
     - libnginx-mod-rtmp
-

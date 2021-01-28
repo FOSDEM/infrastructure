@@ -1,3 +1,4 @@
+---
 - name: add sreview user
   user:
     name: sreview
@@ -11,5 +12,4 @@
     user: sreview
     key: '{{ item }}'
   with_file:
-    - files/sreview.pub
-
+  - files/sreview.pub
