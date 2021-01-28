@@ -74,14 +74,26 @@ for e in events:
     f.close()
 
 
-print('Start timers')
-subprocess.check_call(['systemctl', 'enable', timer_template ])
+print('Start recording timers')
+subprocess.check_call(['systemctl', 'enable', recording_timer_template ])
 for e in events:
-    timer = timer_template_prefix + e + '.timer'
+    timer = recording_timer_template_prefix + e + '.timer'
     # TODO. Naive. If an event has already been deleted from penta, this will not stop the old one from appearing at the same time as the new one. Dangerous!
     subprocess.check_call(['systemctl', 'stop', timer ])
     subprocess.check_call(['systemctl', 'disable', timer ])
-    subprocess.check_call(['systemctl', 'disable', timer_template ])
-    subprocess.check_call(['systemctl', 'enable', timer_template ])
+    subprocess.check_call(['systemctl', 'disable', recording_timer_template ])
+    subprocess.check_call(['systemctl', 'enable', recording_timer_template ])
     subprocess.check_call(['systemctl', 'enable',  timer ])
     subprocess.check_call(['systemctl', 'start', timer ])
+
+print('Start slides timers')
+subprocess.check_call(['systemctl', 'enable', slide_timer_template ])
+for e in events:
+    timer = slide_timer_template_prefix + e + '.timer'
+    # TODO. Naive. If an event has already been deleted from penta, this will not stop the old one from appearing at the same time as the new one. Dangerous!
+    subprocess.check_call(['systemctl', 'stop', timer ])
+    subprocess.check_call(['systemctl', 'disable', timer ])
+    subprocess.check_call(['systemctl', 'disable', slide_timer_template ])
+    subprocess.check_call(['systemctl', 'enable', slide_timer_template ])
+    subprocess.check_call(['systemctl', 'enable',  timer ])
+ 
