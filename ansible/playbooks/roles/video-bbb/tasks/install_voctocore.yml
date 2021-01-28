@@ -107,6 +107,13 @@
   - voctocore
   - vocto-sink-output
 
+# uncomment after we have {{roomname}}
+#- name: recreate timers
+#  command: "/opt/scripts/create_timer_overrides.py -r {{ roomname }}"
+#
+#- name: recreate preroll images
+#  command: "/opt/scripts/create_prerolls.py -r {{ roomname }}"
+
 - name: restart vocto scripts on sproxy change
   command: "/bin/true"
   notify: restart vocto
