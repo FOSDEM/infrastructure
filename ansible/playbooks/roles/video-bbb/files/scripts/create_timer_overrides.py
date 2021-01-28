@@ -1,6 +1,6 @@
 #! /usr/bin/python3
  
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import parser
 from slugify import slugify
 import argparse
@@ -14,9 +14,11 @@ import xml.etree.ElementTree as ET
 
 penta_url = 'https://fosdem.org/2021/schedule/xml'
 timer_dir = '/etc/systemd/system'
-timer_template_prefix = 'vocto-source-recording@'
+recording_timer_template_prefix = 'vocto-source-recording@'
 video_cache_dir = '/opt/media/recordings'
-timer_template = timer_template_prefix + '.timer'
+recording_timer_template = recording_timer_template_prefix + '.timer'
+slide_timer_template_prefix = 'vocto-source-slide@'
+slide_timer_template = slide_timer_template_prefix+ '.timer'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--room", help="the room name as seen in pentabarf xml", required=True)
@@ -47,16 +49,30 @@ for e in events:
     # TODO. Remove replace(year=2021) once the actual programme is coming together
     date = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S').replace(year=2021)
     output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
-    timer_override_dir= timer_dir + '/' + timer_template_prefix + e + '.timer.d'
+    recording_timer_override_dir= timer_dir + '/' + recording_timer_template_prefix + e + '.timer.d'
 
     try:
-        os.makedirs(timer_override_dir, mode=0o755)
+        os.makedirs(recording_timer_override_dir, mode=0o755)
     except:
         pass
 
-    f = open(timer_override_dir+ '/'+ 'OnCalendar.conf', 'w')
+    f = open(recording_timer_override_dir+ '/'+ 'OnCalendar.conf', 'w')
     f.write(output)
     f.close()
+
+    date+= timedelta(minutes=5)
+    output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
+    slide_timer_override_dir= timer_dir + '/' + slide_timer_template_prefix + e + '.timer.d'
+
+    try:
+        os.makedirs(slide_timer_override_dir, mode=0o755)
+    except:
+        pass
+
+    f = open(slide_timer_override_dir+ '/'+ 'OnCalendar.conf', 'w')
+    f.write(output)
+    f.close()
+
 
 print('Start timers')
 subprocess.check_call(['systemctl', 'enable', timer_template ])
