@@ -10,7 +10,7 @@ import wget
 import xml.etree.ElementTree as ET 
 
 penta_url = 'https://fosdem.org/2021/schedule/xml'
-video_cache_dir = '/opt/media/preroll'
+preroll_dir = '/opt/config'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--room", help="the room name as seen in pentabarf xml", required=True)
@@ -32,11 +32,11 @@ xpath_string='.//event[room="'+room+'"]'
 events= [e for e in pentaparse.findall(xpath_string)]
 
 for e in events:
-  with open('/tmp/fosdem_preroll_template.svg', 'r') as f:
+  with open(preroll_dir+'/fosdem_preroll_template.svg', 'r') as f:
     t=f.read()
 
   print("Creating preroll slide for talk "+ str(e.get('id')))
-  basename='/tmp/preroll'+ e.get('id')
+  basename= preroll_dir +'/preroll'+ e.get('id')
   if e.find('title').text is not None:
       talk_title= e.find('title').text
   else:
