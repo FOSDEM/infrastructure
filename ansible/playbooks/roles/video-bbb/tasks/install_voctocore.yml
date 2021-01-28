@@ -16,6 +16,7 @@
     - ffmpeg
     - git
     - python3-gi-cairo
+    - python3-wget
     - rsync
     - avahi-daemon
     - voctomix-core
