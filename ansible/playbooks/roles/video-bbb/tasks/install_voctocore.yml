@@ -36,6 +36,8 @@
     group: root
     mode: 0755
   with_items:
+  - create_prerolls.py
+  - create_timer_overrides.py
   - sink-output.sh
   - source-recording.sh
   notify: restart voctoscripts
