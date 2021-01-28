@@ -66,3 +66,5 @@ for e in events:
   f.close()
 
   p=subprocess.run(['/usr/bin/inkscape', basename+'.svg', '--export-png', basename+ '.png'])
+  p=subprocess.run(['/usr/bin/ffmpeg', '-i', basename+'.png', '-c:v', 'rawvideo', '-pix_fmt:v', 'yuv420p', '-c:v', 'rawvideo', '-pix_fmt', 'yuv420p', '-frames', '1', '-f', 'rawvideo', basename+'.raw'])
+
