@@ -46,8 +46,8 @@ for e in events:
     xpath_string=".//event[@id='" + e + "']/start"
     time = pentaparse.find(xpath_string).text + ':00'
     dt = date + ' ' + time
-    # TODO. Remove replace(year=2021) once the actual programme is coming together
-    date = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S').replace(year=2021)
+    date = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S')
+    date+= timedelta(weeks=-1)
 
     # Recordings
     output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
