@@ -5,4 +5,4 @@ Requires = voctocore.service
 
 [Service]
 Type = simple
-ExecStart = /opt/scripts/source-slide.sh %I
+ExecStart = cp /opt/config/preroll%I.raw /opt/config/slide.raw
