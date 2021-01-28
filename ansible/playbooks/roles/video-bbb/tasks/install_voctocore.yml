@@ -42,6 +42,7 @@
   - create_timer_overrides.py
   - sink-output.sh
   - source-recording.sh
+  - source-slide.sh
   notify: restart voctoscripts
 
 - name: create config directory
@@ -63,6 +64,7 @@
   - defaults.sh
   - voctocore.ini
   - background.png
+  - slide.raw
   - streamkeysalt.sh
   - fosdem_preroll_template.svg
   notify: restart vocto
@@ -101,6 +103,7 @@
   with_items:
   - voctocore
   - vocto-sink-output
+  - vocto-source-slide
 
 - name: restart vocto scripts on sproxy change
   command: "/bin/true"
