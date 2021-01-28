@@ -42,6 +42,7 @@
     mode: 0755
   with_items:
   - create_prerolls.py
+  - roomname.py
   - create_timer_overrides.py
   - sink-output.sh
   - source-recording.sh
@@ -107,12 +108,16 @@
   - voctocore
   - vocto-sink-output
 
-# uncomment after we have {{roomname}}
-#- name: recreate timers
-#  command: "/opt/scripts/create_timer_overrides.py -r {{ roomname }}"
-#
-#- name: recreate preroll images
-#  command: "/opt/scripts/create_prerolls.py -r {{ roomname }}"
+- name: get roomname
+  command: "/opt/scripts/roomname.py"
+  register: roomname
+
+
+- name: recreate timers
+  command: "/opt/scripts/create_timer_overrides.py -r {{ roomname.stdout }}"
+
+- name: recreate preroll images
+  command: "/opt/scripts/create_prerolls.py -r {{ roomname.stdout }}"
 
 - name: restart vocto scripts on sproxy change
   command: "/bin/true"
