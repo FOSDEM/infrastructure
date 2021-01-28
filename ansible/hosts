@@ -157,6 +157,10 @@ spare0-voctop.video.fosdem.org
 [video-web-frontend]
 web0.video.fosdem.org
 
+[video-bbb:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+
 [video-bbb]
 bbb1.video.fosdem.org ansible_host=135.181.41.169
 dapacheopenoffice-vocto.video.fosdem.org
