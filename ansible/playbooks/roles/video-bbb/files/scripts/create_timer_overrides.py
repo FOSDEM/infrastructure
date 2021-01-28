@@ -48,6 +48,8 @@ for e in events:
     dt = date + ' ' + time
     # TODO. Remove replace(year=2021) once the actual programme is coming together
     date = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S').replace(year=2021)
+
+    # Recordings
     output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
     recording_timer_override_dir= timer_dir + '/' + recording_timer_template_prefix + e + '.timer.d'
 
@@ -60,6 +62,7 @@ for e in events:
     f.write(output)
     f.close()
 
+    # Slides
     date+= timedelta(minutes=5)
     output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
     slide_timer_override_dir= timer_dir + '/' + slide_timer_template_prefix + e + '.timer.d'
@@ -96,4 +99,5 @@ for e in events:
     subprocess.check_call(['systemctl', 'disable', slide_timer_template ])
     subprocess.check_call(['systemctl', 'enable', slide_timer_template ])
     subprocess.check_call(['systemctl', 'enable',  timer ])
+    subprocess.check_call(['systemctl', 'start',  timer ])
  
