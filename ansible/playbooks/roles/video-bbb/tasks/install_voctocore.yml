@@ -17,6 +17,8 @@
     - git
     - python3-gi-cairo
     - python3-wget
+    - python3-dateutil
+    - python3-slugify
     - rsync
     - avahi-daemon
     - voctomix-core
