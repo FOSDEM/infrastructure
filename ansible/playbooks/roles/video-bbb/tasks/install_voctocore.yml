@@ -19,6 +19,8 @@
     - rsync
     - avahi-daemon
     - voctomix-core
+    - telnet
+    - inkscape
 
 - name: create scripts directory
   file:
