@@ -18,14 +18,14 @@
 - name: mount backends
   mount:
     name: /srv/sreview/incoming
-    src: 10.0.0.2:/var/www/dump
+    src: 10.21.1.2:/var/www/dump
     fstype: nfs
     state: mounted
 
 - name: mount working storage
   mount:
     name: /srv/sreview/{{ item }}
-    src: 10.0.0.8:/srv/sreview/{{ item }}
+    src: 10.21.0.72:/srv/sreview/{{ item }}
     fstype: nfs
     state: mounted
   with_items:
