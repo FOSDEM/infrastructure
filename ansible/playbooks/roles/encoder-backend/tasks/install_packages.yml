@@ -8,7 +8,7 @@
 - name: "add sreview repository"
   apt_repository:
     update_cache: true
-    repo: deb https://latin.grep.be/sreview stretch main
+    repo: deb https://lounge.grep.be/sreview stretch main
 
 - name: "install packages"
   apt:
