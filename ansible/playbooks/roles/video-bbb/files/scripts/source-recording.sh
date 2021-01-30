@@ -26,7 +26,7 @@ sleep 30
 
 # Ingest prerecorded video into vocto
 ffmpeg -re -y -nostdin \
-	-i "${SOURCE_RECORDING_DIR}/${1}.mp4" \
+	-i "${RECORDING_DIRECTORY}/${1}.mp4" \
 	-ac 2 \
 	-filter_complex "
 		[0:v] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE,setdar=16/9,setsar=1 [v] ;
