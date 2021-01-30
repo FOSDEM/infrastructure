@@ -14,7 +14,7 @@ review.video.fosdem.org
 reviewstorage.video.fosdem.org
 
 [encoder-master]
-encoder-master.video.fosdem.org
+encode-master.video.fosdem.org
 
 [encoder-backend]
 encoder0.video.fosdem.org system_hostname=encoder0
