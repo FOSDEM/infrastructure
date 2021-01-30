@@ -63,7 +63,7 @@ for e in events:
     f.close()
 
     # Slides
-    date+= timedelta(minutes=5)
+    date+= timedelta(minutes=-5)
     output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
     slide_timer_override_dir= timer_dir + '/' + slide_timer_template_prefix + e + '.timer.d'
 
