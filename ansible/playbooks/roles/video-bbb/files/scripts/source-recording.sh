@@ -41,7 +41,9 @@ ffmpeg -re -y -nostdin \
 
 # Ingest q&a video stream into vocto
 # Do not set timeout. This will make ffmpeg think you want to set up an rtmp server for listening.
+# Use rw_timeout instead.
 ffmpeg -y -nostdin \
+	-rw_timeout 15000000 \
 	-i "rtmp://localhost/stream/${STREAMKEY}" \
 	-ac 2 \
 	-filter_complex "
@@ -55,6 +57,5 @@ ffmpeg -y -nostdin \
 	-f matroska \
 	tcp://localhost:10000
 
-# this should never happen
 { echo "set_audio grabber"; } | nc -q0 localhost 9999
 { echo "set_videos_and_composite grabber cam1 fullscreen"; } | nc -q0 localhost 9999
