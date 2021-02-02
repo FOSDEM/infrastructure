@@ -19,5 +19,6 @@ cp $1/certificates/control.video.fosdem.org.crt playbooks/roles/video-control-se
 cp $1/sreview/config.pl playbooks/roles/video-streamer-backend/files/sreview/config.pl
 cp $1/control/htpasswd playbooks/roles/video-control-server/files/nginx/htpasswd
 cp $1/jibri/streamkeysalt.sh playbooks/roles/video-bbb/files/config/streamkeysalt.sh
+cp $1/monitoring/send_nsca.cfg playbooks/roles/tmpicinga/files/send_nsca.cfg
 
 echo "done."

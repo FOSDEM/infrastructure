@@ -1,0 +1,39 @@
+---
+- name: "install monitoring packages"
+  apt:
+    state: latest
+    package:
+    - nsca-client
+    - monitoring-plugins
+
+- name: monitoring script
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+  - do_checks.sh
+
+- name: install nsca configuration
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - send_nsca.cfg
+
+- name: install cron file
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/cron.d/monitoring"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - monitoring.cron
+
+
