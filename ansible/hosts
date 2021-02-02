@@ -42,6 +42,10 @@ streambackend0.video.fosdem.org
 #streambackend3.video.fosdem.org
 #streambackend4.video.fosdem.org
 
+[video-streamer-frontend:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+
 [video-streamer-frontend]
 streamfrontend0.video.fosdem.org
 streamfrontend1.video.fosdem.org
