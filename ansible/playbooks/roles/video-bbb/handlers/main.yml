@@ -26,3 +26,6 @@
   service:
     name: nginx
     state: restarted
+
+- name: update font-cache
+  command: fc-cache -fv

@@ -2,4 +2,5 @@
 - include: sreview.yml
 - include: install_nginxrtmp.yml
 - include: install_voctocore.yml
+- include: configure_fonts.yml
   tags: voctocore
