@@ -29,3 +29,9 @@
 
 - name: update font-cache
   command: fc-cache -fv
+
+- name: restart iptables-persistent
+  service:
+    name: netfilter-persistent
+    state: restarted
+
