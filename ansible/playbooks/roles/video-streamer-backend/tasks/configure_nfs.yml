@@ -5,6 +5,7 @@
     package:
     - nfs-common
     - nfs-kernel-server
+    - iptables-persistent
 
 - name: create export directories
   file:
@@ -22,9 +23,24 @@
     mode: 0644
   notify: restart nfs
 
+- name: create the firewall
+  template:
+    src: iptables/rules.v4
+    dest: /etc/iptables/rules.v4
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload iptables-persistent
+
 - name: enable and start NFS server
   service:
     name: nfs-server
     state: started
     enabled: true
   when: nfs_exports|length
+
+- name: enable and start the firewall
+  service:
+    name: iptables-persistent
+    state: started
+    enabled: true
