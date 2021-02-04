@@ -9,6 +9,11 @@
     name: nfs-server
     state: restarted
 
+- name: restart iptables-persistent
+  service:
+    name: iptables-persistent
+    state: restarted
+
 - name: restart fetcher target
   become: true
   systemd:
