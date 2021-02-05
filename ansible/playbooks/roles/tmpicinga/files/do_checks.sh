@@ -21,10 +21,14 @@ ret=0
 live=""
 dead=""
 
-daemons="nginx sshd"
+daemons="sshd chronyd"
 
 if $(hostname |grep -q vocto) ; then
         daemons=$daemons" voctocore.py sink-output.sh"
+fi
+
+if ! $(hostname |grep -q streamdump) ; then
+        daemons=$daemons" nginx"
 fi
 for daemon in $daemons; do
         if ps auxwf |grep -v grep |grep -w $daemon > /dev/null; then
