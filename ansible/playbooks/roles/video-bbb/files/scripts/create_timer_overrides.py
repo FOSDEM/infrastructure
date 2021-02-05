@@ -16,6 +16,7 @@ penta_url = 'https://fosdem.org/2021/schedule/xml'
 timer_dir = '/etc/systemd/system'
 recording_timer_template_prefix = 'vocto-source-recording@'
 video_cache_dir = '/opt/media/recordings'
+endtimes_dir = '/opt/config/endtimes'
 recording_timer_template = recording_timer_template_prefix + '.timer'
 slide_timer_template_prefix = 'vocto-source-slide@'
 slide_timer_template = slide_timer_template_prefix+ '.timer'
@@ -47,7 +48,7 @@ for e in events:
     time = pentaparse.find(xpath_string).text + ':00'
     dt = date + ' ' + time
     date = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S')
-    date+= timedelta(weeks=-1)
+    #date+= timedelta(weeks=-1)
 
     # Recordings
     output = '[Timer]\nOnCalendar=\nOnCalendar=' + str(date)
@@ -60,6 +61,24 @@ for e in events:
 
     f = open(recording_timer_override_dir+ '/'+ 'OnCalendar.conf', 'w')
     f.write(output)
+    f.close()
+
+    # End times
+
+    xpath_string=".//event[@id='" + e + "']/duration"
+    durationstring = pentaparse.find(xpath_string).text
+    dd= datetime.strptime(durationstring,'%H:%M')
+    duration=timedelta(hours=dd.hour,minutes=dd.minute)
+    enddate=date+duration
+    endtime=str(int(enddate.timestamp()))
+
+    try:
+        os.makedirs(endtimes_dir, mode=0o755)
+    except:
+        pass
+
+    f = open(endtimes_dir+ '/'+ e, 'w')
+    f.write(endtime)
     f.close()
 
     # Slides
@@ -75,7 +94,6 @@ for e in events:
     f = open(slide_timer_override_dir+ '/'+ 'OnCalendar.conf', 'w')
     f.write(output)
     f.close()
-
 
 print('Start recording timers')
 subprocess.check_call(['systemctl', 'enable', recording_timer_template ])
