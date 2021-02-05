@@ -61,7 +61,7 @@ now=$(date +%s)
 endtime=$(cat /opt/config/endtimes/${1})
 let runtime=${endtime}-${now}-40
 # mark made me write the line below :P
-next=`systemctl list-timers|grep @|sed -e 's/.*\@\([0-9].*\)\.service/\1/g'|uniq |grep -A1 ${1}|tail -n1`
+next=`systemctl list-timers|grep recording@|grep -v ^n/a|sed -e 's/.*\@\([0-9].*\)\.service/\1/g'|uniq |grep -A1 ${1}|tail -n1`
 if [ -f /opt/config/preroll${next}.raw ]; then
 	slide=/opt/config/preroll${next}.raw
 else
