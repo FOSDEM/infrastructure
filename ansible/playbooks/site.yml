@@ -80,8 +80,7 @@
   hosts: video-stream-dump
   remote_user: root
   roles:
-  - { role: laptop, tags: [ 'laptop' ] }
-  - { role: power_supply, tags: [ 'power_supply' ] }
+  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
 - name: video-stream-dump-external
@@ -95,6 +94,7 @@
   remote_user: root
   roles:
   # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
   - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
   - mtail
 

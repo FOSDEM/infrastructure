@@ -2,8 +2,6 @@
 - name: Loop for streamdump type
   include: configure_streamdump_simple.yml
   with_items:
-  - cam
-  - slides
-  - voctop
+  - vocto
 
 - include: streamdump_target.yml
