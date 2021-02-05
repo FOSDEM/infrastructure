@@ -57,20 +57,27 @@ ffmpeg -re -y -nostdin \
 # Ingest q&a video stream into vocto
 # Do not set timeout. This will make ffmpeg think you want to set up an rtmp server for listening.
 # Use rw_timeout instead.
-ffmpeg -y -nostdin \
-	-rw_timeout 15000000 \
-	-i "rtmp://localhost/stream/${STREAMKEY}" \
-	-ac 2 \
-	-filter_complex "
-		[0:v] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE,setdar=16/9,setsar=1 [v] ;
-		[0:a] aresample=$AUDIORATE [a]
-	" \
-	-map "[v]" -map "[a]" \
-	-pix_fmt yuv420p \
-	-c:v rawvideo \
-	-c:a pcm_s16le \
-	-f matroska \
-	tcp://localhost:10000
+now=$(date +%s)
+endtime=$(cat /opt/config/endtimes/${1})
+let runtime=${endtime}-${now}-40
+(sleep 1; cp /opt/config/background.raw /opt/config/slide.raw) &
+if [ $runtime -gt 1 ]; then
 
+	ffmpeg -y -nostdin \
+		-rw_timeout 3000000 -t ${runtime} \
+		-i "rtmp://localhost/stream/${STREAMKEY}" \
+		-ac 2 \
+		-filter_complex "
+			[0:v] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE,setdar=16/9,setsar=1 [v] ;
+			[0:a] aresample=$AUDIORATE [a]
+		" \
+		-map "[v]" -map "[a]" \
+		-pix_fmt yuv420p \
+		-c:v rawvideo \
+		-c:a pcm_s16le \
+		-f matroska \
+		tcp://localhost:10000
+
+fi
 { echo "set_audio grabber"; } | nc -q0 localhost 9999
 { echo "set_videos_and_composite grabber cam1 fullscreen"; } | nc -q0 localhost 9999
