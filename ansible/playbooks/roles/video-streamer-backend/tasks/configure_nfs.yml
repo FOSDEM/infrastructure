@@ -24,13 +24,16 @@
   notify: restart nfs
 
 - name: create the firewall
-  template:
-    src: iptables/rules.v4
-    dest: /etc/iptables/rules.v4
+  copy:
+    src: "iptables/{{ item}}"
+    dest: /etc/iptables/
     owner: root
     group: root
     mode: 0644
-  notify: reload iptables-persistent
+  with_items:
+  - rules.v4
+  - rules.v6
+  notify: restart iptables-persistent
 
 - name: enable and start NFS server
   service:
@@ -41,6 +44,6 @@
 
 - name: enable and start the firewall
   service:
-    name: iptables-persistent
+    name: netfilter-persistent
     state: started
     enabled: true

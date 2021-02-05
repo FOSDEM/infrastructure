@@ -11,7 +11,7 @@
 
 - name: restart iptables-persistent
   service:
-    name: iptables-persistent
+    name: netfilter-persistent
     state: restarted
 
 - name: restart fetcher target
