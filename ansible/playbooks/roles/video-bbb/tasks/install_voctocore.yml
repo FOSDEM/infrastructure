@@ -66,6 +66,7 @@
     mode: 0644
   with_items:
   - background.png
+  - background.raw
   - defaults.sh
   - fosdem_preroll_template.svg
   - interroll.mp4
