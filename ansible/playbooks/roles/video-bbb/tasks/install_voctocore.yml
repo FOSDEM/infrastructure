@@ -33,6 +33,11 @@
     group: root
     mode: 0755
 
+- name: Clean up stale penta xml
+  file:
+    path: /eopt/scripts/xml
+    state: absent
+
 - name: install sink-output scripts
   copy:
     src: "scripts/{{ item }}"
