@@ -60,7 +60,14 @@ ffmpeg -re -y -nostdin \
 now=$(date +%s)
 endtime=$(cat /opt/config/endtimes/${1})
 let runtime=${endtime}-${now}-40
-(sleep 1; cp /opt/config/background.raw /opt/config/slide.raw) &
+# mark made me write the line below :P
+next=`systemctl list-timers|grep @|sed -e 's/.*\@\([0-9].*\)\.service/\1/g'|uniq |grep -A1 ${1}|tail -n1`
+if [ -f /opt/config/preroll${next}.raw ]; then
+	slide=/opt/config/preroll${next}.raw
+else
+	slide=/opt/config/background.raw
+fi
+(sleep 1; cp ${slide} /opt/config/slide.raw) &
 if [ $runtime -gt 1 ]; then
 
 	ffmpeg -y -nostdin \
