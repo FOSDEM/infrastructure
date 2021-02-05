@@ -65,12 +65,13 @@
     group: root
     mode: 0644
   with_items:
-  - defaults.sh
-  - voctocore.ini
   - background.png
+  - defaults.sh
+  - fosdem_preroll_template.svg
+  - interroll.mp4
   - slide.raw
   - streamkeysalt.sh
-  - fosdem_preroll_template.svg
+  - voctocore.ini
   notify: restart vocto
 
 - name: patch videomix.py to use our defaults
