@@ -10,8 +10,10 @@ previous_event_id=$(</tmp/previous_event_id)
 
 STREAMKEY=$(echo -n $1.$SALT | sha256sum| cut -d' ' -f1)
 
-# Stop previous vocto recording ingest
-systemctl stop vocto-source-recording@$previous_event_id.service
+# Stop previous vocto recording ingest if it's not same as the current one
+if ! [ "previous_event_id" = $1 ]; then 
+	systemctl stop vocto-source-recording@$previous_event_id.service
+fi
 # Set previous event id to current event id
 echo $1 > /tmp/previous_event_id
 
