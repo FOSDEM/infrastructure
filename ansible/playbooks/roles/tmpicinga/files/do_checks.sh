@@ -11,7 +11,18 @@ diskchk_ret=$?
 
 output=$output"$hst\tdisk\t$diskchk_ret\t$diskchk\n\027"
 
-loadchk=`/usr/lib/nagios/plugins/check_load -w 8,8,8 -c 15,12,10`
+ncpu=`grep ^processor /proc/cpuinfo  |wc -l`
+
+w=`echo "$ncpu*2.10"|bc`
+c=`echo "$ncpu*2.40"|bc`
+
+smax=`echo "$ncpu*10"|bc`
+
+
+w15=`echo "$ncpu*1.80"|bc`
+c15=`echo "$ncpu*2.00"|bc`
+
+loadchk=`/usr/lib/nagios/plugins/check_load -w $smax,$w,$w15 -c $smax,$c,$c15`
 loadchk_ret=$?
 
 output=$output"$hst\tload\t$loadchk_ret\t$loadchk\n\027" 

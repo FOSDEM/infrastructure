@@ -6,6 +6,7 @@
     - nsca-client
     - monitoring-plugins
     - munin-node
+    - bc
 
 - name: monitoring script
   copy:
