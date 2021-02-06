@@ -35,7 +35,7 @@ dead=""
 daemons="sshd chronyd"
 
 if $(hostname |grep -q vocto) ; then
-        daemons=$daemons" voctocore.py sink-output.sh"
+        daemons=$daemons" voctocore.py sink-output.sh source-slide.sh"
 fi
 
 if ! $(hostname |grep -q streamdump) ; then
