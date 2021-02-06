@@ -5,6 +5,8 @@
     package:
     - nsca-client
     - monitoring-plugins
+    - munin-node
+    - bc
 
 - name: monitoring script
   copy:
@@ -25,6 +27,17 @@
     mode: 0644
   with_items:
   - send_nsca.cfg
+
+- name: install munin-node configuration
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/munin/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - munin-node.conf
+  notify: restart munin-node
 
 - name: install cron file
   copy:

@@ -19,3 +19,12 @@
     name: nfs-server
     state: restarted
   when: reviewstorage_nfs_exported.changed
+
+- name: ensure the required directories exist
+  file:
+    name: "/srv/sreview/{{ item }}"
+    state: directory
+  with_items:
+  - assets
+  - storage
+  - output

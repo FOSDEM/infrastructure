@@ -2,6 +2,6 @@
 - name: ensure sreview homedir is mounted
   mount:
     name: /var/lib/sreview
-    src: 10.0.0.3:/var/lib/sreview
+    src: 10.21.0.71:/var/lib/sreview
     fstype: nfs
     state: mounted

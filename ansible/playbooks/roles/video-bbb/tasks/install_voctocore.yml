@@ -33,6 +33,11 @@
     group: root
     mode: 0755
 
+- name: Clean up stale penta xml
+  file:
+    path: /eopt/scripts/xml
+    state: absent
+
 - name: install sink-output scripts
   copy:
     src: "scripts/{{ item }}"
@@ -109,6 +114,7 @@
   with_items:
   - voctocore
   - vocto-sink-output
+  - vocto-source-slide
 
 - name: get roomname
   command: "/opt/scripts/roomname.py"
@@ -120,6 +126,14 @@
 
 - name: recreate preroll images
   command: "/opt/scripts/create_prerolls.py -r {{ roomname.stdout }}"
+
+- name: get first talk id
+  shell: "systemctl list-timers|grep recording@|grep -v ^n/a|sed -e 's/.*\\@\\([0-9].*\\)\\.service/\\1/g'|uniq |head -n1"
+  register: firsttalkid
+
+- name: set slide for first talk
+  command: "cp /opt/config/preroll{{ firsttalkid.stdout }}.raw /opt/config/slide.raw"
+  ignore_errors: true
 
 - name: restart vocto scripts on sproxy change
   command: "/bin/true"
