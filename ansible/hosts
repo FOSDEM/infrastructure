@@ -35,6 +35,9 @@ encoder2.video.fosdem.org system_hostname=encoder2
 [video-control-server]
 control.video.fosdem.org
 
+[video-streamer-backend:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
 [video-streamer-backend]
 streambackend0.video.fosdem.org
 #streambackend1.video.fosdem.org
@@ -57,7 +60,16 @@ streamfrontend6.video.fosdem.org
 streamfrontend7.video.fosdem.org
 streamfrontend8.video.fosdem.org
 streamfrontend9.video.fosdem.org
+streamfrontend10.video.fosdem.org
+streamfrontend11.video.fosdem.org
+streamfrontend12.video.fosdem.org
+streamfrontend13.video.fosdem.org
+streamfrontend14.video.fosdem.org
+streamfrontend15.video.fosdem.org
 
+[video-stream-dump:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
 [video-stream-dump]
 streamdump0.video.fosdem.org
 
@@ -255,3 +267,10 @@ review
 tv
 # video
 video-streamer-backend
+
+[dns:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+[dns]
+ns1.video.fosdem.org ansible_host=ns1-fosdem.vocconf.org
+ns2.video.fosdem.org ansible_host=ns2-fosdem.vocconf.org
