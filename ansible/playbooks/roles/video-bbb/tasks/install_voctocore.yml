@@ -114,6 +114,7 @@
   with_items:
   - voctocore
   - vocto-sink-output
+  - vocto-source-slide
 
 - name: get roomname
   command: "/opt/scripts/roomname.py"
