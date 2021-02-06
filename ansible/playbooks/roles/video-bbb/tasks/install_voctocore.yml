@@ -35,8 +35,18 @@
 
 - name: Clean up stale penta xml
   file:
-    path: /eopt/scripts/xml
+    path: /opt/scripts/xml
     state: absent
+
+- name: Clean up stale penta xml in root
+  file:
+    path: /root/xml
+    state: absent
+
+- name: fetch latest penta xml
+  get_url:
+    url: https://fosdem.org/2021/schedule/xml
+    dest: /root/xml
 
 - name: install sink-output scripts
   copy:
