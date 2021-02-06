@@ -52,12 +52,17 @@ for e in events:
   else:
       talk_track= ' '
 
+  if e.find('start').text is not None:
+      talk_time= e.find('start').text
+  else:
+      talk_time= ' '
+
   if e.findall('persons/person') is not None:
       talk_speakers= "".join([p.text+'  ' for p in e.findall('persons/person')])
   else:
       talk_speakers= ' '
 
-  for r in (("talk_title", talk_title),("talk_subtitle", talk_subtitle), ("talk_track", talk_track), ("talk_speakers", talk_speakers)):
+  for r in (("talk_title", talk_title),("talk_subtitle", talk_subtitle), ("talk_track", talk_track), ("talk_speakers", talk_speakers), ("talk_time", talk_time)):
       t = t.replace(*r)
 
   i=open(basename+ '.svg', 'w')
