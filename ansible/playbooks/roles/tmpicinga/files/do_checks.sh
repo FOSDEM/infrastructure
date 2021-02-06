@@ -22,6 +22,15 @@ smax=`echo "$ncpu*10"|bc`
 w15=`echo "$ncpu*1.80"|bc`
 c15=`echo "$ncpu*2.00"|bc`
 
+if $(hostname |grep -q vocto) ; then
+	w=`echo "$ncpu*2.50"|bc`
+	c=`echo "$ncpu*2.90"|bc`
+
+	w15=`echo "$ncpu*2.10"|bc`
+	c15=`echo "$ncpu*2.30"|bc`
+
+fi
+
 loadchk=`/usr/lib/nagios/plugins/check_load -w $smax,$w,$w15 -c $smax,$c,$c15`
 loadchk_ret=$?
 
