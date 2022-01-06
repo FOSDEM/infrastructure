@@ -1,6 +1,9 @@
 # Set to truthy if anonymous reviews should be allowed, or to falsy if not
 #$anonreviews = 0;
 
+$schedule_format = "multi";
+$schedule_options = { url => "https://fosdem.org/2022/schedule/xml", base_type => "penta", shadows => [{talk_prefix => "Prerecording for talk '", talk_suffix => "'", event_prefix => "Prerecordings for '", event_suffix => "'", talk_opts => {flags => {can_inject => 1 }}}]};
+
 # An SVG template to be used as apology template (shown just after the opening credits when technical issues occurred. Should have the same nominal dimensions (in pixels) as the video assets.
 $apology_template = '/srv/sreview/assets/apology.svg';
 
@@ -13,14 +16,14 @@ $email_from = 'noreply@fosdem.org';
 # A filename of a Mojo::Template template to process, returning the email body. Required if notify_actions includes email.
 $notify_email_template = '/srv/sreview/assets/notify-email.ep';
 
-$notify_email_subject = "Your FOSDEM 2021 talk titled '<%== \$title %>'\\";
+$notify_email_subject = "Your FOSDEM 2022 talk titled '<%== \$title %>'\\";
 
 $announce_email_template = '/srv/sreview/assets/announce-email.ep';
 
-$announce_email_subject = "RELEASED: Your FOSDEM 2021 talk titled '<%== \$title %>'\\";
+$announce_email_subject = "RELEASED: Your FOSDEM 2022 talk titled '<%== \$title %>'\\";
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
-$event = 'FOSDEM 2021';
+$event = 'FOSDEM 2022';
 
 $extra_profiles = {
         FOSDEM => {
@@ -129,9 +132,33 @@ $urlbase = 'https://review.video.fosdem.org';
 
 $cleanup = 'previews';
 
-$eventurl_format = 'https://video.fosdem.org/2021/<% $room =~ s/ \(.*//;%><%= $room %>/<%= $slug %>.webm';
+$eventurl_format = 'https://video.fosdem.org/2022/<% $room =~ s/ \(.*//;%><%= $room %>/<%= $slug %>.webm';
 $audio_multiplex_mode = 'stereo';
 $command_tune={bs1770gain => "0.5"};
+
+$inject_collection = "upload";
+$extra_collections = {
+  upload => "/srv/sreview/upload",
+};
+$accessmethods = {
+  'input' => 'direct',
+  'intermediate' => 'direct',
+  'output' => 'direct',
+  'upload' => 'direct',
+};
+$normalizer = 'ffmpeg';
+
+$inject_fatal_checks = {
+  duration => { talkattr_max => "scheduled_length" },
+};
+
+$inject_transcode_skip_checks = {
+  video_codec => { val => "h264" },
+  audio_codec => { val => "aac" },
+  video_bitrate => { min => 0, max => 2097152 },
+  video_width => { val => "1280" },
+  video_height => { val => "720" },
+};
 
 # Do not remove this, perl needs it
 1;
