@@ -9,7 +9,7 @@ import sys
 import wget
 import xml.etree.ElementTree as ET 
 
-penta_url = 'https://fosdem.org/2021/schedule/xml'
+penta_url = 'https://fosdem.org/2022/schedule/xml'
 preroll_dir = '/opt/config'
 
 parser = argparse.ArgumentParser()
