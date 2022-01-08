@@ -13,9 +13,10 @@
     mode: 0664
   register: sreview_config_fix
 
-- name: install rsync
+- name: install required packages
   apt:
     state: latest
     install_recommends: false
     package:
     - rsync
+    - gnupg
