@@ -23,7 +23,7 @@ $announce_email_template = '/srv/sreview/assets/announce-email.ep';
 $announce_email_subject = "RELEASED: Your FOSDEM 2022 talk titled '<%== \$title %>'\\";
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
-$event = 'FOSDEM 2022';
+$event = "Prerecordings for 'FOSDEM 2022'";
 
 $extra_profiles = {
         FOSDEM => {
@@ -105,11 +105,11 @@ $secret = '{{ mojosecret }}';
 
 # A hash that tells SReview what to do with a talk when it is in a given state. Mojo::Template is used to transform these.
 $state_actions = {
-  'cutting' => 'qsub -cwd -V -l storagefree=9G -l tmpfree=1G -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N cut_<%== $talkid %> /usr/bin/sreview-cut <%== $talkid %>',
-  'generating_previews' => 'qsub -cwd -l storagefree=6G -l tmpfree=1G -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N prv_<%== $talkid %> /usr/bin/sreview-previews <%== $talkid %>',
+  #'cutting' => 'qsub -cwd -V -l storagefree=9G -l tmpfree=1G -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N cut_<%== $talkid %> /usr/bin/sreview-cut <%== $talkid %>',
+  #'generating_previews' => 'qsub -cwd -l storagefree=6G -l tmpfree=1G -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N prv_<%== $talkid %> /usr/bin/sreview-previews <%== $talkid %>',
   #'notification' => 'qsub -cwd -V -q hiprio.q -e <%== $output_dir %> -l email -o <%== $output_dir %> -b y -N ntf_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %>',
-  'transcoding' => 'qsub -cwd -V -q lowprio.q -l storagefree=3G -l tmpfree=1G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N trn_<%== $talkid %> /usr/bin/sreview-transcode <%== $talkid %>',
-  'uploading' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N upl_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %>',
+  #'transcoding' => 'qsub -cwd -V -q lowprio.q -l storagefree=3G -l tmpfree=1G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N trn_<%== $talkid %> /usr/bin/sreview-transcode <%== $talkid %>',
+  #'uploading' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N upl_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %>',
   #'announcing' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -l email -o <%== $output_dir %> -N ann_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> announce'
 };
 
