@@ -70,6 +70,6 @@ for e in events:
   i.close()
   f.close()
 
-  p=subprocess.run(['/usr/bin/inkscape', basename+'.svg', '--export-background=#ffffff', '--export-png', basename+ '.png'])
+  p=subprocess.run(['/usr/bin/inkscape', basename+'.svg', '--export-background=#ffffff', '-o', basename+ '.png'])
   p=subprocess.run(['/usr/bin/ffmpeg', '-y', '-i', basename+'.png', '-c:v', 'rawvideo', '-pix_fmt:v', 'yuv420p', '-c:v', 'rawvideo', '-pix_fmt', 'yuv420p', '-frames', '1', '-f', 'rawvideo', basename+'.raw'])
 
