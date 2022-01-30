@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nagioshost=188.34.182.16
+nagioshost=142.132.186.120
 
 hst=`hostname`
 
