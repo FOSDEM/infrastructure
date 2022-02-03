@@ -8,14 +8,16 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/streamkeysalt.sh
 previous_event_id=$(</tmp/previous_event_id)
 
-STREAMKEY=$(echo -n $1.$SALT | sha256sum| cut -d' ' -f1)
+current="$1"
+
+STREAMKEY=$(echo -n ${current}.$SALT | sha256sum| cut -d' ' -f1)
 
 # Stop previous vocto recording ingest if it's not same as the current one
-if ! [ "previous_event_id" = $1 ]; then 
+if ! [ "previous_event_id" = $current ]; then 
 	systemctl stop vocto-source-recording@$previous_event_id.service
 fi
 # Set previous event id to current event id
-echo $1 > /tmp/previous_event_id
+echo $current > /tmp/previous_event_id
 
 # preview slide with talk title, etc.
 { echo "set_audio cam1"; } | nc -q0 localhost 9999
@@ -63,13 +65,17 @@ now=$(date +%s)
 endtime=$(cat /opt/config/endtimes/${1})
 let runtime=${endtime}-${now}-40
 # mark made me write the line below :P
-next=`systemctl list-timers|grep recording@|grep -v ^n/a|sed -e 's/.*\@\([0-9].*\)\.service/\1/g'|uniq |grep -A1 ${1}|tail -n1`
+next=$(systemctl list-timers|grep recording@|grep -v ^n/a|sed -e 's/.*\@\([0-9].*\)\.service/\1/g'|uniq|grep -vw $current |head -n1)
+echo "\$\{next} is ${next}" >> /tmp/log.txt
 if [ -f /opt/config/preroll${next}.raw ]; then
 	slide=/opt/config/preroll${next}.raw
+	echo "${next} gelijk aan slides-variabele" >> /tmp/log.txt
 else
 	slide=/opt/config/background.raw
+	echo "slide-variabele geen next, neem backgroud" >> /tmp/log.txt
 fi
-(sleep 1; cp ${slide} /opt/config/slide.raw) &
+echo "Copying ${slide} to slide.raw"
+(sleep 1; cp ${slide} /opt/config/slide.raw; cp ${slide} /tmp/$(date +%s).raw) &
 if [ $runtime -gt 1 ]; then
 
 	ffmpeg -y -nostdin \
