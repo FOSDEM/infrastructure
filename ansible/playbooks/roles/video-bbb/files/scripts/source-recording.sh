@@ -66,16 +66,13 @@ endtime=$(cat /opt/config/endtimes/${1})
 let runtime=${endtime}-${now}-40
 # mark made me write the line below :P
 next=$(systemctl list-timers|grep recording@|grep -v ^n/a|sed -e 's/.*\@\([0-9].*\)\.service/\1/g'|uniq|grep -vw $current |head -n1)
-echo "\$\{next} is ${next}" >> /tmp/log.txt
 if [ -f /opt/config/preroll${next}.raw ]; then
 	slide=/opt/config/preroll${next}.raw
-	echo "${next} gelijk aan slides-variabele" >> /tmp/log.txt
 else
 	slide=/opt/config/background.raw
-	echo "slide-variabele geen next, neem backgroud" >> /tmp/log.txt
 fi
-echo "Copying ${slide} to slide.raw"
-(sleep 1; cp ${slide} /opt/config/slide.raw; cp ${slide} /tmp/$(date +%s).raw) &
+
+(sleep 1; cp ${slide} /opt/config/slide.raw) &
 if [ $runtime -gt 1 ]; then
 
 	ffmpeg -y -nostdin \
