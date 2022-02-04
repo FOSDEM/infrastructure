@@ -1,0 +1,2 @@
+#!/bin/bash
+ffmpeg  -y -f image2 -loop 1 -framerate 25 -video_size 1280x720 -s 1280x720 -pix_fmt yuv420p  -i interroll.png -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -t 10 -c:v libx264 -c:a aac -f mp4 interroll.mp4
