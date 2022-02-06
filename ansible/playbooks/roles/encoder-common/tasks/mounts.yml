@@ -15,12 +15,12 @@
     package:
     - nfs-common
 
-#- name: mount backends
-#  mount:
-#    name: /srv/sreview/incoming
-#    src: 142.132.135.37:/var/www/dump
-#    fstype: nfs
-#    state: mounted
+- name: mount backends
+  mount:
+    name: /srv/sreview/incoming
+    src: "[2a01:4f8:271:6499::2]:/var/www/dump"
+    fstype: nfs
+    state: mounted
 
 - name: mount working storage
   mount:
