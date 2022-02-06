@@ -91,5 +91,4 @@ if [ $runtime -gt 1 ]; then
 		tcp://localhost:10000
 
 fi
-{ echo "set_audio grabber"; } | nc -q0 localhost 9999
 { echo "set_videos_and_composite grabber cam1 fullscreen"; } | nc -q0 localhost 9999
