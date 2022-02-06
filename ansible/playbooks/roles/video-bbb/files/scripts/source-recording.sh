@@ -29,7 +29,7 @@ sleep 30
 { echo "set_videos_and_composite cam1 grabber fullscreen"; } | nc -q0 localhost 9999
 
 # Ingest prerecorded video into vocto
-ffmpeg -re -y -nostdin \
+ffmpeg -re -y -nostdin -analyzeduration 60000000 \
 	-i "${RECORDING_DIRECTORY}/${1}.mp4" \
 	-ac 2 \
 	-filter_complex "
