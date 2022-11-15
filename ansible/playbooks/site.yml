@@ -15,12 +15,12 @@
         "You must update Ansible to at least 2.7."
 
   - name: install ansible dependencies (python)
-    # install pkg-resources to avoid needlesly triggering the next test
-    raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python2-minimal python-pkg-resources)
+    # install python3-apt to avoid needlesly triggering the next test
+    raw: test -e /usr/bin/python3 || (apt-get -y update && apt-get install -y python3-minimal python3-apt)
     changed_when: false  # raw has no change handler
 
-  - name: install ansible dependencies (python-pkg-resources)
-    raw: test -e /usr/lib/python2.7/dist-packages/pkg_resources.py || (apt-get -y update && apt-get install -y python-pkg-resources)
+  - name: install ansible dependencies (python3-apt)
+    raw: test -e /usr/lib/python3/dist-packages/apt/package.py || (apt-get -y update && apt-get install -y python3-apt)
     changed_when: false  # raw has no change handler
 
 ###
