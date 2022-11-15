@@ -6,5 +6,5 @@
     package:
     - fbi
     - fontconfig
-    - python-pygame
+    - python3-pygame
     - avahi-daemon
