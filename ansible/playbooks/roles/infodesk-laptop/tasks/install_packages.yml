@@ -16,4 +16,4 @@
     - unrar-free
     - vim-nox
     - wget
-    - python-psutil
+    - python3-psutil
