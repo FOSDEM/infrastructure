@@ -4,16 +4,11 @@
   apt:
     state: latest
     package:
-    - python-requests
-    - python-pip
-
-- name: "install prometheus_client"
-  pip:
-    name: prometheus_client
+    - python3-requests
 
 - name: install audiofetcher service
-  template:
-    src: templates/audio-fetcher.service
+  copy:
+    src: files/audio-fetcher/audio-fetcher.service
     dest: /etc/systemd/system
     owner: root
     group: root

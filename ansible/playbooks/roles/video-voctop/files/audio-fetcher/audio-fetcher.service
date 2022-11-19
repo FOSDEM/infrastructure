@@ -1,13 +1,13 @@
 [Unit]
-Description={{ item }} image maker service
+
+Description=audio-fetcher
 
 [Service]
-ExecStart=/usr/local/bin/imgmaker.sh {{ item }}
+ExecStart=/usr/local/bin/audio-fetcher
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
-Restart=always
-RestartSec=1
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
