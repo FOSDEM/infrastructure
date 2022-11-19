@@ -1,0 +1,35 @@
+---
+
+- name: "install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - icinga2
+    - icinga2-ido-pgsql
+    - icingacli
+    - icingaweb2
+
+- name: copy icinga config files
+  copy:
+    src: "{{ item }}"
+    dest: /etc/icinga2/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - icinga/passive.conf
+    - icinga/fosdem-services.conf
+
+- name: copy matrix icinga notification scripts
+  copy:
+    src: "{{ item }}"
+    dest: /etc/icinga2/scripts/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - icinga/matrix-service-notification.sh
+    - icinga/matrix-host-notification.sh
+
+
