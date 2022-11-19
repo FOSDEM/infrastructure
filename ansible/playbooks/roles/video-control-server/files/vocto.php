@@ -1,32 +1,35 @@
 <?php 
 
-require_once(dirname(__FILE__)."/config.php");
+require_once(dirname(__FILE__)."/inc.php");
 
-
+function roomlist() {
+	echo "<h1>room not found.</h1><br>";
+	$r = pg_query("select roomname from fosdem order by roomname");
+	while ($row = pg_fetch_row($r)) {
+		echo '<a href="/vocto.php?room='.$row[0].'">'.$row[0].'</a><br>';
+	}
+	exit();
+}
 
 if (empty($_GET['room']) ) {
 	if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) {
 		$spl = explode('-', $_SERVER['PHP_AUTH_USER']);
 		$room = strtolower($spl[1]);
 	} else {
-		echo "<h1>Get a room.</h1><br>";
-		foreach ($config as $r => $h ) {
-			echo '<a href="/vocto.php?room='.$r.'">'.$r.'</a><br>';
-		}
-		exit();
+		roomlist();
 	}
 } else {
 	$room = strtolower($_GET['room']);
 }
-if (empty($config[$room])) {
-	echo "<h1>room not found.</h1><br>";
-	foreach ($config as $r => $h ) {
-		echo '<a href="/vocto.php?room='.$r.'">'.$r.'</a><br>';
-	}
-	exit();
+
+$r = pg_query("select voctop from fosdem where roomname='"._e($room)."'");
+if (!$r) {
+	roomlist();	
 }
 
-$host = $config[$room];
+$row = pg_fetch_row($r);
+$host = $row[0];
+
 
 
 if (empty($_GET['w']) && empty($argv[1])) {
