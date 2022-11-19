@@ -15,7 +15,7 @@ if [ -z "$HOST" ]; then
 	exit 0
 fi
 
-t=`tempfile`
+t=`mktemp`
 rm -f ${t} ${t}.jpg
 
 ffmpeg=`which ffmpeg`
