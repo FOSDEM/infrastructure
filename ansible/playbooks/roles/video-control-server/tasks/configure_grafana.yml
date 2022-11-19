@@ -1,0 +1,30 @@
+---
+- name: install grafana config
+  copy:
+    src: grafana/grafana.ini
+    dest: /etc/grafana/grafana.ini
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable grafana-server services
+  service:
+    name: "grafana-server"
+    enabled: true
+    state: started
+
+#- name: "Create datasource'"
+#  community.grafana.grafana_datasource:
+#    grafana_url: "https://control.video.fosdem.org/grafana"
+#    grafana_user: "admin"
+#    grafana_password: "{{ grafana_password }}"
+#    org_id: "1"
+#    name: "infl"
+#    state: present
+#    is_default: true
+#    database: "ebur"
+#    ds_type: influxdb
+#    ds_url: http://localhost:8086
+#    access: proxy
+#    with_credentials: false
+
