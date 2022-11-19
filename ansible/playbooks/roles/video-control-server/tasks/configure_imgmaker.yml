@@ -37,6 +37,7 @@
   - inc.php
   - query-vocto.php
   - query-room.php
+  - showbuilding.php
 
 - name: install integration with roomfull api
   # note this also requires apikeys.php to be present
@@ -47,22 +48,6 @@
     owner: root
     group: root
     mode: 0644
-
-- name: install html views
-  copy:
-    src: "{{ item }}"
-    dest: /var/www/html/
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-  - all.html
-  - aw.html
-  - cams.html
-  - j.html
-  - k.html
-  - ua.html
-  - ud.html
 
 - name: install imgmaker script
   copy:
