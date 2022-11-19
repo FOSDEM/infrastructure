@@ -46,7 +46,6 @@
   hosts: video-control-server
   remote_user: root
   roles:
-  - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-control-server, tags: [ 'video-control-server' ] }
 
 - name: video-bbb
