@@ -35,6 +35,8 @@
     - vnstat
     - vcsh
     - zsh
+    - gpg
+    - gpg-agent
 
 - name: "Install architecture-dependent packages"
   apt:
