@@ -8,6 +8,16 @@
     filename: influxdb
     repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
 
+- name: Add grafana key
+  apt_key:
+    url: https://packages.grafana.com/gpg.key 
+
+- name: Add influx repo
+  apt_repository:
+    filename: influxdb
+    repo: "deb https://packages.grafana.com/oss/deb stable main"
+
+
 - name: "install packages"
   apt:
     state: latest
