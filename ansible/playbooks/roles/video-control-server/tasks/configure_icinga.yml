@@ -9,6 +9,8 @@
     - icinga2-ido-pgsql
     - icingacli
     - icingaweb2
+    - icingaweb2-module-monitoring
+    - monitoring-plugins
 
 - name: copy icinga config files
   copy:
@@ -20,6 +22,7 @@
   with_items:
     - icinga/passive.conf
     - icinga/fosdem-services.conf
+  notify: reload icinga
 
 - name: copy matrix icinga notification scripts
   copy:
@@ -32,4 +35,9 @@
     - icinga/matrix-service-notification.sh
     - icinga/matrix-host-notification.sh
 
-
+- name: enable icinga pgsql ido
+  file:
+    src: /etc/icinga2/features-available/ido-pgsql.conf
+    path: /etc/icinga2/features-enabled/ido-pgsql.conf
+    state: link
+  notify: reload icinga
