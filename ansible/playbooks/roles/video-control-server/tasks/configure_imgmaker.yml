@@ -26,6 +26,18 @@
     mode: 0644
   register: voctocontrolweb
 
+- name: install db api
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - inc.php
+  - query-vocto.php
+  - query-room.php
+
 - name: install integration with roomfull api
   # note this also requires apikeys.php to be present
   # this should be copied manually or added to the ansible vault
