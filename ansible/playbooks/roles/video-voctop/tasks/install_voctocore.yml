@@ -65,6 +65,7 @@
     mode: 0644
   with_items:
   - defaults.sh
+  - config.sh
   - voctocore.ini
   - background.png
   notify: restart vocto
@@ -73,15 +74,6 @@
   patch:
     src: patches/videomix.py.diff
     dest: /usr/share/voctomix/voctocore/lib/videomix.py
-
-- name: set local configuration
-  template:
-    src: config/config.sh
-    dest: /opt/config/config.sh
-    owner: root
-    group: root
-    mode: 0644
-  notify: restart vocto
 
 - name: install vocto units
   copy:
