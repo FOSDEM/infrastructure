@@ -51,3 +51,5 @@ video_rooms:
 - ud2208
 - ud2218a
 
+virtual_video_rooms:
+- dtest
