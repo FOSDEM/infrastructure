@@ -46,6 +46,10 @@ $num = pg_num_rows($r);
       }
       td {
         width: 100px;
+	align: center;
+      }
+      .room {
+        float: left;
       }
     </style>
     <script>
@@ -62,15 +66,13 @@ $num = pg_num_rows($r);
   </head>
 
   <body>
-<?php echo $blist ?>
-    <table border="1">
 
 
 <?php
 
 $per_row = 7;
 $rownum = 0;
-echo "<tr>";
+echo "<div>";
 while ($row = pg_fetch_row($r)) {
 /*
        <td>
@@ -89,15 +91,14 @@ while ($row = pg_fetch_row($r)) {
 
 */
 	$rownum ++;
-	echo '<td>'.$row[0];
-	echo '<br/><a href="tcp://'.$row[1].':8899"><img src="'.$row[0].'/cam.jpg"/></a>';
-	echo '<br/><a href="tcp://'.$row[2].':8899"><img src="'.$row[0].'/slides.jpg"/></a>';
-	echo '<br/><a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a>';
-	echo "</td>\n";
+    	echo '<table border="1" class=room>';
+	echo '<tr><td><center>'.$row[0].'</center></td></tr>';
+	echo '<tr><td><a href="tcp://'.$row[1].':8899"><img src="'.$row[0].'/cam.jpg"/></a></td></tr>';
+	echo '<tr><td><a href="tcp://'.$row[2].':8899"><img src="'.$row[0].'/grab.jpg"/></a></td></tr>';
+	echo '<tr><td><a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a></td></tr>';
+	echo "</table>\n";
 
-	if ($rownum % $per_row == 0) {
-		echo "</tr>\n<tr>";
-	}
 }
-echo "<tr></table>";
-
+echo "</div>";
+echo "<br/>";
+echo $blist;
