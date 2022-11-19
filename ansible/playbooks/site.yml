@@ -47,9 +47,7 @@
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
-  - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-control-server, tags: [ 'video-control-server' ] }
-  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: video-bbb
   hosts: video-bbb
