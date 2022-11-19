@@ -26,3 +26,6 @@
   become: true
   become_user: www-data
 
+- name: create InfluxDB database
+  command: influx -execute 'create database ebur'
+  ignore_errors: true
