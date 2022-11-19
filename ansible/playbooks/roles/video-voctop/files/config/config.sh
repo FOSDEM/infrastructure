@@ -3,7 +3,7 @@
 
 data=$(curl -s http://control.video.fosdem.org/query-vocto.php?voctop=$(hostname))
 
-if [ -z "$data" ] || [ "$data" == "not found" ]; then
+if [ -z "$data" ] || [ "$data" == "notfound" ]; then
 	# we don't exist. wait.
 	sleep 60
 	exit

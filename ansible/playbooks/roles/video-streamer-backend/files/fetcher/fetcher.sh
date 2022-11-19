@@ -9,7 +9,7 @@ cd /var/www/hls || exit 3
 
 room="$1"
 
-src=$(curl http://control.video.fosdem.org/query-room.php?room=$room)
+src=$(curl -s http://control.video.fosdem.org/query-room.php?room=$room)
 
 if [ -z "$src" ]; then
 	# we don't exist, sleep for a while

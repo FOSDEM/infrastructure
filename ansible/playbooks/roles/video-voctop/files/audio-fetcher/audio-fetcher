@@ -29,6 +29,10 @@ def fetchroom():
 		return None
 
 	c = r.content.decode('utf8')
+
+	if c == 'notfound':
+		return None
+
 	return c.split()
 
 def submitdata(rawdata):

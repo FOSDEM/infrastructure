@@ -10,7 +10,7 @@ $voct = $_REQUEST['voctop'];
 $r = pg_query("SELECT roomname, cam, slides FROM fosdem WHERE voctop='"._e($voct)."'");
 
 if (!$r) {
-	die("not found");
+	die("notfound");
 }
 
 $row = pg_fetch_row($r);

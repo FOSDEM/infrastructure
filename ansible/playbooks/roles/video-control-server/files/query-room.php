@@ -10,7 +10,7 @@ $room = $_REQUEST['room'];
 $r = pg_query("SELECT voctop FROM fosdem WHERE roomname='"._e($room)."'");
 
 if (!$r) {
-	die("not found");
+	die("notfound");
 }
 
 $row = pg_fetch_row($r);
