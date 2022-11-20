@@ -2,35 +2,35 @@
 - name: Create virtualenv
   pip:
     requirements: /opt/c3nav/src/requirements/production.txt
-    virtualenv_python: python3.6
+    virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
 
 - name: virtualenv - tileserver
   pip:
     requirements: /opt/c3nav/src/requirements-tileserver.txt
-    virtualenv_python: python3.6
+    virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
 
 - name: virtualenv - dev
   pip:
     requirements: /opt/c3nav/src/requirements/dev.txt
-    virtualenv_python: python3.6
+    virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
 
 - name: virtualenv - redis
   pip:
     requirements: /opt/c3nav/src/requirements/redis.txt
-    virtualenv_python: python3.6
+    virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
 
 - name: virtualenv - postgresql
   pip:
     requirements: /opt/c3nav/src/requirements/postgres.txt
-    virtualenv_python: python3.6
+    virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
 
 - name: install gunicorn with pip
   pip:
     name: gunicorn
-    virtualenv_python: python3.6
+    virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
