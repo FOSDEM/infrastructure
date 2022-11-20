@@ -41,3 +41,10 @@
     path: /etc/icinga2/features-enabled/ido-pgsql.conf
     state: link
   notify: reload icinga
+
+- name: enable icinga command interface
+  file:
+    src: /etc/icinga2/features-available/command.conf
+    path: /etc/icinga2/features-enabled/command.conf
+    state: link
+  notify: reload icinga

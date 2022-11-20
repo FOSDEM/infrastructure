@@ -52,7 +52,7 @@
   hosts: video-bbb
   remote_user: root
   roles:
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: video-bbb, tags: [ 'video-bbb' ] }
 
@@ -61,6 +61,7 @@
   remote_user: root
   roles:
   - { role: sproxy, tags: [ 'sproxy' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box, tags: [ 'video-box' ] }
 
 - name: video-voctop
@@ -69,6 +70,7 @@
   roles:
   - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
@@ -76,7 +78,7 @@
   hosts: video-stream-dump
   remote_user: root
   roles:
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
 - name: video-stream-dump-external
@@ -90,7 +92,7 @@
   remote_user: root
   roles:
   # - { role: encoder-network, tags: [ 'encoder-network' ] }
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
   - mtail
 
@@ -98,7 +100,7 @@
   hosts: video-streamer-frontend
   remote_user: root
   roles:
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-streamer-frontend, tags: [ 'video-streamer-frontend' ] }
   - mtail
 
