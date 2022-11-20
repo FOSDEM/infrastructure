@@ -53,7 +53,7 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -66,10 +66,12 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "area"
             }
           },
           "mappings": [],
+          "max": 0,
+          "min": -60,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -79,12 +81,34 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": -59
+              },
+              {
+                "color": "green",
+                "value": -40
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": -14
+              }
+            ]
+          },
+          "unit": "dBm"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ebur.S"
+            },
+            "properties": [
+              {
+                "id": "custom.lineWidth",
+                "value": 3
               }
             ]
           }
-        },
-        "overrides": []
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -93,9 +117,13 @@
         "y": 0
       },
       "id": 2,
+      "interval": "1s",
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "lastNotNull",
+            "mean"
+          ],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -113,16 +141,17 @@
             "type": "influxdb",
             "uid": "RD8-WKdVk"
           },
-          "query": "SELECT mean(\"I\") as I, mean(S) as S, mean(M) as M FROM \"ebur\" WHERE $timeFilter and stream =~ /^$room$/ GROUP BY time($__interval) fill(null)",
+          "query": "SELECT  mean(S) as S, mean(M) as M FROM \"ebur\" WHERE $timeFilter and stream =~ /^$room$/ GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
         }
       ],
-      "title": "$room",
+      "title": "$room levels",
       "type": "timeseries"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
@@ -131,8 +160,12 @@
       {
         "current": {
           "selected": true,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "influxdb",
@@ -142,11 +175,11 @@
         "hide": 0,
         "includeAll": true,
         "label": "room",
-        "multi": false,
+        "multi": true,
         "name": "room",
         "options": [],
         "query": "show tag values with key=stream",
-        "refresh": 2,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 1,
@@ -155,13 +188,13 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "ebur",
   "uid": "15BPZFO4k",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
