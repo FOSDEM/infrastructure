@@ -9,6 +9,11 @@
     src: fosdem.yaml
     dest: /tmp/fosdem.yaml
 
+- name: copy secrets
+  copy:
+    src: secret.yaml
+    dest: /tmp/secret.yaml
+
 - name: install sreview helm chart
   kubernetes.core.helm:
     name: sreview
@@ -17,3 +22,4 @@
     chart_ref: sreview/sreview
     values_files:
     - /tmp/fosdem.yaml
+    - /tmp/secret.yaml
