@@ -2,11 +2,11 @@ Hi!
 
 This is to notify you that the video of your talk, titled
 
-  <% $title %>
+  <%= $title %>
 
 is now ready for review at
 
-  <% $url %>
+  <%= $url %>
 
 Please be so kind as to review it at your earliest convenience. If you
 don't do so, we will eventually get around to it, but that might take a
