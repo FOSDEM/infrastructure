@@ -1,5 +1,5 @@
 pullPolicy: Always
-containerLabel: git-91257ace
+containerLabel: git-9942c327
 webHostname: review.video.fosdem.org
 pullPolicy: IfNotPresent
 config:

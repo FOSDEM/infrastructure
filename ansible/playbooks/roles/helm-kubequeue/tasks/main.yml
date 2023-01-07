@@ -10,5 +10,6 @@
     namespace: kubequeue
     create_namespace: true
     chart_ref: kubequeue/kubequeue
+    update_repo_cache: true
     values:
       containerLabel: git-a03a0403

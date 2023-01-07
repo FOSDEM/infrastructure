@@ -20,6 +20,7 @@
     namespace: sreview
     create_namespace: true
     chart_ref: sreview/sreview
+    update_repo_cache: true
     values_files:
     - /tmp/fosdem.yaml
     - /tmp/secret.yaml
