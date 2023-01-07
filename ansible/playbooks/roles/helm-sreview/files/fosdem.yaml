@@ -17,6 +17,11 @@ secret:
   s3_access_config: '{"default":{"aws_access_key_id":"sreview","aws_secret_access_key":"LCfYD45uWoZOpRr0JdMrl2uNHrTNhdgtQ8nxBSu3","host":"rvstore.video.fosdem.org"}}'
   notify_actions: '["email"]'
   notify_email_subject: '"Your FOSDEM 2023 video is ready for review"'
+  notify_email_template: '"https://github.com/FOSDEM/infrastructure/blob/master/ansible/playbooks/roles/helm-sreview/files/notify.ep"'
+  announce_actions: '["email"]'
+  announce_email_subject: '"Your FOSDEM 2023 video has been released"'
+  announce_email_template: '"https://github.com/FOSDEM/infrastructure/blob/master/ansible/playbooks/roles/helm-sreview/files/announce.ep"'
+  eventurl_format: '"https://fosdem.org/2023/schedule/event/<%= $slug %>/"'
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
