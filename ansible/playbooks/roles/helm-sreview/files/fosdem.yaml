@@ -15,10 +15,10 @@ config:
   announce_email_subject: '"Your FOSDEM 2023 video is ready!"'
   notify_actions: '["email"]'
   notify_email_subject: '"Your FOSDEM 2023 video is ready for review"'
-  notify_email_template: '"https://github.com/FOSDEM/infrastructure/blob/master/ansible/playbooks/roles/helm-sreview/files/notify.ep"'
+  notify_email_template: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/notify.ep"'
   announce_actions: '["email"]'
   announce_email_subject: '"Your FOSDEM 2023 video has been released"'
-  announce_email_template: '"https://github.com/FOSDEM/infrastructure/blob/master/ansible/playbooks/roles/helm-sreview/files/announce.ep"'
+  announce_email_template: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/announce.ep"'
   eventurl_format: '"https://fosdem.org/2023/schedule/event/<%= $slug %>/"'
 ingress:
   annotations:
