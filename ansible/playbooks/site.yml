@@ -192,3 +192,11 @@
   # - { role: encoder-network, tags: [ 'encoder-network' ] }
   - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }
+
+- name: kube
+  hosts: kube
+  remote_user: root
+  roles:
+  - { role: helm, tags: ['kube']}
+  - { role: helm-kubequeue, tags: ['kube']}
+  - { role: helm-sreview, tags: ['kube']}

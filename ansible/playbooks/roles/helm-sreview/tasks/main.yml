@@ -1,0 +1,19 @@
+---
+- name: enable sreview helm repository
+  kubernetes.core.helm_repository:
+    name: sreview
+    repo_url: https://gitlab.grep.be/api/v4/projects/5/packages/helm/dev
+
+- name: copy values file
+  copy:
+    src: fosdem.yaml
+    dest: /tmp/fosdem.yaml
+
+- name: install sreview helm chart
+  kubernetes.core.helm:
+    name: sreview
+    namespace: sreview
+    create_namespace: true
+    chart_ref: sreview/sreview
+    values_files:
+    - /tmp/fosdem.yaml
