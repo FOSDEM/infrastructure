@@ -7,7 +7,10 @@ server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [public-dashboard]
 dashboard.fosdem.org
 
-[kube]
+[kube-nodes]
+k8s0.video.fosdem.org
+
+[kube-masternode]
 k8s0.video.fosdem.org
 
 [tv]
