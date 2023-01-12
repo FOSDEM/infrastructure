@@ -217,10 +217,10 @@ mtest-vocto.video.fosdem.org
 # infodesk-laptop-1 ansible_host=185.175.218.188
 
 ## Composite host groups
-[encoder:children]
-encoder-storage
-encoder-master
-encoder-backend
+#[encoder:children]
+#encoder-storage
+#encoder-master
+#encoder-backend
 
 [event-prometheus-servers:children]
 event-primary
@@ -238,10 +238,10 @@ video-web-frontend
 video-bbb
 
 [node_exporter:children]
-encoder
+#encoder
 event-prometheus-servers
 public-dashboard
-review
+#review
 tv
 # video
 video-streamer-backend
