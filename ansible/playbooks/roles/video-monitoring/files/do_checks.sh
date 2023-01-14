@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nagioshost=142.132.186.120
+nagioshost=control.video.fosdem.org
 
 hst=`hostname`
 
@@ -43,11 +43,19 @@ dead=""
 
 daemons="sshd chronyd"
 
-if $(hostname |grep -q vocto) ; then
-        daemons=$daemons" voctocore.py sink-output.sh source-slide.sh"
+if $(hostname |grep -q ^vocto) ; then
+# on-premises voctop
+        daemons=$daemons" voctocore.py sink-output.sh source-slides.sh source-cam.sh sproxy audio-fetcher"
+elif $(hostname |grep -q vocto) ; then
+# remote-talk voctop
+        daemons=$daemons" voctocore.py sink-output.sh source-slide.sh sproxy"
 fi
 
-if ! $(hostname |grep -q streamdump) ; then
+if $(hostname |grep -Eq '^(slides|cam)'); then
+        daemons=$daemons" bmd-receiver.sh video-status.py video-screenshot.sh sproxy"
+fi
+
+if $(hostname |grep -Eq ^'(streamdump|streamfront)') ; then
         daemons=$daemons" nginx"
 fi
 for daemon in $daemons; do

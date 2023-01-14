@@ -16,7 +16,7 @@
     owner: root
     group: root
     mode: 0644
-  with_items: "{{ video_rooms + remote_video_rooms }}"
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
   register: vlc_fetcher_services
   notify:
   - restart fetcher service
@@ -27,7 +27,7 @@
     enabled: true
     state: started
     daemon_reload: true
-  with_items: "{{ video_rooms + remote_video_rooms }}"
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
 
 - name: install fetcher target
   template:

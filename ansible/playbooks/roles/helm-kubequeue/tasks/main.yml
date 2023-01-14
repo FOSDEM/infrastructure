@@ -1,0 +1,15 @@
+---
+- name: enable kubequeue helm chart repository
+  kubernetes.core.helm_repository:
+    name: kubequeue
+    repo_url: https://gitlab.grep.be/api/v4/projects/14/packages/helm/dev
+
+- name: install kubequeue helm chart
+  kubernetes.core.helm:
+    name: kubequeue
+    namespace: kubequeue
+    create_namespace: true
+    chart_ref: kubequeue/kubequeue
+    update_repo_cache: true
+    values:
+      containerLabel: git-a03a0403

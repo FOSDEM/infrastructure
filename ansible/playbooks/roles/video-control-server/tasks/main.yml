@@ -1,5 +1,8 @@
 ---
 - include: install_packages.yml
+- include: configure_dns_dhcp.yml
 - include: configure_db.yml
+- include: configure_icinga.yml
+- include: configure_grafana.yml
 - include: configure_imgmaker.yml
 - include: configure_nginx.yml

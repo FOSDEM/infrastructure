@@ -22,7 +22,7 @@
     owner: www-data
     group: www-data
     mode: 0755
-  with_items: "{{ video_rooms + remote_video_rooms }}"
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
 
 - name: disable the default site configuration
   file:

@@ -29,7 +29,10 @@
     - php7.4
     - php7.4-fpm
     - php7.4-pgsql
+    - php7.4-curl
     - isc-dhcp-server
+    - unbound
     - influxdb
     - grafana
     - postgresql
+

@@ -46,14 +46,13 @@
   hosts: video-control-server
   remote_user: root
   roles:
-  - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-control-server, tags: [ 'video-control-server' ] }
 
 - name: video-bbb
   hosts: video-bbb
   remote_user: root
   roles:
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: video-bbb, tags: [ 'video-bbb' ] }
 
@@ -62,6 +61,7 @@
   remote_user: root
   roles:
   - { role: sproxy, tags: [ 'sproxy' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box, tags: [ 'video-box' ] }
 
 - name: video-voctop
@@ -70,6 +70,7 @@
   roles:
   - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
@@ -77,7 +78,7 @@
   hosts: video-stream-dump
   remote_user: root
   roles:
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
 
 - name: video-stream-dump-external
@@ -91,7 +92,7 @@
   remote_user: root
   roles:
   # - { role: encoder-network, tags: [ 'encoder-network' ] }
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
   - mtail
 
@@ -99,7 +100,7 @@
   hosts: video-streamer-frontend
   remote_user: root
   roles:
-  - { role: tmpicinga, tags: [ 'tmpicinga' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-streamer-frontend, tags: [ 'video-streamer-frontend' ] }
   - mtail
 
@@ -191,3 +192,18 @@
   # - { role: encoder-network, tags: [ 'encoder-network' ] }
   - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }
+
+- name: kube-node-config
+  hosts: kube-nodes
+  remote_user: root
+  roles:
+  - { role: sshfs, tags: ['kube-node-config'] }
+  - { role: microk8s, tags: ['kube-node-config'] }
+
+- name: kube
+  hosts: kube-masternode
+  remote_user: root
+  roles:
+  - { role: helm, tags: ['kube']}
+  - { role: helm-kubequeue, tags: ['kube']}
+  - { role: helm-sreview, tags: ['kube']}

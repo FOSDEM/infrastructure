@@ -25,6 +25,6 @@
   become: true
   systemd:
     daemon_reload: true
-    name: "{{ item.name }}"
+    name: "fetcher-{{ item }}"
     state: restarted
-  with_items: "{{ vlc_fetcher_services }}"
+  with_items: "{{ video_rooms + virtual_video_rooms }}"

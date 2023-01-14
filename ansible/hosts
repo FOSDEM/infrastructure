@@ -7,26 +7,11 @@ server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [public-dashboard]
 dashboard.fosdem.org
 
-[review]
-review.video.fosdem.org
+[kube-nodes]
+k8s0.video.fosdem.org
 
-[encoder-storage]
-reviewstorage.video.fosdem.org
-
-[encoder-master]
-encode-master.video.fosdem.org
-
-[encoder-backend]
-encoder0.video.fosdem.org system_hostname=encoder0
-encoder1.video.fosdem.org system_hostname=encoder1
-encoder2.video.fosdem.org system_hostname=encoder2
-#encoder3.video.fosdem.org system_hostname=encoder3
-#encoder4.video.fosdem.org system_hostname=encoder4
-#encoder5.video.fosdem.org system_hostname=encoder5
-#encoder6.video.fosdem.org system_hostname=encoder6
-#encoder7.video.fosdem.org system_hostname=encoder7
-#encoder8.video.fosdem.org system_hostname=encoder8
-#encoder9.video.fosdem.org system_hostname=encoder9
+[kube-masternode]
+k8s0.video.fosdem.org
 
 [tv]
 # tv0.n.fosdem.net
@@ -77,98 +62,87 @@ streamdump0.video.fosdem.org
 streamdump-external0.video.fosdem.org
 
 [video-box]
-aw1120-cam.video.fosdem.org
-aw1121-cam.video.fosdem.org
-aw1125-cam.video.fosdem.org
-aw1126-cam.video.fosdem.org
-h1301-cam.video.fosdem.org
-h1302-cam.video.fosdem.org
-h1308-cam.video.fosdem.org
-h1309-cam.video.fosdem.org
-h2213-cam.video.fosdem.org
-h2214-cam.video.fosdem.org
-h2215-cam.video.fosdem.org
-janson-cam.video.fosdem.org
-# k1105-cam.video.fosdem.org (cheap box)
-# k3201-cam.video.fosdem.org (cheap box)
-k3401-cam.video.fosdem.org
-k4201-cam.video.fosdem.org
-k4401-cam.video.fosdem.org
-k4601-cam.video.fosdem.org
-ua2114-cam.video.fosdem.org
-ua2220-cam.video.fosdem.org
-ub2147-cam.video.fosdem.org
-ub2252a-cam.video.fosdem.org
-ub4136-cam.video.fosdem.org
-ub5132-cam.video.fosdem.org
-ub5230-cam.video.fosdem.org
-ud2119-cam.video.fosdem.org
-ud2120-cam.video.fosdem.org
-ud2208-cam.video.fosdem.org
-ud2218a-cam.video.fosdem.org
-# spare0-cam.video.fosdem.org (spare)
-aw1120-slides.video.fosdem.org
-aw1121-slides.video.fosdem.org
-aw1125-slides.video.fosdem.org
-aw1126-slides.video.fosdem.org
-h1301-slides.video.fosdem.org
-h1302-slides.video.fosdem.org
-h1308-slides.video.fosdem.org
-h1309-slides.video.fosdem.org
-h2213-slides.video.fosdem.org
-h2214-slides.video.fosdem.org
-h2215-slides.video.fosdem.org
-janson-slides.video.fosdem.org
-# k1105-slides.video.fosdem.org (cheap box)
-# k3201-slides.video.fosdem.org (cheap box)
-k3401-slides.video.fosdem.org
-k4201-slides.video.fosdem.org
-k4401-slides.video.fosdem.org
-k4601-slides.video.fosdem.org
-ua2114-slides.video.fosdem.org
-ua2220-slides.video.fosdem.org
-ub2147-slides.video.fosdem.org
-ub2252a-slides.video.fosdem.org
-ub4136-slides.video.fosdem.org
-ub5132-slides.video.fosdem.org
-ub5230-slides.video.fosdem.org
-ud2119-slides.video.fosdem.org
-ud2120-slides.video.fosdem.org
-ud2208-slides.video.fosdem.org
-ud2218a-slides.video.fosdem.org
-# spare0-slides.video.fosdem.org (spare)
+cam0.video.fosdem.org
+cam1.video.fosdem.org
+cam2.video.fosdem.org
+cam3.video.fosdem.org
+cam4.video.fosdem.org
+cam5.video.fosdem.org
+cam6.video.fosdem.org
+cam7.video.fosdem.org
+cam8.video.fosdem.org
+cam9.video.fosdem.org
+cam10.video.fosdem.org
+cam11.video.fosdem.org
+cam12.video.fosdem.org
+cam13.video.fosdem.org
+cam14.video.fosdem.org
+cam15.video.fosdem.org
+cam16.video.fosdem.org
+cam17.video.fosdem.org
+cam18.video.fosdem.org
+cam19.video.fosdem.org
+cam20.video.fosdem.org
+cam21.video.fosdem.org
+cam22.video.fosdem.org
+cam23.video.fosdem.org
+cam24.video.fosdem.org
+cam25.video.fosdem.org
+slides0.video.fosdem.org
+slides1.video.fosdem.org
+slides2.video.fosdem.org
+slides3.video.fosdem.org
+slides4.video.fosdem.org
+slides5.video.fosdem.org
+slides6.video.fosdem.org
+slides7.video.fosdem.org
+slides8.video.fosdem.org
+slides9.video.fosdem.org
+slides10.video.fosdem.org
+slides11.video.fosdem.org
+slides12.video.fosdem.org
+slides13.video.fosdem.org
+slides14.video.fosdem.org
+slides15.video.fosdem.org
+slides16.video.fosdem.org
+slides17.video.fosdem.org
+slides18.video.fosdem.org
+slides19.video.fosdem.org
+slides20.video.fosdem.org
+slides21.video.fosdem.org
+slides22.video.fosdem.org
+slides23.video.fosdem.org
+slides24.video.fosdem.org
+slides25.video.fosdem.org
 
 [video-voctop]
-aw1120-voctop.video.fosdem.org
-aw1121-voctop.video.fosdem.org
-aw1125-voctop.video.fosdem.org
-aw1126-voctop.video.fosdem.org
-h1301-voctop.video.fosdem.org
-h1302-voctop.video.fosdem.org
-h1308-voctop.video.fosdem.org
-h1309-voctop.video.fosdem.org
-h2213-voctop.video.fosdem.org
-h2214-voctop.video.fosdem.org
-h2215-voctop.video.fosdem.org
-janson-voctop.video.fosdem.org
-k1105-voctop.video.fosdem.org
-k3201-voctop.video.fosdem.org
-k3401-voctop.video.fosdem.org
-k4201-voctop.video.fosdem.org
-k4401-voctop.video.fosdem.org
-k4601-voctop.video.fosdem.org
-ua2114-voctop.video.fosdem.org
-ua2220-voctop.video.fosdem.org
-ub2147-voctop.video.fosdem.org
-ub2252a-voctop.video.fosdem.org
-ub4136-voctop.video.fosdem.org
-ub5132-voctop.video.fosdem.org
-ub5230-voctop.video.fosdem.org
-ud2119-voctop.video.fosdem.org
-ud2120-voctop.video.fosdem.org
-ud2208-voctop.video.fosdem.org
-ud2218a-voctop.video.fosdem.org
-spare0-voctop.video.fosdem.org
+voctop0.video.fosdem.org
+voctop1.video.fosdem.org
+voctop2.video.fosdem.org
+voctop3.video.fosdem.org
+voctop4.video.fosdem.org
+voctop5.video.fosdem.org
+voctop6.video.fosdem.org
+voctop7.video.fosdem.org
+voctop8.video.fosdem.org
+voctop9.video.fosdem.org
+voctop10.video.fosdem.org
+voctop11.video.fosdem.org
+voctop12.video.fosdem.org
+voctop13.video.fosdem.org
+voctop14.video.fosdem.org
+voctop15.video.fosdem.org
+voctop16.video.fosdem.org
+voctop17.video.fosdem.org
+voctop18.video.fosdem.org
+voctop19.video.fosdem.org
+voctop20.video.fosdem.org
+voctop21.video.fosdem.org
+voctop22.video.fosdem.org
+voctop23.video.fosdem.org
+voctop24.video.fosdem.org
+voctop25.video.fosdem.org
+voctop26.video.fosdem.org
 
 [video-web-frontend]
 web0.video.fosdem.org
@@ -178,75 +152,24 @@ ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
 
 [video-bbb]
-bbb1.video.fosdem.org ansible_host=135.181.41.169
-dada-vocto.video.fosdem.org
-dapacheopenoffice-vocto.video.fosdem.org
-dbsd-vocto.video.fosdem.org
-dcad-vocto.video.fosdem.org
-dcicd-vocto.video.fosdem.org
 dcollab-vocto.video.fosdem.org
-dconference-vocto.video.fosdem.org
-dcontainers-vocto.video.fosdem.org
-ddartflutter-vocto.video.fosdem.org
-ddependency-vocto.video.fosdem.org
-ddesign-vocto.video.fosdem.org
-ddistributions-vocto.video.fosdem.org
-dembedded-vocto.video.fosdem.org
+dconfidential-vocto.video.fosdem.org
 demulator-vocto.video.fosdem.org
-dfirmware-vocto.video.fosdem.org
-dgeospatial-vocto.video.fosdem.org
-dgo-vocto.video.fosdem.org
-dgraphics-vocto.video.fosdem.org
-dhpc-vocto.video.fosdem.org
-dinfra-vocto.video.fosdem.org
-djavascript-vocto.video.fosdem.org
-dkotlin-vocto.video.fosdem.org
-dlegal-vocto.video.fosdem.org
-dlibreoffice-vocto.video.fosdem.org
-dllvm-vocto.video.fosdem.org
-dmariadb-vocto.video.fosdem.org
+denergy-vocto.video.fosdem.org
 dmatrix-vocto.video.fosdem.org
-dmicrokernel-vocto.video.fosdem.org
 dminimalistic-vocto.video.fosdem.org
-dmobile-vocto.video.fosdem.org
-dmonitoring-vocto.video.fosdem.org
-dmozilla-vocto.video.fosdem.org
-dmysql-vocto.video.fosdem.org
-dnetwork-vocto.video.fosdem.org
-dnim-vocto.video.fosdem.org
-dopenhardware-vocto.video.fosdem.org
-dopenjdk-vocto.video.fosdem.org
-dopenpower-vocto.video.fosdem.org
-dpostgresql-vocto.video.fosdem.org
-dpubliccode-vocto.video.fosdem.org
-dpython-vocto.video.fosdem.org
-dradio-vocto.video.fosdem.org
-draku-vocto.video.fosdem.org
 dresearch-vocto.video.fosdem.org
-dretro-vocto.video.fosdem.org
-dsafety-vocto.video.fosdem.org
 dsds-vocto.video.fosdem.org
-dtesting-vocto.video.fosdem.org
-dtrustedhardware-vocto.video.fosdem.org
-dvalgrind-vocto.video.fosdem.org
-dvirtualization-vocto.video.fosdem.org
-dweb3-vocto.video.fosdem.org
-kfosdem-vocto.video.fosdem.org
-llightningtalks-vocto.video.fosdem.org
-mcommunity-vocto.video.fosdem.org
-mmisc-vocto.video.fosdem.org
-mrtc-vocto.video.fosdem.org
-msecurity-vocto.video.fosdem.org
 mtest-vocto.video.fosdem.org
 
 [infodesk-laptop]
 # infodesk-laptop-1 ansible_host=185.175.218.188
 
 ## Composite host groups
-[encoder:children]
-encoder-storage
-encoder-master
-encoder-backend
+#[encoder:children]
+#encoder-storage
+#encoder-master
+#encoder-backend
 
 [event-prometheus-servers:children]
 event-primary
@@ -264,10 +187,10 @@ video-web-frontend
 video-bbb
 
 [node_exporter:children]
-encoder
+#encoder
 event-prometheus-servers
 public-dashboard
-review
+#review
 tv
 # video
 video-streamer-backend

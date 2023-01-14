@@ -1,0 +1,28 @@
+---
+- name: install unbound config
+  copy:
+    src: unbound-access.conf
+    dest: /etc/unbound/unbound.conf.d/access.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload unbound
+
+- name: install dhcpd config
+  copy:
+    src: dhcpd.conf
+    dest: /etc/dhcp/dhcpd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload dhcpd
+
+- name: install dhcpd config defaults
+  copy:
+    src: isc-dhcp-server.default
+    dest: /etc/default/isc-dhcp-server
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload dhcpd
+

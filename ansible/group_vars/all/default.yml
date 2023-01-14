@@ -6,7 +6,7 @@ ssh_users:
 - brian
 - gerry
 - gouthamve
-- johan
+- johanvdw
 - luc
 - mark
 - msuriar
@@ -14,7 +14,8 @@ ssh_users:
 - peter
 - richih
 - vasil
-- wouter
+- wouter_v
+- wouter_s
 
 timezone: "Europe/Brussels"
 
