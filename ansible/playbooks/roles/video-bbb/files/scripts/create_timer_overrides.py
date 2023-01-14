@@ -12,7 +12,7 @@ import sys
 import wget
 import xml.etree.ElementTree as ET 
 
-penta_url = 'https://fosdem.org/2022/schedule/xml'
+penta_url = 'https://fosdem.org/2023/schedule/xml'
 timer_dir = '/etc/systemd/system'
 recording_timer_template_prefix = 'vocto-source-recording@'
 video_cache_dir = '/opt/media/recordings'

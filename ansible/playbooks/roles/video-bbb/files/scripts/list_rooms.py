@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 
 
 
-penta_url = 'https://fosdem.org/2022/schedule/xml'        
+penta_url = 'https://fosdem.org/2023/schedule/xml'        
 print("Checking if we have the schedule...")
 if os.path.isfile(os.path.basename(penta_url)):
   penta = os.path.basename(penta_url)

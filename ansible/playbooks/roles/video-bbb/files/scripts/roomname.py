@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 fullhostname=socket.gethostname()
 hostname= re.match('.*?-', fullhostname).group()[:-1]
 
-penta_url = 'https://fosdem.org/2022/schedule/xml'        
+penta_url = 'https://fosdem.org/2023/schedule/xml'        
 if os.path.isfile(os.path.basename(penta_url)):
   penta = os.path.basename(penta_url)
 else:

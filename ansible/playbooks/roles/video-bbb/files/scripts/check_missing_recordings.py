@@ -12,7 +12,7 @@ import time
 import wget
 import xml.etree.ElementTree as ET 
 
-penta_url = 'https://fosdem.org/2022/schedule/xml'
+penta_url = 'https://fosdem.org/2023/schedule/xml'
 video_cache_dir = '/mnt/video/'
 
 parser = argparse.ArgumentParser()
