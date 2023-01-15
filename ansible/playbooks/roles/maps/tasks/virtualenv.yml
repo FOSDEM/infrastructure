@@ -11,12 +11,6 @@
     virtualenv_python: python3.8
     virtualenv: /opt/c3nav/env
 
-- name: virtualenv - dev
-  pip:
-    requirements: /opt/c3nav/src/requirements/dev.txt
-    virtualenv_python: python3.8
-    virtualenv: /opt/c3nav/env
-
 - name: virtualenv - redis
   pip:
     requirements: /opt/c3nav/src/requirements/redis.txt
