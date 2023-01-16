@@ -1,0 +1,36 @@
+pullPolicy: Always
+containerLabel: {{ sreview.imagelabel }}
+webHostname: review.video.fosdem.org
+pullPolicy: IfNotPresent
+config:
+  schedule_format: '"penta"'
+  schedule_options: '{"url":"https://fosdem.org/2023/schedule/xml"}'
+  event: '"FOSDEM 2023"'
+  accessmethods: '{"input":"HTTP","intermediate":"S3","output":"S3","upl":"S3"}'
+  inputglob: '"https://lounge.grep.be/~wouter/test/*"'
+  inject_collection: '"upl"'
+  extra_collections: '{"upl":"upl/*"}'
+  pubdir: '"uint/"'
+  outputdir: '"pub/"'
+  vid_prefix: '"https://rvstore.video.fosdem.org/uint/"'
+  urlbase: '"https://upload.video.fosdem.org/"'
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+  - upload.video.fosdem.org
+  tls:
+  - secretName: upload.video.fosdem.org-tls
+    hosts:
+    - upload.video.fosdem.org
+extraEnv:
+- name: MOJO_LOG_LEVEL
+  value: trace
+use_internal_minio: false
+no_detect_on_cluster: true
+run_kube_template: |
+  % use YAML::XS;
+  % push @$env, ( { name => "SREVIEW_DBICOMPONENTS", value => "host user dbname password" }, { name => "SREVIEW_DBI_USER", value => "postgres" }, { name => "SREVIEW_DBI_HOST", value => "sreview-postgresql"}, { name => "SREVIEW_DBI_PASSWORD", valueFrom => { secretKeyRef => { key => "postgres-password", name => "sreview-postgresql" } } }, { name => "SREVIEW_DBI_DBNAME", value => "postgres" }, {name => "EMAIL_SENDER_TRANSPORT", value => "SMTP"}, { name => "EMAIL_SENDER_TRANSPORT_HOST", value => "mail.fosdem.org" }, { name => "EMAIL_SENDER_TRANSPORT_PORT", value => "25" });
+  % $jobsuffix =~ s/_/-/g;
+  % my %data = ( apiVersion => "kubequeue.grep.be/v1", kind => "JobEntry", metadata => { name => "sreview-$jobsuffix" }, spec => { defName => "sreview-$task", extraArgs => $args, extraEnv => $env } );
+  <%= Dump(\%data); %>
