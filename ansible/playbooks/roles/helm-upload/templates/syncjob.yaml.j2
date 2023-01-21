@@ -38,7 +38,7 @@ data:
     
     $penta->begin_work;
     
-    my $coll = SReview::Files::Factory->create("lookaside", $config->get("extra_collections")->{lookaside});
+    my $coll = SReview::Files::Factory->create("upl", $config->get("extra_collections")->{upl});
     
     my $url_add = $penta->prepare("UPDATE event SET sreview_upload_url = ? WHERE event_id = ?");
     my $rv_add = $penta->prepare("UPDATE event SET sreview_review_url = ? WHERE event_id = ?");
