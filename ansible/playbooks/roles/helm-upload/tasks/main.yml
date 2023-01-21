@@ -39,3 +39,14 @@
     state: present
     namespace: upload
     src: /tmp/kubequeue-defs.yaml
+
+- name: copy upload url sync job definition
+  template:
+    dest: /tmp/syncjob.yaml
+    src: syncjob.yaml.j2
+
+- name: create upload url sync job
+  kubernetes.core.k8s:
+    state: present
+    namespace: upload
+    src: /tmp/syncjob.yaml
