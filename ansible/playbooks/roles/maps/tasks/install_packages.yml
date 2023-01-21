@@ -18,11 +18,11 @@
     - gettext
     - redis-server
     - libpq-dev
-    - python3.6
-    - python3.6-venv
-    - python-pip
+    - python3.8
+    - python3.8-venv
+    - python3-pip
     - virtualenv
-    - python3.6-dev
+    - python3.8-dev
     - libmemcached-dev
     - python3-psycopg2
     - python-setuptools
