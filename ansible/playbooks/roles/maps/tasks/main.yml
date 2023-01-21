@@ -74,3 +74,15 @@
 - include: configure_celery.yml
 - include: configure_gunicorn.yml
 - include: configure_nginx.yml
+
+
+- name: Run migrations/Collect static files
+  django_manage:
+    app_path: "/opt/c3nav"
+    command: "{{ item }}"
+    virtualenv: "/opt/c3nav/venv"
+  become: yes
+  become_user: "c3nav"
+  with_items:
+    - migrate
+    - collectstatic
