@@ -6,8 +6,8 @@ config:
   schedule_format: '"penta"'
   schedule_options: '{"url":"https://fosdem.org/2023/schedule/xml"}'
   event: '"FOSDEM 2023"'
-  accessmethods: '{"input":"HTTP","intermediate":"S3","output":"S3"}'
-  inputglob: '"https://lounge.grep.be/~wouter/test/*"'
+  accessmethods: '{"input":"HTTP::nginx::JSON","intermediate":"S3","output":"S3"}'
+  inputglob: '"http://streambackend0.video.fosdem.org/dump/*"'
   pubdir: '"int/"'
   outputdir: '"pub/"'
   vid_prefix: '"https://rvstore.video.fosdem.org/video/int/"'
@@ -35,7 +35,6 @@ extraEnv:
 - name: MOJO_LOG_LEVEL
   value: trace
 use_internal_minio: false
-no_detect_on_cluster: true
 run_kube_template: |
   % use YAML::XS;
   % push @$env, ( { name => "SREVIEW_DBICOMPONENTS", value => "host user dbname password" }, { name => "SREVIEW_DBI_USER", value => "postgres" }, { name => "SREVIEW_DBI_HOST", value => "sreview-postgresql"}, { name => "SREVIEW_DBI_PASSWORD", valueFrom => { secretKeyRef => { key => "postgres-password", name => "sreview-postgresql" } } }, { name => "SREVIEW_DBI_DBNAME", value => "postgres" }, {name => "EMAIL_SENDER_TRANSPORT", value => "SMTP"}, { name => "EMAIL_SENDER_TRANSPORT_HOST", value => "mail.fosdem.org" }, { name => "EMAIL_SENDER_TRANSPORT_PORT", value => "25" });
