@@ -16,6 +16,8 @@ cp $1/certificates/live.fosdem.org.key playbooks/roles/video-web-frontend/files/
 cp $1/certificates/live.fosdem.org.crt playbooks/roles/video-web-frontend/files/nginx/certificate/live.fosdem.org.crt
 cp $1/certificates/control.video.fosdem.org.key playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.key
 cp $1/certificates/control.video.fosdem.org.crt playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.crt
+cp $1/certificates/streambackend0.video.fosdem.org.key playbooks/roles/video-streamer-backend/files/nginx/certificate/streambackend0.video.fosdem.org.key
+cp $1/certificates/streambackend0.video.fosdem.org.crt playbooks/roles/video-streamer-backend/files/nginx/certificate/streambackend0.video.fosdem.org.crt
 cp $1/sreview/config.pl playbooks/roles/video-streamer-backend/files/sreview/config.pl
 cp $1/control/htpasswd playbooks/roles/video-control-server/files/nginx/htpasswd
 cp $1/jibri/streamkeysalt.sh playbooks/roles/video-bbb/files/config/streamkeysalt.sh
