@@ -10,7 +10,6 @@ data:
     use SReview::Config::Common;
     use SReview::Files::Factory;
     use SReview::Talk;
-    use autodie qw/:system/;
     
     my $config = SReview::Config::Common::setup();
     my $collection = SReview::Files::Factory->create("intermediate", $config->get("pubdir"));
