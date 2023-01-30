@@ -79,13 +79,14 @@
   remote_user: root
   roles:
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
-  - { role: video-stream-dump, tags: [ 'video-stream-dump' ] }
+  - { role: video-stream-dump, tags: [ 'video-stream-dump-internal' ] }
 
 - name: video-stream-dump-external
   hosts: video-stream-dump-external
   remote_user: root
   roles:
-  - { role: video-stream-dump, tags: [ 'video-stream-dump-external' ] }
+  - { role: video-stream-dump-external, tags: [ 'video-stream-dump-external' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
 
 - name: video-streamer-backend
   hosts: video-streamer-backend

@@ -2,6 +2,9 @@
 - name: Loop for streamdump type
   include: configure_streamdump_simple.yml
   with_items:
+  - cam
+  - slides
   - vocto
+  tags: video-stream-dump-internal
 
 - include: streamdump_target.yml

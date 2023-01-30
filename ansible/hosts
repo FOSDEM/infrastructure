@@ -58,6 +58,10 @@ ansible_user = root
 [video-stream-dump]
 streamdump0.video.fosdem.org
 
+[video-stream-dump-external:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+
 [video-stream-dump-external]
 streamdump-external0.video.fosdem.org
 

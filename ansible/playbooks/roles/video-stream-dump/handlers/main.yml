@@ -10,7 +10,7 @@
   become: true
   systemd:
     daemon_reload: true
-    name: "streamdump-{{ item.host }}.service"
+    name: "streamdump-{{ item }}.service"
     state: restarted
   with_items: "{{ video_stream_dump_services.results }}"
   when: item is changed
