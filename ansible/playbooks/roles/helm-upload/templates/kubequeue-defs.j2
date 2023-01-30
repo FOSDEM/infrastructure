@@ -23,6 +23,13 @@ data:
     say "'" . join( "', '", @cmd) . "'";
     system(@cmd);
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sshkey
+data:
+  id_ed25519: {{ secret.sshkey }}
+---
 apiVersion: kubequeue.grep.be/v1
 kind: JobQueue
 metadata:
@@ -103,15 +110,15 @@ spec:
             - /opt/script/upload-rsync
             image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
             name: worker
-	    volumeMounts:
-	    - name: script
-	      readOnly: true
-	      mountPath: /opt/script
-	  volumes:
-	  - name: script
-	    configMap:
-	      name: upload-rsync-script
-	      defaultMode: 0755
+            volumeMounts:
+            - name: script
+              readOnly: true
+              mountPath: /opt/script
+          volumes:
+          - name: script
+            configMap:
+              name: upload-rsync-script
+              defaultMode: 0755
           restartPolicy: OnFailure
   queueName: sreview-hiprio
 ---

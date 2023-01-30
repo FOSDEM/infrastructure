@@ -22,6 +22,7 @@ config:
   eventurl_format: '"https://fosdem.org/2023/schedule/event/<%= $slug %>/"'
   email_from: '"noreply@fosdem.org"'
   urlbase: '"https://review.video.fosdem.org/"'
+  parse_re: '".*\\/(?<room>[^\\/]+)(?<stream>(-[^\\/-]+)?)\\/[^-]*-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts"'
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
