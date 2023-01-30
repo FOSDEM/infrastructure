@@ -52,4 +52,13 @@ video_rooms:
 - ud2218a
 
 virtual_video_rooms:
-- dtest
+- dcollab
+- dconfidential
+- demulator
+- denergy
+- dmatrix
+- dminimalistic
+- dresearch
+- dsds
+- mtest
+
