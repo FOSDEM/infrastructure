@@ -163,7 +163,7 @@ spec:
             - name: SREVIEW_S3_ACCESS_CONFIG
               valueFrom:
                 secretKeyRef:
-                  key: SREVIEW_ADMINPW
+                  key: SREVIEW_S3_ACCESS_CONFIG
                   name: sreview-secret
             - name: SREVIEW_API_KEY
               valueFrom:
