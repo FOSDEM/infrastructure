@@ -1,0 +1,44 @@
+---
+
+- name: set type of box
+  set_fact:
+    box_type: "{{ item }}"
+
+- name: create stream dump directories
+  file:
+    path: "/mnt/storage/{{ item }}-{{ box_type }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items: "{{ virtual_video_rooms }}"
+
+- name: install stream dump script
+  copy:
+    src: streamdump.sh
+    dest: /usr/local/bin/streamdump.sh
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+  - restart streamdump target
+
+- name: install stream dump services
+  template:
+    src: streamdump.service
+    dest: "/etc/systemd/system/streamdump-{{ item }}-{{ box_type }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ virtual_video_rooms }}"
+  register: video_stream_dump_services
+  notify:
+  - restart streamdump service
+
+- name: enable streamdump service
+  systemd:
+    name: "streamdump-{{ item }}-{{ box_type }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ virtual_video_rooms }}"

@@ -1,0 +1,8 @@
+---
+- name: Loop for streamdump type
+  include: configure_streamdump_external.yml
+  with_items:
+  - vocto
+  tags: video-stream-dump-external
+
+- include: streamdump_target.yml
