@@ -14,13 +14,15 @@ data:
     my $config = SReview::Config::Common::setup();
     my $collection = SReview::Files::Factory->create("intermediate", $config->get("pubdir"));
     my $talk = SReview::Talk->new(talkid => shift);
+    $talk->set_state("uploading","running");
     say "uploading talk for penta event " . $talk->upstreamid;
     my $main = $talk->relative_name . "/main.mp4";
     say $main;
     my $file = $collection->get_file(relname => $main);
-    my @cmd = ("rsync","-avHP", "-e", "ssh -i /opt/ssh/id_ed25519",$file->filename, 'sreview@' . $talk->_get_pathinfo->{raw}{room_output} . "-vocto.video.fosdem.org:/mnt/video" . $talk->upstreamid . ".mp4");
+    my @cmd = ("rsync","-avHP", "-e", "ssh -o StrictHostKeyChecking=no -i /opt/ssh/id_ed25519",$file->filename, 'sreview@' . $talk->_get_pathinfo->{raw}{room_output} . "-vocto.video.fosdem.org:/mnt/video/" . $talk->upstreamid . ".mp4");
     say "'" . join( "', '", @cmd) . "'";
     system(@cmd);
+    $talk->state_done("uploading");
 ---
 apiVersion: v1
 kind: Secret
@@ -124,6 +126,7 @@ spec:
           - name: sshkey
             secret:
               secretName: sshkey
+              defaultMode: 0600
           restartPolicy: OnFailure
   queueName: sreview-hiprio
 ---
