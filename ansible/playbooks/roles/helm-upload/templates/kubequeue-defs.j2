@@ -19,7 +19,7 @@ data:
     my $main = $talk->relative_name . "/main.mp4";
     say $main;
     my $file = $collection->get_file(relname => $main);
-    my @cmd = ("rsync","-avHP",$file->filename, 'sreview@' . $talk->_get_pathinfo->{raw}{room_output} . "-vocto.video.fosdem.org:/mnt/video" . $talk->upstreamid . ".mp4");
+    my @cmd = ("rsync","-avHP", "-e", "ssh -i /opt/ssh/id_ed25519",$file->filename, 'sreview@' . $talk->_get_pathinfo->{raw}{room_output} . "-vocto.video.fosdem.org:/mnt/video" . $talk->upstreamid . ".mp4");
     say "'" . join( "', '", @cmd) . "'";
     system(@cmd);
 ---
@@ -27,8 +27,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: sshkey
-data:
-  id_ed25519: {{ secret.sshkey }}
+stringData:
+  id_ed25519: "{{ secret.sshkey }}"
 ---
 apiVersion: kubequeue.grep.be/v1
 kind: JobQueue
@@ -114,11 +114,17 @@ spec:
             - name: script
               readOnly: true
               mountPath: /opt/script
+            - name: sshkey
+              readOnly: true
+              mountPath: /opt/ssh
           volumes:
           - name: script
             configMap:
               name: upload-rsync-script
               defaultMode: 0755
+          - name: sshkey
+            secret:
+              secretName: sshkey
           restartPolicy: OnFailure
   queueName: sreview-hiprio
 ---
