@@ -1,3 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: upload-rsync-script
+data:
+  upload-rsync: |
+    #!/usr/bin/perl -w
+    
+    use v5.30;
+    use SReview::Config::Common;
+    use SReview::Files::Factory;
+    use SReview::Talk;
+    use autodie qw/:system/;
+    
+    my $config = SReview::Config::Common::setup();
+    my $collection = SReview::Files::Factory->create("intermediate", $config->get("pubdir"));
+    my $talk = SReview::Talk->new(talkid => shift);
+    say "uploading talk for penta event " . $talk->upstreamid;
+    my $main = $talk->relative_name . "/main.mp4";
+    say $main;
+    my $file = $collection->get_file(relname => $main);
+    my @cmd = ("rsync","-avHP",$file->filename, 'sreview@' . $talk->_get_pathinfo->{raw}{room_output} . "-vocto.video.fosdem.org:/mnt/video" . $talk->upstreamid . ".mp4");
+    say "'" . join( "', '", @cmd) . "'";
+    system(@cmd);
 ---
 apiVersion: kubequeue.grep.be/v1
 kind: JobQueue
@@ -76,9 +100,18 @@ spec:
         spec:
           containers:
           - command:
-            - sreview-upload
+            - /opt/script/upload-rsync
             image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
             name: worker
+	    volumeMounts:
+	    - name: script
+	      readOnly: true
+	      mountPath: /opt/script
+	  volumes:
+	  - name: script
+	    configMap:
+	      name: upload-rsync-script
+	      defaultMode: 0755
           restartPolicy: OnFailure
   queueName: sreview-hiprio
 ---

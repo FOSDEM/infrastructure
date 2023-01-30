@@ -1,6 +1,6 @@
 ---
 sreview:
-  imagelabel: git-ddc28ad1
+  imagelabel: git-3d93c564
 
 secret:
   pentapass: !vault |
