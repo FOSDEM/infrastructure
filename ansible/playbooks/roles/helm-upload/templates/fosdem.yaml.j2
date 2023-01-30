@@ -21,6 +21,7 @@ config:
   vid_prefix: '"https://rvstore.video.fosdem.org/uint"'
   urlbase: '"https://upload.video.fosdem.org/"'
   adminuser: '"w@uter.be"'
+  state_actions: '{"announcing":"run-kube announce <%== $talkid %>","cutting":"run-kube cut <%== $talkid %>", "generating_previews":"run-kube previews <%== $talkid %>", "injecting":"run-kube inject-job <%== $talkid %>", "notification":"run-kube notify <%== $talkid %>", "notify_final":"run-kube notify_final <%== $talkid %>","remove":"run-kube remove <%== $talkid %>","transcoding":"run-kube transcode <%== $talkid %>","uploading":"run-kube upload <%== $talkid %>","finalreview":"run-kube finalreview <%== $talkid %>"}'
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
@@ -41,5 +42,6 @@ run_kube_template: |
   % use YAML::XS;
   % push @$env, ( { name => "SREVIEW_DBICOMPONENTS", value => "host user dbname password" }, { name => "SREVIEW_DBI_USER", value => "postgres" }, { name => "SREVIEW_DBI_HOST", value => "sreview-postgresql"}, { name => "SREVIEW_DBI_PASSWORD", valueFrom => { secretKeyRef => { key => "postgres-password", name => "sreview-postgresql" } } }, { name => "SREVIEW_DBI_DBNAME", value => "postgres" }, {name => "EMAIL_SENDER_TRANSPORT", value => "SMTP"}, { name => "EMAIL_SENDER_TRANSPORT_HOST", value => "mail.fosdem.org" }, { name => "EMAIL_SENDER_TRANSPORT_PORT", value => "25" });
   % $jobsuffix =~ s/_/-/g;
+  % $task =~ s/_/-/g;
   % my %data = ( apiVersion => "kubequeue.grep.be/v1", kind => "JobEntry", metadata => { name => "sreview-$jobsuffix" }, spec => { defName => "sreview-$task", extraArgs => $args, extraEnv => $env } );
   <%= Dump(\%data); %>

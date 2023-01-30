@@ -38,11 +38,11 @@ data:
     
     $penta->begin_work;
     
-    my $coll = SReview::Files::Factory->create("upl", $config->get("extra_collections")->{upl});
+    my $coll = SReview::Files::Factory->create("intermediate", $config->get("pubdir"));
     
     my $url_add = $penta->prepare("UPDATE event SET sreview_upload_url = ? WHERE event_id = ?");
     my $rv_add = $penta->prepare("UPDATE event SET sreview_review_url = ? WHERE event_id = ?");
-    my $is_enabled = $penta->prepare("SELECT event_id FROM event WHERE conference_id = 15 AND prerecorded = true AND event_state = 'accepted' AND event_id = ?");
+    my $is_enabled = $penta->prepare("SELECT event_id FROM event WHERE conference_id = 16 AND prerecorded = true AND event_state = 'accepted' AND event_id = ?");
     my $pres_check = $penta->prepare("SELECT presentation_length FROM event WHERE event_id = ?");
     my $pres_length = $penta->prepare("UPDATE event SET presentation_length = ? WHERE event_id = ?");
     my $url_exists = $penta->prepare("SELECT sreview_upload_url FROM event WHERE event_id = ?");
@@ -68,10 +68,10 @@ data:
     
     sub push_length {
             my ($talk, $upid) = @_;
-            my $file = $coll->get_file(relname => $talk->relative_name . ".mkv");
+            my $file = $coll->get_file(relname => $talk->relative_name . "/main.mkv");
             $is_enabled->execute($upid);
             return unless ($is_enabled->rows > 0);
-            my $seconds = Media::Convert::Assets->new(url => $file->filename)->duration;
+            my $seconds = Media::Convert::Asset->new(url => $file->filename)->duration;
             my $hours = 0;
             my $minutes = 0;
             return unless defined($seconds);

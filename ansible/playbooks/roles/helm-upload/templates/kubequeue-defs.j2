@@ -244,3 +244,26 @@ spec:
             name: worker
           restartPolicy: OnFailure
   queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-finalreview
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-skip
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
