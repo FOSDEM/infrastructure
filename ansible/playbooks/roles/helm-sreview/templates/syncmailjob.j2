@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: penta-secret
+type: Opaque
+stringData:
+  pgservice.cfg: |
+    [penta]
+    host=pgsql.fosdem.org
+    dbname=pentabarf
+    user=video
+    password={{secret.pentapass}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sync-emails-script
+data:
+  sync-emails-script: |
+    #!/usr/bin/perl -w
+
+    use v5.30;
+
+    use SReview::Config::Common;
+    use DBI;
+
+    my $config = SReview::Config::Common::setup();
+    
+    my $penta = DBI->connect('dbi:Pg:service=penta');
+    my $sreview = DBI->connect($config->get("dbistring"));
+
+    my $upid_query = $sreview->prepare("SELECT array_agg(upstreamid) AS ids FROM speakers WHERE email IS NULL");
+    $upid_query->execute();
+    my $upids = $upid_query->fetchrow_hashref();
+    
+    my $emails_query = $penta->prepare('SELECT person_id, email FROM person WHERE person_id IN (' . join(',',@{$upids->{ids}}) . ')');
+    $emails_query->execute();
+
+    my $add_email = $sreview_prepare("UPDATE speakers SET email = ? WHERE upstreamid = ?");
+
+    while(my $data = $emails_query->fetchrow_hashref()) {
+	    if(!defined($data->{email})) {
+		    print "skipping " . $data->{person_id} . ": no email\n";
+		    next;
+	    }
+	    print "adding email for " . $data->{person_id} . "\n";
+	    $add_email->execute($data->{email}, $data->{person_id});
+    }
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sync-emails
+spec:
+  concurrencyPolicy: Forbid
+  schedule: 15,45 * * * *
+  jobTemplate:
+    metadata:
+      labels:
+        app: sync-emails
+    spec:
+      template:
+        metadata:
+          labels:
+            app: sync-emails
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: sync
+            image: registry.salsa.debian.org/debconf-video-team/sreview/detect:{{ sreview.imagelabel }}
+            imagePullPolicy: IfNotPresent
+            command:
+            - /opt/sync/sync-emails-script
+            volumeMounts:
+            - name: pgservice
+              readOnly: true
+              mountPath: /opt/pgservice
+            - name: sync
+              readOnly: true
+              mountPath: /opt/sync
+            env:
+            - name: SREVIEW_DBICOMPONENTS
+              value: host password dbname user
+            - name: SREVIEW_DBI_USER
+              value: postgres
+            - name: SREVIEW_DBI_HOST
+              value: sreview-postgresql
+            - name: SREVIEW_DBI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: postgres-password
+                  name: sreview-postgresql
+            - name: SREVIEW_DBI_DBNAME
+              value: postgres
+            - name: PGSERVICEFILE
+              value: /opt/pgservice/pgservice.cfg
+          volumes:
+          - name: pgservice
+            secret:
+              secretName: penta-secret
+          - name: sync
+            configMap:
+              name: sync-emails-script
+              defaultMode: 0755

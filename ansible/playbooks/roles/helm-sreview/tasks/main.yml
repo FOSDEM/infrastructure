@@ -39,3 +39,14 @@
     state: present
     namespace: sreview
     src: /tmp/kubequeue-defs.yaml
+
+- name: copy email sync job definition
+  template:
+    dest: /tmp/emailsync.yaml
+    src: syncmailjob.j2
+
+- name: create email sync job
+  kubernetes.core.k8s:
+    state: present
+    namespace: sreview
+    src: /tmp/emailsync.yaml
