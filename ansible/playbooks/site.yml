@@ -36,7 +36,7 @@
   tags: [common]
   roles:
   - common
-  - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
+#  - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
 
 
 ##
