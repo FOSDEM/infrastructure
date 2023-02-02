@@ -9,7 +9,13 @@ cd /var/www/hls || exit 3
 
 room="$1"
 
-src=$(curl -s http://control.video.fosdem.org/query-room.php?room=$room)
+if [ $1 == mtest ] ; then
+	src=tcp://mtest-vocto.video.fosdem.org:8898/
+elif [ $1 == dtest ] ; then
+	src=tcp://dtest-vocto.video.fosdem.org:8898/
+else
+	src=$(curl -s http://control.video.fosdem.org/query-room.php?room=$room)
+fi
 
 if [ -z "$src" ]; then
 	# we don't exist, sleep for a while
