@@ -165,7 +165,6 @@ dminimalistic-vocto.video.fosdem.org
 dresearch-vocto.video.fosdem.org
 dsds-vocto.video.fosdem.org
 dtest-vocto.video.fosdem.org
-mtest-vocto.video.fosdem.org
 
 [infodesk-laptop]
 # infodesk-laptop-1 ansible_host=185.175.218.188
