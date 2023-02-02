@@ -1,4 +1,12 @@
 ---
+
+- name: create recording directory
+  file:
+    path: /home/rec
+    state: directory
+    owner: www-data
+    group: www-data
+
 - name: "install nginx configuration"
   copy:
     src: "{{ item }}"
@@ -16,3 +24,5 @@
     package:
     - nginx-full
     - libnginx-mod-rtmp
+
+
