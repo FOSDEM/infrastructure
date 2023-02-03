@@ -32,6 +32,7 @@ config:
   output_profiles: '["webm","copy"]'
   preroll_template: '"https://raw.githubusercontent.com/yoe/SReview/main/t/testvids/just-title.svg"'
   postroll: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/fosdem_video_post.png"'
+  state_actions: '{"announcing":"run-kube announce <%== $talkid %>","cutting":"run-kube cut <%== $talkid %>", "generating_previews":"run-kube previews <%== $talkid %>", "injecting":"run-kube inject-job <%== $talkid %>", "notification":"run-kube notify <%== $talkid %>", "notify_final":"run-kube notify_final <%== $talkid %>","remove":"run-kube remove <%== $talkid %>","transcoding":"run-kube transcode <%== $talkid %>","uploading":"run-kube upload <%== $talkid %>","finalreview":"run-kube finalreview <%== $talkid %>"}'
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
