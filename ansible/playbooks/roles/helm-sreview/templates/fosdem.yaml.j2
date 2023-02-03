@@ -28,6 +28,9 @@ config:
   extra_profiles: '{"FOSDEM":{"parent":"mp4","settings":{"extra_params":{"g":"45","probesize":"10M","qmin:v:0":1,"analyzeduration":"10M","bufsize:v":"8192k"},"video_bitrate":"1000"},"video_size":"1280x720"},"webm_high":{"parent":"webm","settings":{"quality":24}}}'
   input_profile: '"FOSDEM"'
   preview_exten: '"mp4"'
+  output_subdirs: '["year","room"]'
+  preroll_template: '"https://raw.githubusercontent.com/yoe/SReview/main/t/testvids/just-title.svg"'
+  postroll: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbook/roles/helm-sreview/files/fosdem_video_post.png"'
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
