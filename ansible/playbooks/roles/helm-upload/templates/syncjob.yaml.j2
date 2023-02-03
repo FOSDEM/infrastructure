@@ -42,7 +42,7 @@ data:
     
     my $url_add = $penta->prepare("UPDATE event SET sreview_upload_url = ? WHERE event_id = ?");
     my $rv_add = $penta->prepare("UPDATE event SET sreview_review_url = ? WHERE event_id = ?");
-    my $is_enabled = $penta->prepare("SELECT event_id FROM event WHERE conference_id = 16 AND prerecorded = true AND event_state = 'accepted' AND event_id = ?");
+    my $is_enabled = $penta->prepare("SELECT event_id FROM event JOIN conference ON event.conference_id = conference.conference_id WHERE acronym = 'FOSDEM23' AND prerecorded = true AND event_state = 'accepted' AND event_id = ?");
     my $pres_check = $penta->prepare("SELECT presentation_length FROM event WHERE event_id = ?");
     my $pres_length = $penta->prepare("UPDATE event SET presentation_length = ? WHERE event_id = ?");
     my $url_exists = $penta->prepare("SELECT sreview_upload_url FROM event WHERE event_id = ?");

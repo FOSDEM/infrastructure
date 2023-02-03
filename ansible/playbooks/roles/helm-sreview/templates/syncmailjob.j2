@@ -34,18 +34,18 @@ data:
     $upid_query->execute();
     my $upids = $upid_query->fetchrow_hashref();
     
-    my $emails_query = $penta->prepare('SELECT person_id, email FROM person WHERE person_id IN (' . join(',',@{$upids->{ids}}) . ')');
+    my $emails_query = $penta->prepare('SELECT person_id, email FROM view_matrix_event_person WHERE person_id IN (' . join(',',@{$upids->{ids}}) . ')');
     $emails_query->execute();
 
-    my $add_email = $sreview_prepare("UPDATE speakers SET email = ? WHERE upstreamid = ?");
+    my $add_email = $sreview->prepare("UPDATE speakers SET email = ? WHERE upstreamid = ?");
 
     while(my $data = $emails_query->fetchrow_hashref()) {
-	    if(!defined($data->{email})) {
-		    print "skipping " . $data->{person_id} . ": no email\n";
-		    next;
-	    }
-	    print "adding email for " . $data->{person_id} . "\n";
-	    $add_email->execute($data->{email}, $data->{person_id});
+            if(!defined($data->{email})) {
+                    print "skipping " . $data->{person_id} . ": no email\n";
+                    next;
+            }
+            print "adding email for " . $data->{person_id} . "\n";
+            $add_email->execute($data->{email}, $data->{person_id});
     }
 ---
 apiVersion: batch/v1
