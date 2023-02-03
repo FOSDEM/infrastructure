@@ -24,6 +24,7 @@ config:
   urlbase: '"https://review.video.fosdem.org/"'
   parse_re: '".*\\/(?<room>[^\\/]+)(?<stream>(-[^\\/-]+)?)\\/[^-]*-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts"'
   query_limit: '0'
+  audio_multiplex_mode: '"astream"'
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
