@@ -119,6 +119,10 @@ slides23.video.fosdem.org
 slides24.video.fosdem.org
 slides25.video.fosdem.org
 
+[video-voctop:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+
 [video-voctop]
 voctop0.video.fosdem.org
 voctop1.video.fosdem.org
