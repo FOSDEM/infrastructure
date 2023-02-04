@@ -22,7 +22,7 @@ config:
   eventurl_format: '"https://fosdem.org/2023/schedule/event/<%= $slug %>/"'
   email_from: '"noreply@fosdem.org"'
   urlbase: '"https://review.video.fosdem.org/"'
-  parse_re: '".*\\/(?<room>[^\\/]+)(?<stream>(-[^\\/-]+)?)\\/[^-]*-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts"'
+  parse_re: '".*\\/(?<room>[^-\\/]+)(-(?<stream>([^\\/]+)))?\\/[^-]*-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts"'
   query_limit: '0'
   audio_multiplex_mode: '"stream"'
   extra_profiles: '{"FOSDEM":{"parent":"mp4","settings":{"extra_params":{"g":"45","probesize":"10M","qmin:v:0":1,"analyzeduration":"10M","bufsize:v":"8192k"},"video_bitrate":"1000"},"video_size":"1280x720"},"webm_high":{"parent":"webm","settings":{"quality":24}}}'
