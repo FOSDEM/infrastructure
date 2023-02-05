@@ -4,14 +4,14 @@ kind: JobQueue
 metadata:
   name: sreview-queue
 spec:
-  maxJobs: 6
+  maxJobs: 50
 ---
 apiVersion: kubequeue.grep.be/v1
 kind: JobQueue
 metadata:
   name: sreview-hiprio
 spec:
-  maxJobs: 50
+  maxJobs: 10
 ---
 apiVersion: kubequeue.grep.be/v1
 kind: JobDef
