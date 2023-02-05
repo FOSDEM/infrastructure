@@ -15,7 +15,7 @@ data:
     my $config = SReview::Config::Common::setup();
     
     my $sreview = DBI->connect($config->get("dbistring"));
-    my $penta = DBI->connect('dbi:Pg:serve=penta');
+    my $penta = DBI->connect('dbi:Pg:service=penta');
 
     my $sources = $sreview->prepare("SELECT talks.slug, talks.upstreamid, rooms.name FROM talks JOIN rooms ON talks.room = rooms.id WHERE talks.state='done'");
     my $target = $penta->prepare("SELECT event_link_id FROM event_link WHERE event_id = ? AND url = ?");
@@ -24,10 +24,11 @@ data:
     $sources->execute();
     $penta->begin_work();
     while(my $row = $sources->fetchrow_hashref) {
-            my $room = $row->{outputname};
+            my $room = $row->{name};
             my $slug = $row->{slug};
             $target->execute($row->{upstreamid}, "https://video.fosdem.org/2023/$room/$slug.webm");
             if($target->rows < 1) {
+                    say "adding https://video.fosdem.org/2023/$room/$slug.{webm,mp4}";
                     $add->execute($row->{upstreamid}, "https://video.fosdem.org/2023/$room/$slug.webm", "Video recording (WebM/VP9)");
                     $add->execute($row->{upstreamid}, "https://video.fosdem.org/2023/$room/$slug.mp4", "Video recording (mp4/aac)");
             }
