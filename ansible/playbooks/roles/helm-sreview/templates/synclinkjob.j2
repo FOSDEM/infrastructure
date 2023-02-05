@@ -1,0 +1,92 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sync-videolinks-script
+data:
+  sync-videolinks: |
+    #!/usr/bin/perl -w
+
+    use v5.30;
+
+    use SReview::Config::Common;
+    use DBI;
+
+    my $config = SReview::Config::Common::setup();
+    
+    my $sreview = DBI->connect($config->get("dbistring"));
+    my $penta = DBI->connect('dbi:Pg:serve=penta');
+
+    my $sources = $sreview->prepare("SELECT talks.slug, talks.upstreamid, rooms.name FROM talks JOIN rooms ON talks.room = rooms.id WHERE talks.state='done'");
+    my $target = $penta->prepare("SELECT event_link_id FROM event_link WHERE event_id = ? AND url = ?");
+    my $add = $penta->prepare("INSERT INTO event_link(event_id, url, title) VALUES (?, ?, ?)");
+
+    $sources->execute();
+    $penta->begin_work();
+    while(my $row = $sources->fetchrow_hashref) {
+            my $room = $row->{outputname};
+            my $slug = $row->{slug};
+            $target->execute($row->{upstreamid}, "https://video.fosdem.org/2023/$room/$slug.webm");
+            if($target->rows < 1) {
+                    $add->execute($row->{upstreamid}, "https://video.fosdem.org/2023/$room/$slug.webm", "Video recording (WebM/VP9)");
+                    $add->execute($row->{upstreamid}, "https://video.fosdem.org/2023/$room/$slug.mp4", "Video recording (mp4/aac)");
+            }
+    }
+
+    $penta->commit();
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sync-videolinks
+spec:
+  concurrencyPolicy: Forbid
+  schedule: 15,45 * * * *
+  jobTemplate:
+    metadata:
+      labels:
+        app: sync-videolinks
+    spec:
+      template:
+        metadata:
+          labels:
+            app: sync-videolinks
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: sync
+            image: registry.salsa.debian.org/debconf-video-team/sreview/detect:{{sreview.imagelabel}}
+            imagePullPolicy: IfNotPresent
+            command:
+            - /opt/sync/sync-videolinks
+            volumeMounts:
+            - name: pgservice
+              readOnly: true
+              mountPath: /opt/pgservice
+            - name: sync
+              readOnly: true
+              mountPath: /opt/sync
+            env:
+            - name: SREVIEW_DBICOMPONENTS
+              value: host password dbname user
+            - name: SREVIEW_DBI_USER
+              value: postgres
+            - name: SREVIEW_DBI_HOST
+              value: sreview-postgresql
+            - name: SREVIEW_DBI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: postgres-password
+                  name: sreview-postgresql
+            - name: SREVIEW_DBI_DBNAME
+              value: postgres
+            - name: PGSERVICEFILE
+              value: /opt/pgservice/pgservice.cfg
+          volumes:
+          - name: pgservice
+            secret:
+              secretName: penta-secret
+          - name: sync
+            configMap:
+              name: sync-videolinks-script
+              defaultMode: 0755

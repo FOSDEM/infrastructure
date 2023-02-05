@@ -50,3 +50,14 @@
     state: present
     namespace: sreview
     src: /tmp/emailsync.yaml
+
+- name: copy videolinks sync job definitions
+  template:
+    dest: /tmp/videosync.yaml
+    src: synclinkjob.j2
+
+- name: create videolinks sync job
+  kubernetes.core.k8s:
+    state: present
+    namespace: sreview
+    src: /tmp/videosync.yaml
