@@ -1,6 +1,6 @@
 ---
 sreview:
-  imagelabel: git-46c1a032
+  imagelabel: git-9bd349f7
 secret:
   pentapass: !vault |
         $ANSIBLE_VAULT;1.1;AES256
