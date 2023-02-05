@@ -92,7 +92,7 @@ while ($row = pg_fetch_row($r)) {
 */
 	$rownum ++;
     	echo '<table border="1" class=room>';
-	echo '<tr><td><center>'.$row[0].'</center></td></tr>';
+	echo '<tr><td><center><a href="//control.video.fosdem.org/vocto.php?room="'.$row[0].'target="_blank">'.$row[0].'</a></center></td></tr>';
 	echo '<tr><td><a href="tcp://'.$row[1].':8899"><img src="'.$row[0].'/cam.jpg"/></a></td></tr>';
 	echo '<tr><td><a href="tcp://'.$row[2].':8899"><img src="'.$row[0].'/grab.jpg"/></a></td></tr>';
 	echo '<tr><td><a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a></td></tr>';
