@@ -47,6 +47,12 @@ data:
             print "adding email for " . $data->{person_id} . "\n";
             $add_email->execute($data->{email}, $data->{person_id});
     }
+    my $tracklist = $penta->prepare("SELECT DISTINCT conference_track_mail_alias || '-devroom-manager\@fosdem.org' AS mail_alias, min(event_id) OVER (PARTITION BY conference_track_id) AS event_id FROM conference_track JOIN event e USING (conference_track_id) JOIN conference ON e.conference_id = conference.conference_id WHERE acronym = 'FOSDEM23'");
+    $tracklist->execute();
+    my $set_track = $sreview->prepare("UPDATE tracks SET email = ? WHERE id = (SELECT track FROM talks WHERE upstreamid = ?)");
+    while(my $data = $tracklist->fetchrow_hashref()) {
+            $set_track->execute($data->{mail_alias}, $data->{event_id}) or die $!;
+    }
 ---
 apiVersion: batch/v1
 kind: CronJob
