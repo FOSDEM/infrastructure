@@ -38,6 +38,8 @@ config:
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hosts:
   - review.video.fosdem.org
   tls:
