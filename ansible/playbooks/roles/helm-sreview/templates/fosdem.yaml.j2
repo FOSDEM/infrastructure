@@ -7,7 +7,7 @@ config:
   schedule_options: '{"url":"https://fosdem.org/2023/schedule/xml"}'
   event: '"FOSDEM 2023"'
   accessmethods: '{"input":"HTTP::nginx::JSON","intermediate":"S3","output":"S3"}'
-  inputglob: '"http://streambackend0.video.fosdem.org/dump/*"'
+  inputglob: '"https://validate.video.fosdem.org/dump/*"'
   pubdir: '"int"'
   outputdir: '"pub"'
   inject_collection: '"pub"'
