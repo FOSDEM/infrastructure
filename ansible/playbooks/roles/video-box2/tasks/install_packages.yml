@@ -16,4 +16,7 @@
     - rsync
     - avahi-daemon
     - i965-va-driver-shaders
+    - xterm
+    - v4l-utils
+    - xserver-xorg-video-intel
 

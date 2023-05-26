@@ -8,6 +8,8 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGTERM
 Restart=always
+Environment="DISPLAY=:0.0"
+
 
 [Install]
 WantedBy=multi-user.target

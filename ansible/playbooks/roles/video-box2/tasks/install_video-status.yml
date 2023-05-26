@@ -8,6 +8,7 @@
     mode: 0755
   register: videostatusscript
 
+
 - name: install video-status logo
   copy:
     src: video-status/logo.png
@@ -17,8 +18,26 @@
     mode: 0644
   register: videostatuslogo
 
+- name: install mpv service script
+  copy:
+    src: video-status/mpv.sh
+    dest: /usr/local/bin/mpv.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install video-status xinit session
+  copy:
+    src: video-status/videobox-xinit.sh
+    dest: /usr/local/bin/videobox-xinit.sh
+    owner: root
+    group: root
+    mode: 0755
+  register: xinit
+
+
 - name: install video-status service
-  template:
+  copy:
     src: video-status/video-status.service
     dest: /etc/systemd/system/video-status.service
     owner: root
@@ -26,26 +45,56 @@
     mode: 0644
   register: videostatus
 
+- name: install mpv service
+  copy:
+    src: video-status/mpv.service
+    dest: /etc/systemd/system/mpv.service
+    owner: root
+    group: root
+    mode: 0644
+  register: mpv
+
+- name: install xorg service
+  copy:
+    src: video-status/xorg.service
+    dest: /etc/systemd/system/xorg.service
+    owner: root
+    group: root
+    mode: 0644
+  register: xorg
+
 - name: perform a daemon-reload if video-status.service has been modified
   systemd:
     daemon_reload: true
-  when: videostatus.changed
+  when: videostatus.changed or mpv.changed or xorg.changed
 
-- name: enable video-status service
+- name: enable xorg service
   service:
-    name: video-status
+    name: xorg
     enabled: true
     state: started
 
-- name: restart service if video-status.service has been modified
+- name: restart xorg service if xinit has been modified
   service:
-    name: video-status
+    name: xorg
     state: restarted
-  when: videostatus.changed or videostatusscript.changed or videostatuslogo.changed
+  when: xinit.changed
+
 
 - name: enable video-status service
-  systemd:
+  service:
     name: video-status
-    enabled: true
-    state: started
-    daemon_reload: true
+    enabled: false
+
+- name: setup mpv service
+  service:
+    name: mpv
+    enabled: false
+
+#- name: restart service if video-status.service has been modified
+#  service:
+#    name: video-status
+#    state: restarted
+#  when: videostatus.changed or videostatuslogo.changed
+
+

@@ -1,0 +1,15 @@
+[Unit]
+Description=X.org service
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/usr/bin/xinit /usr/local/bin/videobox-xinit.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
