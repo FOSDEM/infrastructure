@@ -30,6 +30,8 @@ RED   = 255,0,0
 WIDTH=640
 HEIGHT=384
 
+ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -i tcp://localhost:8899/ -vn -filter_complex ebur128 -f null -".split(' ')
+
 IMGHEIGHT=((WIDTH-22)*9)/16
 
 os.environ["LANG"] = "C"
@@ -58,25 +60,76 @@ def main():
 		logo = pygame.image.load(LOGO_FILE)
 		screen.blit(logo, (22,10))
 
+	font_size = 40
+	font = pygame.font.SysFont("monospace", 25, True)
+
+	surface1 = pygame.Surface((150, font_size))
+	image_signal = surface1.convert()
+	image_signal.fill(BLACK)
+	image_signal.blit(font.render("SIGNAL", 1, GREEN), (0, 0))
+
+	surface2 = pygame.Surface((150, font_size))
+	image_no_signal = surface2.convert()
+	image_no_signal.fill(BLACK)
+	image_no_signal.blit(font.render("NO SIGNAL", 1, RED), (0, 0))
+
+	devnull = open(os.devnull, 'wb')
+	process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
+	pipe = process.stderr
+
+	signal = False
+	prevts = 0
+
 	# Main loop
 	clock = pygame.time.Clock()
 	while True:
-		for event in pygame.event.get():
-			if event.type == QUIT:
-				pygame.display.quit()
-				sys.exit(0)
-			elif event.type == KEYDOWN and event.key == K_ESCAPE:
-				pygame.display.quit()
-				sys.exit(0)
 
-		update_sysinfo(screen)
+		line = pipe.readline()
+		if len(line) == 0:
+				process.kill()
+				process.communicate()
+				process.wait()
+				pipe.close()
+				process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
+				pipe = process.stderr
+				continue
+		line = line.strip().decode('utf-8')
+		#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023	M: -33.2 S:-120.7	 I: -34.8 LUFS	 LRA:   0.0 LU'
+		matches = re.split(r'\[Parsed_ebur.*t:[ ]*([0-9.-]*).*M:[ ]*([0-9.-]*).*S:[ ]*([0-9.-]*).*I:[ ]*([0-9.-]*)', line)
 
-		pygame.display.update()
+		if len(matches) < 3:
+			continue
+		try:
+			if int(float(matches[3])) < -130:
+				signal = False
+				screen.blit(image_no_signal, (480, 20))
+			else:
+				signal = True
+				screen.blit(image_signal, (480, 20))
+		except:
+			pass
 
-		# Lock the framerate to 1 FPS max
-		clock.tick(1)
+		ts = int(float(matches[1]))
+		if ts > prevts:
+			prevts = ts
 
-def update_sysinfo(screen):
+			for event in pygame.event.get():
+				if event.type == QUIT:
+					pygame.display.quit()
+					sys.exit(0)
+				elif event.type == KEYDOWN and event.key == K_ESCAPE:
+					pygame.display.quit()
+					sys.exit(0)
+
+			update_sysinfo(screen, signal)
+
+			pygame.display.update()
+
+
+			# Lock the framerate to 1 FPS max
+			#clock.tick(1)
+
+def update_sysinfo(screen, signal):
 	# Hostname
 	hostname = os.popen('hostname -s').read().strip()
 
@@ -88,29 +141,34 @@ def update_sysinfo(screen):
 
 	# Interface
 
-	ifdata = json.loads(subprocess.check_output("ip -j route get 8.8.8.8", shell=True).decode("utf-8"))
-	interface = ifdata[0]["dev"]
-	# IP addresses
-	addr_data = json.loads(subprocess.check_output('ip -j addr show dev ' + interface + ' primary scope global', shell=True).decode("utf-8"))
-	ip_link_mac = addr_data[0]["address"]
+	try:
+		ifdata = json.loads(subprocess.check_output("ip -j route get 8.8.8.8", shell=True).decode("utf-8"))
+		interface = ifdata[0]["dev"]
+		# IP addresses
+		addr_data = json.loads(subprocess.check_output('ip -j addr show dev ' + interface + ' primary scope global', shell=True).decode("utf-8"))
+		ip_link_mac = addr_data[0]["address"]
 
 	#try:
 	#	ip_addr_v6 = re.search('\sinet6\ ([^\s]+)', ip_addr).groups()[0]
 	#except AttributeError:
 	#	ip_addr_v6 = False
 
-	ip_prefix_v4 = False
-	ip_addr_v4 = False
+		ip_prefix_v4 = False
+		ip_addr_v4 = False
 
-	for a in addr_data[0]["addr_info"]:
-		try:
-			if a["family"] == "inet":
-				ip_prefix_v4 = str(a["local"]) + "/" + str(a["prefixlen"])
-				ip_addr_v4 = str(a["local"])
-		except KeyError:
-			pass
+		for a in addr_data[0]["addr_info"]:
+			try:
+				if a["family"] == "inet":
+					ip_prefix_v4 = str(a["local"]) + "/" + str(a["prefixlen"])
+					ip_addr_v4 = str(a["local"])
+			except KeyError:
+				pass
 
-
+	except:
+		interface = None
+		ip_prefix_v4 = False
+		ip_addr_v4 = False
+		ip_link_mac = "UNKNOWN"
 
 	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
 	if re.search('^ActiveState=active', rec_info) == None:
@@ -127,6 +185,17 @@ def update_sysinfo(screen):
 	font_size = 25
 	font = pygame.font.SysFont("monospace", 25, True)
 	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, 0))
+
+	if rec:
+		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
+			pygame.draw.circle(image, RED, (485, int(font_size/2)), int(font_size/3))
+		image.blit(font.render("RECORD", 1, RED), (500, 0))
+
+	else:
+		pygame.draw.line(image, WHITE, (485,3), (485, font_size-2 ), 2) # Pause symbol line 1
+		pygame.draw.line(image, WHITE, (490,3), (490, font_size-2 ), 2) # Pause symbol line 1
+		image.blit(font.render("PAUSED", 1, WHITE), (500, 0))
+
 
 	if rec:
 		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
