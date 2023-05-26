@@ -7,6 +7,9 @@ server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [public-dashboard]
 dashboard.fosdem.org
 
+[kube-nodes:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
 [kube-nodes]
 k8s0.video.fosdem.org
 
@@ -64,6 +67,9 @@ ansible_user = root
 
 [video-stream-dump-external]
 streamdump-external0.video.fosdem.org
+
+[video-box2]
+box0.video.fosdem.org
 
 [video-box]
 cam0.video.fosdem.org

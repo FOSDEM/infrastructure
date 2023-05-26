@@ -1,0 +1,13 @@
+[Unit]
+Description=video-network-monitor service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/video-network-monitor.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

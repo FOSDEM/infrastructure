@@ -65,6 +65,16 @@
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box, tags: [ 'video-box' ] }
 
+- name: video-box2
+  hosts: video-box2
+  remote_user: root
+  roles:
+  - { role: sproxy, tags: [ 'sproxy' ] }
+  - { role: infodesk-laptop, tags: [ 'infodesk-laptop' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-box2, tags: [ 'video-box' ] }
+
+
 - name: video-voctop
   hosts: video-voctop
   remote_user: root

@@ -1,0 +1,58 @@
+---
+- name: detect existing partitions on the SSD
+  shell: |
+    fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
+  register: number_of_partitions
+  changed_when: false
+
+- name: wipe existing SSD partition table
+  shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1  # noqa 305
+  when: number_of_partitions.stdout != "0"
+
+- name: create a filesystem on the SSD disk
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
+
+- name: deploy a stop process tool
+  template:
+    src: video-box/stop_ssd_procs.sh.j2
+    dest: /usr/local/bin/stop_ssd_procs.sh
+    mode: 0755
+    owner: root
+    group: root
+
+- name: stop processes using the SSD
+  shell: /usr/local/sbin/stop_ssd_procs.sh  # noqa 305
+  when:
+  - destroy_all_videobox_data
+
+- name: unmount SSD if it needs to be wiped
+  mount:
+    src: "{{ ssd_drive }}"
+    name: /mnt/ssd
+    state: unmounted
+    fstype: ext4
+  when:
+  - destroy_all_videobox_data
+
+- name: wipe all data on the SSD disk
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
+    force: true
+  when:
+  - destroy_all_videobox_data
+
+- name: create mount directory
+  file:
+    path: /mnt/ssd
+    state: directory
+
+- name: mount SSD on /mnt/ssd/
+  mount:
+    name: /mnt/ssd
+    src: "{{ ssd_drive }}"
+    fstype: ext4
+    state: mounted
+    opts: noatime
