@@ -19,4 +19,8 @@
     - xterm
     - v4l-utils
     - xserver-xorg-video-intel
+    - xinit
+    - mpv
+    - x11-apps
+    - alsa-utils
 
