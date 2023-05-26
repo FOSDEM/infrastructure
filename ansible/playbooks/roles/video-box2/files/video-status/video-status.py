@@ -86,18 +86,20 @@ def main():
 
 		line = pipe.readline()
 		if len(line) == 0:
-				process.kill()
-				process.communicate()
-				process.wait()
-				pipe.close()
-				process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
-				pipe = process.stderr
-				continue
+			prevts = 0
+			process.kill()
+			process.communicate()
+			process.wait()
+			pipe.close()
+			process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
+			pipe = process.stderr
+			continue
 		line = line.strip().decode('utf-8')
 		#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023	M: -33.2 S:-120.7	 I: -34.8 LUFS	 LRA:   0.0 LU'
 		matches = re.split(r'\[Parsed_ebur.*t:[ ]*([0-9.-]*).*M:[ ]*([0-9.-]*).*S:[ ]*([0-9.-]*).*I:[ ]*([0-9.-]*)', line)
 
 		if len(matches) < 3:
+			prevts = 0
 			continue
 		try:
 			if int(float(matches[3])) < -130:
