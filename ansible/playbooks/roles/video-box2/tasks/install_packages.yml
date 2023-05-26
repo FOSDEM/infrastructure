@@ -23,4 +23,5 @@
     - mpv
     - x11-apps
     - alsa-utils
+    - lm-sensors
 

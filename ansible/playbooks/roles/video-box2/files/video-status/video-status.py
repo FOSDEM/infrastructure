@@ -209,6 +209,26 @@ def update_sysinfo(screen, signal):
 
 	hpos = font_size
 	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, hpos))
+
+	hpos += font_size
+	powerstatus = open('/sys/class/power_supply/AC/online', 'r').read().strip()
+	if powerstatus == "0":
+		powerst = "OFF"
+	else:
+		powerst = "ON"
+	image.blit(font.render("power supply: " + powerst, 1, RED if powerstatus == "0" else GREEN), (0, hpos))
+
+	hpos += font_size
+	sensordata = json.loads(subprocess.check_output("sensors -j 2>/dev/null", shell=True).decode("utf-8"))
+
+    #root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
+	#root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."coretemp-isa-0000"."Package id 0"."temp1_input"' 
+
+	laptop_temp = sensordata["thinkpad-isa-0000"]["temp1"]["temp1_input"]
+	cpu_temp = sensordata["coretemp-isa-0000"]["Package id 0"]["temp1_input"]
+
+	image.blit(font.render("temperature: laptop: " + str(laptop_temp) + ", cpu: " + str(cpu_temp), 1, RED if float(cpu_temp) > 80 or laptop_temp>70 else WHITE), (0, hpos))
+
 	hpos += font_size
 	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, hpos))
 
