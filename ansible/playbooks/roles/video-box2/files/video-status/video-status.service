@@ -9,6 +9,9 @@ KillMode=control-group
 KillSignal=SIGTERM
 Restart=always
 Environment="DISPLAY=:0.0"
+RestartSec=1s
+StartLimitInterval=0
+
 
 
 [Install]
