@@ -32,7 +32,7 @@ HEIGHT=384
 
 ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -i tcp://localhost:8899/ -vn -filter_complex ebur128 -f null -".split(' ')
 
-IMGHEIGHT=((WIDTH-22)*9)/16
+IMGHEIGHT=int(((WIDTH-22)*9)/16)
 
 os.environ["LANG"] = "C"
 
