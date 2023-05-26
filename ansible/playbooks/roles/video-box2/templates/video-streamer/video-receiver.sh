@@ -1,5 +1,7 @@
 #!/bin/sh
 
+/usr/local/bin/video-usbreset.py
+
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-probesize 10M \
 	-analyzeduration 10M \

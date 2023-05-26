@@ -23,6 +23,15 @@
     group: root
     mode: 0755
 
+- name: install video-usbreset.py script
+  copy:
+    src: video-streamer/video-usbreset.py
+    dest: /usr/local/bin/video-usbreset.py
+    owner: root
+    group: root
+    mode: 0755
+
+
 - name: install video-receiver service
   template:
     src: video-streamer/video-receiver.service
