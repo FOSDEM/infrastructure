@@ -12,7 +12,14 @@
 #   screen. We could implement some kind of scrolling marquee for text
 #   that doesn't fit on the screen? Or reduce the font size?
 
-import os, sys, re, signal, pygame
+import json
+import os
+import re
+import signal
+import subprocess
+import sys
+
+import pygame
 from pygame.locals import *
 
 WHITE = 255,255,255
@@ -20,21 +27,22 @@ BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
 
-WIDTH=720
+WIDTH=640
+HEIGHT=384
 
 IMGHEIGHT=((WIDTH-22)*9)/16
 
 os.environ["LANG"] = "C"
 
-#NETWORK_INTERFACE = '{{ network_device }}'
-#SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
-NETWORK_INTERFACE = 'wlp0s20f3'
-SCREENSHOT_FILE =  '{{ video_screenshot_directory }}/{{ video_screenshot_filename }}'
+NETWORK_INTERFACE = 'enp0s31f6'
 LOGO_FILE =  '/usr/local/bin/logo.png'
 
 def main():
 	# Initialize the display
-	size = width, height = WIDTH, WIDTH
+	size = width, height = WIDTH, HEIGHT
+	x = 20
+	y = 20
+	os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 	screen = pygame.display.set_mode(size)
 	pygame.display.set_caption("FOSDEM video box status")
 	pygame.init()
@@ -61,31 +69,12 @@ def main():
 				pygame.display.quit()
 				sys.exit(0)
 
-		update_screenshot(screen)
 		update_sysinfo(screen)
 
 		pygame.display.update()
 
 		# Lock the framerate to 1 FPS max
 		clock.tick(1)
-
-def update_screenshot(screen):
-	surface = pygame.Surface((WIDTH-22, IMGHEIGHT))
-	image = surface.convert()
-	image.fill(BLACK)
-
-	pygame.draw.rect(image, WHITE, (0, 0, IMGHEIGHT-1, WIDTH-1), 1) # border
-
-	if os.path.isfile(SCREENSHOT_FILE):
-		image.blit(pygame.image.load(SCREENSHOT_FILE), (1,1))
-	else:
-		pygame.draw.line(image, RED, (50,10), (110,80), 10) # cross leg 1
-		pygame.draw.line(image, RED, (50,80), (110,10), 10) # cross leg 1
-
-		font = pygame.font.SysFont("monospace", 25, True)
-		image.blit(font.render("no input", 1, WHITE), (25, 30))
-
-	screen.blit(image,(150,10))
 
 def update_sysinfo(screen):
 	# Hostname
@@ -96,28 +85,32 @@ def update_sysinfo(screen):
 	matches = re.search('\s?(.*)\s+up\s+(.*?),\s+([0-9]+) users?,\s+load average: ([0-9]+\.[0-9][0-9]),?\s+([0-9]+\.[0-9][0-9]),?\s+([0-9]+\.[0-9][0-9])', uptime)
 	uptime_time, uptime_duration, uptime_users, uptime_avg1, uptime_avg5, uptime_avg15 = matches.groups()
 
+
+	# Interface
+
+	ifdata = json.loads(subprocess.check_output("ip -j route get 8.8.8.8", shell=True).decode("utf-8"))
+	interface = ifdata[0]["dev"]
 	# IP addresses
-	ip_addr = os.popen('ip addr show dev ' + NETWORK_INTERFACE + ' primary scope global').read()
+	addr_data = json.loads(subprocess.check_output('ip -j addr show dev ' + interface + ' primary scope global', shell=True).decode("utf-8"))
+	ip_link_mac = addr_data[0]["address"]
 
 	#try:
 	#	ip_addr_v6 = re.search('\sinet6\ ([^\s]+)', ip_addr).groups()[0]
 	#except AttributeError:
 	#	ip_addr_v6 = False
 
-	try:
-		ip_prefix_v4 = re.search('\sinet\ ([^\s]+)', ip_addr).groups()[0]
-		ip_addr_v4 = re.search('\sinet\ ([^\s]+)/', ip_addr).groups()[0]
-	except AttributeError:
-		ip_prefix_v4 = False
-		ip_addr_v4 = False
+	ip_prefix_v4 = False
+	ip_addr_v4 = False
 
-	# MAC address
-	ip_link = os.popen('ip link show dev ' + NETWORK_INTERFACE).read()
+	for a in addr_data[0]["addr_info"]:
+		try:
+			if a["family"] == "inet":
+				ip_prefix_v4 = str(a["local"]) + "/" + str(a["prefixlen"])
+				ip_addr_v4 = str(a["local"])
+		except KeyError:
+			pass
 
-	try:
-		ip_link_mac = re.search('.*ether\ ([^\s]+)', ip_link).groups()[0]
-	except AttributeError:
-		ip_link_mac = ""
+
 
 	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
 	if re.search('^ActiveState=active', rec_info) == None:
@@ -137,12 +130,13 @@ def update_sysinfo(screen):
 
 	if rec:
 		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
-			pygame.draw.circle(image, RED, (240, 7), 6)
-		image.blit(font.render("RECORD", 1, RED), (250, 0))
+			pygame.draw.circle(image, RED, (485, int(font_size/2)), int(font_size/3))
+		image.blit(font.render("RECORD", 1, RED), (500, 0))
+
 	else:
-		pygame.draw.line(image, WHITE, (235,3), (235,11), 2) # Pause symbol line 1
-		pygame.draw.line(image, WHITE, (240,3), (240,11), 2) # Pause symbol line 1
-		image.blit(font.render("PAUSED", 1, WHITE), (250, 0))
+		pygame.draw.line(image, WHITE, (485,3), (485, font_size-2 ), 2) # Pause symbol line 1
+		pygame.draw.line(image, WHITE, (490,3), (490, font_size-2 ), 2) # Pause symbol line 1
+		image.blit(font.render("PAUSED", 1, WHITE), (500, 0))
 
 	hpos = font_size
 	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, hpos))
@@ -172,7 +166,7 @@ def update_sysinfo(screen):
 	else:
 		image.blit(font.render("revision not found", 1, WHITE), (0, hpos))
 
-	screen.blit(image,(10,IMGHEIGHT))
+	screen.blit(image,(10,140))
 
 def signal_handler(signum, frame):
 	# We need something to catch signals since systemd sends a SIGHUP, if we

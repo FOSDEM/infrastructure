@@ -1,6 +1,6 @@
 ---
 - name: install video-status script
-  template:
+  copy:
     src: video-status/video-status.py
     dest: /usr/local/bin/video-status.py
     owner: root
