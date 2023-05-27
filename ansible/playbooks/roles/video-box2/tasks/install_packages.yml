@@ -11,17 +11,19 @@
     - bash-completion
     - curl
     - ffmpeg
+    - sproxy
     - git
     - python3-gi-cairo
     - rsync
     - avahi-daemon
     - i965-va-driver-shaders
-    - xterm
     - v4l-utils
+    - mpv
     - xserver-xorg-video-intel
     - xinit
-    - mpv
     - x11-apps
+    - x11-xserver-utils
+    - xterm
     - alsa-utils
     - lm-sensors
 

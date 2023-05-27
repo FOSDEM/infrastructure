@@ -28,4 +28,4 @@ ffmpeg -v error -y -nostdin \
 	-ac 2 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map 0:v \
 	-map 0:a \
-	-y -f mpegts - | /usr/local/bin/sproxy
+	-y -f mpegts - | /usr/bin/sproxy

@@ -24,5 +24,6 @@
     package:
     - nginx-full
     - libnginx-mod-rtmp
+    - sproxy
 
 

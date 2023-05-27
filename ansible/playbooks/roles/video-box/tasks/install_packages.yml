@@ -8,3 +8,4 @@
     - fontconfig
     - python3-pygame
     - avahi-daemon
+    - sproxy

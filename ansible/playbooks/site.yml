@@ -54,14 +54,14 @@
   remote_user: root
   roles:
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
-  - { role: sproxy, tags: [ 'sproxy' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
   - { role: video-bbb, tags: [ 'video-bbb' ] }
 
 - name: video-box
   hosts: video-box
   remote_user: root
   roles:
-  - { role: sproxy, tags: [ 'sproxy' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box, tags: [ 'video-box' ] }
 
@@ -69,7 +69,7 @@
   hosts: video-box2
   remote_user: root
   roles:
-  - { role: sproxy, tags: [ 'sproxy' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box2, tags: [ 'video-box' ] }
 
@@ -78,10 +78,10 @@
   hosts: video-voctop
   remote_user: root
   roles:
-  - { role: sproxy, tags: [ 'sproxy' ] }
   - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
-  - { role: power_supply, tags: [ 'power_supply' ] }
+#  - { role: power_supply, tags: [ 'power_supply' ] }
   - { role: video-voctop, tags: [ 'video-voctop' ] }
 
 - name: video-stream-dump

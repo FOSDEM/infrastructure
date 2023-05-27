@@ -1,0 +1,2 @@
+deb https://packagecloud.io/fosdem/video-team/debian bullseye main
+deb-src https://packagecloud.io/fosdem/video-team/debian bullseye main

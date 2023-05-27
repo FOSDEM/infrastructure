@@ -1,0 +1,30 @@
+- name: Setting facts
+  set_fact:
+    url_tmp_file_path: /tmp/packagecloud_{{repository |replace("/", "_")}}_url
+    tmp_file_path: /tmp/packagecloud_{{repository |replace("/", "_")}}_key
+  when: ansible_os_family == "Debian"
+
+- name: Install debian-archive-keyring and apt-transport-https
+  apt: pkg={{ packages }} state=present
+  vars:
+    packages:
+    - debian-archive-keyring
+    - apt-transport-https
+  when: ansible_os_family == "Debian"
+
+  # {{ repository }}/gpgkey URL works for both legacy and modern public repositories.
+- name: Add {{repository}} GPG key to apt-key
+  apt_key: url=https://packagecloud.io/{{ repository }}/gpgkey state=present
+  when: ansible_os_family == "Debian" 
+
+- name: "Adding packagecloud.io repository: {{ repository }}"
+  copy:
+      src: "video-team.repo.list"
+      dest: "{{ debian_config_file_location }}"
+  register: added_deb_repository
+  when: ansible_os_family == "Debian"
+
+- name: Update APT package cache
+  apt: update_cache=true
+  when: ansible_os_family == "Debian" and added_deb_repository.changed
+

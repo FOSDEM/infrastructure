@@ -81,7 +81,7 @@
   service:
     name: video-receiver
     state: restarted
-  when: videoreceiver.changed or sproxy.changed
+  when: videoreceiver.changed
 
 - name: enable video-receiver service
   systemd:

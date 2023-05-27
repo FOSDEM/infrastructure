@@ -145,7 +145,3 @@
   command: "cp /opt/config/preroll{{ firsttalkid.stdout }}.raw /opt/config/slide.raw"
   ignore_errors: true
 
-- name: restart vocto scripts on sproxy change
-  command: "/bin/true"
-  notify: restart vocto
-  when: sproxy.changed

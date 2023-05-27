@@ -1,7 +1,0 @@
----
-sproxy_arch_map:
-  x86_64: 'amd64'
-  aarch64: 'arm64'
-  armv7l: 'armhf'
-
-sproxy_arch: "{{ sproxy_arch_map[ansible_architecture] | default(ansible_architecture) }}"
