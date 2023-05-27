@@ -10,4 +10,5 @@ playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosde
 playbooks/roles/video-control-server/files/nginx/certificate/control.video.fosdem.org.key
 playbooks/roles/video-control-server/files/nginx/htpasswd
 playbooks/roles/video-bbb/files/config/streamkeysalt.sh
+playbooks/roles/video-monitoring/files/send_nsca.cfg
 .vault-password
