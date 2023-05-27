@@ -33,5 +33,5 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map '[right]:2' \
 	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
-	-y -f mpegts - | /usr/local/bin/sproxy
+	-y -f mpegts - | /usr/bin/sproxy
 
