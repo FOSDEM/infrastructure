@@ -22,7 +22,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-filter_complex "[0:a]channelsplit=channel_layout=stereo[left][right]; [0:v] format=nv12,hwupload [vout]" \
 	-map '[vout]' \
 	-c:v:0 h264_vaapi \
-	-g 45 \
+	-g 25 \
 	-maxrate:v:0 2000k -bufsize:v:0 8192k \
 	-b:v:0 1000k \
 	-qmin:v:0 1 \
@@ -31,4 +31,4 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map '[right]:2' \
 	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
-	-y -f mpegts - | /usr/local/bin/sproxy
+	-y -f mpegts - | /usr/bin/sproxy
