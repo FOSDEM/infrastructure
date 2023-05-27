@@ -20,10 +20,10 @@
     - avahi-daemon
     - i965-va-driver-shaders
 
-- name: "install voctomix package from backports"
+- name: "install voctomix package from (somewhere, not backports)"
   apt:
     state: latest
-    default_release: "{{ ansible_distribution_release }}-backports"
+#    default_release: "{{ ansible_distribution_release }}-backports"
     package:
     - voctomix-core
 

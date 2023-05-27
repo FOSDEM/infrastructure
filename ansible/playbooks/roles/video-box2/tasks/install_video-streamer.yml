@@ -1,12 +1,4 @@
 ---
-- name: install ffmpeg from backports
-  apt:
-    state: latest
-    install_recommends: false
-    default_release: "{{ ansible_distribution_release }}-backports"
-    package:
-    - ffmpeg
-
 - name: install receiver script
   template:
     src: video-streamer/video-receiver.sh
