@@ -1,6 +1,5 @@
 ---
+
 - include: install_packages.yml
-#- include: configure_ssd.yml
-#- include: install_video-network-monitor.yml
 - include: install_video-streamer.yml
 - include: install_video-status.yml
