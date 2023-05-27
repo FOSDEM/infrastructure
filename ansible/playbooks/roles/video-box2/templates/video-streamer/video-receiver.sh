@@ -1,9 +1,19 @@
 #!/bin/sh
 
-/usr/local/bin/video-usbreset.py
+usbdev=$(lsusb -d 345f:2131 | sed 's%Bus \([0-9]*\) Device \([0-9]*\): ID 345f:2131.*$%/dev/bus/usb/\1/\2%')
+
+if [ -z $usbdev ]; then
+	echo Video board not found, exiting
+	sleep 5
+	exit 0
+fi
+
+/usr/bin/usb_reset "$usbdev"
 
 adev=$(aplay -l  |grep USB3|cut -d: -f1 |cut -d' ' -f 2)
 vdev=$(v4l2-ctl --list-devices |grep -A 1 USB3 |tail -n1)
+
+/usr/bin/wait_next_second
 
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-probesize 10M \

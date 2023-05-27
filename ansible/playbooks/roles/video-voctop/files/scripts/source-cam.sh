@@ -4,6 +4,8 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
+/usr/bin/wait_next_second
+
 ffmpeg -y -nostdin -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /dev/dri/renderD128 \
 	-timeout 3000000 \
 	-i "${SOURCE_CAM}" \
