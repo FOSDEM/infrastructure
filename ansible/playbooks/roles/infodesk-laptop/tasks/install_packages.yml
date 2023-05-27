@@ -12,7 +12,6 @@
     - rsync
     - screen
     - sysstat
-    - tmux
     - unrar-free
     - vim-nox
     - wget
