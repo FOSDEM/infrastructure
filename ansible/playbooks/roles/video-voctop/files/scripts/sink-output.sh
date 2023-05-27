@@ -13,7 +13,7 @@ confdir="`dirname "$0"`/../config/"
 # (extra_profiles variable, FOSDEM key) or talk to Wouter if you can't
 # figure it out. Thanks!
 #
-ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
+ffmpeg -v error -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-probesize 10M \
 	-analyzeduration 10M \
 	-i tcp://localhost:11000 \
