@@ -36,7 +36,6 @@ IMGHEIGHT=int(((WIDTH-22)*9)/16)
 
 os.environ["LANG"] = "C"
 
-NETWORK_INTERFACE = 'enp0s31f6'
 LOGO_FILE =  '/usr/local/bin/logo.png'
 
 def main():

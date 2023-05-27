@@ -1,0 +1,2 @@
+allow-hotplug video0
+iface video0 inet dhcp

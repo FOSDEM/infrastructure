@@ -11,9 +11,6 @@ sysctl_parameters:
 # Where is our SSD drive supposed to be?
 ssd_mount: /mnt/ssd
 
-# Our network device
-network_device: enp0s31f6
-
 # Prometheus node exporter should write to the SSD instead of the SD
 node_exporter_textfile_dir: /home/node-exporter/textfiles/
 node_exporter_install_path: /home/node-exporter/
