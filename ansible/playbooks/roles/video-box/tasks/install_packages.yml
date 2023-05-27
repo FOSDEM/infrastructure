@@ -9,3 +9,4 @@
     - python3-pygame
     - avahi-daemon
     - sproxy
+    - ffmpeg
