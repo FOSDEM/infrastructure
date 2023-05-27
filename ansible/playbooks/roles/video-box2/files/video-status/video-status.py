@@ -225,10 +225,9 @@ def update_sysinfo(screen, signal):
     #root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
 	#root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."coretemp-isa-0000"."Package id 0"."temp1_input"' 
 
-	laptop_temp = sensordata["thinkpad-isa-0000"]["temp1"]["temp1_input"]
 	cpu_temp = sensordata["coretemp-isa-0000"]["Package id 0"]["temp1_input"]
 
-	image.blit(font.render("temperature: laptop: " + str(laptop_temp) + ", cpu: " + str(cpu_temp), 1, RED if float(cpu_temp) > 80 or laptop_temp>70 else WHITE), (0, hpos))
+	image.blit(font.render("temperature cpu: " + str(cpu_temp), 1, RED if float(cpu_temp) > 80 else WHITE), (0, hpos))
 
 	hpos += font_size
 	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, hpos))
