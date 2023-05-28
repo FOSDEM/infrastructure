@@ -26,6 +26,7 @@
     - mtr-tiny
     - needrestart
     - patch
+    - psmisc
     - screen
     - sipcalc
     - strace
