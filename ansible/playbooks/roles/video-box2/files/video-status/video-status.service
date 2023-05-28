@@ -8,7 +8,9 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGTERM
 Restart=always
-Environment="DISPLAY=:0.0"
+# Nested Xephyr instance, not the default one, as
+# pygame takes over the keyboard otherwise
+Environment="DISPLAY=:9.0"
 RestartSec=1s
 StartLimitInterval=0
 

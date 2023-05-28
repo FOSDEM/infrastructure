@@ -46,6 +46,7 @@ def main():
 	os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 	screen = pygame.display.set_mode(size)
 	pygame.display.set_caption("FOSDEM video box status")
+	pygame.display.set_allow_screensaver(True)
 	pygame.init()
 
 	# Uninitialise the pygame mixer to release the sound card

@@ -81,6 +81,13 @@
   when: xinit.changed
 
 
+- name: set password for root for unlocking
+  user:
+    name: root
+    password: $y$j9T$XhP5KhgEM29J4HTdrgJUi1$yS.IRss.LPM/SZD0aEK2Sf8QdzUtkUdKXHnKimTy/O.
+
+# both these services are handled by the xinit script
+
 - name: enable video-status service
   service:
     name: video-status

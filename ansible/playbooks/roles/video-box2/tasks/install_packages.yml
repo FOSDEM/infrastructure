@@ -20,8 +20,16 @@
     - v4l-utils
     - mpv
     - xserver-xorg-video-intel
+    - xserver-xorg-input-mouse
+    - xserver-xorg-input-kbd
+    - xserver-xorg-input-libinput
+    - xserver-xorg-input-synaptics
+    - xserver-xephyr
     - xinit
     - x11-apps
+    - x11-utils
+    - xautolock
+    - xtrlock
     - x11-xserver-utils
     - xterm
     - alsa-utils
