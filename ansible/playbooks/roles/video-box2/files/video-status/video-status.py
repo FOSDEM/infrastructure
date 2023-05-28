@@ -93,6 +93,12 @@ def main():
 			pipe.close()
 			process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
 			pipe = process.stderr
+			screen.blit(image_no_signal, (480, 20))
+			update_sysinfo(screen, signal)
+
+			pygame.display.update()
+			clock.tick(1)
+
 			continue
 		line = line.strip().decode('utf-8')
 		#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023	M: -33.2 S:-120.7	 I: -34.8 LUFS	 LRA:   0.0 LU'
