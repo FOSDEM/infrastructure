@@ -1,6 +1,7 @@
 #!/bin/sh
 
 xautolock -locker /usr/bin/xtrlock -time 1 &
+xdotool mousemove_relative 0 200
 setxkbmap -option srvrkeys:none
 Xephyr :9 -screen 660x404 -no-host-grab &
 xclock -digital -update 1 -geometry +1-1 &

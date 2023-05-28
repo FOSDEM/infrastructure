@@ -30,6 +30,7 @@
     - x11-utils
     - xautolock
     - xtrlock
+    - xdotool
     - x11-xserver-utils
     - xterm
     - alsa-utils
