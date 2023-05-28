@@ -23,7 +23,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-aspect 16:9 \
 	-filter_complex "[1:a]channelsplit=channel_layout=stereo[left][right]; [0:v] format=nv12,hwupload [vout]" \
 	-map '[vout]' \
-	-c:v:0 h264_vaapi -rc_mode CQP\
+	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 25 -x264opts "keyint=25:min-keyint=25:no-scenecut"  \
 	-maxrate:v:0 2000k -bufsize:v:0 8192k \
 	-b:v:0 1000k \
