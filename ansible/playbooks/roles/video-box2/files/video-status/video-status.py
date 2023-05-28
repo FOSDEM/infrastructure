@@ -49,6 +49,8 @@ def main():
 	pygame.display.set_allow_screensaver(True)
 	pygame.init()
 
+	subprocess.check_output('xsetroot -solid \#800080', shell=True)
+
 	# Uninitialise the pygame mixer to release the sound card
 	pygame.mixer.quit()
 
@@ -227,6 +229,12 @@ def update_sysinfo(screen, signal):
 	image.blit(font.render("power supply: " + powerst, 1, RED if powerstatus == "0" else GREEN), (0, hpos))
 
 	hpos += font_size
+	connected = subprocess.check_output("ss -H -o state established '( sport = :8899 )'  not dst '[::1]'|wc -l", shell = True).strip().decode("utf-8")
+
+	image.blit(font.render("connected readers: " + connected, 1, RED if connected == "0" else GREEN), (0, hpos))
+
+
+	hpos += font_size
 	sensordata = json.loads(subprocess.check_output("sensors -j 2>/dev/null", shell=True).decode("utf-8"))
 
     #root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
@@ -262,7 +270,7 @@ def update_sysinfo(screen, signal):
 	else:
 		image.blit(font.render("revision not found", 1, WHITE), (0, hpos))
 
-	screen.blit(image,(10,140))
+	screen.blit(image,(10,120))
 
 def signal_handler(signum, frame):
 	# We need something to catch signals since systemd sends a SIGHUP, if we
