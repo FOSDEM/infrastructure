@@ -12,7 +12,7 @@ while ! DISPLAY=:9 xsetroot -solid '#800080' -cursor_name X_cursor; do sleep 0.2
 xsetroot -solid '#800080' -cursor_name X_cursor
 systemctl restart mpv video-status
 xautolock -locknow
-xterm -geometry +20+500 &
+xterm -geometry 105+20+408 &
 sleep 2
 while ! DISPLAY=:9 xsetroot -solid '#800080' -cursor_name X_cursor; do sleep 0.2; done
 sleep 30d
