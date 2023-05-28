@@ -21,10 +21,10 @@ ffmpeg -v error -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwa
 	-aspect 16:9 \
 	-filter_complex "[0:a]channelsplit=channel_layout=stereo[left][right]; [0:v] format=nv12,hwupload [vout]" \
 	-map '[vout]' \
-	-c:v:0 h264_vaapi \
-	-g 25 \
-	-maxrate:v:0 2000k -bufsize:v:0 8192k \
-	-b:v:0 1000k \
+	-c:v:0 h264_vaapi -rc_mode CBR\
+	-g 30 \
+	-maxrate:v:0 5000k -bufsize:v:0 8192k \
+	-b:v:0 2500k \
 	-qmin:v:0 1 \
 	\
 	-map '[left]:1' \

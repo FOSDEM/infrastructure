@@ -18,15 +18,15 @@ vdev=$(v4l2-ctl --list-devices |grep -A 1 USB3 |tail -n1)
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-probesize 10M \
 	-analyzeduration 10M \
-	-f v4l2 -video_size 1280x720 -framerate 25 -i $vdev -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
+	-f v4l2 -video_size 1920x1080 -framerate 30 -i $vdev -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
 	-threads:0 0 \
 	-aspect 16:9 \
 	-filter_complex "[1:a]channelsplit=channel_layout=stereo[left][right]; [0:v] format=nv12,hwupload [vout]" \
 	-map '[vout]' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
-	-g 25 -x264opts "keyint=25:min-keyint=25:no-scenecut"  \
-	-maxrate:v:0 2000k -bufsize:v:0 8192k \
-	-b:v:0 1000k \
+	-g 30 -x264opts "keyint=30:min-keyint=30:no-scenecut"  \
+	-maxrate:v:0 5000k -bufsize:v:0 8192k \
+	-b:v:0 3000k \
 	-qmin:v:0 1 \
 	\
 	-map '[left]:1' \
