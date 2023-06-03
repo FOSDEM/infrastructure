@@ -28,7 +28,7 @@ GREEN = 0,255,0
 RED   = 255,0,0
 
 WIDTH=640
-HEIGHT=384
+HEIGHT=404
 
 ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -i tcp://localhost:8899/ -vn -filter_complex ebur128 -f null -".split(' ')
 
@@ -187,7 +187,7 @@ def update_sysinfo(screen, signal):
 		rec = True
 
 	# Prepare surface
-	surface = pygame.Surface((WIDTH, WIDTH-IMGHEIGHT))
+	surface = pygame.Surface((WIDTH, WIDTH-IMGHEIGHT+40))
 	image = surface.convert()
 	image.fill(BLACK)
 
@@ -226,12 +226,26 @@ def update_sysinfo(screen, signal):
 		powerst = "OFF"
 	else:
 		powerst = "ON"
-	image.blit(font.render("power supply: " + powerst, 1, RED if powerstatus == "0" else GREEN), (0, hpos))
+	image.blit(font.render("power supply: " + powerst, 1, RED if powerstatus == "0" else WHITE), (0, hpos))
+
+	hpos += font_size
+	#   bcdUSB               3.20
+	try:
+		usbstatus = subprocess.check_output("lsusb -vvv -d 345f:2131 2>/dev/null|grep bcdUSB", shell = True).strip().decode("utf-8")
+	except:
+		usbstatus = ""
+
+	matches = re.search('\s*bcdUSB\s+([0-9.]+)$', usbstatus)
+	try:
+		usbspeed = float(matches.groups()[0])
+	except:
+		usbspeed = 0
+	image.blit(font.render("usb speed: " + str(usbspeed), 1, RED if usbspeed < 3 else WHITE), (0, hpos))
 
 	hpos += font_size
 	connected = subprocess.check_output("ss -H -o state established '( sport = :8899 )'  not dst '[::1]'|wc -l", shell = True).strip().decode("utf-8")
 
-	image.blit(font.render("connected readers: " + connected, 1, RED if connected == "0" else GREEN), (0, hpos))
+	image.blit(font.render("connected readers: " + connected, 1, RED if connected == "0" else WHITE), (0, hpos))
 
 
 	hpos += font_size

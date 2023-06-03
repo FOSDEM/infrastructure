@@ -3,7 +3,7 @@
 xautolock -locker /usr/bin/xtrlock -time 1 &
 xdotool mousemove_relative 0 200
 setxkbmap -option srvrkeys:none
-Xephyr :9 -screen 660x404 -no-host-grab &
+Xephyr :9 -screen 660x444 -no-host-grab &
 xclock -digital -update 1 -geometry +1-1 &
 xset -dpms
 xset s off
@@ -13,7 +13,7 @@ while ! DISPLAY=:9 xsetroot -solid '#800080' -cursor_name X_cursor; do sleep 0.2
 xsetroot -solid '#800080' -cursor_name X_cursor
 systemctl restart mpv video-status
 xautolock -locknow
-xterm -geometry 105+20+408 &
+xterm -geometry 105+20+448 &
 sleep 2
 while ! DISPLAY=:9 xsetroot -solid '#800080' -cursor_name X_cursor; do sleep 0.2; done
 sleep 30d
