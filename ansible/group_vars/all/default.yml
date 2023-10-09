@@ -3,14 +3,9 @@
 # The files refer to files in the common role
 ssh_users:
 - agk
-- brian
 - gerry
-- gouthamve
 - johanvdw
-- luc
 - mark
-- msuriar
-- nicolai
 - peter
 - richih
 - vasil
