@@ -9,11 +9,6 @@
   notify:
   - update apt cache
 
-- name: cleanup old backports config
-  apt_repository:
-    repo: "deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free"
-    state: absent
-
 - name: "run apt update if the cache is is stale"
   apt:
     update_cache: true

@@ -13,6 +13,8 @@
     - ethtool
     - file
     - git
+    - gpg
+    - gpg-agent
     - htop
     - ifmetric
     - iftop
@@ -33,12 +35,10 @@
     - sudo
     - tcpdump
     - tmux
+    - vcsh
     - vim
     - vnstat
-    - vcsh
     - zsh
-    - gpg
-    - gpg-agent
 
 - name: "Install architecture-dependent packages"
   apt:
