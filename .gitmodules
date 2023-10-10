@@ -1,24 +1,6 @@
 [submodule "ansible/playbooks/roles/rsyslog"]
 	path = ansible/playbooks/roles/rsyslog
 	url = https://github.com/Oefenweb/ansible-rsyslog.git
-[submodule "ansible/playbooks/roles/cloudalchemy.prometheus"]
-	path = ansible/playbooks/roles/cloudalchemy.prometheus
-	url = https://github.com/cloudalchemy/ansible-prometheus.git
-[submodule "ansible/playbooks/roles/cloudalchemy.node-exporter"]
-	path = ansible/playbooks/roles/cloudalchemy.node-exporter
-	url = https://github.com/cloudalchemy/ansible-node-exporter.git
-[submodule "ansible/playbooks/roles/cloudalchemy.snmp-exporter"]
-	path = ansible/playbooks/roles/cloudalchemy.snmp-exporter
-	url = https://github.com/cloudalchemy/ansible-snmp-exporter.git
-[submodule "ansible/playbooks/roles/cloudalchemy.blackbox-exporter"]
-	path = ansible/playbooks/roles/cloudalchemy.blackbox-exporter
-	url = https://github.com/cloudalchemy/ansible-blackbox-exporter.git
-[submodule "ansible/playbooks/roles/cloudalchemy.alertmanager"]
-	path = ansible/playbooks/roles/cloudalchemy.alertmanager
-	url = https://github.com/cloudalchemy/ansible-alertmanager.git
-[submodule "ansible/playbooks/roles/cloudalchemy.grafana"]
-	path = ansible/playbooks/roles/cloudalchemy.grafana
-	url = https://github.com/cloudalchemy/ansible-grafana.git
 [submodule "ansible/playbooks/roles/paulfantom.restic"]
 	path = ansible/playbooks/roles/paulfantom.restic
 	url = https://github.com/paulfantom/ansible-restic.git
@@ -28,15 +10,6 @@
 [submodule "ansible/playbooks/roles/fosdem.bind"]
 	path = ansible/playbooks/roles/fosdem.bind
 	url = https://github.com/FOSDEM/ansible-bind.git
-[submodule "ansible/playbooks/roles/cloudalchemy.bind_exporter"]
-	path = ansible/playbooks/roles/cloudalchemy.bind_exporter
-	url = https://github.com/cloudalchemy/ansible-bind_exporter.git
-[submodule "ansible/playbooks/roles/cloudalchemy.coredns"]
-	path = ansible/playbooks/roles/cloudalchemy.coredns
-	url = https://github.com/cloudalchemy/ansible-coredns.git
-[submodule "ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay"]
-	path = ansible/playbooks/roles/cloudalchemy.alertmanager-irc-relay
-	url = https://github.com/cloudalchemy/ansible-alertmanager-irc-relay.git
 [submodule "ansible/playbooks/roles/nickjj.docker"]
 	path = ansible/playbooks/roles/nickjj.docker
 	url = https://github.com/nickjj/ansible-docker.git
