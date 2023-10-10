@@ -79,10 +79,10 @@
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
-  - { role: video-repo, tags: [ 'video-repo' ] }
-  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+#  - { role: video-repo, tags: [ 'video-repo' ] }
+#  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
 #  - { role: power_supply, tags: [ 'power_supply' ] }
-  - { role: video-voctop, tags: [ 'video-voctop' ] }
+#  - { role: video-voctop, tags: [ 'video-voctop' ] }
 
 - name: video-stream-dump
   hosts: video-stream-dump
@@ -140,11 +140,11 @@
   - hwraid
   - rsyslog
   - { role: fosdem.bind, tags: [ 'dns' ] }
-  - { role: cloudalchemy.alertmanager-irc-relay, tags: [ 'alertmanager-irc-relay' ] }
-  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
+#  - { role: cloudalchemy.alertmanager-irc-relay, tags: [ 'alertmanager-irc-relay' ] }
+#  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
   - oxidized
   - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
-  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
+#  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: event-secondary
   hosts: event-secondary
@@ -155,9 +155,9 @@
   - hwraid
   - { role: nickjj.docker, tags: [ 'docker' ] }
   - { role: tacplus, tags: [ 'tacplus' ] }
-  - { role: cloudalchemy.coredns, tags: [ 'coredns' ] }
+#  - { role: cloudalchemy.coredns, tags: [ 'coredns' ] }
   - { role: fosdem.bind, tags: [ 'dns' ] }
-  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
+#  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
   - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
 
 - name: Event Prometheus servers
@@ -165,10 +165,10 @@
   remote_user: root
   tags: [event-prometheus-servers]
   roles:
-  - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
-  - cloudalchemy.blackbox-exporter
-  - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
-  - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
+#  - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
+#  - cloudalchemy.blackbox-exporter
+#  - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
+#  - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
   - { role: json_exporter, tags: [ 'json_exporter' ] }
   - { role: paulfantom.restic, tags: [ 'backup' ] }
 
@@ -179,7 +179,7 @@
   roles:
   - caddy-ansible.caddy
   - { role: dashboard_sync, tags: [ 'dashboard_sync' ] }
-  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
+#  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: encoder-storage
   hosts: encoder-storage
