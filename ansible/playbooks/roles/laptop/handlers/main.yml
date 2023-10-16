@@ -4,3 +4,6 @@
   service:
     name: systemd-logind
     state: restarted
+
+- name: update grub
+  shell: update-grub
