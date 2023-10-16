@@ -7,6 +7,7 @@
     - dosfstools
     - exfat-fuse
     - exfatprogs
+    - firmware-iwlwifi
     - hwinfo
     - ntfs-3g
     - rsync
