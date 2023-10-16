@@ -6,7 +6,7 @@
     - dmidecode
     - dosfstools
     - exfat-fuse
-    - exfat-utils
+    - exfatprogs
     - hwinfo
     - ntfs-3g
     - rsync
