@@ -9,4 +9,4 @@
 - name: disable gnome initial setup
   copy:
     dest: /home/fosdem/.config/gnome-initial-setup-done
-    content: yes
+    content: "yes"
