@@ -92,4 +92,4 @@
     value: "'000000'"
 
   - key: /org/gnome/desktop/input-sources/sources
-    value: "[('xkb', 'gb+extd')]"
+    value: "[('xkb', 'us')]"
