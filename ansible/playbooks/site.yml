@@ -121,12 +121,12 @@
   roles:
   - { role: video-web-frontend, tags: [ 'video-web-frontend' ] }
 
-- name: infosesk laptops
-  hosts: infodesk-laptop
+- name: desk laptops
+  hosts: desk-laptop
   remote_user: root
-  tags: [infodesk-laptop]
+  tags: [desk-laptop]
   roles:
-  - { role: infodesk-laptop, tags: [ 'infodesk-laptop' ] }
+  - { role: desk-laptop, tags: [ 'desk-laptop' ] }
 
 ##
 ## Specific roles
