@@ -1,0 +1,5 @@
+---
+collections:
+  - name: prometheus.prometheus
+    source: https://github.com/prometheus-community/ansible
+    type: git
