@@ -1,0 +1,14 @@
+[Unit]
+Description=video rescan service
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/usr/local/bin/rescan.sh
+ExecReload=/bin/kill -9 $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
