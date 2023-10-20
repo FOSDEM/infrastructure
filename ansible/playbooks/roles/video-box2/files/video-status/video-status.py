@@ -30,8 +30,6 @@ RED   = 255,0,0
 WIDTH=640
 HEIGHT=404
 
-ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -i tcp://localhost:8899/ -vn -filter_complex ebur128 -f null -".split(' ')
-
 IMGHEIGHT=int(((WIDTH-22)*9)/16)
 
 os.environ["LANG"] = "C"
@@ -62,84 +60,26 @@ def main():
 		logo = pygame.image.load(LOGO_FILE)
 		screen.blit(logo, (22,10))
 
-	font_size = 40
-	font = pygame.font.SysFont("monospace", 25, True)
-
-	surface1 = pygame.Surface((150, font_size))
-	image_signal = surface1.convert()
-	image_signal.fill(BLACK)
-	image_signal.blit(font.render("SIGNAL", 1, GREEN), (0, 0))
-
-	surface2 = pygame.Surface((150, font_size))
-	image_no_signal = surface2.convert()
-	image_no_signal.fill(BLACK)
-	image_no_signal.blit(font.render("NO SIGNAL", 1, RED), (0, 0))
-
-	devnull = open(os.devnull, 'wb')
-	process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
-	pipe = process.stderr
-
-	signal = False
-	prevts = 0
-
 	# Main loop
 	clock = pygame.time.Clock()
 	while True:
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				pygame.display.quit()
+				sys.exit(0)
+			elif event.type == KEYDOWN and event.key == K_ESCAPE:
+				pygame.display.quit()
+				sys.exit(0)
 
-		line = pipe.readline()
-		if len(line) == 0:
-			prevts = 0
-			process.kill()
-			process.communicate()
-			process.wait()
-			pipe.close()
-			process = subprocess.Popen(ffmpeg, shell=False, stderr=subprocess.PIPE, stdout=devnull)
-			pipe = process.stderr
-			screen.blit(image_no_signal, (480, 20))
-			update_sysinfo(screen, signal)
+		update_sysinfo(screen, logo)
 
-			pygame.display.update()
-			clock.tick(1)
-
-			continue
-		line = line.strip().decode('utf-8')
-		#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023	M: -33.2 S:-120.7	 I: -34.8 LUFS	 LRA:   0.0 LU'
-		matches = re.split(r'\[Parsed_ebur.*t:[ ]*([0-9.-]*).*M:[ ]*([0-9.-]*).*S:[ ]*([0-9.-]*).*I:[ ]*([0-9.-]*)', line)
-
-		if len(matches) < 3:
-			prevts = 0
-			continue
-		try:
-			if int(float(matches[3])) < -130:
-				signal = False
-				screen.blit(image_no_signal, (480, 20))
-			else:
-				signal = True
-				screen.blit(image_signal, (480, 20))
-		except:
-			pass
-
-		ts = int(float(matches[1]))
-		if ts > prevts:
-			prevts = ts
-
-			for event in pygame.event.get():
-				if event.type == QUIT:
-					pygame.display.quit()
-					sys.exit(0)
-				elif event.type == KEYDOWN and event.key == K_ESCAPE:
-					pygame.display.quit()
-					sys.exit(0)
-
-			update_sysinfo(screen, signal)
-
-			pygame.display.update()
+		pygame.display.update()
 
 
-			# Lock the framerate to 1 FPS max
-			#clock.tick(1)
+		# Lock the framerate to 1 FPS max
+		clock.tick(1)
 
-def update_sysinfo(screen, signal):
+def update_sysinfo(screen, logo):
 	# Hostname
 	hostname = os.popen('hostname -s').read().strip()
 
@@ -147,7 +87,6 @@ def update_sysinfo(screen, signal):
 	uptime = os.popen('uptime').read().strip()
 	matches = re.search('\s?(.*)\s+up\s+(.*?),\s+([0-9]+) users?,\s+load average: ([0-9]+\.[0-9][0-9]),?\s+([0-9]+\.[0-9][0-9]),?\s+([0-9]+\.[0-9][0-9])', uptime)
 	uptime_time, uptime_duration, uptime_users, uptime_avg1, uptime_avg5, uptime_avg15 = matches.groups()
-
 
 	# Interface
 
@@ -187,37 +126,49 @@ def update_sysinfo(screen, signal):
 		rec = True
 
 	# Prepare surface
-	surface = pygame.Surface((WIDTH, WIDTH-IMGHEIGHT+40))
+	surface = pygame.Surface((WIDTH, WIDTH-IMGHEIGHT+80))
 	image = surface.convert()
 	image.fill(BLACK)
+	image.blit(logo, (22,10))
 
 	# Print output
+	hpos = 120
 	font_size = 25
 	font = pygame.font.SysFont("monospace", 25, True)
-	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, 0))
+	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, hpos))
+
+	# Signal
+	# width: 1920
+	# height: 1200
+	# signal: no
+
+	signaldata = subprocess.check_output('ms213x-status').decode("utf-8").strip().splitlines()
+	#print(signaldata)	
+	if signaldata[2] == 'signal: no':
+		image.blit(font.render("NO SIGNAL", 1, RED), (480, 20))
+	else:
+		image.blit(font.render("SIGNAL", 1, GREEN), (480, 20))
+		resX = signaldata[0].split(" ")[1]
+		resY = signaldata[1].split(" ")[1]
+		resolution = resX + "x" + resY
+		image.blit(font.render(resolution, 1, GREEN), (480, 50))
+		
+
+	#screen.blit(image_no_signal, (480, 20))
+
 
 	if rec:
 		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
-			pygame.draw.circle(image, RED, (485, int(font_size/2)), int(font_size/3))
-		image.blit(font.render("RECORD", 1, RED), (500, 0))
+			pygame.draw.circle(image, RED, (485, hpos + int(font_size/2)), int(font_size/3))
+		image.blit(font.render("RECORD", 1, RED), (500, hpos))
 
 	else:
-		pygame.draw.line(image, WHITE, (485,3), (485, font_size-2 ), 2) # Pause symbol line 1
-		pygame.draw.line(image, WHITE, (490,3), (490, font_size-2 ), 2) # Pause symbol line 1
-		image.blit(font.render("PAUSED", 1, WHITE), (500, 0))
+		pygame.draw.line(image, WHITE, (485, hpos+3), (485, hpos + font_size-2 ), 2) # Pause symbol line 1
+		pygame.draw.line(image, WHITE, (490, hpos+3), (490, hpos + font_size-2 ), 2) # Pause symbol line 1
+		image.blit(font.render("PAUSED", 1, WHITE), (500, hpos))
 
-
-	if rec:
-		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
-			pygame.draw.circle(image, RED, (485, int(font_size/2)), int(font_size/3))
-		image.blit(font.render("RECORD", 1, RED), (500, 0))
-
-	else:
-		pygame.draw.line(image, WHITE, (485,3), (485, font_size-2 ), 2) # Pause symbol line 1
-		pygame.draw.line(image, WHITE, (490,3), (490, font_size-2 ), 2) # Pause symbol line 1
-		image.blit(font.render("PAUSED", 1, WHITE), (500, 0))
-
-	hpos = font_size
+	
+	hpos += font_size
 	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, hpos))
 
 	hpos += font_size
@@ -284,7 +235,7 @@ def update_sysinfo(screen, signal):
 	else:
 		image.blit(font.render("revision not found", 1, WHITE), (0, hpos))
 
-	screen.blit(image,(10,120))
+	screen.blit(image,(10,10))
 
 def signal_handler(signum, frame):
 	# We need something to catch signals since systemd sends a SIGHUP, if we

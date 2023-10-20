@@ -35,4 +35,5 @@
     - xterm
     - alsa-utils
     - lm-sensors
+    - ms213x-status
 
