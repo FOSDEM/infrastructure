@@ -142,16 +142,25 @@ def update_sysinfo(screen, logo):
 	# height: 1200
 	# signal: no
 
-	signaldata = subprocess.check_output('ms213x-status').decode("utf-8").strip().splitlines()
+	try:
+		signaldata = json.loads(open('/tmp/ms213x-status', 'r').read())
+		if signaldata['signal'] == 'yes':
+			signal = True
+			resX = signaldata['width']
+			resY = signaldata['height']
+			resolution = str(resX) + "x" + str(resY)
+		else:
+			signal = False
+	except Exception as e:
+		print("exception")
+		print(e)
+		signal = False
 	#print(signaldata)	
-	if signaldata[2] == 'signal: no':
-		image.blit(font.render("NO SIGNAL", 1, RED), (480, 20))
-	else:
+	if signal:
 		image.blit(font.render("SIGNAL", 1, GREEN), (480, 20))
-		resX = signaldata[0].split(" ")[1]
-		resY = signaldata[1].split(" ")[1]
-		resolution = resX + "x" + resY
 		image.blit(font.render(resolution, 1, GREEN), (480, 50))
+	else:
+		image.blit(font.render("NO SIGNAL", 1, RED), (480, 20))
 		
 
 	#screen.blit(image_no_signal, (480, 20))
