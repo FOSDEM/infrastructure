@@ -143,7 +143,7 @@
 #  - { role: cloudalchemy.alertmanager-irc-relay, tags: [ 'alertmanager-irc-relay' ] }
 #  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
   - oxidized
-  - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
+  - { role: caddy_ansible.caddy_ansible, tags: [ 'caddy' ] }
 #  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
 - name: event-secondary
@@ -153,12 +153,11 @@
   roles:
   - dhclient
   - hwraid
-  - { role: nickjj.docker, tags: [ 'docker' ] }
   - { role: tacplus, tags: [ 'tacplus' ] }
 #  - { role: cloudalchemy.coredns, tags: [ 'coredns' ] }
   - { role: fosdem.bind, tags: [ 'dns' ] }
 #  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
-  - { role: caddy-ansible.caddy, tags: [ 'caddy' ] }
+  - { role: caddy_ansible.caddy_ansible, tags: [ 'caddy' ] }
 
 - name: Event Prometheus servers
   hosts: event-prometheus-servers
@@ -177,7 +176,7 @@
   remote_user: root
   tags: [public-dashboard]
   roles:
-  - caddy-ansible.caddy
+  - caddy_ansible.caddy_ansible
   - { role: dashboard_sync, tags: [ 'dashboard_sync' ] }
 #  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
 
