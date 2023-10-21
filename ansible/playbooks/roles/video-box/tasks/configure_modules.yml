@@ -1,7 +1,0 @@
----
-
-- name: blacklist the sun4i_drm module
-  copy:
-    content: 'blacklist sun4i_drm'
-    dest: /etc/modprobe.d/blacklist.conf
-  notify: update initramfs

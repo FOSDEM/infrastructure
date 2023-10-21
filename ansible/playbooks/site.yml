@@ -58,23 +58,15 @@
   - { role: video-bbb, tags: [ 'video-bbb' ] }
 
 - name: video-box
-  hosts: video-box
-  remote_user: root
-  roles:
-  - { role: video-repo, tags: [ 'video-repo' ] }
-  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
-  - { role: video-box, tags: [ 'video-box' ] }
-
-- name: video-box2
   hosts:
-    - video-box2
+    - video-box
     - capture-laptop
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
   - { role: video-repo, tags: [ 'video-repo' ] }
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
-  - { role: video-box2, tags: [ 'video-box' ] }
+  - { role: video-box, tags: [ 'video-box' ] }
 
 
 - name: video-voctop
