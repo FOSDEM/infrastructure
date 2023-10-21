@@ -49,14 +49,6 @@
   roles:
   - { role: video-control-server, tags: [ 'video-control-server' ] }
 
-- name: video-bbb
-  hosts: video-bbb
-  remote_user: root
-  roles:
-  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
-  - { role: video-repo, tags: [ 'video-repo' ] }
-  - { role: video-bbb, tags: [ 'video-bbb' ] }
-
 - name: video-box
   hosts:
     - video-box
@@ -67,7 +59,6 @@
   - { role: video-repo, tags: [ 'video-repo' ] }
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box, tags: [ 'video-box' ] }
-
 
 - name: video-voctop
   hosts: video-voctop
