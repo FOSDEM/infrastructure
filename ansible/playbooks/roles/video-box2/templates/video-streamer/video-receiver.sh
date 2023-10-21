@@ -10,8 +10,8 @@ fi
 
 /usr/bin/usb_reset "$usbdev"
 
-adev=$(aplay -l  |grep USB3|cut -d: -f1 |cut -d' ' -f 2)
-vdev=$(v4l2-ctl --list-devices |grep -EA 1 'USB3|Hagibis' |tail -n1)
+adev=$(arecord -l  |grep -E 'USB3|Hagibis|HC-336' |cut -d: -f1 |cut -d' ' -f 2)
+vdev=$(v4l2-ctl --list-devices |grep -EA 1 'USB3|Hagibis|HC-336' |tail -n1)
 
 resolution=$(jq -r '(.width|tostring)+"x"+(.height|tostring)' /tmp/ms213x-status)
 /usr/bin/wait_next_second
