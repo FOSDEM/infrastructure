@@ -1,0 +1,10 @@
+---
+
+# We use apt proxy during PXE installs, make sure it's cleaned up
+# Matching the exact IP address used at the office, just in case we'd actually
+# want to use apt proxy somewhere somehow
+- name: clean up apt proxy settings
+  ansible.builtin.lineinfile:
+    path: /etc/apt/apt.conf
+    state: absent
+    regexp: '^Acquire::http::Proxy "http://172.22.10.30:3142";'
