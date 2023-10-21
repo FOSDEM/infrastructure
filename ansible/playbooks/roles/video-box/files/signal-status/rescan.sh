@@ -1,13 +1,15 @@
 #!/bin/bash
 
 status=$(cat /tmp/ms213x-status)
+res=$(echo "$status" | jq -r '(.width|tostring)+"x"+(.height|tostring)')
 state=nochange #or switching or nosignal
 while :; do
 	sleep 0.2
-	oldstatus="$status"
+	oldres="$res"
 	status=$(cat /tmp/ms213x-status)
+	res=$(echo "$status" | jq -r '(.width|tostring)+"x"+(.height|tostring)')
 	if [[ $state == nochange ]] ; then
-		if [[ $status == $oldstatus ]]; then
+		if [[ $res == $oldres ]]; then
 			continue
 		else
 			if [ $(echo "$status" | jq -r .signal) == "no" ]; then
@@ -22,7 +24,7 @@ while :; do
 		fi
 	elif [[ $state == changing ]]; then
 		waited=$(($waited+1))
-		if [[ $status != $oldstatus ]]; then
+		if [[ $res != $oldres ]]; then
 			waited=0
 			continue
 		fi 
