@@ -55,13 +55,13 @@
 
 - name: restart video-rescan service if needed
   service:
-    name: video-status
+    name: video-rescan
     state: restarted
   when: video_rescan_script.changed or video_rescan_svc.changed
 
 - name: restart video-statuskeeper service if needed
   service:
-    name: video-status
+    name: video-statuskeeper
     state: restarted
   when: video_statuskeeper_script.changed or video_statuskeeper_svc.changed
 
