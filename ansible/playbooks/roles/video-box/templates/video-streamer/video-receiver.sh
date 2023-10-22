@@ -10,16 +10,17 @@ fi
 
 /usr/bin/usb_reset "$usbdev"
 
+sleep 5
 adev=$(arecord -l  |grep -E 'USB3|Hagibis|HC-336' |cut -d: -f1 |cut -d' ' -f 2)
 vdev=$(v4l2-ctl --list-devices |grep -EA 1 'USB3|Hagibis|HC-336' |tail -n1)
 
-resolution=$(jq -r '(.width|tostring)+"x"+(.height|tostring)' /tmp/ms213x-status)
+height=$(cat /tmp/ms213x-status | jq -r '1920/( (.width/.height)|if . > 2 then . * 2 else . end)')
 /usr/bin/wait_next_second
 
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-probesize 10M \
 	-analyzeduration 10M \
-	-f v4l2 -video_size $resolution -framerate 30 -i $vdev -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
+	-f v4l2 -video_size 1920x${height} -framerate 30 -i $vdev -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
 	-threads:0 0 \
 	-aspect 16:9 \
 	-filter_complex "[1:a]channelsplit=channel_layout=stereo[left][right]; [0:v] scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black [vscaled]; [vscaled] format=nv12,hwupload [vout]" \

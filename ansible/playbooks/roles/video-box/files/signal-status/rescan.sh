@@ -1,13 +1,13 @@
 #!/bin/bash
 
 status=$(cat /tmp/ms213x-status)
-res=$(echo "$status" | jq -r '(.width|tostring)+"x"+(.height|tostring)')
+res=$(echo "$status" | jq -r '(.width*1000/.height)|floor |if . > 2000 then . * 2 else . end')
 state=nochange #or switching or nosignal
 while :; do
 	sleep 0.2
 	oldres="$res"
 	status=$(cat /tmp/ms213x-status)
-	res=$(echo "$status" | jq -r '(.width|tostring)+"x"+(.height|tostring)')
+	res=$(echo "$status" | jq -r '(.width*1000/.height)|floor |if . > 2000 then . * 2 else . end')
 	if [[ $state == nochange ]] ; then
 		if [[ $res == $oldres ]]; then
 			continue
