@@ -65,10 +65,10 @@
   remote_user: root
   roles:
   - { role: laptop, tags: [ 'laptop' ] }
-#  - { role: video-repo, tags: [ 'video-repo' ] }
-#  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
 #  - { role: power_supply, tags: [ 'power_supply' ] }
-#  - { role: video-voctop, tags: [ 'video-voctop' ] }
+  - { role: video-voctop, tags: [ 'video-voctop' ] }
 
 - name: video-stream-dump
   hosts: video-stream-dump
