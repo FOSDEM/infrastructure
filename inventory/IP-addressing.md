@@ -29,6 +29,12 @@
   - 192.168.1.2 # server002 eno3
   - 192.168.1.11 # server001 iDRAC
   - 192.168.1.12 # server002 iDRAC
+  - 192.168.1.21 # proxmox001
+  - 192.168.1.22 # proxmox002
+  - 192.168.1.23 # proxmox003
+  - 192.168.1.31 # proxmox001 iDRAC
+  - 192.168.1.32 # proxmox002 iDRAC
+  - 192.168.1.33 # proxmox003 iDRAC
   - 192.168.1.254 # asr1k gi2/2/0
 - 192.168.211.0/24 # switch management
   - 192.168.211.249 # asr1k po1.211
