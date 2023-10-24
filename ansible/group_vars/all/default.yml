@@ -11,6 +11,7 @@ ssh_users:
 - vasil
 - wouter_v
 - wouter_s
+- bastischubert
 
 timezone: "Europe/Brussels"
 
