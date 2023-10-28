@@ -1,12 +1,12 @@
 ---
 - name: Add influx key
   apt_key:
-    url: https://repos.influxdata.com/influxdb.key
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
 
 - name: Add influx repo
   apt_repository:
     filename: influxdb
-    repo: "deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    repo: "deb https://repos.influxdata.com/debian stable main"
 
 - name: Add grafana key
   apt_key:
@@ -26,10 +26,10 @@
     - avahi-daemon
     - ffmpeg
     - nginx
-    - php7.4
-    - php7.4-fpm
-    - php7.4-pgsql
-    - php7.4-curl
+    - php8.2
+    - php8.2-fpm
+    - php8.2-pgsql
+    - php8.2-curl
     - isc-dhcp-server
     - unbound
     - influxdb
