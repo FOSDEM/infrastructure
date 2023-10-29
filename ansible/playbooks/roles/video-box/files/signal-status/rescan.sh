@@ -31,6 +31,7 @@ while :; do
 		if [[ $waited -eq 3 ]]; then
 			logger Signal stable, restarting receiver
 			systemctl restart video-receiver
+			sleep 10
 			state=nochange
 		fi
 	elif [[ $state == nosignal ]]; then
