@@ -99,3 +99,15 @@
   - vocto-source-cam
   - vocto-source-slides
 
+
+# Voctocore leaks memory
+
+- name: Setup voctocore restart cron
+  cron:
+    name: Voctocore restart
+    user: root
+    minute: '4'
+    hour: '4'
+    job: systemctl restart voctocore.sercice
+    cron_file: voctocore-restart
+
