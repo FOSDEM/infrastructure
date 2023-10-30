@@ -18,8 +18,8 @@ height=$(cat /tmp/ms213x-status | jq -r '1920/( (.width/.height)|if . > 2 then .
 /usr/bin/wait_next_second
 
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
-	-probesize 10M \
-	-analyzeduration 10M \
+	-probesize 2M \
+	-analyzeduration 2M \
 	-f v4l2 -video_size 1920x${height} -framerate 30 -i $vdev -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
 	-threads:0 0 \
 	-aspect 16:9 \

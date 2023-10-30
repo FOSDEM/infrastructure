@@ -50,8 +50,8 @@ mkfifo scaled.mp4 unscaled.mp4 || true
 # and one video stream with video:1 (vout-ds) and both channels again.
 
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
-	-probesize 10M \
-	-analyzeduration 10M \
+	-probesize 2M \
+	-analyzeduration 2M \
 	-i tcp://localhost:11000 \
 	-threads:0 0 \
 	-aspect 16:9 \
