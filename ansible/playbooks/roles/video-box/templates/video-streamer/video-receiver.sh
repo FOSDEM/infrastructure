@@ -26,14 +26,14 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-filter_complex "[1:a]channelsplit=channel_layout=stereo[left][right]; [0:v] scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black [vscaled]; [vscaled] format=nv12,hwupload [vout]" \
 	-map '[vout]' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
-	-g 30 -x264opts "keyint=30:min-keyint=30:no-scenecut"  \
+	-g 30  \
 	-maxrate:v:0 5000k -bufsize:v:0 8192k \
 	-b:v:0 3000k \
 	-qmin:v:0 1 \
 	\
 	-map '[left]:1' \
-	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
+	-ac:1 1 -strict -2 -c:a:1 aac -b:a:1 128k -ar:1 48000 \
 	-map '[right]:2' \
-	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
+	-ac:2 1 -strict -2 -c:a:2 aac -b:a:2 128k -ar:2 48000 \
 	-y -f mpegts - | /usr/bin/sproxy
 
