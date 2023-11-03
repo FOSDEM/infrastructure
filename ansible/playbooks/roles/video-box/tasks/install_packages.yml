@@ -25,6 +25,8 @@
     - xserver-xorg-input-libinput
     - xserver-xorg-input-synaptics
     - xserver-xephyr
+    - xfonts-scalable
+    - xfonts-base
     - xinit
     - x11-apps
     - x11-utils
