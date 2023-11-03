@@ -205,7 +205,7 @@ def update_sysinfo(screen, logo):
 	image.blit(font.render("temperature cpu: " + str(cpu_temp), 1, RED if float(cpu_temp) > 80 else WHITE), (0, hpos))
 
 	hpos += font_size
-	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 1.95 else WHITE), (0, hpos))
+	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 3.95 else WHITE), (0, hpos))
 
 	hpos += font_size
 	if ip_addr_v4 != False:
