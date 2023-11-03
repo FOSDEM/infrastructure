@@ -23,7 +23,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-f v4l2 -video_size 1920x${height} -framerate 30 -i $vdev -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
 	-threads:0 0 \
 	-aspect 16:9 \
-	-filter_complex "[1:a]channelsplit=channel_layout=stereo[left][right]; [0:v] scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black [vscaled]; [vscaled] format=nv12,hwupload [vout]" \
+	-filter_complex "[1:a] volume=volume=2dB [ain]; [ain] channelsplit=channel_layout=stereo[left][right]; [0:v] scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black [vscaled]; [vscaled] format=nv12,hwupload [vout]" \
 	-map '[vout]' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 30  \
