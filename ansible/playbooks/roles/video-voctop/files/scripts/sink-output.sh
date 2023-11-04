@@ -14,19 +14,6 @@ confdir="`dirname "$0"`/../config/"
 # figure it out. Thanks!
 #
 
-# this is weird and hairy, so here's a longer explanation what it does -- VK
-
-# make two fifos, so we can write to them - I can't write to to two processes
-# from a single process
-
-mkfifo scaled.mp4 unscaled.mp4 || true
-
-# each sproxy just reads and sends. First one is on 8898 and 8899, second one
-# on 8918 and 8919 (originals +20)
-
-/usr/bin/sproxy < unscaled.mp4 &
-/usr/bin/sproxy 20 < scaled.mp4 &
-
 # This is a ffmpeg invocation to have the two streams done in one ffmpeg process.
 # The reason is that voctomix eats ~30% CPU on each process reading the finished output,
 # and that can lead to CPU starvation, so this much saved CPU counts.
@@ -46,8 +33,7 @@ mkfifo scaled.mp4 unscaled.mp4 || true
 #
 # Then, encode the audio streams separately
 #
-# Then, in -f tee, make one mpegts stream with video:0 (vout), and both audio streams as separate channels,
-# and one video stream with video:1 (vout-ds) and both channels again.
+# Then, create a mpeg-ts stream with two video streams that would be consumed upstream
 
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-probesize 2M \
@@ -60,7 +46,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 30 \
 	-maxrate:v:0 5000k -bufsize:v:0 8192k \
-	-b:v:0 2500k \
+	-b:v:0 3000k \
 	-qmin:v:0 1 \
 	\
 	-map '[vout-ds]:1' \
@@ -70,7 +56,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-b:v:1 1000k \
 	-qmin:v:1 1 \
 	-map '[left]:1' \
-	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
+	-ac:1 1 -strict -2 -c:a:0 aac -b:a:0 128k -ar:0 48000 \
 	-map '[right]:2' \
-	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
-	-f tee "[select=\'v:0,a:0,a:1\':f=mpegts]unscaled.mp4|[select=\'v:1,a:0,a:1\':f=mpegts]scaled.mp4"
+	-ac 1 -strict -2 -c:a:1 aac -b:a:1 128k -ar:1 48000 \
+	-f mpegts - | sproxy
