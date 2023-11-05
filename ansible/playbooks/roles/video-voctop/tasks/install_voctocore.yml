@@ -47,6 +47,7 @@
   - sink-output.sh
   - source-cam.sh
   - source-slides.sh
+  - restart-voctocore.sh
   notify: restart voctoscripts
 
 - name: create config directory
@@ -108,6 +109,6 @@
     user: root
     minute: '4'
     hour: '4'
-    job: systemctl restart voctocore.service
+    job: /opt/scripts/restart-voctocore.sh
     cron_file: voctocore-restart
 
