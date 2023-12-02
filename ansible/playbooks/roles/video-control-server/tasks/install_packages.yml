@@ -23,6 +23,7 @@
     state: latest
     install_recommends: false
     package:
+    - apache2-utils
     - avahi-daemon
     - ffmpeg
     - nginx
