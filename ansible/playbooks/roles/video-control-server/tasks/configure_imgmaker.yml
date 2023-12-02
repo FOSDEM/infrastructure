@@ -37,6 +37,11 @@
   - inc.php
   - query-vocto.php
   - query-room.php
+  - query-ebur.php
+  - chart.js
+  - moment.js
+  - chartjs-adapter-moment.js
+  - chartjs-plugin-annotation.js
   - showbuilding.php
 
 - name: install integration with roomfull api
