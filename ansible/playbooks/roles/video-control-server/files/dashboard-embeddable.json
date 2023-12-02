@@ -37,10 +37,11 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
-            "axisPlacement": "auto",
+            "axisPlacement": "hidden",
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -50,6 +51,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -123,7 +125,7 @@
           ],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "mode": "single",
@@ -134,20 +136,17 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "datasource": null,
           "query": "SELECT  mean(S) as S, mean(M) as M FROM \"ebur\" WHERE $timeFilter and stream =~ /^$room$/ GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
         }
       ],
-      "title": "$room levels",
       "type": "timeseries"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 37,
-  "style": "dark",
+  "schemaVersion": 38,
   "tags": [],
   "templating": {
     "list": [
@@ -179,13 +178,13 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "ebur - user friendly",
+  "title": "ebur",
   "uid": "15BPZFO4k",
-  "version": 7,
+  "version": 5,
   "weekStart": ""
 }
