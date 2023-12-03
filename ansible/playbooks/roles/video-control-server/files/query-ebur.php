@@ -14,11 +14,19 @@ $curl_result = curl_exec($ch);
 
 curl_close($ch);
 
-$result = json_decode($curl_result, true)['results'][0]['series'][0];
+$results = json_decode($curl_result, true)['results'][0];
+$result = array_key_exists('series', $results) && $results['series'] != null ? $results['series'][0] : [];
 
-$columns = $result['columns'];
-$values = $result['values'];
+$columns = array_key_exists('columns', $result) ? $result['columns'] : [];
+$values = array_key_exists('values', $result) ? $result['values'] : [];
 
+
+// cap silence to -50
+foreach($values as &$entry) {
+    if($entry[1] != null) $entry[1] = max($entry[1], -50);
+    if($entry[2] != null) $entry[2] = max($entry[2], -50);
+}
+unset($entry);
 
 $output = array_map(function($arr) {
     global $columns;
