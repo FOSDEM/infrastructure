@@ -42,6 +42,7 @@
   - moment.js
   - chartjs-adapter-moment.js
   - chartjs-plugin-annotation.js
+  - graph.js
   - showbuilding.php
 
 - name: install integration with roomfull api
