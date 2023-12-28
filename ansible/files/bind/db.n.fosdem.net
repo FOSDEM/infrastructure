@@ -1,7 +1,7 @@
 ; vim: ts=8 et
 $TTL 3600
 @               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
-                        2019122701 ; serial
+                        2019122702 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -32,6 +32,18 @@ wifi-kvm       IN       CNAME   wifi2
 ; iDRAC
 server001-mgmt IN       A       192.168.1.11
 server002-mgmt IN       A       192.168.1.12
+proxmox001-mgmt IN       A       192.168.1.31
+proxmox002-mgmt IN       A       192.168.1.32
+proxmox003-mgmt IN       A       192.168.1.33
+
+; HW Server
+proxmox001 IN       A       192.168.1.21
+proxmox002 IN       A       192.168.1.22
+proxmox003 IN       A       192.168.1.23
+
+; VMs
+netbox	IN	A	185.175.216.241
+	IN	AAAA	2001:67c:1810:f054::212:241
 
 ; CNAMEs
 alertmanager   IN       CNAME   server001.fosdem.net.
