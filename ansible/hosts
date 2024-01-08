@@ -152,6 +152,9 @@ desk25 ansible_host=172.22.10.65
 
 kroko0 ansible_host=172.22.10.207
 
+[encoder-storage]
+reviewstorage.video.fosdem.org
+
 ## Composite host groups
 #[encoder:children]
 #encoder-storage
