@@ -55,6 +55,15 @@ streamfrontend13.video.fosdem.org
 streamfrontend14.video.fosdem.org
 streamfrontend15.video.fosdem.org
 
+[encoder-master]
+reviewmaster.video.fosdem.org
+
+[encoder-frontend]
+reviewmaster.video.fosdem.org
+
+[encoder-storage]
+[encoder-backend]
+
 [video-stream-dump:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
