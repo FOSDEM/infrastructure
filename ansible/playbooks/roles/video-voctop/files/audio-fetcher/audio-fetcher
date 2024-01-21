@@ -20,7 +20,7 @@ def initsession():
 def fetchroom():
 	global querysession
 	r = None
-	host = socket.getfqdn()
+	host = socket.gethostname()
 	url = 'http://control.video.fosdem.org/query-vocto.php?voctop='+host
 
 	try:
