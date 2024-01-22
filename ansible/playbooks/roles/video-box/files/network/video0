@@ -1,2 +1,3 @@
 allow-hotplug video0
 iface video0 inet dhcp
+	pre-up ethtool -K video0 tx-checksum-ipv6 off
