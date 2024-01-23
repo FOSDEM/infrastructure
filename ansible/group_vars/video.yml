@@ -16,8 +16,7 @@ chrony_upstream:
 
 video_rooms:
 - aw1120
-- aw1121
-- janson
+- aw1126
 - h1301
 - h1302
 - h1308
@@ -25,6 +24,7 @@ video_rooms:
 - h2213
 - h2214
 - h2215
+- janson
 - k1105
 - k3201
 - k3401
@@ -37,7 +37,6 @@ video_rooms:
 - ub2147
 - ub2252a
 - ub4132
-- ub4136
 - ub5132
 - ub5230
 - ud2120
