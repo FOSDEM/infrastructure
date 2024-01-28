@@ -1,0 +1,139 @@
+package SReview::Schedule::Fosdem::Speaker;
+
+use Moose;
+use SReview::Schedule::Penta;
+
+extends 'SReview::Schedule::Base::Speaker';
+
+has 'pretalx_data' => (
+	is => 'ro',
+	isa => 'HashRef',
+	lazy => 1,
+	builder => '_build_pretalx_data',
+);
+
+sub _build_pretalx_data {
+	my $self = shift;
+
+	return $self->talk_object->pretalx_data->{speakers}{$self->upstreamid};
+}
+
+sub _load_email {
+	my $self = shift;
+
+	return $self->pretalx_data->{email};
+}
+
+package SReview::Schedule::Fosdem::Track;
+
+use Moose;
+
+extends 'SReview::Schedule::Base::Track';
+
+has 'pretalx_data' => (
+	is => 'ro',
+	isa => 'HashRef',
+	lazy => 1,
+	builder => '_build_pretalx_data',
+);
+
+sub _build_pretalx_data {
+	return shift->talk_object->pretalx_data->{track};
+}
+
+sub _load_email {
+	return shift->pretalx_data->{email};
+}
+
+sub _load_upstreamid {
+	return shift->pretalx_data->{id};
+}
+
+package SReview::Schedule::Fosdem::Talk;
+
+use Moose;
+
+extends 'SReview::Schedule::Penta::Talk';
+
+has 'pretalx_data' => (
+	is => 'ro',
+	isa => 'HashRef',
+	lazy => 1,
+	builder => '_build_pretalx_data',
+);
+
+sub _build_pretalx_data {
+	my $self = shift;
+
+	my $data = $self->event_object->root_object->pretalx_data->{$self->upstreamid};
+	$data->{speakers} = {};
+	foreach my $speaker(@{$data->{persons}}) {
+		$data->{speakers}{$speaker->{person_id}} = $speaker;
+	}
+	return $data;
+}
+
+sub _set_altname {
+	my $self = shift;
+	my $room = shift;
+	
+	$room->altname($self->pretalx_data->{conference_room});
+	$room->outputname($self->pretalx_data->{conference_room});
+}
+
+has '+room' => (
+	trigger => \&_set_altname,
+);
+
+package SReview::Schedule::Fosdem;
+
+use Moose;
+use Mojo::UserAgent;
+
+extends 'SReview::Schedule::Penta';
+
+has 'pretalx_url' => (
+	is => 'ro',
+	isa => 'Str',
+	required => 1,
+);
+
+has 'pretalx_api_key' => (
+	is => 'ro',
+	isa => 'Str',
+	required => 1,
+);
+
+has 'pretalx_data' => (
+	is => 'ro',
+	isa => 'HashRef',
+	lazy => 1,
+	builder => '_build_pretalx_data',
+);
+
+sub _build_pretalx_data {
+	my $self = shift;
+	my $ua = Mojo::UserAgent->new;
+	my $res = $ua->get($self->pretalx_url => {"Authorization" => "Token " . $self->pretalx_api_key})->result;
+	die "Could not fetch pretalx data: " . $res->message unless $res->is_success;
+	my $data = $res->json;
+	my $rv = {};
+	foreach my $talk(@{$data->{talks}}) {
+		$rv->{$talk->{event_id}} = $talk;
+	}
+	return $rv;
+}
+
+sub _load_speaker_type {
+	return "SReview::Schedule::Fosdem::Speaker";
+}
+
+sub _load_track_type {
+	return "SReview::Schedule::Fosdem::Track";
+}
+
+sub _load_talk_type {
+	return "SReview::Schedule::Fosdem::Talk";
+}
+
+1;
