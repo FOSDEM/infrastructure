@@ -21,6 +21,15 @@
   notify:
   - restart fetcher service
 
+- name: install hardcoded playlists
+  template:
+    src: fetcher/room.m3u8
+    dest: "/var/www/hls/{{ item }}.m3u8"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+
 - name: enable fetcher service
   systemd:
     name: "fetcher-{{ item }}"
