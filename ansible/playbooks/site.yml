@@ -189,6 +189,13 @@
   - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }
 
+- name: encoder-frontend
+  hosts: encoder-frontend
+  remote_user: root
+  roles:
+  - { role: encoder-common, tags: ['encoder-frontend'] }
+  - { role: encoder-webinterface, tags: ['encoder-frontend'] }
+
 - name: kube-node-config
   hosts: kube-nodes
   remote_user: root
