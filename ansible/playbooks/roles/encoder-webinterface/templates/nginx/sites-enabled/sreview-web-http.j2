@@ -1,0 +1,19 @@
+# {{ ansible_managed }}
+
+server {
+  listen 80;
+  listen [::]:80;
+  server_name review.video.fosdem.org;
+
+  root /var/www/html;
+
+  index index.html;
+  
+  location /.well-known/ {
+    alias {{ letsencrypt_well_known_dir }}/;
+  }
+
+  location / {
+    return 301 https://$host$request_uri;
+  }
+}
