@@ -12,6 +12,8 @@ Private keys are placed in the `private/` subdirectory, and signed certificates
 in the `certs/` subdirectory. All paths can be overridden with the `*_path`
 variables.
 
+This role was shamelessly stolen from the DebConf Video ansible repository.
+
 ## Tasks
 
 Orchestration happens in the `tasks/main.yml` file.
