@@ -1,0 +1,26 @@
+---
+- name: Generate private key
+  community.crypto.openssl_privatekey:
+    state: present
+    path: "{{ privatekey_path }}"
+  tags:
+    - tls-certificates
+
+- name: Generate subjectaltname list
+  ansible.builtin.set_fact:
+    all_subject_alt_names: "{{ [common_name] + subject_alt_names }}"
+  tags:
+    - tls-certificates
+
+- name: Generate certificate signing request
+  community.crypto.openssl_csr:
+    state: present
+    common_name: "{{ common_name }}"
+    subject_alt_name: "{{ all_subject_alt_names \
+                       | map('regex_replace', '^(.*)$', 'DNS:\\1') \
+                       | join(',') }}"
+    path: "{{ csr_path }}"
+    privatekey_path: "{{ privatekey_path }}"
+  register: csr_result
+  tags:
+    - tls-certificates
