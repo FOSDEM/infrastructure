@@ -3,3 +3,4 @@
 - include: nfs.yml
 - include: postgresql.yml
 - include: sql_exporter.yml
+- include: config_schedule_import.yml

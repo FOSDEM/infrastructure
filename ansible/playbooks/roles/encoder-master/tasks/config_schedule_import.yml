@@ -1,0 +1,6 @@
+- name: install Fosdem schedule parser
+  copy:
+    src: Schedule/Fosdem.pm
+    dest: /usr/share/perl5/Schedule/Fosdem.pm
+    mode: 0644
+
