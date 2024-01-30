@@ -21,6 +21,17 @@
   notify:
   - restart fetcher service
 
+- name: install thumb services
+  template:
+    src: fetcher/thumb.service
+    dest: "/etc/systemd/system/thumb-{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+  notify:
+  - restart fetcher service
+
 - name: install hardcoded playlists
   template:
     src: fetcher/room.m3u8
@@ -33,6 +44,14 @@
 - name: enable fetcher service
   systemd:
     name: "fetcher-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+
+- name: enable thumb service
+  systemd:
+    name: "thumb-{{ item }}"
     enabled: true
     state: started
     daemon_reload: true

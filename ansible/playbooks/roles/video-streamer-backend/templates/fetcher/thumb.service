@@ -1,0 +1,15 @@
+[Unit]
+Description={{ item }} thumbnail service
+PartOf=fetcher.target
+
+[Service]
+ExecStart=/usr/local/bin/thumb.sh {{ item }}
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=fetcher.target
