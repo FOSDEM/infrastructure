@@ -11,7 +11,7 @@
     owner: root
     group: root
     mode: 0755
-  with_items: "{{ virtual_video_rooms }}"
+  with_items: "{{ video_rooms }}"
 
 - name: install stream dump script
   copy:
@@ -30,7 +30,7 @@
     owner: root
     group: root
     mode: 0644
-  with_items: "{{ virtual_video_rooms }}"
+  with_items: "{{ video_rooms }}"
   register: video_stream_dump_services
   notify:
   - restart streamdump service
@@ -41,4 +41,4 @@
     enabled: true
     state: started
     daemon_reload: true
-  with_items: "{{ virtual_video_rooms }}"
+  with_items: "{{ video_rooms }}"
