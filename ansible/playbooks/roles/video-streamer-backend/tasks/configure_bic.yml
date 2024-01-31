@@ -1,0 +1,21 @@
+---
+
+- name: Add the tcp_bic module
+  modprobe:
+    name: tcp_bic
+    state: present
+
+- ansible.posix.sysctl:
+    name: net.ipv4.tcp_congestion_control
+    value: 'bic'
+    sysctl_set: true
+    state: present
+    reload: true
+
+- name: install module load on boot
+  copy:
+    src: bic/modules
+    dest: /etc/modules
+    owner: root
+    group: root
+    mode: 0644
