@@ -179,6 +179,7 @@
   roles:
   # - { role: encoder-network, tags: [ 'encoder-network' ] }
   - { role: encoder-common, tags: [ 'encoder-master'] }
+  - { role: encoder-backend,tags: [ 'encoder-master'] }
   - { role: encoder-master, tags: [ 'encoder-master'] }
 
 - name: encoder-backend
