@@ -5,12 +5,3 @@
     daemon_reload: true
     name: streamdump.target
     state: restarted
-
-- name: restart streamdump service
-  become: true
-  systemd:
-    daemon_reload: true
-    name: "streamdump-{{ item }}.service"
-    state: restarted
-  with_items: "{{ video_stream_dump_services.results }}"
-  when: item is changed

@@ -1,8 +1,42 @@
 ---
-- name: Loop for streamdump type
-  include: configure_streamdump_external.yml
-  with_items:
-  - vocto
-  tags: video-stream-dump-external
+
+- name: create stream dump directories
+  file:
+    path: "/mnt/storage/{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items: "{{ video_sproxy }}"
+
+- name: install stream dump script
+  copy:
+    src: streamdump.sh
+    dest: /usr/local/bin/streamdump.sh
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+  - restart streamdump target
+
+- name: install stream dump services
+  template:
+    src: streamdump.service
+    dest: "/etc/systemd/system/streamdump-{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_sproxy }}"
+  register: video_stream_dump_services
+  notify:
+  - restart streamdump service
+
+- name: enable streamdump service
+  systemd:
+    name: "streamdump-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ video_sproxy }}"
 
 - include: streamdump_target.yml
