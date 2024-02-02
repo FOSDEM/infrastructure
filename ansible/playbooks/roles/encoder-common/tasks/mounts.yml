@@ -18,7 +18,7 @@
 - name: mount working storage
   mount:
     name: /srv/sreview/{{ item }}
-    src: 185.175.216.246:/srv/sreview/{{ item }}
+    src: reviewstorage.video.fosdem.org:/srv/sreview/{{ item }}
     fstype: nfs
     state: mounted
   with_items:
