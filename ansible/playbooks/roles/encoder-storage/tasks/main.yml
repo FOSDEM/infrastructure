@@ -11,7 +11,7 @@
     create: true
     dest: /etc/exports
     block: |
-      /srv/sreview 0.0.0.0/0(rw,sync,no_subtree_check,no_root_squash)
+      /srv/sreview *(rw,sync,no_subtree_check,no_root_squash)
   register: reviewstorage_nfs_exported
 
 - name: "restart the NFS server when needed"
