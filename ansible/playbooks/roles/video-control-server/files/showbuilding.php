@@ -89,10 +89,10 @@ require_once(dirname(__FILE__)."/inc.php");
                  title.classList.add('color-red');
                  return;
             }
-            
-            const lastTime = moment(data[data.length-1][0]);
+
+	    const lastTime = moment(data.findLast(x => x[1] != null));
             const now = moment.utc();
-            if(now.diff(lastTime) >= 20000) { // 20 seconds
+            if(now.diff(lastTime) >= 5000) { // 5 seconds
                  title.classList.add('color-red');
                  return;
             }
@@ -148,7 +148,7 @@ require_once(dirname(__FILE__)."/inc.php");
         $qw = " and building IN ".$buildings_str;
     }
 
-    $r = pg_query("select roomname, cam, slides, voctop from fosdem where building!='d' ".$qw);
+    $r = pg_query("select roomname, cam, slides, voctop from fosdem where building!='d' ".$qw." order by building, roomname");
 
     if (!$r) {
         die("internal error");
