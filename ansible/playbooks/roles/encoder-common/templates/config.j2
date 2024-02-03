@@ -128,7 +128,8 @@ $state_actions = {
   'uploading' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N upl_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %>',
   'announcing' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -l email -o <%== $output_dir %> -N ann_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> announce',
   'fixuping' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fix_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
-  'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N ntf_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> final',
+  'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fnt_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
+  'finalreview' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N frv_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
 };
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
@@ -152,7 +153,7 @@ $urlbase = 'https://review.video.fosdem.org';
 
 $cleanup = 'previews';
 
-$eventurl_format = 'https://video.fosdem.org/2024/<% $room =~ s/ \(.*//;%><%= $room %>/<%= $slug %>.webm';
+$eventurl_format = 'https://video.fosdem.org/2024/<% $room_output %>/<%= $slug %>.webm';
 $audio_multiplex_mode = 'astream';
 $command_tune={bs1770gain => "0.5"};
 
