@@ -24,6 +24,10 @@ server {
     proxy_pass http://localhost:8080/;
   }
 
+  location /video {
+    root /srv/sreview/storage;
+  }
+
   access_log /var/log/nginx/sreview-access.log;
   error_log /var/log/nginx/sreview-error.log;
 }
