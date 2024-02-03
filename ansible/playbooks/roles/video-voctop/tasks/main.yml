@@ -1,4 +1,5 @@
 ---
+- include: cputune.yml
 - include: install_voctocore.yml
 - include: install_audio_fetcher.yml
   tags: voctocore

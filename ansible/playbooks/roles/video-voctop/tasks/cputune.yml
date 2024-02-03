@@ -1,0 +1,11 @@
+---
+
+- name: "install packages"
+  apt:
+    state: latest
+    package:
+    - tuned
+
+- name: "set tuned profile"
+  shell:
+    cmd: tuned-adm profile throughput-performance
