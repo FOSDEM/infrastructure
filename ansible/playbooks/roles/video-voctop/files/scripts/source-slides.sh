@@ -8,7 +8,7 @@ confdir="`dirname "$0"`/../config/"
 
 ffmpeg -y -nostdin -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /dev/dri/renderD128 \
 	-timeout 3000000 \
-	-analyzeduration 2M \
+	-analyzeduration 3M \
 	-i "${SOURCE_SLIDES}" \
 	-ac 2 \
 	-filter_complex "
