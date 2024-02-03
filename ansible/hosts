@@ -63,6 +63,9 @@ reviewmaster.video.fosdem.org
 
 [encoder-storage]
 [encoder-backend]
+encoder1.video.fosdem.org ansible_host=168.119.53.77
+encoder2.video.fosdem.org ansible_host=49.13.128.199
+encoder3.video.fosdem.org ansible_host=168.119.48.62
 
 [video-stream-dump:vars]
 ansible_python_interpreter=/usr/bin/python3
