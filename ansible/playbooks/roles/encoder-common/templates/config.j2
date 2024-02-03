@@ -128,6 +128,7 @@ $state_actions = {
   'uploading' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N upl_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %>',
   'announcing' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -l email -o <%== $output_dir %> -N ann_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> announce',
   'fixuping' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fix_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
+  'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N ntf_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> final',
 };
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
