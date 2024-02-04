@@ -175,18 +175,18 @@ if (empty($_GET['w']) && empty($argv[1])) {
 </div>
 </div>
 <script>
-        let images = document.getElementsByTagName('img');
-        for(var i = 0; i < images.length; i++) {
-            var img = images[i];
-            var src = img.src;
+        const images = document.getElementsByTagName('img');
+        for(let i = 0; i < images.length; i++) {
+            const img = images[i];
+            const src = img.src;
             img.addEventListener('load', function() {
-                setTimeout(function() { img.src = src+'?'+Date.now() }, 1000); 
+                setTimeout(function() { img.src = src+'?'+Date.now() }, 2000); 
             });
         }
 </script>
 <script>
 (function() {
-    var room_status = document.getElementById('room_status');
+    const room_status = document.getElementById('room_status');
     room_status.onchange = function(){
         room_status.value;
         const http = new XMLHttpRequest();
