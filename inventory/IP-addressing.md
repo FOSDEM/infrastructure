@@ -32,12 +32,14 @@
   - 192.168.1.21 # proxmox001
   - 192.168.1.22 # proxmox002
   - 192.168.1.23 # proxmox003
+  - 192.168.1.30 # monitoring.n.fosdem.net (for ntp etc..) 
   - 192.168.1.31 # proxmox001 iDRAC
   - 192.168.1.32 # proxmox002 iDRAC
   - 192.168.1.33 # proxmox003 iDRAC
   - 192.168.1.250 # coreswitch001.n.fosdem.net
   - 192.168.1.251 # coreswitch002.n.fosdem.net
   - 192.168.1.252 # coreswitch003.n.fosdem.net /video
+  - 192.168.1.253 # nanopi-oob
   - 192.168.1.254 # asr1k gi2/2/0
 - 192.168.211.0/24 # switch management
   - 192.168.211.249 # asr1k po1.211
