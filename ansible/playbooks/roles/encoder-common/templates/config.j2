@@ -176,9 +176,7 @@ $accessmethods = {
 };
 $normalizer = 'ffmpeg';
 
-$inject_fatal_checks = {
-  duration => { talkattr_max => "scheduled_length" },
-};
+$inject_fatal_checks = { };
 
 $inject_transcode_skip_checks = {
   video_codec => { val => "h264" },
