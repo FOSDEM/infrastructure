@@ -22,6 +22,16 @@ if [ -z "$src" ]; then
 	sleep 60
 fi
 
+#
+# The video encoding needs to be kept in sync with the review system,
+# otherwise things like
+# https://twitter.com/jlecour/status/1229381883680694273 happen.
+#
+# Either update playbooks/roles/encoder-common/templates/config.j2
+# (extra_profiles variable, FOSDEM key) or talk to Wouter V. if you can't
+# figure it out. Thanks!
+#
+
 if echo  $room |grep -q ^d; then
 #	ffmpeg -nostdin -y -i "$src" \
 #		-f lavfi -i anullsrc=channel_layout=mono:sample_rate=48000  -loop 1 -shortest \
