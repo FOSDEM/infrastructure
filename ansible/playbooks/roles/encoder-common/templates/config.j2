@@ -14,7 +14,7 @@ $schedule_options = {
 
 $api_key = "{{sreview_api_key}}";
 # An SVG template to be used as apology template (shown just after the opening credits when technical issues occurred. Should have the same nominal dimensions (in pixels) as the video assets.
-#$apology_template = '/srv/sreview/assets/apology.svg';
+$apology_template = '/srv/sreview/assets/apology.svg';
 
 # The DBI connection string used to connect to the database
 $dbistring = 'dbi:Pg:dbname=\'sreview\';user=\'sreview\';password=\'{{ sreview_db_pw }}\';host=\'reviewmaster.video.fosdem.org\';sslmode=require';
