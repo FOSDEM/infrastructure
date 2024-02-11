@@ -27,7 +27,11 @@ server {
   location /video {
     root /srv/sreview/storage;
   }
+  location /pages {
+    root /var/www/html/;
+  }
 
   access_log /var/log/nginx/sreview-access.log;
   error_log /var/log/nginx/sreview-error.log;
+  error_page 502 /pages/maint.html;
 }
