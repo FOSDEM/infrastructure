@@ -9,33 +9,6 @@
   register: videostatusscript
 
 
-- name: install video-status logo
-  copy:
-    src: video-status/logo.png
-    dest: /usr/local/bin/logo.png
-    owner: root
-    group: root
-    mode: 0644
-  register: videostatuslogo
-
-- name: install mpv service script
-  copy:
-    src: video-status/mpv.sh
-    dest: /usr/local/bin/mpv.sh
-    owner: root
-    group: root
-    mode: 0755
-
-- name: install video-status xinit session
-  copy:
-    src: video-status/videobox-xinit.sh
-    dest: /usr/local/bin/videobox-xinit.sh
-    owner: root
-    group: root
-    mode: 0755
-  register: xinit
-
-
 - name: install video-status service
   copy:
     src: video-status/video-status.service
@@ -45,63 +18,15 @@
     mode: 0644
   register: videostatus
 
-- name: install mpv service
-  copy:
-    src: video-status/mpv.service
-    dest: /etc/systemd/system/mpv.service
-    owner: root
-    group: root
-    mode: 0644
-  register: mpv
-
-- name: install xorg service
-  copy:
-    src: video-status/xorg.service
-    dest: /etc/systemd/system/xorg.service
-    owner: root
-    group: root
-    mode: 0644
-  register: xorg
-
-- name: perform a daemon-reload if video-status.service has been modified
-  systemd:
-    daemon_reload: true
-  when: videostatus.changed or mpv.changed or xorg.changed
-
-- name: enable xorg service
+- name: disable getty on tty1
   service:
-    name: xorg
-    enabled: true
-    state: started
-
-- name: restart xorg service if xinit has been modified
-  service:
-    name: xorg
-    state: restarted
-  when: xinit.changed
-
-
-- name: set password for root for unlocking
-  user:
-    name: root
-    password: $y$j9T$XhP5KhgEM29J4HTdrgJUi1$yS.IRss.LPM/SZD0aEK2Sf8QdzUtkUdKXHnKimTy/O.
-
-# both these services are handled by the xinit script
+    name: getty@tty1.service
+    enabled: false
+    state: stopped
 
 - name: enable video-status service
   service:
     name: video-status
-    enabled: false
-
-- name: setup mpv service
-  service:
-    name: mpv
-    enabled: false
-
-#- name: restart service if video-status.service has been modified
-#  service:
-#    name: video-status
-#    state: restarted
-#  when: videostatus.changed or videostatuslogo.changed
-
+    enabled: true
+    state: started
 

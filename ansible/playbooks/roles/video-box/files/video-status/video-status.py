@@ -18,14 +18,16 @@ import re
 import signal
 import subprocess
 import sys
-
-import pygame
-from pygame.locals import *
+import time
 
 WHITE = 255,255,255
 BLACK = 0,0,0
 GREEN = 0,255,0
 RED   = 255,0,0
+
+NORMAL = 0
+GOOD = 1
+BAD = 2
 
 WIDTH=640
 HEIGHT=404
@@ -36,50 +38,61 @@ os.environ["LANG"] = "C"
 
 LOGO_FILE =  '/usr/local/bin/logo.png'
 
+class stateEntry():
+	""" entry in the states """
+	data: str
+	state: int # 0 NORMAL 1 GOOD(green) 2 BAD(red)
+
+	def __init__(self, inpdata, inpstate=0):
+		self.data = inpdata
+		self.state = inpstate
+
+
+
+def render_text(states):
+
+	def strRed(skk):
+		return "\033[91m" + skk + "\033[00m"
+ 
+	def strGreen(skk): 
+		return "\033[92m" + skk + "\033[00m"
+
+	out = ""
+
+	maxLen = 0
+
+	for state in states:
+		maxLen = max(maxLen, len(state.data))
+
+	maxLen = int(maxLen / 8 + 1) * 8
+
+	for state in states:
+		if state.state == GOOD:
+			rend = strGreen(state.data)
+		elif state.state == BAD:
+			rend = strRed(state.data)
+		else:
+			rend = state.data
+		out += "| " + rend + " " * (maxLen - len(state.data)) + " |\n"
+
+	return out
+
+def output_terminal(states):
+	sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (0, 0, render_text(states)))
+	sys.stdout.flush()
+
 def main():
 	# Initialize the display
-	size = width, height = WIDTH, HEIGHT
-	x = 20
-	y = 20
-	os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
-	screen = pygame.display.set_mode(size)
-	pygame.display.set_caption("FOSDEM video box status")
-	pygame.display.set_allow_screensaver(True)
-	pygame.init()
-
-	subprocess.check_output('xsetroot -solid \#800080', shell=True)
-
-	# Uninitialise the pygame mixer to release the sound card
-	pygame.mixer.quit()
-
-	# Hide the mouse cursor
-	pygame.mouse.set_visible(False)
-
-	# Draw our logo straight on the screen
-	if os.path.isfile(LOGO_FILE):
-		logo = pygame.image.load(LOGO_FILE)
-		screen.blit(logo, (22,10))
-
-	# Main loop
-	clock = pygame.time.Clock()
+	os.system("clear")
 	while True:
-		for event in pygame.event.get():
-			if event.type == QUIT:
-				pygame.display.quit()
-				sys.exit(0)
-			elif event.type == KEYDOWN and event.key == K_ESCAPE:
-				pygame.display.quit()
-				sys.exit(0)
-
-		update_sysinfo(screen, logo)
-
-		pygame.display.update()
-
+		info = update_sysinfo()
+		output_terminal(info)
 
 		# Lock the framerate to 1 FPS max
-		clock.tick(1)
+		time.sleep(1)
 
-def update_sysinfo(screen, logo):
+def update_sysinfo():
+	ret = []
 	# Hostname
 	hostname = os.popen('hostname -s').read().strip()
 
@@ -125,18 +138,6 @@ def update_sysinfo(screen, logo):
 	else:
 		rec = True
 
-	# Prepare surface
-	surface = pygame.Surface((WIDTH, WIDTH-IMGHEIGHT+80))
-	image = surface.convert()
-	image.fill(BLACK)
-	image.blit(logo, (22,10))
-
-	# Print output
-	hpos = 120
-	font_size = 25
-	font = pygame.font.SysFont("monospace", 25, True)
-	image.blit(font.render("hostname: " + hostname, 1, WHITE), (0, hpos))
-
 	# Signal
 	# width: 1920
 	# height: 1200
@@ -157,44 +158,33 @@ def update_sysinfo(screen, logo):
 		signal = False
 	#print(signaldata)	
 	if signal:
-		image.blit(font.render("SIGNAL", 1, GREEN), (480, 20))
-		image.blit(font.render(resolution, 1, GREEN), (480, 50))
+		ret.append(stateEntry("SIGNAL " + resolution))
 	else:
-		image.blit(font.render("NO SIGNAL", 1, RED), (480, 20))
+		ret.append(stateEntry("NO SIGNAL", BAD))
 		
-
-	#screen.blit(image_no_signal, (480, 20))
 
 
 	if rec:
-		if (pygame.time.get_ticks()/1000) % 2: # Print the recording symbol every odd second
-			pygame.draw.circle(image, RED, (485, hpos + int(font_size/2)), int(font_size/3))
-		image.blit(font.render("RECORD", 1, RED), (500, hpos))
+		ret.append(stateEntry("RECORD", GOOD))
 
 	else:
-		pygame.draw.line(image, WHITE, (485, hpos+3), (485, hpos + font_size-2 ), 2) # Pause symbol line 1
-		pygame.draw.line(image, WHITE, (490, hpos+3), (490, hpos + font_size-2 ), 2) # Pause symbol line 1
-		image.blit(font.render("PAUSED", 1, WHITE), (500, hpos))
+		ret.append(stateEntry("PAUSED"))
 
 	
-	hpos += font_size
-	image.blit(font.render("uptime: " + uptime_time + ", up " + uptime_duration, 1, WHITE), (0, hpos))
+	ret.append(stateEntry("uptime: " + uptime_time + ", up " + uptime_duration))
 
-	hpos += font_size
-	powerstatus = open('/sys/class/power_supply/AC/online', 'r').read().strip()
-	if powerstatus == "0":
-		powerst = "OFF"
-	else:
-		powerst = "ON"
-	image.blit(font.render("power supply: " + powerst, 1, RED if powerstatus == "0" else WHITE), (0, hpos))
+#	powerstatus = open('/sys/class/power_supply/AC/online', 'r').read().strip()
+#	if powerstatus == "0":
+#		powerst = "OFF"
+#	else:
+#		powerst = "ON"
+#	print("power supply: " + powerst)
 
-	hpos += font_size
 	connected = subprocess.check_output("ss -H -o state established '( sport = :8899 )'  not dst '[::1]'|wc -l", shell = True).strip().decode("utf-8")
 
-	image.blit(font.render("connected readers: " + connected, 1, RED if connected == "0" else WHITE), (0, hpos))
+	ret.append(stateEntry("connected readers: " + connected, GOOD if int(connected) > 0 else NORMAL))
 
 
-	hpos += font_size
 	sensordata = json.loads(subprocess.check_output("sensors -j 2>/dev/null", shell=True).decode("utf-8"))
 
     #root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
@@ -202,35 +192,28 @@ def update_sysinfo(screen, logo):
 
 	cpu_temp = sensordata["coretemp-isa-0000"]["Package id 0"]["temp1_input"]
 
-	image.blit(font.render("temperature cpu: " + str(cpu_temp), 1, RED if float(cpu_temp) > 80 else WHITE), (0, hpos))
+	ret.append(stateEntry("temperature cpu: " + str(cpu_temp), NORMAL if cpu_temp < 60 else BAD))
 
-	hpos += font_size
-	image.blit(font.render("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, 1, RED if float(uptime_avg1) > 3.95 else WHITE), (0, hpos))
+	ret.append(stateEntry("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, NORMAL if float(uptime_avg1) < 3.9 else BAD))
 
-	hpos += font_size
 	if ip_addr_v4 != False:
-		image.blit(font.render("IPv4: " + ip_prefix_v4, 1, WHITE), (0, hpos))
-		hpos += font_size
-		image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, hpos))
-		hpos += font_size
-		image.blit(font.render("stream: tcp://" + ip_addr_v4 + ":8898/", 1, WHITE), (0, hpos))
+		ret.append(stateEntry("IPv4: " + ip_prefix_v4))
+		ret.append(stateEntry("MAC address: " + ip_link_mac))
+		ret.append(stateEntry("stream: tcp://" + ip_addr_v4 + ":8898/"))
 	else:
-		image.blit(font.render("IPv4: no IPv4 address", 1, RED), (0, hpos))
-		hpos += font_size
-		image.blit(font.render("MAC address: " + ip_link_mac, 1, WHITE), (0, hpos))
-		hpos += font_size
-		image.blit(font.render("stream: n/a", 1, RED), (0, hpos))
+		ret.append(stateEntry("IPv4: no IPv4 address"), BAD)
+		ret.append(stateEntry("MAC address: " + ip_link_mac))
+		ret.append(stateEntry("stream: n/a"))
 
 
-	hpos += font_size
 	if os.path.exists('/etc/fosdem_revision'):
 		fp = open('/etc/fosdem_revision', "r")
-		image.blit(font.render("revision: " + fp.read().rstrip(), 1, WHITE), (0, hpos))
+		ret.append(stateEntry("revision: " + fp.read().rstrip()))
 		fp.close()
 	else:
-		image.blit(font.render("revision not found", 1, WHITE), (0, hpos))
+		ret.append(stateEntry("revision not found"), BAD)
 
-	screen.blit(image,(10,10))
+	return ret
 
 def signal_handler(signum, frame):
 	# We need something to catch signals since systemd sends a SIGHUP, if we
