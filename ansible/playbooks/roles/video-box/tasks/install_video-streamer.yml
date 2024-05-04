@@ -1,6 +1,6 @@
 ---
 - name: install receiver script
-  template:
+  copy:
     src: video-streamer/video-receiver.sh
     dest: /usr/local/bin/video-receiver.sh
     owner: root
@@ -8,7 +8,7 @@
     mode: 0755
 
 - name: install video-recorder script
-  template:
+  copy:
     src: video-streamer/video-recorder.sh
     dest: /usr/local/bin/video-recorder.sh
     owner: root
@@ -25,7 +25,7 @@
 
 
 - name: install video-receiver service
-  template:
+  copy:
     src: video-streamer/video-receiver.service
     dest: /etc/systemd/system/video-receiver.service
     owner: root
@@ -40,7 +40,7 @@
     mode: 0755
 
 - name: install video-recorder service
-  template:
+  copy:
     src: video-streamer/video-recorder.service
     dest: /etc/systemd/system/video-recorder.service
     owner: root

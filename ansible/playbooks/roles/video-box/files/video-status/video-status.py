@@ -201,7 +201,7 @@ def update_sysinfo():
 		ret.append(stateEntry("MAC address: " + ip_link_mac))
 		ret.append(stateEntry("stream: tcp://" + ip_addr_v4 + ":8898/"))
 	else:
-		ret.append(stateEntry("IPv4: no IPv4 address"), BAD)
+		ret.append(stateEntry("IPv4: no IPv4 address", BAD))
 		ret.append(stateEntry("MAC address: " + ip_link_mac))
 		ret.append(stateEntry("stream: n/a"))
 
