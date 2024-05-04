@@ -41,7 +41,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-i tcp://localhost:11000 \
 	-threads:0 0 \
 	-aspect 16:9 \
-	-filter_complex "[0:a]channelsplit=channel_layout=stereo[left][right]; [0:v] format=nv12,hwupload [vhw]; [vhw] split [vout] [vout-preds]; [vout-preds] scale_vaapi=w=1280:720 [vout-ds] " \
+	-filter_complex "[0:a]channelsplit[left][right][center]; [0:v] format=nv12,hwupload [vhw]; [vhw] split [vout] [vout-preds]; [vout-preds] scale_vaapi=w=1280:720 [vout-ds] " \
 	-map '[vout]:0' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 30 \
@@ -58,5 +58,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-map '[left]:1' \
 	-ac:1 1 -strict -2 -c:a:0 aac -b:a:0 128k -ar:0 48000 \
 	-map '[right]:2' \
+	-ac 1 -strict -2 -c:a:1 aac -b:a:1 128k -ar:1 48000 \
+	-map '[center]:3' \
 	-ac 1 -strict -2 -c:a:1 aac -b:a:1 128k -ar:1 48000 \
 	-f mpegts - | sproxy
