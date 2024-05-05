@@ -19,8 +19,9 @@ height=$(cat /tmp/ms213x-status | jq -r '1920/( (.width/.height)|if . > 2 then .
 /usr/bin/wait_next_second
 
 ffmpeg -y -v verbose -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
-	-probesize 2M \
-	-analyzeduration 2M \
+	-fflags nobuffer -flags low_delay -avioflags direct \
+	-probesize 32 \
+	-analyzeduration 0 \
 	-f v4l2 -video_size 1920x${height} -framerate 30 -i $vdev \
         -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
         -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$teensy \
@@ -33,7 +34,7 @@ ffmpeg -y -v verbose -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -h
 	-maxrate:v:0 5000k -bufsize:v:0 8192k \
 	-b:v:0 3000k \
 	-qmin:v:0 1 \
-	\
+	-fps_mode cfr \
 	-map '[left]:0' \
 	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map '[right]:1' \
