@@ -14,6 +14,7 @@
 
 import json
 import os
+import serial
 import re
 import signal
 import subprocess
@@ -77,16 +78,48 @@ def render_text(states):
 
 	return out
 
+def render_commands(states):
+
+	def strRed(skk):
+		return b"\x1b\x01" + skk.encode("utf8") + b"                 "
+ 
+	def strGreen(skk): 
+		return b"\x1b\x02" + skk.encode("utf8") + b"                 "
+
+	def strWhite(skk): 
+		return b"\x1b\x0f" + skk.encode("utf8") + b"                 "
+
+	out = b"\n\n"
+
+	line = 0
+
+	for state in states:
+		if state.state == GOOD:
+			rend = strGreen(state.data)
+		elif state.state == BAD:
+			rend = strRed(state.data)
+		else:
+			rend = strWhite(state.data)
+		out += b"d "+ str(line).encode("utf8") + b" " + rend + b"\n"
+		line+=1
+
+	return out
+
 def output_terminal(states):
 	sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (0, 0, render_text(states)))
 	sys.stdout.flush()
 
+def output_serial_display(port, states):
+	cmds = render_commands(states)
+	port.write(cmds)	
+
+
 def main():
-	# Initialize the display
-	os.system("clear")
+	port = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
+	port.write(b"\nclear\n")
 	while True:
 		info = update_sysinfo()
-		output_terminal(info)
+		output_serial_display(port, info)
 
 		# Lock the framerate to 1 FPS max
 		time.sleep(1)
@@ -189,26 +222,40 @@ def update_sysinfo():
 
     #root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
 	#root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."coretemp-isa-0000"."Package id 0"."temp1_input"' 
-
+	state = NORMAL
 	cpu_temp = sensordata["coretemp-isa-0000"]["Package id 0"]["temp1_input"]
-
-	ret.append(stateEntry("temperature cpu: " + str(cpu_temp), NORMAL if cpu_temp < 60 else BAD))
+	if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"):
+		fp = open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', "r")
+		hz = int(int(fp.read().rstrip())/1000)
+		fp.close()
+		print(hz)
+		if hz > 1900:
+			state = NORMAL
+		else:
+			state = BAD
+	else:
+		if cpu_temp > 80:
+			state = BAD
+		else:
+			state = NORMAL
+		
+	ret.append(stateEntry("cpu temp: " + str(cpu_temp) + "|freq: " + str(hz) + " MHz", state))
 
 	ret.append(stateEntry("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, NORMAL if float(uptime_avg1) < 3.9 else BAD))
 
 	if ip_addr_v4 != False:
 		ret.append(stateEntry("IPv4: " + ip_prefix_v4))
 		ret.append(stateEntry("MAC address: " + ip_link_mac))
-		ret.append(stateEntry("stream: tcp://" + ip_addr_v4 + ":8898/"))
+		#ret.append(stateEntry("stream: tcp://" + ip_addr_v4 + ":8898/"))
 	else:
 		ret.append(stateEntry("IPv4: no IPv4 address", BAD))
 		ret.append(stateEntry("MAC address: " + ip_link_mac))
-		ret.append(stateEntry("stream: n/a"))
+		#ret.append(stateEntry("stream: n/a"))
 
 
 	if os.path.exists('/etc/fosdem_revision'):
 		fp = open('/etc/fosdem_revision', "r")
-		ret.append(stateEntry("revision: " + fp.read().rstrip()))
+		ret.append(stateEntry("rev: " + fp.read().rstrip()))
 		fp.close()
 	else:
 		ret.append(stateEntry("revision not found"), BAD)
