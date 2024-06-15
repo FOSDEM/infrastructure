@@ -1,0 +1,16 @@
+[Unit]
+Description=video-preview service
+After=video-streamer.service
+
+[Service]
+ExecStart=/usr/local/bin/preview.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGTERM
+Restart=always
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
+
+[Install]
+WantedBy=multi-user.target
