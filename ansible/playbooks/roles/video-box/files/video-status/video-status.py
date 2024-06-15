@@ -100,28 +100,50 @@ def render_commands(states):
 			rend = strRed(state.data)
 		else:
 			rend = strWhite(state.data)
-		out += b"d "+ str(line).encode("utf8") + b" " + rend + b"\n"
+		out += b"display.text.line "+ str(line).encode("utf8") + b" " + rend + b"\n"
 		line+=1
 
+	out += b"display.refresh\n"
 	return out
 
 def output_terminal(states):
 	sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (0, 0, render_text(states)))
 	sys.stdout.flush()
 
-def output_serial_display(port, states):
-	cmds = render_commands(states)
-	port.write(cmds)	
+def clear_serial_display():
+	port = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1)
+	port.write(b"display.text.clear")	
+	port.close()
 
+def output_serial_display(states):
+	cmds = render_commands(states)
+	port = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1)
+	port.write(cmds)	
+	port.close()
+
+def output_image(only_image = False):
+	port = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1)
+	port.write(b"display.img.clear\n")
+	try:
+		f = open("/tmp/picture.raw", "rb");
+		data = f.read()
+		port.write(b"display.img 565 0 53 240 134\n")
+		port.write(data)
+		if only_image:
+			port.write(b"\ndisplay.imgonly\n")
+		else:
+			port.write(b"\ndisplay.refresh\n")
+	except:
+		pass
+	port.close()
 
 def main():
-	port = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
-	port.write(b"\nclear\n")
+	counter = 0
 	while True:
 		info = update_sysinfo()
-		output_serial_display(port, info)
-
-		# Lock the framerate to 1 FPS max
+		output_serial_display(info)
+		output_image(counter == 0)
+		counter = (counter + 1) % 4
 		time.sleep(1)
 
 def update_sysinfo():
@@ -204,7 +226,7 @@ def update_sysinfo():
 		ret.append(stateEntry("PAUSED"))
 
 	
-	ret.append(stateEntry("uptime: " + uptime_time + ", up " + uptime_duration))
+	ret.append(stateEntry("up: " + uptime_duration))
 
 #	powerstatus = open('/sys/class/power_supply/AC/online', 'r').read().strip()
 #	if powerstatus == "0":
@@ -228,7 +250,6 @@ def update_sysinfo():
 		fp = open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', "r")
 		hz = int(int(fp.read().rstrip())/1000)
 		fp.close()
-		print(hz)
 		if hz > 1900:
 			state = NORMAL
 		else:
@@ -239,23 +260,23 @@ def update_sysinfo():
 		else:
 			state = NORMAL
 		
-	ret.append(stateEntry("cpu temp: " + str(cpu_temp) + "|freq: " + str(hz) + " MHz", state))
+	ret.append(stateEntry("cpu t:" + str(cpu_temp) + "|f:" + str(hz) + " MHz", state))
 
 	ret.append(stateEntry("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, NORMAL if float(uptime_avg1) < 3.9 else BAD))
 
 	if ip_addr_v4 != False:
 		ret.append(stateEntry("IPv4: " + ip_prefix_v4))
-		ret.append(stateEntry("MAC address: " + ip_link_mac))
+		ret.append(stateEntry("MAC: " + ip_link_mac))
 		#ret.append(stateEntry("stream: tcp://" + ip_addr_v4 + ":8898/"))
 	else:
 		ret.append(stateEntry("IPv4: no IPv4 address", BAD))
-		ret.append(stateEntry("MAC address: " + ip_link_mac))
+		ret.append(stateEntry("MAC: " + ip_link_mac))
 		#ret.append(stateEntry("stream: n/a"))
 
 
 	if os.path.exists('/etc/fosdem_revision'):
 		fp = open('/etc/fosdem_revision', "r")
-		ret.append(stateEntry("rev: " + fp.read().rstrip()))
+		ret.append(stateEntry(fp.read().rstrip()))
 		fp.close()
 	else:
 		ret.append(stateEntry("revision not found"), BAD)
