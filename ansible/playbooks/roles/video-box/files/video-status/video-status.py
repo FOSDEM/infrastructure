@@ -106,36 +106,39 @@ def render_commands(states):
 	out += b"display.refresh\n"
 	return out
 
+def get_serial():
+	return serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1, exclusive=True)
+
 def output_terminal(states):
 	sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (0, 0, render_text(states)))
 	sys.stdout.flush()
 
 def clear_serial_display():
-	port = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1)
-	port.write(b"display.text.clear")	
-	port.close()
+	with get_serial() as port:
+		port.write(b"display.text.clear")	
 
 def output_serial_display(states):
 	cmds = render_commands(states)
-	port = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1)
-	port.write(cmds)	
-	port.close()
+	with get_serial() as port:
+		port.write(cmds)	
 
 def output_image(only_image = False):
-	port = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1)
-	port.write(b"display.img.clear\n")
+
 	try:
 		f = open("/tmp/picture.raw", "rb");
 		data = f.read()
+		f.close()
+	except:
+		return
+	
+	with get_serial() as port:
+		port.write(b"display.img.clear\n")
 		port.write(b"display.img 565 0 53 240 134\n")
 		port.write(data)
 		if only_image:
 			port.write(b"\ndisplay.imgonly\n")
 		else:
 			port.write(b"\ndisplay.refresh\n")
-	except:
-		pass
-	port.close()
 
 def main():
 	counter = 0
