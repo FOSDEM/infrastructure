@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-#
-# dependencies: fontconfig, python-pygame
-#
-# TODO:
-# * Try to reduce CPU usage, currently at ~5%
-#   - less frequent updates of "static" data (MAC address, hostname,
-#     stream URL)
-#   - only redraw what's really necessary instead of the whole block
-# * IPv6 address isn't being displayed because it doesn't fit on the
-#   screen. We could implement some kind of scrolling marquee for text
-#   that doesn't fit on the screen? Or reduce the font size?
-
 import json
 import os
 import serial
@@ -30,11 +18,6 @@ RED   = 255,0,0
 NORMAL = 0
 GOOD = 1
 BAD = 2
-
-WIDTH=640
-HEIGHT=404
-
-IMGHEIGHT=int(((WIDTH-22)*9)/16)
 
 os.environ["LANG"] = "C"
 
@@ -227,13 +210,8 @@ def update_sysinfo():
 		ifdata = json.loads(subprocess.check_output("ip -j route get 8.8.8.8", shell=True).decode("utf-8"))
 		interface = ifdata[0]["dev"]
 		# IP addresses
-		addr_data = json.loads(subprocess.check_output('ip -j addr show dev ' + interface + ' primary scope global', shell=True).decode("utf-8"))
+		addr_data = json.loads(subprocess.check_output(f"ip -j addr show dev {interface} primary scope global", shell=True).decode("utf-8"))
 		ip_link_mac = addr_data[0]["address"]
-
-	#try:
-	#	ip_addr_v6 = re.search('\sinet6\ ([^\s]+)', ip_addr).groups()[0]
-	#except AttributeError:
-	#	ip_addr_v6 = False
 
 		ip_prefix_v4 = False
 		ip_addr_v4 = False
@@ -269,7 +247,7 @@ def update_sysinfo():
 			signal = True
 			resX = signaldata['width']
 			resY = signaldata['height']
-			resolution = str(resX) + "x" + str(resY)
+			resolution = f"{resX}x{resY}"
 		else:
 			signal = False
 	except Exception as e:
@@ -278,7 +256,7 @@ def update_sysinfo():
 		signal = False
 	#print(signaldata)	
 	if signal:
-		ret.append(stateEntry("SIGNAL " + resolution))
+		ret.append(stateEntry(f"SIGNAL {resolution}"))
 	else:
 		ret.append(stateEntry("NO SIGNAL", BAD))
 		
@@ -291,23 +269,15 @@ def update_sysinfo():
 		ret.append(stateEntry("PAUSED"))
 
 	
-	ret.append(stateEntry("up: " + uptime_duration))
-
-#	powerstatus = open('/sys/class/power_supply/AC/online', 'r').read().strip()
-#	if powerstatus == "0":
-#		powerst = "OFF"
-#	else:
-#		powerst = "ON"
-#	print("power supply: " + powerst)
+	ret.append(stateEntry(f"up: {uptime_duration}"))
 
 	connected = subprocess.check_output("ss -H -o state established '( sport = :8899 )'  not dst '[::1]'|wc -l", shell = True).strip().decode("utf-8")
 
-	ret.append(stateEntry("connected readers: " + connected, GOOD if int(connected) > 0 else NORMAL))
-
+	ret.append(stateEntry(f"connected readers: {connected}", GOOD if int(connected) > 0 else NORMAL))
 
 	sensordata = json.loads(subprocess.check_output("sensors -j 2>/dev/null", shell=True).decode("utf-8"))
 
-    #root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
+	#root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."thinkpad-isa-0000".temp1.t:semp1_input' |less
 	#root@box1:/usr/local/bin# sensors -j 2>/dev/null | jq '."coretemp-isa-0000"."Package id 0"."temp1_input"' 
 	state = NORMAL
 	cpu_temp = sensordata["coretemp-isa-0000"]["Package id 0"]["temp1_input"]
@@ -325,18 +295,16 @@ def update_sysinfo():
 		else:
 			state = NORMAL
 		
-	ret.append(stateEntry("cpu t:" + str(cpu_temp) + "|f:" + str(hz) + " MHz", state))
+	ret.append(stateEntry(f"cpu t:{cpu_temp}|f:{hz} MHz", state))
 
-	ret.append(stateEntry("load: " + uptime_avg1 + ", " + uptime_avg5 + ", " + uptime_avg15, NORMAL if float(uptime_avg1) < 3.9 else BAD))
+	ret.append(stateEntry(f"load: {uptime_avg1} {uptime_avg5} {uptime_avg15}", NORMAL if float(uptime_avg1) < 3.9 else BAD))
 
 	if ip_addr_v4 != False:
-		ret.append(stateEntry("IPv4: " + ip_prefix_v4))
-		ret.append(stateEntry("MAC: " + ip_link_mac))
-		#ret.append(stateEntry("stream: tcp://" + ip_addr_v4 + ":8898/"))
+		ret.append(stateEntry(f"IPv4: {ip_prefix_v4}"))
+		ret.append(stateEntry(f"MAC: {ip_link_mac}"))
 	else:
-		ret.append(stateEntry("IPv4: no IPv4 address", BAD))
-		ret.append(stateEntry("MAC: " + ip_link_mac))
-		#ret.append(stateEntry("stream: n/a"))
+		ret.append(stateEntry(f"IPv4: no IPv4 address", BAD))
+		ret.append(stateEntry(f"MAC: {ip_link_mac}"))
 
 
 	if os.path.exists('/etc/fosdem_revision'):
