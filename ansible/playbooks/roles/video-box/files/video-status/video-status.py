@@ -123,18 +123,30 @@ def output_serial_display(states):
 	with get_serial() as port:
 		port.write(cmds)	
 
+
+img_x = 240
+img_y = 134
+xpos = int( (img_x - img_y) / 2)
+
 def output_image(only_image = False):
 
 	try:
 		f = open("/tmp/picture.raw", "rb");
 		data = f.read()
 		f.close()
+		l = len(data)
+		expected = img_x * img_y * 2
+		if l != expected:
+			syslog(f"/tmp/picture.raw has size {l} bytes expected {expected} bytes")
+			return
 	except:
 		return
 	
 	with get_serial() as port:
 		port.write(b"display.img.clear\n")
-		port.write(b"display.img 565 0 53 240 134\n")
+		
+		dcmd = f"display.img 565 0 {xpos} {img_x} {img_y}\n"
+		port.write(dcmd.encode("utf-8"))
 		port.write(data)
 		if only_image:
 			port.write(b"\ndisplay.imgonly\n")
