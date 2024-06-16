@@ -19,6 +19,7 @@ import re
 import signal
 import subprocess
 import sys
+import syslog
 import time
 
 WHITE = 255,255,255
@@ -140,11 +141,52 @@ def output_image(only_image = False):
 		else:
 			port.write(b"\ndisplay.refresh\n")
 
+switch_state = [None, None, None, None, None]
+
+def read_switch():
+	ret = [None, None, None, None, None]
+
+	updated = False
+	with get_serial() as port:
+		port.write(b"netswitch.info\n")
+		while True:
+			line = port.readline().decode("utf-8").strip()
+			m = re.match(r"port ([0-9]): (.*)$", line)
+			if m is not None:
+				p = int(m.group(1))
+				s = m.group(2)
+				ret[p] = s
+				updated = True
+			elif re.match(r"^ok ", line):
+				break
+			
+	if not updated:
+		return None
+	else:
+		return ret
+
+def update_switch_state():
+	new_state = read_switch()
+
+	if new_state is None:
+		return
+
+	for i in range(0,5):
+		if new_state[i] != switch_state[i]:
+			syslog.syslog(f"Port {i} state change {switch_state[i]} -> {new_state[i]}")
+			switch_state[i] = new_state[i]
+
 def main():
 	counter = 0
+
+	syslog.openlog("video-status")
+	update_switch_state()
+
 	while True:
 		info = update_sysinfo()
 		output_serial_display(info)
+		output_terminal(info)
+		update_switch_state()
 		output_image(counter == 0)
 		counter = (counter + 1) % 4
 		time.sleep(1)
