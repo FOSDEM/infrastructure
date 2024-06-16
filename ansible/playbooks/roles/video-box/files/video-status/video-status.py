@@ -163,6 +163,14 @@ def read_switch():
 	if not updated:
 		return None
 	else:
+		try:
+			with open("/tmp/netstate.tmp", "w") as f:
+				f.write(json.dumps(switch_state))
+
+			os.rename("/tmp/netstate.tmp", "/tmp/netstate.json")
+		except:
+			pass
+
 		return ret
 
 def update_switch_state():
