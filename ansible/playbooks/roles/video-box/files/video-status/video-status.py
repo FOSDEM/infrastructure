@@ -152,7 +152,7 @@ def read_switch():
 				s = m.group(2)
 				ret[p] = s
 				updated = True
-			elif re.match(r"^ok ", line):
+			elif re.match(r"^(ok|fail) ", line):
 				break
 			
 	if not updated:
