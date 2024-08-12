@@ -1,0 +1,30 @@
+---
+- name: Install required dependencies
+  ansible.builtin.apt:
+    name:
+      - openssl
+      - python3-openssl
+  tags:
+    - tls-certificates
+
+- name: Create directories for tls certificates
+  ansible.builtin.include_tasks: create_directories.yml
+  tags:
+    - tls-certificates
+
+- name: Create private key and csr
+  ansible.builtin.include_tasks: create_keypair.yml
+  tags:
+    - tls-certificates
+
+- name: Sign certificate with letsencrypt
+  ansible.builtin.include_tasks: letsencrypt.yml
+  when: not self_sign and not skip_unit_test
+  tags:
+    - tls-certificates
+
+- name: Self-sign certificate
+  ansible.builtin.include_tasks: self_sign.yml
+  when: self_sign
+  tags:
+    - tls-certificates

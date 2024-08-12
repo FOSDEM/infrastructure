@@ -1,0 +1,59 @@
+---
+- name: install the certificate
+  copy:
+    src: nginx/certificate/stream.fosdem.org.crt
+    dest: /etc/nginx/stream.fosdem.org.crt
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: install the key
+  copy:
+    src: nginx/certificate/stream.fosdem.org.key
+    dest: /etc/nginx/stream.fosdem.org.key
+    owner: root
+    group: root
+    mode: 0600
+  notify: reload nginx
+
+- name: install dh parameters
+  copy:
+    src: nginx/certificate/dhparam.pem
+    dest: /etc/nginx/dhparam.pem
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: set global configuration
+  copy:
+    src: nginx/global.conf
+    dest: /etc/nginx/conf.d/global.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: disable default configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: reload nginx
+
+- name: configure stream.fosdem.org
+  template:
+    src: nginx/sites-enabled/stream.fosdem.org.conf
+    dest: /etc/nginx/sites-enabled/stream.fosdem.org.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: Add mtail metrics to ngninx
+  copy:
+    src: nginx/mtail.conf
+    dest: /etc/nginx/conf.d/mtail.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx

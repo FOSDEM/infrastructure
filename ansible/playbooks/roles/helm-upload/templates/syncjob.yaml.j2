@@ -1,0 +1,185 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: penta-secret
+type: Opaque
+stringData:
+  pgservice.cfg: |
+    [penta]
+    host=pgsql.fosdem.org
+    dbname=pentabarf
+    user=video
+    password={{secret.pentapass}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sync-jobs-script
+data:
+  sync-upload-urls: |
+    #!/usr/bin/perl -w
+    
+    use strict;
+    use warnings;
+    
+    use SReview::Config::Common;
+    use SReview::Files::Factory;
+    use SReview::Talk;
+    use Media::Convert::Asset;
+    use Mojo::UserAgent;
+    use DBI;
+    
+    my $config = SReview::Config::Common::setup();
+    
+    my $ua = Mojo::UserAgent->new;
+    
+    my $penta = DBI->connect('dbi:Pg:service=penta',"","");
+    
+    $penta->begin_work;
+    
+    my $coll = SReview::Files::Factory->create("intermediate", $config->get("pubdir"));
+    
+    my $url_add = $penta->prepare("UPDATE event SET sreview_upload_url = ? WHERE event_id = ?");
+    my $rv_add = $penta->prepare("UPDATE event SET sreview_review_url = ? WHERE event_id = ?");
+    my $is_enabled = $penta->prepare("SELECT event_id FROM event JOIN conference ON event.conference_id = conference.conference_id WHERE acronym = 'FOSDEM23' AND prerecorded = true AND event_state = 'accepted' AND event_id = ?");
+    my $pres_check = $penta->prepare("SELECT presentation_length FROM event WHERE event_id = ?");
+    my $pres_length = $penta->prepare("UPDATE event SET presentation_length = ? WHERE event_id = ?");
+    my $url_exists = $penta->prepare("SELECT sreview_upload_url FROM event WHERE event_id = ?");
+    my $rv_exists = $penta->prepare("SELECT sreview_review_url FROM event WHERE event_id = ?");
+    
+    sub apicall {
+            my %options = @_;
+            die "missing rel" unless exists($options{rel});
+            return $ua->get("https://upload.video.fosdem.org/api/v1/" . $options{rel} => {"X-SReview-Key" => $config->get("api_key")})->result->json;
+    }
+    
+    sub push_url {
+            my ($talk, $upid, $urltype, $exists, $add) = @_;
+            $exists->execute($upid);
+            if($exists->rows >= 1) {
+                    my $row = $exists->fetchrow_arrayref;
+                    if(defined($row->[0]) && $row->[0] eq "https://upload.video.fosdem.org/$urltype/" . $talk->nonce) {
+                            return;
+                    }
+            }
+            $add->execute("https://upload.video.fosdem.org/$urltype/" . $talk->nonce, $upid);
+    }
+    
+    sub push_length {
+            my ($talk, $upid) = @_;
+            my $file = $coll->get_file(relname => $talk->relative_name . "/main.mkv");
+            $is_enabled->execute($upid);
+            return unless ($is_enabled->rows > 0);
+            my $seconds = Media::Convert::Asset->new(url => $file->filename)->duration;
+            my $hours = 0;
+            my $minutes = 0;
+            return unless defined($seconds);
+            if($seconds >= 60) {
+                    $minutes += int($seconds / 60);
+                    $seconds -= $minutes * 60;
+            }
+            if($minutes >= 60) {
+                    $hours += int($minutes / 60);
+                    $minutes -= $hours * 60;
+            }
+            my $pretty = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+            $pres_check->execute($upid);
+            if($pres_check->rows >= 1) {
+                    my $row = $pres_check->fetchrow_hashref;
+                    if($row->{presentation_length} eq $pretty) {
+                            return;
+                    }
+            }
+            $pres_length->execute($pretty, $upid);
+    }
+    
+    my $event = 1;
+    my $talks = apicall(rel => "event/$event/talk/list");
+    foreach my $talk(@$talks) {
+            my $upid = $talk->{upstreamid};
+            my $talk = SReview::Talk->new(talkid => $talk->{id});
+            if($talk->state eq "waiting_for_files") {
+                    push_url($talk, $upid, "i", $url_exists, $url_add);
+                    push_url($talk, $upid, "r", $rv_exists, $rv_add);
+            }
+    }
+    
+    $penta->commit;
+    
+    foreach my $talk(@$talks) {
+            my $upid = $talk->{upstreamid};
+            my $talk = SReview::Talk->new(talkid => $talk->{id});
+            if($talk->state gt "transcoding" && $talk->state le "done") {
+                    push_length($talk, $upid);
+            }
+    }
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sync-upload-urls
+spec:
+  concurrencyPolicy: Forbid
+  schedule: 0,30 * * * *
+  jobTemplate:
+    metadata:
+      labels:
+        app: sync-upload-urls
+    spec:
+      template:
+        metadata:
+          labels:
+            app: sync-upload-urls
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: sync
+            image: registry.salsa.debian.org/debconf-video-team/sreview/detect:{{ sreview.imagelabel }}
+            imagePullPolicy: IfNotPresent
+            command:
+            - /opt/sync/sync-upload-urls
+            volumeMounts:
+            - name: pgservice
+              readOnly: true
+              mountPath: /opt/pgservice
+            - name: sync
+              readOnly: true
+              mountPath: /opt/sync
+            env:
+            - name: SREVIEW_DBICOMPONENTS
+              value: host password dbname user
+            - name: SREVIEW_DBI_USER
+              value: postgres
+            - name: SREVIEW_DBI_HOST
+              value: sreview-postgresql
+            - name: SREVIEW_DBI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: postgres-password
+                  name: sreview-postgresql
+            - name: SREVIEW_DBI_DBNAME
+              value: postgres
+            - name: SREVIEW_S3_ACCESS_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  key: SREVIEW_S3_ACCESS_CONFIG
+                  name: sreview-secret
+            - name: SREVIEW_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: SREVIEW_API_KEY
+                  name: sreview-secret
+            - name: PGSERVICEFILE
+              value: /opt/pgservice/pgservice.cfg
+            envFrom:
+            - configMapRef:
+                name: sreview-config
+          volumes:
+          - name: pgservice
+            secret:
+              secretName: penta-secret
+          - name: sync
+            configMap:
+              name: sync-jobs-script
+              defaultMode: 0755

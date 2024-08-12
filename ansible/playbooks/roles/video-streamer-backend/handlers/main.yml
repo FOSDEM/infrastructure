@@ -1,0 +1,30 @@
+---
+- name: reload nginx
+  service:
+    name: nginx
+    state: reloaded
+
+- name: restart nfs
+  service:
+    name: nfs-server
+    state: restarted
+
+- name: restart iptables-persistent
+  service:
+    name: netfilter-persistent
+    state: restarted
+
+- name: restart fetcher target
+  become: true
+  systemd:
+    daemon_reload: true
+    name: fetcher.target
+    state: restarted
+
+- name: restart fetcher service
+  become: true
+  systemd:
+    daemon_reload: true
+    name: "fetcher-{{ item }}"
+    state: restarted
+  with_items: "{{ video_rooms + virtual_video_rooms }}"

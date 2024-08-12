@@ -1,0 +1,7 @@
+---
+- name: restart streamdump target
+  become: true
+  systemd:
+    daemon_reload: true
+    name: streamdump.target
+    state: restarted

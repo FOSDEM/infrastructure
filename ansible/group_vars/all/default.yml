@@ -1,0 +1,24 @@
+---
+# SSH keys to deploy (override them in host_vars if ever necessary)
+# The files refer to files in the common role
+ssh_users:
+- agk
+- gerry
+- johanvdw
+- mark
+- peter
+- richih
+- vasil
+- wouter_v
+- wouter_s
+- bastischubert
+
+timezone: "Europe/Brussels"
+
+node_exporter_textfile_dir: /var/lib/node_exporter
+node_exporter_enabled_collectors:
+- ntp
+- systemd:
+    unit-whitelist: "'.+\\.service'"
+- textfile:
+    directory: "{{ node_exporter_textfile_dir }}"

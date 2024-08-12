@@ -1,0 +1,52 @@
+---
+- name: "install monitoring packages"
+  apt:
+    state: latest
+    package:
+    - nsca-client
+    - monitoring-plugins
+    - munin-node
+    - bc
+
+- name: monitoring script
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+  - do_checks.sh
+
+- name: install nsca configuration
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - send_nsca.cfg
+
+- name: install munin-node configuration
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/munin/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - munin-node.conf
+  notify: restart munin-node
+
+- name: install cron file
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/cron.d/monitoring"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - monitoring.cron
+
+

@@ -1,0 +1,57 @@
+---
+- name: install packages
+  apt:
+    state: latest
+    package:
+    - sreview-web
+    - nginx
+  notify: Restart nginx
+
+- name: Disable nginx default configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Reload nginx
+
+- name: Install error pages
+  copy:
+    src: maint.html
+    dest: /var/www/html/maint.html
+    owner: root
+    gropu: root
+    mode: 0644
+
+- name: Install nginx SReview http configuration
+  template:
+    src: nginx/sites-enabled/sreview-web-http.j2
+    dest: /etc/nginx/sites-enabled/sreview-web-http.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload nginx
+
+- name: Force nginx reload after setting up vhost
+  meta: flush_handlers
+
+- name: Generate tls certificate
+  include_role:
+    name: tls-certificates
+  vars:
+    basename: sreview-web
+    common_name: review.video.fosdem.org
+    self_sign: false
+    letsencrypt_do_nginx_vhost: false
+
+- name: Install common nginx TLS config
+  include_role:
+    name: tls-certificates
+    tasks_from: nginx_common
+
+- name: Install nginx SReview https configuration
+  template:
+    src: nginx/sites-enabled/sreview-web-https.j2
+    dest: /etc/nginx/sites-enabled/sreview-web-https.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload nginx

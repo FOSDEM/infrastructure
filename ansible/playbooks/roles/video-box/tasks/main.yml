@@ -1,0 +1,7 @@
+---
+
+- include: configure_network.yml
+- include: install_packages.yml
+- include: install_signal-status.yml
+- include: install_video-status.yml
+- include: install_video-streamer.yml

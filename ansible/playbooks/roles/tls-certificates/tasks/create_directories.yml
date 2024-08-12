@@ -1,0 +1,30 @@
+---
+- name: Create base directory
+  ansible.builtin.file:
+    path: "{{ base_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tags:
+    - tls-certificates
+
+- name: Create certs directory
+  ansible.builtin.file:
+    path: "{{ base_directory }}/certs"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tags:
+    - tls-certificates
+
+- name: Create private directory
+  ansible.builtin.file:
+    path: "{{ base_directory }}/private"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+  tags:
+    - tls-certificates

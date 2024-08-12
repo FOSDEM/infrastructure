@@ -1,0 +1,101 @@
+---
+- name: install display-rescan script
+  copy:
+    src: signal-status/display-rescan.sh
+    dest: /usr/local/bin/display-rescan.sh
+    owner: root
+    group: root
+    mode: 0755
+  register: display_rescan_script
+
+- name: install capture-rescan script
+  copy:
+    src: signal-status/capture-rescan.sh
+    dest: /usr/local/bin/capture-rescan.sh
+    owner: root
+    group: root
+    mode: 0755
+  register: capture_rescan_script
+
+- name: install video-statuskeeper script
+  copy:
+    src: signal-status/statuskeeper.sh
+    dest: /usr/local/bin/statuskeeper.sh
+    owner: root
+    group: root
+    mode: 0755
+  register: video_statuskeeper_script
+
+
+- name: install capture-rescan service
+  copy:
+    src: signal-status/video-capture-rescan.service
+    dest: /etc/systemd/system/video-capture-rescan.service
+    owner: root
+    group: root
+    mode: 0644
+  register: capture_rescan_svc
+
+- name: install display-rescan service
+  copy:
+    src: signal-status/video-display-rescan.service
+    dest: /etc/systemd/system/video-display-rescan.service
+    owner: root
+    group: root
+    mode: 0644
+  register: display_rescan_svc
+
+
+- name: install video-statuskeeper service
+  copy:
+    src: signal-status/video-statuskeeper.service
+    dest: /etc/systemd/system/video-statuskeeper.service
+    owner: root
+    group: root
+    mode: 0644
+  register: video_statuskeeper_svc
+
+- name: perform a daemon-reload if video-status.service has been modified
+  systemd:
+    daemon_reload: true
+  when: display_rescan_svc.changed or video_statuskeeper_svc.changed or capture_rescan_svc.changed
+
+- name: enable video-statuskeeper service
+  service:
+    name: video-statuskeeper
+    enabled: true
+    state: started
+
+- name: enable video-display-rescan service
+  service:
+    name: video-display-rescan
+    enabled: true
+    state: started
+
+- name: enable video-capture-rescan service
+  service:
+    name: video-capture-rescan
+    enabled: true
+    state: started
+
+
+- name: restart video-capture-rescan service if needed
+  service:
+    name: video-capture-rescan
+    state: restarted
+  when: capture_rescan_script.changed or capture_rescan_svc.changed
+
+- name: restart video-display-rescan service if needed
+  service:
+    name: video-display-rescan
+    state: restarted
+  when: display_rescan_script.changed or display_rescan_svc.changed
+
+- name: restart video-statuskeeper service if needed
+  service:
+    name: video-statuskeeper
+    state: restarted
+  when: video_statuskeeper_script.changed or video_statuskeeper_svc.changed
+
+
+

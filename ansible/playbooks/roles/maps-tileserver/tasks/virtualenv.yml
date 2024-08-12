@@ -1,0 +1,12 @@
+---
+- name: virtualenv - tileserver
+  pip:
+    requirements: /opt/c3nav/src/requirements-tileserver.txt
+    virtualenv_python: python3.6
+    virtualenv: /opt/c3nav/env
+
+- name: install uwsgi with pip
+  pip:
+    name: uwsgi
+    virtualenv_python: python3.6
+    virtualenv: /opt/c3nav/env

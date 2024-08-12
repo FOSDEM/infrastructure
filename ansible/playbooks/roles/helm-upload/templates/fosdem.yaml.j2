@@ -1,0 +1,48 @@
+pullPolicy: Always
+containerLabel: {{ sreview.imagelabel }}
+webHostname: upload.video.fosdem.org
+pullPolicy: IfNotPresent
+config:
+  schedule_format: '"penta"'
+  schedule_options: '{"url":"https://fosdem.org/2023/schedule/xml"}'
+  event: '"FOSDEM 2023"'
+  accessmethods: '{"input":"HTTP","intermediate":"S3","output":"S3","upl":"S3"}'
+  inputglob: '"https://lounge.grep.be/~wouter/test/*"'
+  input_profile: '"FOSDEM"'
+  inject_collection: '"upl"'
+  extra_collections: '{"upl":"upl"}'
+  extra_profiles: '{"FOSDEM":{"parent":"mp4","settings":{"extra_params":{"g":"45","probesize":"10M","qmin:v:0":1,"analyzeduration":"10M","bufsize:v":"8192k"},"video_bitrate":"1000"},"video_size":"1280x720"},"webm_high":{"parent":"webm","settings":{"quality":24}}}'
+  pubdir: '"uint"'
+  preview_exten: '"mp4"'
+  inject_fatal_checks: '{"duration":{"talkattr_max":"scheduled_length"},"video_size":{"val":"1280x720"}}'
+  inject_transcode_skip_checks: '{"video_codec":{"val":"h264"},"audio_codec":{"val":"aac"},"video_bitrate":{"min":0,"max":2097152},"video_width":{"val":"1280"},"video_height":{"val":"720"}}'
+  review_template: '"confirm"'
+  outputdir: '"pub"'
+  vid_prefix: '"https://rvstore.video.fosdem.org/uint"'
+  urlbase: '"https://upload.video.fosdem.org/"'
+  adminuser: '"w@uter.be"'
+  query_limit: '0'
+  state_actions: '{"announcing":"run-kube announce <%== $talkid %>","cutting":"run-kube cut <%== $talkid %>", "generating_previews":"run-kube previews <%== $talkid %>", "injecting":"run-kube inject-job <%== $talkid %>", "notification":"run-kube notify <%== $talkid %>", "notify_final":"run-kube notify_final <%== $talkid %>","remove":"run-kube remove <%== $talkid %>","transcoding":"run-kube transcode <%== $talkid %>","uploading":"run-kube upload <%== $talkid %>","finalreview":"run-kube finalreview <%== $talkid %>"}'
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  hosts:
+  - upload.video.fosdem.org
+  tls:
+  - secretName: upload.video.fosdem.org-tls
+    hosts:
+    - upload.video.fosdem.org
+extraEnv:
+- name: MOJO_LOG_LEVEL
+  value: trace
+use_internal_minio: false
+no_detect_on_cluster: true
+run_kube_template: |
+  % use YAML::XS;
+  % push @$env, ( { name => "SREVIEW_DBICOMPONENTS", value => "host user dbname password" }, { name => "SREVIEW_DBI_USER", value => "postgres" }, { name => "SREVIEW_DBI_HOST", value => "sreview-postgresql"}, { name => "SREVIEW_DBI_PASSWORD", valueFrom => { secretKeyRef => { key => "postgres-password", name => "sreview-postgresql" } } }, { name => "SREVIEW_DBI_DBNAME", value => "postgres" }, {name => "EMAIL_SENDER_TRANSPORT", value => "SMTP"}, { name => "EMAIL_SENDER_TRANSPORT_HOST", value => "mail.fosdem.org" }, { name => "EMAIL_SENDER_TRANSPORT_PORT", value => "25" });
+  % $jobsuffix =~ s/_/-/g;
+  % $task =~ s/_/-/g;
+  % my %data = ( apiVersion => "kubequeue.grep.be/v1", kind => "JobEntry", metadata => { name => "sreview-$jobsuffix" }, spec => { defName => "sreview-$task", extraArgs => $args, extraEnv => $env } );
+  <%= Dump(\%data); %>

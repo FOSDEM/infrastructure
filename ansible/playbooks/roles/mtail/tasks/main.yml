@@ -1,0 +1,41 @@
+---
+
+- name: install mtail from stretch-backports
+  apt:
+    state: latest
+    default_release: stretch-backports
+    package:
+    - mtail
+  when: ansible_distribution_release == "stretch"
+
+- name: install mtail from main
+  apt:
+    state: latest
+    package:
+    - mtail
+  when: ansible_distribution_release != "stretch"
+
+
+- name: enable and start mtail service
+  service:
+    name: mtail
+    state: started
+    enabled: true
+
+- name: install mtail defaults file
+  template:
+    src: defaults
+    dest: /etc/default/mtail
+  notify:
+  - restart mtail
+
+- name: install mtail configs
+  copy:
+    src: "{{ item }}"
+    dest: /etc/mtail/
+    owner: root
+    mode: 0644
+  with_fileglob:
+  - mtail/*.mtail
+  notify:
+  - restart mtail

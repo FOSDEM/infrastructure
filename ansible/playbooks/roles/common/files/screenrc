@@ -1,0 +1,7 @@
+# Don't need the startup message
+startup_message off
+
+# A nice pretty bottom bar
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %Y-%m-%d %c "
+

@@ -1,0 +1,54 @@
+---
+- name: "Install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - ack-grep
+    - apt-transport-https
+    - bash-completion
+    - binutils
+    - ca-certificates
+    - curl
+    - ethtool
+    - file
+    - git
+    - gpg
+    - gpg-agent
+    - htop
+    - ifmetric
+    - iftop
+    - inotify-tools
+    - iotop
+    - less
+    - libcap2-bin
+    - lsof
+    - mediainfo
+    - mosh
+    - mtr-tiny
+    - needrestart
+    - patch
+    - psmisc
+    - screen
+    - sipcalc
+    - strace
+    - sudo
+    - tcpdump
+    - tmux
+    - vcsh
+    - vim
+    - vnstat
+    - zsh
+
+- name: "Install architecture-dependent packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - ltrace
+  when: (ansible_architecture == 'i386' or ansible_architecture == 'x86_64')
+
+- name: "Add root screenrc"
+  copy:
+    src: screenrc
+    dest: /root/.screenrc

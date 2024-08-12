@@ -1,0 +1,15 @@
+---
+- name: fix the hosts file so gridengine (and other things) will work
+  template:
+    dest: /etc/hosts
+    src: hosts.j2
+    owner: root
+    group: root
+    mode: 0664
+  register: hosts_fix
+
+- name: restart gridengine if needed
+  service:
+    name: gridengine-exec
+    state: restarted
+  when: hosts_fix.changed

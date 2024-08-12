@@ -1,0 +1,61 @@
+---
+groups:
+- name: Audio
+  interval: 15s
+  rules:
+    - record: instance:audio_fetcher_r128_level_db_bucket:rate15s
+      expr: rate(audio_fetcher_r128_level_db_bucket[15s])
+    - record: instance:audio_fetcher_r128_level_db_bucket:q10
+      expr: >
+        histogram_quantile(
+          0.10,
+          instance:audio_fetcher_r128_level_db_bucket:rate15s
+        )
+    - record: instance:audio_fetcher_r128_level_db_bucket:q50
+      expr: >
+        histogram_quantile(
+          0.50,
+          instance:audio_fetcher_r128_level_db_bucket:rate15s
+        )
+    - record: instance:audio_fetcher_r128_level_db_bucket:q95
+      expr: >
+        histogram_quantile(
+          0.95,
+          instance:audio_fetcher_r128_level_db_bucket:rate15s
+        )
+- name: Video
+  rules:
+  - alert: VideoRecorderFailed
+    expr: node_systemd_unit_state{name=~"video-recorder.service",state="failed"} == 1
+    for: 2m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Video Recorder Service Failed
+      description: 'Video Recorder systemd service on {{ $labels.instance }} is failed'
+  - alert: VoctopOverheating
+    expr: >
+      avg without (sensor) (
+        avg_over_time(node_hwmon_temp_celsius{chip=~"platform_coretemp_.*",instance=~".*video.fosdem.org:9100"}[5m])
+      ) > 75
+    for: 1m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Video voctop overheating
+      description: 'Video Voctop CPU overheating on {{ $labels.instance }}'
+  - alert: HighPacketLoss
+    expr: >
+      (
+        rate(node_netstat_Tcp_RetransSegs{instance=~".*(voctop|slides|cam).video.fosdem.org:9100"}[1m]) /
+        rate(node_netstat_Tcp_OutSegs{instance=~".*(voctop|slides|cam).video.fosdem.org:9100"}[1m])
+      ) * 100 > 1
+    for: 2m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Node has high packet loss
+      description: '{{ $labels.instance }} has {{ $value printf "%.1f" }}% packet loss'

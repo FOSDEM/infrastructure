@@ -1,0 +1,19 @@
+---
+- name: install system packages
+  apt:
+    state: latest
+    package:
+    - dmidecode
+    - dosfstools
+    - exfat-fuse
+    - exfatprogs
+    - firmware-iwlwifi
+    - hwinfo
+    - ntfs-3g
+    - rsync
+    - screen
+    - sysstat
+    - unrar-free
+    - vim-nox
+    - wget
+    - python3-psutil

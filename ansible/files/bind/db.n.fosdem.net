@@ -1,0 +1,65 @@
+; vim: ts=8 et
+$TTL 3600
+@               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
+                        2019122702 ; serial
+                        600 ; refresh
+                        300 ; retry
+                        604800 ; expire
+                        3600 ; default_ttl
+                        )
+@               IN      NS      conference-ns1.fosdem.net.
+
+asr1k           IN      A       213.246.232.54
+asr1k           IN      AAAA    2001:920:0:1::5F
+
+k-sw            IN      A       192.168.211.240
+aw-sw           IN      A       192.168.211.250
+j-sw            IN      A       192.168.211.251
+h-sw            IN      A       192.168.211.252
+core-sw         IN      A       192.168.211.254
+voctop-sw       IN      A       192.168.211.200
+
+avq             IN      A       185.175.218.212
+
+; Wifi monitoring
+wifi1          IN       A       151.216.191.250
+wifi1          IN       AAAA    2001:67c:1810:f052:5054:ff:febb:35b3
+wifi2          IN       A       151.216.191.251
+wifi2          IN       AAAA    2001:67c:1810:f052:702a:6460:9fbb:1d42
+wifidash       IN       CNAME   wifi1
+wifi-kvm       IN       CNAME   wifi2
+
+; iDRAC
+server001-mgmt IN       A       192.168.1.11
+server002-mgmt IN       A       192.168.1.12
+proxmox001-mgmt IN       A       192.168.1.31
+proxmox002-mgmt IN       A       192.168.1.32
+proxmox003-mgmt IN       A       192.168.1.33
+
+; HW Server
+proxmox001 IN       A       192.168.1.21
+proxmox002 IN       A       192.168.1.22
+proxmox003 IN       A       192.168.1.23
+
+; VMs
+netbox	IN	A	185.175.216.241
+	IN	AAAA	2001:67c:1810:f054::212:241
+
+; CNAMEs
+alertmanager   IN       CNAME   server001.fosdem.net.
+grafana        IN       CNAME   server001.fosdem.net.
+oxidized       IN       CNAME   server001.fosdem.net.
+prime          IN       CNAME   server001.fosdem.net.
+prometheus     IN       CNAME   server001.fosdem.net.
+wlc            IN       CNAME   server001.fosdem.net.
+server1-bmc    IN       CNAME   server001.fosdem.net.
+server2-bmc    IN       CNAME   server001.fosdem.net.
+
+alertmanager-2 IN       CNAME   server002.fosdem.net.
+prometheus-2   IN       CNAME   server002.fosdem.net.
+
+;TVs
+tv0            IN       A       151.216.160.13
+tv0            IN       AAAA    2001:67c:1810:f052:212:fbff:feb0:20ec
+tv1            IN       A       151.216.160.7
+tv1            IN       AAAA    2001:67c:1810:f052:212:fbff:feb0:211b

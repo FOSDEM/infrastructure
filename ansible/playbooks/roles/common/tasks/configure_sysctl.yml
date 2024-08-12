@@ -1,0 +1,7 @@
+---
+- name: configure sysctl
+  sysctl:
+    sysctl_file: /etc/sysctl.d/10-fosdem.conf
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_dict: "{{ sysctl_parameters }}"

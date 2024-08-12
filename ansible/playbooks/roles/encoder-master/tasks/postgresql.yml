@@ -1,0 +1,28 @@
+---
+- name: "ensure postgresql is there"
+  apt:
+    pkg: postgresql
+    state: latest
+    install_recommends: false
+
+- name: "ensure listen is on"
+  blockinfile:
+    create: true
+    dest: /etc/postgresql/13/main/postgresql.conf
+    block: |
+      listen_addresses = '*'
+  register: postgresql_conf
+
+- name: "allow remote access to postgres db"
+  blockinfile:
+    create: true
+    dest: /etc/postgresql/13/main/pg_hba.conf
+    block: |
+      host all all 10.0.0.0/8 md5
+  register: pghba_conf
+
+- name: "ensure restart when needed"
+  service:
+    name: postgresql
+    state: restarted
+  when: postgresql_conf.changed or pghba_conf.changed

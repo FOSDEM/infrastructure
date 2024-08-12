@@ -1,0 +1,35 @@
+---
+
+- name: Add testing repo
+  apt_repository:
+    filename: testing
+    repo: "deb http://deb.debian.org/debian/ testing main contrib non-free"
+
+
+- name: "install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - ffmpeg
+    - libglib-object-introspection-perl
+    - gir1.2-gstreamer-1.0
+    - gir1.2-gst-plugins-base-1.0
+    - gstreamer1.0-plugins-base
+    - gstreamer1.0-plugins-good
+    - gstreamer1.0-plugins-bad
+    - gstreamer1.0-plugins-ugly
+    - gstreamer1.0-libav
+    - libdbd-pg-perl
+    - nginx-common
+    - nginx-doc
+    - nginx-extras
+
+
+- name: "install ffmpeg from testing"
+  apt:
+    state: latest
+    install_recommends: false
+    default_release: testing
+    package:
+    - ffmpeg

@@ -1,0 +1,27 @@
+---
+groups:
+- name: Voctop
+  interval: 15s
+  rules:
+  - alert: VoctopCPUOverheating
+    expr: >
+      avg without (sensor) (
+        node_hwmon_temp_celsius{chip="platform_coretemp_0",instance=~".*voctop.video.fosdem.org:9100"}
+      ) > 75
+    for: 5m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: Voctop CPU overheating
+      description: 'Voctop {{ $labels.instance }} CPU is overheating {{ $value | printf "%.2f" }}C'
+  - alert: ACOffline
+    expr: >
+      node_power_supply_ac_online != 1
+    for: 1m
+    labels:
+      team: video
+      severity: warning
+    annotations:
+      summary: AC power offline
+      description: 'AC power on {{ $labels.instance }} is offline'

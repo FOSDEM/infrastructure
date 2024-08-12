@@ -1,0 +1,102 @@
+---
+- name: create room name directories
+  file:
+    path: "/var/www/html/{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items: "{{ video_rooms }}"
+
+- name: install voctocontrol webapp config
+  copy:
+    src: config.php
+    dest: /var/www/html/config.php
+    owner: root
+    group: root
+    mode: 0644
+  register: voctocontrolconfig
+
+- name: install voctocontrol webapp
+  copy:
+    src: vocto.php
+    dest: /var/www/html/vocto.php
+    owner: root
+    group: root
+    mode: 0644
+  register: voctocontrolweb
+
+- name: install db api
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - inc.php
+  - query-vocto.php
+  - query-room.php
+  - query-ebur.php
+  - chart.js
+  - moment.js
+  - chartjs-adapter-moment.js
+  - chartjs-plugin-annotation.js
+  - graph.js
+  - showbuilding.php
+
+- name: install integration with roomfull api
+  # note this also requires apikeys.php to be present
+  # this should be copied manually or added to the ansible vault
+  copy:
+    src: room_status.php
+    dest: /var/www/html/room_status.php
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install imgmaker script
+  copy:
+    src: imgmaker.sh
+    dest: /usr/local/bin/imgmaker.sh
+    owner: root
+    group: root
+    mode: 0755
+  register: imgmakerscript
+
+- name: install imgmaker services
+  template:
+    src: imgmaker.service
+    dest: "/etc/systemd/system/imgmaker-{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms }}"
+  register: imgmaker
+
+# - name: perform a daemon-reload if any of the imgmaker services have been modified
+#   systemd:
+#     daemon_reload: true
+#   when: imgmaker.changed
+
+- name: enable imgmaker services
+  service:
+    name: "imgmaker-{{ item }}"
+    enabled: true
+    state: started
+  with_items: "{{ video_rooms }}"
+
+- name: restart service if control-server service or script has been modified
+  service:
+    name: "imgmaker-{{ item }}"
+    state: restarted
+  with_items: "{{ video_rooms }}"
+  when: imgmaker.changed or imgmakerscript.changed
+
+- name: enable imgmaker service
+  systemd:
+    name: "imgmaker-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ video_rooms }}"

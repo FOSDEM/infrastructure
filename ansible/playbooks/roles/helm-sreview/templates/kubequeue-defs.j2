@@ -1,0 +1,237 @@
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobQueue
+metadata:
+  name: sreview-queue
+spec:
+  maxJobs: 50
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobQueue
+metadata:
+  name: sreview-hiprio
+spec:
+  maxJobs: 10
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-previews
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-previews
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-cut
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-cut
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sshkey
+stringData:
+  id_ed25519: "{{ secret.sshkey }}"
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-upload
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-upload
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+            volumeMounts:
+            - name: sshkey
+              readOnly: true
+              mountPath: /opt/ssh
+          volumes:
+          - name: sshkey
+            secret:
+              secretName: sshkey
+              defaultMode: 0600
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-inject-job
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-inject-job
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-transcode
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-transcode
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-queue
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-notify-final
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-skip
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-announce
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-notify
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-notify
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-notify
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio
+---
+apiVersion: kubequeue.grep.be/v1
+kind: JobDef
+metadata:
+  name: sreview-finalreview
+spec:
+  jobTemplate:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: test
+    spec:
+      template:
+        metadata:
+          name: sreview
+        spec:
+          containers:
+          - command:
+            - sreview-skip
+            image: registry.salsa.debian.org/debconf-video-team/sreview/encoder:{{ sreview.imagelabel }}
+            name: worker
+          restartPolicy: OnFailure
+  queueName: sreview-hiprio

@@ -1,0 +1,60 @@
+pullPolicy: Always
+containerLabel: {{ sreview.imagelabel }}
+webHostname: review.video.fosdem.org
+pullPolicy: IfNotPresent
+config:
+  schedule_format: '"penta"'
+  schedule_options: '{"url":"https://fosdem.org/2023/schedule/xml"}'
+  event: '"FOSDEM 2023"'
+  accessmethods: '{"input":"HTTP::nginx::JSON","intermediate":"S3","output":"S3"}'
+  inputglob: '"https://validate.video.fosdem.org/dump/*"'
+  pubdir: '"int"'
+  outputdir: '"pub"'
+  inject_collection: '"pub"'
+  vid_prefix: '"https://rvstore.video.fosdem.org/int"'
+  announce_actions: '["email"]'
+  announce_email_subject: '"Your FOSDEM 2023 video is ready!"'
+  notify_actions: '["email"]'
+  notify_email_subject: '"Your FOSDEM 2023 video is ready for review"'
+  notify_email_template: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/notify.ep"'
+  announce_actions: '["email"]'
+  announce_email_subject: '"Your FOSDEM 2023 video has been released"'
+  announce_email_template: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/announce.ep"'
+  eventurl_format: '"https://fosdem.org/2023/schedule/event/<%= $slug %>/"'
+  email_from: '"noreply@fosdem.org"'
+  urlbase: '"https://review.video.fosdem.org/"'
+  parse_re: '".*\\/(?<room>[^-\\/]+)(-(?<stream>([^\\/]+)))?\\/[^-]*-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts"'
+  query_limit: '0'
+  audio_multiplex_mode: '"stream"'
+  extra_profiles: '{"FOSDEM":{"parent":"mp4","settings":{"extra_params":{"g":"45","probesize":"10M","qmin:v:0":1,"analyzeduration":"10M","bufsize:v":"8192k"},"video_bitrate":"1000"},"video_size":"1280x720"},"webm_high":{"parent":"webm","settings":{"quality":24}}}'
+  input_profile: '"FOSDEM"'
+  preview_exten: '"mp4"'
+  output_subdirs: '["year","room"]'
+  output_profiles: '["webm_high","copy"]'
+  preroll_template: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/pre.svg"'
+  apology_template: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/apology.svg"'
+  postroll: '"https://raw.githubusercontent.com/FOSDEM/infrastructure/master/ansible/playbooks/roles/helm-sreview/files/fosdem_video_post.png"'
+  state_actions: '{"announcing":"run-kube announce <%== $talkid %>","cutting":"run-kube cut <%== $talkid %>", "generating_previews":"run-kube previews <%== $talkid %>", "injecting":"run-kube inject-job <%== $talkid %>", "notification":"run-kube notify <%== $talkid %>", "notify_final":"run-kube notify_final <%== $talkid %>","remove":"run-kube remove <%== $talkid %>","transcoding":"run-kube transcode <%== $talkid %>","uploading":"run-kube upload <%== $talkid %>","finalreview":"run-kube finalreview <%== $talkid %>"}'
+  upload_actions: '[["chmod","0644","<%== $file %>"],["rsync","-avLRHP","-e","ssh -o StrictHostKeyChecking=no -i /opt/ssh/id_ed25519","<%== $base %>/./<%== $relative_file %>","review-sync@media.fosdem.org:/srv/video/public/"]]'
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  hosts:
+  - review.video.fosdem.org
+  tls:
+  - secretName: review.video.fosdem.org-tls
+    hosts:
+    - review.video.fosdem.org
+extraEnv:
+- name: MOJO_LOG_LEVEL
+  value: trace
+use_internal_minio: false
+run_kube_template: |
+  % use YAML::XS;
+  % push @$env, ( { name => "SREVIEW_DBICOMPONENTS", value => "host user dbname password" }, { name => "SREVIEW_DBI_USER", value => "postgres" }, { name => "SREVIEW_DBI_HOST", value => "sreview-postgresql"}, { name => "SREVIEW_DBI_PASSWORD", valueFrom => { secretKeyRef => { key => "postgres-password", name => "sreview-postgresql" } } }, { name => "SREVIEW_DBI_DBNAME", value => "postgres" }, {name => "EMAIL_SENDER_TRANSPORT", value => "SMTP"}, { name => "EMAIL_SENDER_TRANSPORT_HOST", value => "mail.fosdem.org" }, { name => "EMAIL_SENDER_TRANSPORT_PORT", value => "25" });
+  % $jobsuffix =~ s/_/-/g;
+  % $task =~ s/_/-/g;
+  % my %data = ( apiVersion => "kubequeue.grep.be/v1", kind => "JobEntry", metadata => { name => "sreview-$jobsuffix" }, spec => { defName => "sreview-$task", extraArgs => $args, extraEnv => $env } );
+  <%= Dump(\%data); %>

@@ -1,0 +1,11 @@
+---
+- name: install microk8s
+  community.general.snap:
+    name: microk8s
+    channel: v1.25/stable
+    classic: yes
+
+- name: kubectl config
+  shell:
+    creates: /root/.kube/config
+    cmd: mkdir -p /root/.kube && microk8s config > /root/.kube/config

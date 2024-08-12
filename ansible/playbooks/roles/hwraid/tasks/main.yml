@@ -1,0 +1,15 @@
+---
+# Install hwraid packages from https://hwraid.le-vert.net/wiki/DebianPackages
+
+- name: Install gpg key
+  apt_key:
+    url: https://hwraid.le-vert.net/debian/hwraid.le-vert.net.gpg.key
+
+- name: Install apt repo
+  apt_repository:
+    filename: hwraid
+    repo: "deb http://hwraid.le-vert.net/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main"
+
+- name: Install hwraid packages
+  apt:
+    package: "{{ hwraid_packages }}"

@@ -1,0 +1,15 @@
+[Unit]
+Description={{ item }} vlc fetcher service
+PartOf=fetcher.target
+
+[Service]
+ExecStart=/usr/local/bin/fetcher.sh {{ item }}
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=fetcher.target

@@ -1,0 +1,4 @@
+---
+
+- name: update initramfs
+  command: update-initramfs -u

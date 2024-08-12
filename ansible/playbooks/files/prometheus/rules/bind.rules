@@ -1,0 +1,14 @@
+---
+groups:
+- name: Bind DNS
+  interval: 30s
+  rules:
+  - alert: BindDown
+    expr: bind_up != 1
+    for: 2m
+    labels:
+      team: network
+      severity: warning
+    annotations:
+      summary: "Bind is down"
+      description: "Bind process {{ $labels.instance }} is down."

@@ -1,0 +1,13 @@
+{{ ansible_managed | comment }}
+
+# Servers and pools
+{% for type, list in chrony_upstream.items() %}
+{% for upstream in list %}
+{{ type }} {{ upstream }} iburst
+{% endfor %}
+{% endfor %}
+
+# Allow NTP client access
+{% for allow in chrony_allow %}
+allow {{ allow }}
+{% endfor %}

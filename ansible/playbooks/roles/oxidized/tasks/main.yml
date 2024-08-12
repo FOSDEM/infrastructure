@@ -1,0 +1,41 @@
+---
+- name: Install build packages
+  apt:
+    state: latest
+    update_cache: true
+    cache_valid_time: 3600
+    package:
+    - build-essential
+    - ruby
+    - ruby-dev
+    - cmake
+    - libsqlite3-dev
+    - libssh2-1-dev
+    - libssl-dev
+    - pkg-config
+    - libicu-dev
+    - libz-dev
+
+- name: Add ozidized group
+  group:
+    name: oxidized
+    system: true
+
+- name: Add oxidized user
+  user:
+    name: oxidized
+    group: oxidized
+    home: /opt/oxidized
+    createhome: true
+    shell: /bin/bash
+    comment: "oxidized user"
+    system: true
+
+- name: Install oxidized
+  gem:
+    state: latest
+    name: "{{ item }}"
+  with_items:
+  - oxidized
+  - oxidized-script
+  - oxidized-web

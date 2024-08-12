@@ -1,0 +1,7 @@
+---
+- name: ensure sreview homedir is mounted
+  mount:
+    name: /var/lib/sreview
+    src: reviewstorage.video.fosdem.org:/srv/sreview/sreview-home
+    fstype: nfs
+    state: mounted

@@ -1,0 +1,13 @@
+[Unit]
+Description={{ item }} stream dump service
+PartOf=streamdump.target
+
+[Service]
+ExecStart=/usr/local/bin/streamdump.sh 'tcp://{{ item }}.video.fosdem.org:8899/' /mnt/storage/{{ item }}/
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+[Install]
+WantedBy=streamdump.target

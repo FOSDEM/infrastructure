@@ -1,0 +1,24 @@
+---
+- name: add sreview group
+  group:
+    name: sreview
+    gid: 2000
+
+- name: add sreview user
+  user:
+    name: sreview
+    comment: "Sreview user"
+    uid: 2000
+    group: sreview
+    shell: /bin/bash
+    password: ""
+
+- name: add sgeadmin group
+  group:
+    name: sgeadmin
+    gid: 2001
+
+- name: add sgeadmin user
+  user:
+    name: sgeadmin
+    uid: 2001

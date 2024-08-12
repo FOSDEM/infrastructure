@@ -1,0 +1,16 @@
+---
+- name: restart chrony
+  systemd:
+    daemon_reload: true
+    name: chrony.service
+    state: restarted
+
+- name: reload ssh
+  systemd:
+    daemon_reload: true
+    name: sshd
+    state: reloaded
+
+- name: update apt cache
+  apt:
+    update_cache: true

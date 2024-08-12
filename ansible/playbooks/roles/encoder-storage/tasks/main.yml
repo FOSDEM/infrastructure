@@ -1,0 +1,31 @@
+---
+- name: install the NFS server
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - nfs-kernel-server
+
+- name: "add exports"
+  blockinfile:
+    create: true
+    dest: /etc/exports
+    block: |
+      /srv/sreview *(rw,sync,no_subtree_check,no_root_squash)
+  register: reviewstorage_nfs_exported
+
+- name: "restart the NFS server when needed"
+  service:
+    name: nfs-server
+    state: restarted
+  when: reviewstorage_nfs_exported.changed
+
+- name: ensure the required directories exist
+  file:
+    name: "/srv/sreview/{{ item }}"
+    state: directory
+  with_items:
+  - assets
+  - storage
+  - output
+  - sreview-home

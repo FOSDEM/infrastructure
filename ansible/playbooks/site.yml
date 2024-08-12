@@ -1,0 +1,214 @@
+---
+##
+## Pre-tasks
+##
+
+- name: global pre tasks
+  hosts: all
+  remote_user: root
+  gather_facts: false
+  pre_tasks:
+  - name: Verify Ansible meets version requirements.
+    assert:
+      that: "ansible_version.full is version_compare('2.7', '>=')"
+      msg: >
+        "You must update Ansible to at least 2.7."
+
+  - name: install ansible dependencies (python)
+    # install python3-apt to avoid needlesly triggering the next test
+    raw: test -e /usr/bin/python3 || (apt-get -y update && apt-get install -y python3-minimal python3-apt)
+    changed_when: false  # raw has no change handler
+
+  - name: install ansible dependencies (python3-apt)
+    raw: test -e /usr/lib/python3/dist-packages/apt/package.py || (apt-get -y update && apt-get install -y python3-apt)
+    changed_when: false  # raw has no change handler
+
+###
+### Common roles
+###
+
+# Workaround for https://github.com/ansible/ansible/issues/57529
+- hosts: all
+
+- name: common roles
+  hosts: all
+  remote_user: root
+  tags: [common]
+  roles:
+  - common
+#  - { role: cloudalchemy.node-exporter, tags: [ 'node_exporter' ] }
+
+
+##
+## Video roles
+##
+
+- name: video-control-server
+  hosts: video-control-server
+  remote_user: root
+  roles:
+  - { role: video-control-server, tags: [ 'video-control-server' ] }
+
+- name: video-box
+  hosts:
+    - video-box
+    - capture-laptop
+  remote_user: root
+  roles:
+  - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-box, tags: [ 'video-box' ] }
+
+- name: video-voctop
+  hosts: video-voctop
+  remote_user: root
+  roles:
+  - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+#  - { role: power_supply, tags: [ 'power_supply' ] }
+  - { role: video-voctop, tags: [ 'video-voctop' ] }
+
+- name: video-stream-dump
+  hosts: video-stream-dump
+  remote_user: root
+  roles:
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-stream-dump, tags: [ 'video-stream-dump-internal' ] }
+
+- name: video-stream-dump-external
+  hosts: video-stream-dump-external
+  remote_user: root
+  roles:
+  - { role: video-stream-dump-external, tags: [ 'video-stream-dump-external' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+
+- name: video-streamer-backend
+  hosts: video-streamer-backend
+  remote_user: root
+  roles:
+  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-streamer-backend, tags: [ 'video-streamer-backend' ] }
+  - mtail
+
+- name: video-streamer-frontend
+  hosts: video-streamer-frontend
+  remote_user: root
+  roles:
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-streamer-frontend, tags: [ 'video-streamer-frontend' ] }
+  - mtail
+
+- name: video-web-frontend
+  hosts: video-web-frontend
+  remote_user: root
+  roles:
+  - { role: video-web-frontend, tags: [ 'video-web-frontend' ] }
+
+- name: desk laptops
+  hosts: desk-laptop
+  remote_user: root
+  tags: [desk-laptop]
+  roles:
+  - { role: desk-laptop, tags: [ 'desk-laptop' ] }
+
+##
+## Specific roles
+##
+- name: event-primary
+  hosts: event-primary
+  remote_user: root
+  tags: [event-primary]
+  roles:
+  - dhclient
+  - hwraid
+  - rsyslog
+  - { role: fosdem.bind, tags: [ 'dns' ] }
+#  - { role: cloudalchemy.alertmanager-irc-relay, tags: [ 'alertmanager-irc-relay' ] }
+#  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
+  - oxidized
+  - { role: caddy_ansible.caddy_ansible, tags: [ 'caddy' ] }
+#  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
+
+- name: event-secondary
+  hosts: event-secondary
+  remote_user: root
+  tags: [event-secondary]
+  roles:
+  - dhclient
+  - hwraid
+  - { role: tacplus, tags: [ 'tacplus' ] }
+#  - { role: cloudalchemy.coredns, tags: [ 'coredns' ] }
+  - { role: fosdem.bind, tags: [ 'dns' ] }
+#  - { role: cloudalchemy.bind_exporter, tags: [ 'bind_exporter' ] }
+  - { role: caddy_ansible.caddy_ansible, tags: [ 'caddy' ] }
+
+- name: Event Prometheus servers
+  hosts: event-prometheus-servers
+  remote_user: root
+  tags: [event-prometheus-servers]
+  roles:
+#  - { role: cloudalchemy.snmp-exporter, tags: [ 'snmp_exporter' ] }
+#  - cloudalchemy.blackbox-exporter
+#  - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
+#  - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
+  - { role: json_exporter, tags: [ 'json_exporter' ] }
+  - { role: paulfantom.restic, tags: [ 'backup' ] }
+
+- name: public-dashboard
+  hosts: public-dashboard
+  remote_user: root
+  tags: [public-dashboard]
+  roles:
+  - caddy_ansible.caddy_ansible
+  - { role: dashboard_sync, tags: [ 'dashboard_sync' ] }
+#  - { role: cloudalchemy.grafana, tags: [ 'grafana' ] }
+
+- name: encoder-storage
+  hosts: encoder-storage
+  remote_user: root
+  roles:
+  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-storage, tags: [ 'encoder-storage'] }
+
+- name: encoder-master
+  hosts: encoder-master
+  remote_user: root
+  roles:
+  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-common, tags: [ 'encoder-master'] }
+  - { role: encoder-backend,tags: [ 'encoder-master'] }
+  - { role: encoder-master, tags: [ 'encoder-master'] }
+
+- name: encoder-backend
+  hosts: encoder-backend
+  remote_user: root
+  roles:
+  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-common, tags: [ 'encoder-backend'] }
+  - { role: encoder-backend, tags: [ 'encoder-backend' ] }
+
+- name: encoder-frontend
+  hosts: encoder-frontend
+  remote_user: root
+  roles:
+  - { role: encoder-common, tags: ['encoder-frontend'] }
+  - { role: encoder-webinterface, tags: ['encoder-frontend'] }
+
+- name: kube-node-config
+  hosts: kube-nodes
+  remote_user: root
+  roles:
+  - { role: sshfs, tags: ['kube-node-config'] }
+  - { role: microk8s, tags: ['kube-node-config'] }
+
+- name: kube
+  hosts: kube-masternode
+  remote_user: root
+  roles:
+  - { role: helm, tags: ['kube']}
+  - { role: helm-kubequeue, tags: ['kube']}
+  - { role: helm-sreview, tags: ['kube']}
+  - { role: helm-upload, tags: ['kube']}

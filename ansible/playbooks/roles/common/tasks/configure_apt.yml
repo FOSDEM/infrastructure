@@ -1,0 +1,15 @@
+---
+- name: "configure sources.list"
+  template:
+    src: apt/sources.list.j2
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - update apt cache
+
+- name: "run apt update if the cache is is stale"
+  apt:
+    update_cache: true
+    cache_valid_time: 3600

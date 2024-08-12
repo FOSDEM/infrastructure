@@ -1,0 +1,232 @@
+---
+modules:
+  if_mib:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+    - 1.3.6.1.2.1.1  # system, conflict with PowerNet-MIB
+    - ifTable
+    - etherStatsTable
+    - ifXTable
+    # CISCO-ENTITY-QFP-MIB (ASR)
+    - ceqfpUtilOutputNonPriorityPktRate
+    - ceqfpUtilProcessingLoad
+    # CISCO-ENTITY-FRU-CONTROL-MIB
+    # - cefcFRUPowerSupplyGroupTable
+    # - cefcFRUPowerStatusTable
+    overrides:
+      ifAdminStatus:
+        type: EnumAsStateSet
+      ifAlias:
+        ignore: true  # Lookup metric
+      ifDescr:
+        ignore: true  # Lookup metric
+      ifName:
+        ignore: true  # Lookup metric
+      ifOperStatus:
+        type: EnumAsStateSet
+      ifType:
+        type: EnumAsInfo
+    lookups:
+    - source_indexes: [ifIndex]
+      lookup: ifAlias
+    - source_indexes: [ifIndex]
+      lookup: ifDescr
+    - source_indexes: [ifIndex]
+      # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
+      lookup: 1.3.6.1.2.1.31.1.1.1.1  # ifName
+  cisco_cdp:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+    - cdpCacheAddress
+    - cdpCacheSysName
+    - cdpCacheDeviceIndex
+    - cdpCachePrimaryMgmtAddr
+    - cdpCachePhysLocation
+    - cdpCacheLastChange
+    - cdpCacheDeviceId
+    - cdpCacheDevicePort
+    - cdpCachePlatform
+    - cdpCacheNativeVLAN
+    lookups:
+    - source_indexes:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      lookup: cdpCacheDeviceId
+    overrides:
+      cdpCacheDeviceId:
+        ignore: true
+  cisco_dhcp_server:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+    - cDhcpv4HCCounters
+  cisco_health:
+    auth:
+      community: "{{ snmp_community_fosdem_default }}"
+    walk:
+    # CISCO-ENVMON-MIB
+    - ciscoEnvMonVoltageStatusTable
+    - ciscoEnvMonTemperatureStatusTable
+    - ciscoEnvMonFanStatusTable
+    - ciscoEnvMonSupplyStatusTable
+    # CISCO-PROCESS-MIB
+    - cpmCPUTotal5sec
+    - cpmCPUTotal1min
+    - cpmCPUMemoryUsed
+    - cpmCPUMemoryFree
+    - cpmCPUMemoryHCUsed
+    - cpmCPUMemoryHCFree
+    lookups:
+    - source_indexes: [ciscoEnvMonTemperatureStatusIndex]
+      lookup: ciscoEnvMonTemperatureStatusDescr
+    - source_indexes: [ciscoEnvMonTemperatureStatusIndex]
+      lookup: ciscoEnvMonSupplyStatusDescr
+    overrides:
+      cpmCPUMemoryHCUsed:
+        type: gauge
+      cpmCPUMemoryHCFree:
+        type: gauge
+      ciscoEnvMonSupplyStatusDescr:
+        type: EnumAsStateSet
+      ciscoEnvMonFanState:
+        type: EnumAsStateSet
+      ciscoEnvMonSupplyState:
+        type: EnumAsStateSet
+  cisco_wlc_base:
+    auth:
+      community: "{{ snmp_community_ulb_wlc }}"
+    walk:
+    - 1.3.6.1.2.1.1  # system, conflict with PowerNet-MIB
+    - ifTable
+    - ifXTable
+    # AIRESPACE-SWITCHING-MIB
+    - agentResourceInfoGroup
+    # Single entries from bsnDot11EssTable # 1.3.6.1.4.1.14179.2.1.1
+    - bsnDot11EssSsid
+    - bsnDot11EssNumberOfMobileStations
+    # Other WLC metrics
+    - bsnSensorTemperature
+    - bsnAPIfLoadParametersTable  # 1.3.6.1.4.1.14179.2.2.13 - 250ms
+    overrides:
+      bsnAPName:
+        type: DisplayString
+      ifAdminStatus:
+        type: EnumAsStateSet
+      ifAlias:
+        ignore: true  # Lookup metric
+      ifDescr:
+        ignore: true  # Lookup metric
+      ifName:
+        ignore: true  # Lookup metric
+      ifOperStatus:
+        type: EnumAsStateSet
+      ifType:
+        type: EnumAsInfo
+    lookups:
+    - source_indexes: [ifIndex]
+      lookup: ifAlias
+    - source_indexes: [ifIndex]
+      lookup: ifDescr
+    - source_indexes: [ifIndex]
+      # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
+      lookup: 1.3.6.1.2.1.31.1.1.1.1  # ifName
+    - source_indexes: [bsnDot11EssIndex]
+      lookup: bsnDot11EssSsid
+    - source_indexes: [bsnAPDot3MacAddress]
+      lookup: bsnAPName
+  cisco_wlc_wifi:
+    auth:
+      community: "{{ snmp_community_ulb_wlc }}"
+    walk:
+    - bsnAPTable  # 1.3.6.1.4.1.14179.2.2.1 - 1s
+    - bsnAPIfTable  # 1.3.6.1.4.1.14179.2.2.2 - 1.0s
+    # Single entry from bsnAPIfSmtParamTable
+    - bsnAPIfDot11BSSID  # 1.3.6.1.4.1.14179.2.2.3.1.30 - 50ms
+    overrides:
+      bsnAPName:
+        type: DisplayString
+      bsnAPType:
+        type: EnumAsInfo
+      bsnAPIfType:
+        type: EnumAsInfo
+      bsnAPIfPhyAntennaMode:
+        type: EnumAsInfo
+      bsnAPIfPhyAntennaOptions:
+        type: EnumAsInfo
+    lookups:
+    - source_indexes: [bsnAPDot3MacAddress]
+      lookup: bsnAPName
+  cisco_wlc_wifi_rf:
+    auth:
+      community: "{{ snmp_community_ulb_wlc }}"
+    walk:
+    - bsnAPIfDot11CountersTable  # 1.3.6.1.4.1.14179.2.2.6 - 650ms
+    - bsnAPIfInterferencePower  # 1.3.6.1.4.1.14179.2.2.14.1.2 - 600ms
+    - bsnAPIfDBNoisePower  # 1.3.6.1.4.1.14179.2.2.15.1.21 - 600ms
+    overrides:
+      bsnAPName:
+        type: DisplayString
+    lookups:
+    - source_indexes: [bsnAPDot3MacAddress]
+      lookup: bsnAPName
+  idrac:
+    walk:
+    - powerSupplyTable
+    - powerUsageCumulativeWattage
+    - coolingDeviceTable
+    - temperatureProbeTable
+    overrides:
+      powerSupplyStatus:
+        type: EnumAsStateSet
+      powerSupplyRedundancy:
+        type: EnumAsStateSet
+      powerSupplyIndex:
+        ignore: true  # Lookup metric
+      powerSupplyName:
+        ignore: true  # Lookup metric
+      coolingDevicechassisIndex:
+        ignore: true  # Lookup metric
+      coolingDeviceIndex:
+        ignore: true  # Lookup metric
+      coolingDeviceLocationName:
+        ignore: true  # Lookup metric
+        type: DisplayString
+      coolingDeviceStateSettings:
+        ignore: true
+      coolingDeviceStateCapabilities:
+        ignore: true
+      coolingDeviceStatus:
+        type: EnumAsStateSet
+      coolingDeviceType:
+        type: EnumAsInfo
+      coolingDeviceSubType:
+        type: EnumAsInfo
+      temperatureProbechassisIndex:
+        ignore: true  # Lookup metric
+      temperatureProbeIndex:
+        ignore: true  # Lookup metric
+      temperatureProbeLocationName:
+        ignore: true  # Lookup metric
+        type: DisplayString
+      temperatureProbeStateCapabilities:
+        ignore: true
+      temperatureProbeStateSettings:
+        ignore: true
+      temperatureProbeStatus:
+        type: EnumAsStateSet
+      temperatureProbeType:
+        type: EnumAsInfo
+    lookups:
+    - source_indexes:
+      - powerSupplyIndex
+      lookup: powerSupplyName
+    - source_indexes:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      lookup: coolingDeviceLocationName
+    - source_indexes:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      lookup: temperatureProbeLocationName

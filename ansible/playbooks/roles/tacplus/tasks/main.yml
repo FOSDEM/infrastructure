@@ -1,0 +1,27 @@
+---
+- name: Create TACPLUS config directory
+  file:
+    path: /var/lib/tacplus
+    state: directory
+    mode: 0755
+
+- name: Deploy TACPLUS config
+  template:
+    src: tac_plus.conf.j2
+    dest: /var/lib/tacplus/tac_plus.conf
+    mode: 0644
+  notify: restart tacplus
+
+- name: install python-docker
+  apt:
+    package:
+    - python-docker
+
+- name: Create TACPLUS container
+  docker_container:
+    name: tacplus
+    image: ajoldham/tacplus
+    ports:
+    - "49:49"
+    volumes:
+    - "/var/lib/tacplus:/etc/tacacs+"

@@ -1,0 +1,14 @@
+---
+caddy_features: http.prometheus,http.ipfilter
+caddy_systemd_capabilities_enabled: true
+caddy_additional_args: '-email network@lists.fosdem.org'
+caddy_config: |
+  {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
+    prometheus
+    gzip
+    root /var/www
+    log /var/log/caddy/access.log
+    proxy / localhost:3000 {
+      transparent
+    }
+  }

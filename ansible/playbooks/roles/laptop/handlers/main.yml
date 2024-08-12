@@ -1,0 +1,9 @@
+---
+
+- name: restart systemd-logind
+  service:
+    name: systemd-logind
+    state: restarted
+
+- name: update grub
+  shell: update-grub

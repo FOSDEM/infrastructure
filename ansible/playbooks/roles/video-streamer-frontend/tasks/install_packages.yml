@@ -1,0 +1,9 @@
+---
+- name: "install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - nginx-common
+    - nginx-doc
+    - nginx-extras

@@ -1,0 +1,60 @@
+---
+- name: detect existing partitions on the SSD
+  shell: |
+    fdisk -l {{ ssd_drive }} | grep ^\/ | wc -l
+  register: number_of_partitions
+  changed_when: false
+
+- name: empty our mountpoint if the disk is not mounted, remove directory
+  file:
+    path: /var/www
+    state: absent
+  when: number_of_partitions.stdout != "0"
+
+- name: empty our mountpoint if the disk is not mounted, create directory
+  file:
+    path: /var/www
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: number_of_partitions.stdout != "0"
+
+- name: wipe existing SSD partition table
+  shell: dd if=/dev/zero of={{ ssd_drive }} bs=512 count=1  # noqa 305
+  when: number_of_partitions.stdout != "0"
+
+- name: create a filesystem on the SSD disk
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
+
+- name: unmount SSD if it needs to be wiped
+  mount:
+    src: "{{ ssd_drive }}"
+    name: /var/www
+    state: unmounted
+    fstype: ext4
+  when:
+  - destroy_all_streambackend_data
+
+- name: wipe all data on the SSD disk
+  filesystem:
+    fstype: ext4
+    dev: "{{ ssd_drive }}"
+    force: true
+  when:
+  - destroy_all_streambackend_data
+
+- name: create mount directory
+  file:
+    path: /var/www
+    state: directory
+
+- name: mount SSD on /var/www/
+  mount:
+    name: /var/www
+    src: "{{ ssd_drive }}"
+    fstype: ext4
+    state: mounted
+    opts: auto,noatime,nofail

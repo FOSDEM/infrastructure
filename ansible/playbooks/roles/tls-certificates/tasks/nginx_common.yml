@@ -1,0 +1,16 @@
+---
+- name: Remove SSL settings from nginx.conf
+  ansible.builtin.lineinfile:
+    state: absent
+    regexp: ^\s*(ssl_protocols|ssl_prefer_server_ciphers)\s
+    path: /etc/nginx/nginx.conf
+  tags:
+    - tls-certificates
+
+- name: Write nginx common SSL configuration
+  ansible.builtin.template:
+    src: ansible-common-ssl.conf.j2
+    dest: /etc/nginx/conf.d/ansible-common-ssl.conf
+  notify: Reload nginx
+  tags:
+    - tls-certificates

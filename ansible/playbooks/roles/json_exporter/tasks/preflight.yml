@@ -1,0 +1,14 @@
+---
+- block:
+  - name: "Get checksum list"
+    set_fact:
+      __json_exporter_checksums: "{{ lookup('url', json_exporter_dl + '/v' + json_exporter_version + '/sha256sums.txt', wantlist=True) | list }}"
+    run_once: true
+
+  - name: "Get checksum for {{ go_arch }} architecture"
+    set_fact:
+      __json_exporter_checksum: "{{ item.split(' ')[0] }}"
+    with_items: "{{ __json_exporter_checksums }}"
+    when:
+    - "('linux-' + go_arch + '.tar.gz') in item"
+  delegate_to: localhost

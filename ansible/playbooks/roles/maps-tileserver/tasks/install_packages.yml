@@ -1,0 +1,13 @@
+---
+- name: "install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - git
+    - nginx
+    - uwsgi-plugin-python3
+    - python3-requests
+    - python3-numpy
+    - python3-pylibmc
+    - memcached

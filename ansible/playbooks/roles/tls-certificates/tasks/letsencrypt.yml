@@ -1,0 +1,29 @@
+---
+- name: Create letsencrypt account key
+  community.crypto.openssl_privatekey:
+    state: present
+    path: "{{ letsencrypt_account_key }}"
+  tags:
+    - tls-certificates
+
+- name: Request letsencrypt signing
+  community.crypto.acme_certificate:
+    acme_version: 2
+    csr: "{{ csr_path }}"
+    dest: "{{ certificate_path }}"
+    challenge: http-01
+    account_key: "{{ letsencrypt_account_key }}"
+    account_email: "{{ letsencrypt_account_email }}"
+    acme_directory: "{{ letsencrypt_acme_directory }}"
+    remaining_days: "{{ letsencrypt_remaining_days }}"
+    terms_agreed: true
+  register: letsencrypt_challenge
+  tags:
+    - tls-certificates
+
+- name: Answer letsencrypt challenge
+  ansible.builtin.include_tasks: letsencrypt_challenge.yml
+  when: "letsencrypt_challenge is changed or \
+         letsencrypt_challenge.cert_days < letsencrypt_remaining_days"
+  tags:
+    - tls-certificates

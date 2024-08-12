@@ -1,0 +1,12 @@
+---
+- name: add ssh keys to root
+  authorized_key:
+    user: root
+    key: "{{ lookup('file', '../public_keys/'+item+'.pub') }}"
+  with_items: "{{ ssh_users }}"
+
+- name: configure root user
+  user:
+    name: root
+    shell: /bin/bash
+    password: ""

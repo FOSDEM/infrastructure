@@ -1,0 +1,51 @@
+---
+- name: Create well-known directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  with_items:
+    - "{{ letsencrypt_well_known_dir }}"
+    - "{{ letsencrypt_well_known_dir }}/acme-challenge"
+  tags:
+    - tls-certificates
+
+- name: Setup well-known data
+  ansible.builtin.copy:
+    dest: "{{ letsencrypt_well_known_dir }}/\
+           {{ item.value['http-01']['resource'] | replace('.well-known/', '') }}"
+    content: "{{ item.value['http-01']['resource_value'] }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_dict: "{{ letsencrypt_challenge['challenge_data'] }}"
+  tags:
+    - tls-certificates
+
+- name: Finalize letsencrypt challenge
+  community.crypto.acme_certificate:
+    acme_version: 2
+    csr: "{{ csr_path }}"
+    dest: "{{ certificate_path }}"
+    chain_dest: "{{ letsencrypt_chain_path }}"
+    fullchain_dest: "{{ fullchain_path }}"
+    data: "{{ letsencrypt_challenge }}"
+    account_key: "{{ letsencrypt_account_key }}"
+    account_email: "{{ letsencrypt_account_email }}"
+    acme_directory: "{{ letsencrypt_acme_directory }}"
+    remaining_days: "{{ letsencrypt_remaining_days }}"
+    terms_agreed: true
+  register: letsencrypt_response
+  tags:
+    - tls-certificates
+
+- name: Remove well-known data
+  ansible.builtin.file:
+    path: "{{ letsencrypt_well_known_dir }}/\
+           {{ item.value['http-01']['resource'] | replace('.well-known/', '') }}"
+    state: absent
+  with_dict: "{{ letsencrypt_challenge['challenge_data'] }}"
+  tags:
+    - tls-certificates

@@ -1,0 +1,18 @@
+---
+- name: run setup
+  setup:
+
+- name: install load script
+  copy:
+    src: load.sh
+    dest: /usr/local/bin/load.sh
+    mode: 0755
+  register: load_sh
+
+- name: restart gridengine service when needed
+  service:
+    name: gridengine-exec
+    enabled: true
+    state: started
+  when: load_sh.changed
+  ignore_errors: true

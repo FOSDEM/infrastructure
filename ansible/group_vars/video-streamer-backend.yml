@@ -1,0 +1,19 @@
+---
+sysctl_parameters:
+  net.core.wmem_max: 8388608
+  net.core.wmem_default: 8388608
+  net.core.rmem_max: 8388608
+  net.core.rmem_default: 8388608
+  net.ipv4.tcp_keepalive_time: 10
+  net.ipv4.tcp_keepalive_intvl: 5
+  net.ipv4.tcp_keepalive_probes: 5
+
+nfs_exports:
+- /var/www/dump 51.15.0.0/16(ro) 2001:bc8::/32(ro) 10.0.0.0/8(ro)
+
+nginx_rtmp_publishers:
+- 31.22.21.130/32
+- 81.82.239.20/32
+- 185.175.218.0/24
+
+ssd_drive: /dev/sdb

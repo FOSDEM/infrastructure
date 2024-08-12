@@ -1,0 +1,9 @@
+---
+- name: install firmware and hardware management utilities
+  apt:
+    state: latest
+    package:
+    - bluez-firmware
+    - cpufreqd
+    - cpufrequtils
+    - firmware-misc-nonfree

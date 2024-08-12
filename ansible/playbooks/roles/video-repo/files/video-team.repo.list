@@ -1,0 +1,2 @@
+deb https://packagecloud.io/fosdem/video-team/debian bookworm main
+deb-src https://packagecloud.io/fosdem/video-team/debian bookworm main

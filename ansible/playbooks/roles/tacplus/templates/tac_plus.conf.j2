@@ -1,0 +1,31 @@
+# TACACS key
+key = "{{ tacplus_key }}"
+
+# Users
+user = msuriar {
+    member = netadmin
+}
+
+user = pevaneyn {
+    member = netadmin
+}
+
+user = richi {
+    member = netadmin
+}
+
+user = zzdravko {
+    member = netadmin
+}
+
+group = netadmin {
+    default service = permit
+    service = exec {
+        priv-lvl = 15
+    }
+}
+
+
+accounting file = /var/log/tacacs/tac_plus.log
+accounting syslog
+logging = local6

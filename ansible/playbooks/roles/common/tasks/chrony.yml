@@ -1,0 +1,25 @@
+---
+
+- name: uninstall ntp daemons we will not be using
+  apt:
+    state: absent
+    purge: true
+    package:
+      - ntp
+      - openntpd
+      - systemd-timesyncd
+
+- name: install chrony
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+      - chrony
+
+- name: configure chrony
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/conf.d/chrony.conf
+    owner: root
+    mode: 0644
+  notify: restart chrony

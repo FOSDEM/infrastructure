@@ -1,0 +1,12 @@
+---
+
+- name: add fosdem user to secondary groups
+  user:
+    name: fosdem
+    groups: cdrom,plugdev,audio,video,lpadmin,lp,sudo,adm
+    append: true
+
+- name: disable gnome initial setup
+  copy:
+    dest: /home/fosdem/.config/gnome-initial-setup-done
+    content: "yes"

@@ -1,0 +1,22 @@
+---
+- name: create the sreview configuration directory
+  file:
+    name: /etc/sreview
+    state: directory
+
+- name: ensure that sreview is configured
+  template:
+    dest: /etc/sreview/config.pm
+    src: config.j2
+    owner: root
+    group: root
+    mode: 0664
+  register: sreview_config_fix
+
+- name: install required packages
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - rsync
+    - gnupg

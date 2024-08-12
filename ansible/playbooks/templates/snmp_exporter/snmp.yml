@@ -1,0 +1,5309 @@
+# WARNING: This file was auto-generated using snmp_exporter generator, manual changes will be lost.
+cisco_cdp:
+  walk:
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.11
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.17
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.2
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.20
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.23
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.24
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.4
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.7
+  - 1.3.6.1.4.1.9.9.23.1.2.1.1.8
+  metrics:
+  - name: cdpCacheNativeVLAN
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.11
+    type: gauge
+    help: The remote device's interface's native VLAN, as reported in the most recent
+      CDP message - 1.3.6.1.4.1.9.9.23.1.2.1.1.11
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCacheSysName
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.17
+    type: DisplayString
+    help: Indicates the value of the remote device's sysName MIB object - 1.3.6.1.4.1.9.9.23.1.2.1.1.17
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCacheDeviceIndex
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.2
+    type: gauge
+    help: A unique value for each device from which CDP messages are being received.
+      - 1.3.6.1.4.1.9.9.23.1.2.1.1.2
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCachePrimaryMgmtAddr
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.20
+    type: OctetString
+    help: This object indicates the (first) network layer address at which the device
+      will accept SNMP messages as reported in the most recently received CDP message
+      - 1.3.6.1.4.1.9.9.23.1.2.1.1.20
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCachePhysLocation
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.23
+    type: DisplayString
+    help: Indicates the physical location, as reported by the most recent CDP message,
+      of a connector which is on, or physically connected to, the remote device's
+      interface over which the CDP packet is sent - 1.3.6.1.4.1.9.9.23.1.2.1.1.23
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCacheLastChange
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.24
+    type: gauge
+    help: Indicates the time when this cache entry was last changed - 1.3.6.1.4.1.9.9.23.1.2.1.1.24
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCacheAddress
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.4
+    type: OctetString
+    help: The (first) network-layer address of the device's SNMP-agent as reported
+      in the Address TLV of the most recently received CDP message - 1.3.6.1.4.1.9.9.23.1.2.1.1.4
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCacheDevicePort
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.7
+    type: DisplayString
+    help: The Port-ID string as reported in the most recent CDP message - 1.3.6.1.4.1.9.9.23.1.2.1.1.7
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  - name: cdpCachePlatform
+    oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.8
+    type: DisplayString
+    help: The Device's Hardware Platform as reported in the most recent CDP message
+      - 1.3.6.1.4.1.9.9.23.1.2.1.1.8
+    indexes:
+    - labelname: cdpCacheIfIndex
+      type: gauge
+    - labelname: cdpCacheDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - cdpCacheIfIndex
+      - cdpCacheDeviceIndex
+      labelname: cdpCacheDeviceId
+      oid: 1.3.6.1.4.1.9.9.23.1.2.1.1.6
+      type: DisplayString
+  auth:
+    community: '{{ snmp_community_fosdem_default }}'
+cisco_dhcp_server:
+  walk:
+  - 1.3.6.1.4.1.9.10.102.1.9
+  metrics:
+  - name: cDhcpv4HCCountDiscovers
+    oid: 1.3.6.1.4.1.9.10.102.1.9.1
+    type: counter
+    help: The number of DHCPDISCOVER (option 53 with value 1) packets received. -
+      1.3.6.1.4.1.9.10.102.1.9.1
+  - name: cDhcpv4HCCountOffers
+    oid: 1.3.6.1.4.1.9.10.102.1.9.2
+    type: counter
+    help: The number of DHCPOFFER (option 53 with value 2) packets sent. - 1.3.6.1.4.1.9.10.102.1.9.2
+  - name: cDhcpv4HCCountRequests
+    oid: 1.3.6.1.4.1.9.10.102.1.9.3
+    type: counter
+    help: The number of DHCPREQUEST (option 53 with value 3) packets received. - 1.3.6.1.4.1.9.10.102.1.9.3
+  - name: cDhcpv4HCCountDeclines
+    oid: 1.3.6.1.4.1.9.10.102.1.9.4
+    type: counter
+    help: The number of DHCPDECLINE (option 53 with value 4) packets received. - 1.3.6.1.4.1.9.10.102.1.9.4
+  - name: cDhcpv4HCCountAcks
+    oid: 1.3.6.1.4.1.9.10.102.1.9.5
+    type: counter
+    help: The number of DHCPACK (option 53 with value 5) packets sent. - 1.3.6.1.4.1.9.10.102.1.9.5
+  - name: cDhcpv4HCCountNaks
+    oid: 1.3.6.1.4.1.9.10.102.1.9.6
+    type: counter
+    help: The number of DHCPNACK (option 53 with value 6) packets sent. - 1.3.6.1.4.1.9.10.102.1.9.6
+  - name: cDhcpv4HCCountReleases
+    oid: 1.3.6.1.4.1.9.10.102.1.9.7
+    type: counter
+    help: The number of DHCPRELEASE (option 53 with value 7) packets received. - 1.3.6.1.4.1.9.10.102.1.9.7
+  - name: cDhcpv4HCCountInforms
+    oid: 1.3.6.1.4.1.9.10.102.1.9.8
+    type: counter
+    help: The number of DHCPINFORM (option 53 with value 8) packets received. - 1.3.6.1.4.1.9.10.102.1.9.8
+  - name: cDhcpv4HCCountForcedRenews
+    oid: 1.3.6.1.4.1.9.10.102.1.9.9
+    type: counter
+    help: The number of DHCPFORCERENEW (option 53 with value 9) packets sent. - 1.3.6.1.4.1.9.10.102.1.9.9
+  - name: cDhcpv4HCCountInvalids
+    oid: 1.3.6.1.4.1.9.10.102.1.9.10
+    type: counter
+    help: The number of DHCP packets received whose DHCP message type (i.e., option
+      number 53) is not understood or handled by the server. - 1.3.6.1.4.1.9.10.102.1.9.10
+  - name: cDhcpv4HCCountDropUnknownClient
+    oid: 1.3.6.1.4.1.9.10.102.1.9.11
+    type: counter
+    help: The number of DHCP packets dropped due to the server not recognizing or
+      not providing service to the client-id and/or hardware address received in the
+      incoming packet. - 1.3.6.1.4.1.9.10.102.1.9.11
+  - name: cDhcpv4HCCountDropNotServingSubnet
+    oid: 1.3.6.1.4.1.9.10.102.1.9.12
+    type: counter
+    help: The number of DHCP packets dropped due to the server not being configured
+      or not otherwise able to serve addresses on the subnet from which this message
+      was received. - 1.3.6.1.4.1.9.10.102.1.9.12
+  auth:
+    community: '{{ snmp_community_fosdem_default }}'
+cisco_health:
+  walk:
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.12
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.13
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.17
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.19
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.3
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.4
+  - 1.3.6.1.4.1.9.9.13.1.2
+  - 1.3.6.1.4.1.9.9.13.1.3
+  - 1.3.6.1.4.1.9.9.13.1.4
+  - 1.3.6.1.4.1.9.9.13.1.5
+  metrics:
+  - name: cpmCPUMemoryUsed
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.12
+    type: gauge
+    help: The overall CPU wide system memory which is currently under use. - 1.3.6.1.4.1.9.9.109.1.1.1.1.12
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUMemoryFree
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.13
+    type: gauge
+    help: The overall CPU wide system memory which is currently free. - 1.3.6.1.4.1.9.9.109.1.1.1.1.13
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUMemoryHCUsed
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.17
+    type: gauge
+    help: The overall CPU wide system memory which is currently under use - 1.3.6.1.4.1.9.9.109.1.1.1.1.17
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUMemoryHCFree
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.19
+    type: gauge
+    help: The overall CPU wide system memory which is currently free - 1.3.6.1.4.1.9.9.109.1.1.1.1.19
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUTotal5sec
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.3
+    type: gauge
+    help: The overall CPU busy percentage in the last 5 second period - 1.3.6.1.4.1.9.9.109.1.1.1.1.3
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cpmCPUTotal1min
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.4
+    type: gauge
+    help: The overall CPU busy percentage in the last 1 minute period - 1.3.6.1.4.1.9.9.109.1.1.1.1.4
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.1
+    type: gauge
+    help: Unique index for the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.2.1.1
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.2
+    type: DisplayString
+    help: Textual description of the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.2.1.2
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageStatusValue
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.3
+    type: gauge
+    help: The current measurement of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.2.1.3
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageThresholdLow
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.4
+    type: gauge
+    help: The lowest value that the associated instance of the object ciscoEnvMonVoltageStatusValue
+      may obtain before an emergency shutdown of the managed device is initiated.
+      - 1.3.6.1.4.1.9.9.13.1.2.1.4
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageThresholdHigh
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.5
+    type: gauge
+    help: The highest value that the associated instance of the object ciscoEnvMonVoltageStatusValue
+      may obtain before an emergency shutdown of the managed device is initiated.
+      - 1.3.6.1.4.1.9.9.13.1.2.1.5
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageLastShutdown
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.6
+    type: gauge
+    help: The value of the associated instance of the object ciscoEnvMonVoltageStatusValue
+      at the time an emergency shutdown of the managed device was last initiated -
+      1.3.6.1.4.1.9.9.13.1.2.1.6
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+  - name: ciscoEnvMonVoltageState
+    oid: 1.3.6.1.4.1.9.9.13.1.2.1.7
+    type: gauge
+    help: The current state of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.2.1.7
+    indexes:
+    - labelname: ciscoEnvMonVoltageStatusIndex
+      type: gauge
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonTemperatureStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.1
+    type: gauge
+    help: Unique index for the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.3.1.1
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+    type: DisplayString
+    help: Textual description of the testpoint being instrumented - 1.3.6.1.4.1.9.9.13.1.3.1.2
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureStatusValue
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.3
+    type: gauge
+    help: The current measurement of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.3.1.3
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureThreshold
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.4
+    type: gauge
+    help: The highest value that the associated instance of the object ciscoEnvMonTemperatureStatusValue
+      may obtain before an emergency shutdown of the managed device is initiated.
+      - 1.3.6.1.4.1.9.9.13.1.3.1.4
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureLastShutdown
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.5
+    type: gauge
+    help: The value of the associated instance of the object ciscoEnvMonTemperatureStatusValue
+      at the time an emergency shutdown of the managed device was last initiated -
+      1.3.6.1.4.1.9.9.13.1.3.1.5
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+  - name: ciscoEnvMonTemperatureState
+    oid: 1.3.6.1.4.1.9.9.13.1.3.1.6
+    type: gauge
+    help: The current state of the testpoint being instrumented. - 1.3.6.1.4.1.9.9.13.1.3.1.6
+    indexes:
+    - labelname: ciscoEnvMonTemperatureStatusIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonTemperatureStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.3.1.2
+      type: DisplayString
+    - labels:
+      - ciscoEnvMonTemperatureStatusIndex
+      labelname: ciscoEnvMonSupplyStatusDescr
+      oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+      type: EnumAsStateSet
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonFanStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.4.1.1
+    type: gauge
+    help: Unique index for the fan being instrumented - 1.3.6.1.4.1.9.9.13.1.4.1.1
+    indexes:
+    - labelname: ciscoEnvMonFanStatusIndex
+      type: gauge
+  - name: ciscoEnvMonFanStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.4.1.2
+    type: DisplayString
+    help: Textual description of the fan being instrumented - 1.3.6.1.4.1.9.9.13.1.4.1.2
+    indexes:
+    - labelname: ciscoEnvMonFanStatusIndex
+      type: gauge
+  - name: ciscoEnvMonFanState
+    oid: 1.3.6.1.4.1.9.9.13.1.4.1.3
+    type: EnumAsStateSet
+    help: The current state of the fan being instrumented. - 1.3.6.1.4.1.9.9.13.1.4.1.3
+    indexes:
+    - labelname: ciscoEnvMonFanStatusIndex
+      type: gauge
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonSupplyStatusIndex
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.1
+    type: gauge
+    help: Unique index for the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.1
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: gauge
+  - name: ciscoEnvMonSupplyStatusDescr
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.2
+    type: EnumAsStateSet
+    help: Textual description of the power supply being instrumented - 1.3.6.1.4.1.9.9.13.1.5.1.2
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: gauge
+  - name: ciscoEnvMonSupplyState
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.3
+    type: EnumAsStateSet
+    help: The current state of the power supply being instrumented. - 1.3.6.1.4.1.9.9.13.1.5.1.3
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: gauge
+    enum_values:
+      1: normal
+      2: warning
+      3: critical
+      4: shutdown
+      5: notPresent
+      6: notFunctioning
+  - name: ciscoEnvMonSupplySource
+    oid: 1.3.6.1.4.1.9.9.13.1.5.1.4
+    type: gauge
+    help: The power supply source - 1.3.6.1.4.1.9.9.13.1.5.1.4
+    indexes:
+    - labelname: ciscoEnvMonSupplyStatusIndex
+      type: gauge
+    enum_values:
+      1: unknown
+      2: ac
+      3: dc
+      4: externalPowerSupply
+      5: internalRedundant
+  auth:
+    community: '{{ snmp_community_fosdem_default }}'
+cisco_wlc_base:
+  walk:
+  - 1.3.6.1.2.1.1
+  - 1.3.6.1.2.1.2.2
+  - 1.3.6.1.2.1.31.1.1
+  - 1.3.6.1.4.1.14179.1.1.5
+  - 1.3.6.1.4.1.14179.2.1.1.1.2
+  - 1.3.6.1.4.1.14179.2.1.1.1.38
+  - 1.3.6.1.4.1.14179.2.2.1.1.3
+  - 1.3.6.1.4.1.14179.2.2.13
+  get:
+  - 1.3.6.1.4.1.14179.2.3.1.13.0
+  metrics:
+  - name: sysDescr
+    oid: 1.3.6.1.2.1.1.1
+    type: DisplayString
+    help: A textual description of the entity - 1.3.6.1.2.1.1.1
+  - name: sysUpTime
+    oid: 1.3.6.1.2.1.1.3
+    type: gauge
+    help: The time (in hundredths of a second) since the network management portion
+      of the system was last re-initialized. - 1.3.6.1.2.1.1.3
+  - name: sysContact
+    oid: 1.3.6.1.2.1.1.4
+    type: DisplayString
+    help: The textual identification of the contact person for this managed node,
+      together with information on how to contact this person - 1.3.6.1.2.1.1.4
+  - name: sysName
+    oid: 1.3.6.1.2.1.1.5
+    type: DisplayString
+    help: An administratively-assigned name for this managed node - 1.3.6.1.2.1.1.5
+  - name: sysLocation
+    oid: 1.3.6.1.2.1.1.6
+    type: DisplayString
+    help: The physical location of this node (e.g., 'telephone closet, 3rd floor')
+      - 1.3.6.1.2.1.1.6
+  - name: sysServices
+    oid: 1.3.6.1.2.1.1.7
+    type: gauge
+    help: A value which indicates the set of services that this entity may potentially
+      offer - 1.3.6.1.2.1.1.7
+  - name: sysORLastChange
+    oid: 1.3.6.1.2.1.1.8
+    type: gauge
+    help: The value of sysUpTime at the time of the most recent change in state or
+      value of any instance of sysORID. - 1.3.6.1.2.1.1.8
+  - name: sysORIndex
+    oid: 1.3.6.1.2.1.1.9.1.1
+    type: gauge
+    help: The auxiliary variable used for identifying instances of the columnar objects
+      in the sysORTable. - 1.3.6.1.2.1.1.9.1.1
+    indexes:
+    - labelname: sysORIndex
+      type: gauge
+  - name: sysORDescr
+    oid: 1.3.6.1.2.1.1.9.1.3
+    type: DisplayString
+    help: A textual description of the capabilities identified by the corresponding
+      instance of sysORID. - 1.3.6.1.2.1.1.9.1.3
+    indexes:
+    - labelname: sysORIndex
+      type: gauge
+  - name: sysORUpTime
+    oid: 1.3.6.1.2.1.1.9.1.4
+    type: gauge
+    help: The value of sysUpTime at the time this conceptual row was last instantiated.
+      - 1.3.6.1.2.1.1.9.1.4
+    indexes:
+    - labelname: sysORIndex
+      type: gauge
+  - name: ifIndex
+    oid: 1.3.6.1.2.1.2.2.1.1
+    type: gauge
+    help: A unique value, greater than zero, for each interface - 1.3.6.1.2.1.2.2.1.1
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifType
+    oid: 1.3.6.1.2.1.2.2.1.3
+    type: EnumAsInfo
+    help: The type of interface - 1.3.6.1.2.1.2.2.1.3
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: other
+      2: regular1822
+      3: hdh1822
+      4: ddnX25
+      5: rfc877x25
+      6: ethernetCsmacd
+      7: iso88023Csmacd
+      8: iso88024TokenBus
+      9: iso88025TokenRing
+      10: iso88026Man
+      11: starLan
+      12: proteon10Mbit
+      13: proteon80Mbit
+      14: hyperchannel
+      15: fddi
+      16: lapb
+      17: sdlc
+      18: ds1
+      19: e1
+      20: basicISDN
+      21: primaryISDN
+      22: propPointToPointSerial
+      23: ppp
+      24: softwareLoopback
+      25: eon
+      26: ethernet3Mbit
+      27: nsip
+      28: slip
+      29: ultra
+      30: ds3
+      31: sip
+      32: frameRelay
+      33: rs232
+      34: para
+      35: arcnet
+      36: arcnetPlus
+      37: atm
+      38: miox25
+      39: sonet
+      40: x25ple
+      41: iso88022llc
+      42: localTalk
+      43: smdsDxi
+      44: frameRelayService
+      45: v35
+      46: hssi
+      47: hippi
+      48: modem
+      49: aal5
+      50: sonetPath
+      51: sonetVT
+      52: smdsIcip
+      53: propVirtual
+      54: propMultiplexor
+      55: ieee80212
+      56: fibreChannel
+      57: hippiInterface
+      58: frameRelayInterconnect
+      59: aflane8023
+      60: aflane8025
+      61: cctEmul
+      62: fastEther
+      63: isdn
+      64: v11
+      65: v36
+      66: g703at64k
+      67: g703at2mb
+      68: qllc
+      69: fastEtherFX
+      70: channel
+      71: ieee80211
+      72: ibm370parChan
+      73: escon
+      74: dlsw
+      75: isdns
+      76: isdnu
+      77: lapd
+      78: ipSwitch
+      79: rsrb
+      80: atmLogical
+      81: ds0
+      82: ds0Bundle
+      83: bsc
+      84: async
+      85: cnr
+      86: iso88025Dtr
+      87: eplrs
+      88: arap
+      89: propCnls
+      90: hostPad
+      91: termPad
+      92: frameRelayMPI
+      93: x213
+      94: adsl
+      95: radsl
+      96: sdsl
+      97: vdsl
+      98: iso88025CRFPInt
+      99: myrinet
+      100: voiceEM
+      101: voiceFXO
+      102: voiceFXS
+      103: voiceEncap
+      104: voiceOverIp
+      105: atmDxi
+      106: atmFuni
+      107: atmIma
+      108: pppMultilinkBundle
+      109: ipOverCdlc
+      110: ipOverClaw
+      111: stackToStack
+      112: virtualIpAddress
+      113: mpc
+      114: ipOverAtm
+      115: iso88025Fiber
+      116: tdlc
+      117: gigabitEthernet
+      118: hdlc
+      119: lapf
+      120: v37
+      121: x25mlp
+      122: x25huntGroup
+      123: transpHdlc
+      124: interleave
+      125: fast
+      126: ip
+      127: docsCableMaclayer
+      128: docsCableDownstream
+      129: docsCableUpstream
+      130: a12MppSwitch
+      131: tunnel
+      132: coffee
+      133: ces
+      134: atmSubInterface
+      135: l2vlan
+      136: l3ipvlan
+      137: l3ipxvlan
+      138: digitalPowerline
+      139: mediaMailOverIp
+      140: dtm
+      141: dcn
+      142: ipForward
+      143: msdsl
+      144: ieee1394
+      145: if-gsn
+      146: dvbRccMacLayer
+      147: dvbRccDownstream
+      148: dvbRccUpstream
+      149: atmVirtual
+      150: mplsTunnel
+      151: srp
+      152: voiceOverAtm
+      153: voiceOverFrameRelay
+      154: idsl
+      155: compositeLink
+      156: ss7SigLink
+      157: propWirelessP2P
+      158: frForward
+      159: rfc1483
+      160: usb
+      161: ieee8023adLag
+      162: bgppolicyaccounting
+      163: frf16MfrBundle
+      164: h323Gatekeeper
+      165: h323Proxy
+      166: mpls
+      167: mfSigLink
+      168: hdsl2
+      169: shdsl
+      170: ds1FDL
+      171: pos
+      172: dvbAsiIn
+      173: dvbAsiOut
+      174: plc
+      175: nfas
+      176: tr008
+      177: gr303RDT
+      178: gr303IDT
+      179: isup
+      180: propDocsWirelessMaclayer
+      181: propDocsWirelessDownstream
+      182: propDocsWirelessUpstream
+      183: hiperlan2
+      184: propBWAp2Mp
+      185: sonetOverheadChannel
+      186: digitalWrapperOverheadChannel
+      187: aal2
+      188: radioMAC
+      189: atmRadio
+      190: imt
+      191: mvl
+      192: reachDSL
+      193: frDlciEndPt
+      194: atmVciEndPt
+      195: opticalChannel
+      196: opticalTransport
+      197: propAtm
+      198: voiceOverCable
+      199: infiniband
+      200: teLink
+      201: q2931
+      202: virtualTg
+      203: sipTg
+      204: sipSig
+      205: docsCableUpstreamChannel
+      206: econet
+      207: pon155
+      208: pon622
+      209: bridge
+      210: linegroup
+      211: voiceEMFGD
+      212: voiceFGDEANA
+      213: voiceDID
+      214: mpegTransport
+      215: sixToFour
+      216: gtp
+      217: pdnEtherLoop1
+      218: pdnEtherLoop2
+      219: opticalChannelGroup
+      220: homepna
+      221: gfp
+      222: ciscoISLvlan
+      223: actelisMetaLOOP
+      224: fcipLink
+      225: rpr
+      226: qam
+      227: lmp
+      228: cblVectaStar
+      229: docsCableMCmtsDownstream
+      230: adsl2
+      231: macSecControlledIF
+      232: macSecUncontrolledIF
+      233: aviciOpticalEther
+      234: atmbond
+      235: voiceFGDOS
+      236: mocaVersion1
+      237: ieee80216WMAN
+      238: adsl2plus
+      239: dvbRcsMacLayer
+      240: dvbTdm
+      241: dvbRcsTdma
+      242: x86Laps
+      243: wwanPP
+      244: wwanPP2
+      245: voiceEBS
+      246: ifPwType
+      247: ilan
+      248: pip
+      249: aluELP
+      250: gpon
+      251: vdsl2
+      252: capwapDot11Profile
+      253: capwapDot11Bss
+      254: capwapWtpVirtualRadio
+      255: bits
+      256: docsCableUpstreamRfPort
+      257: cableDownstreamRfPort
+      258: vmwareVirtualNic
+      259: ieee802154
+      260: otnOdu
+      261: otnOtu
+      262: ifVfiType
+      263: g9981
+      264: g9982
+      265: g9983
+      266: aluEpon
+      267: aluEponOnu
+      268: aluEponPhysicalUni
+      269: aluEponLogicalLink
+      270: aluGponOnu
+      271: aluGponPhysicalUni
+      272: vmwareNicTeam
+      277: docsOfdmDownstream
+      278: docsOfdmaUpstream
+      279: gfast
+      280: sdci
+  - name: ifMtu
+    oid: 1.3.6.1.2.1.2.2.1.4
+    type: gauge
+    help: The size of the largest packet which can be sent/received on the interface,
+      specified in octets - 1.3.6.1.2.1.2.2.1.4
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifSpeed
+    oid: 1.3.6.1.2.1.2.2.1.5
+    type: gauge
+    help: An estimate of the interface's current bandwidth in bits per second - 1.3.6.1.2.1.2.2.1.5
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifPhysAddress
+    oid: 1.3.6.1.2.1.2.2.1.6
+    type: PhysAddress48
+    help: The interface's address at its protocol sub-layer - 1.3.6.1.2.1.2.2.1.6
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifAdminStatus
+    oid: 1.3.6.1.2.1.2.2.1.7
+    type: EnumAsStateSet
+    help: The desired state of the interface - 1.3.6.1.2.1.2.2.1.7
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: up
+      2: down
+      3: testing
+  - name: ifOperStatus
+    oid: 1.3.6.1.2.1.2.2.1.8
+    type: EnumAsStateSet
+    help: The current operational state of the interface - 1.3.6.1.2.1.2.2.1.8
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: up
+      2: down
+      3: testing
+      4: unknown
+      5: dormant
+      6: notPresent
+      7: lowerLayerDown
+  - name: ifLastChange
+    oid: 1.3.6.1.2.1.2.2.1.9
+    type: gauge
+    help: The value of sysUpTime at the time the interface entered its current operational
+      state - 1.3.6.1.2.1.2.2.1.9
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInOctets
+    oid: 1.3.6.1.2.1.2.2.1.10
+    type: counter
+    help: The total number of octets received on the interface, including framing
+      characters - 1.3.6.1.2.1.2.2.1.10
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.11
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were not addressed to a multicast or broadcast address at this sub-layer
+      - 1.3.6.1.2.1.2.2.1.11
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInNUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.12
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a multicast or broadcast address at this sub-layer -
+      1.3.6.1.2.1.2.2.1.12
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInDiscards
+    oid: 1.3.6.1.2.1.2.2.1.13
+    type: counter
+    help: The number of inbound packets which were chosen to be discarded even though
+      no errors had been detected to prevent their being deliverable to a higher-layer
+      protocol - 1.3.6.1.2.1.2.2.1.13
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInErrors
+    oid: 1.3.6.1.2.1.2.2.1.14
+    type: counter
+    help: For packet-oriented interfaces, the number of inbound packets that contained
+      errors preventing them from being deliverable to a higher-layer protocol - 1.3.6.1.2.1.2.2.1.14
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInUnknownProtos
+    oid: 1.3.6.1.2.1.2.2.1.15
+    type: counter
+    help: For packet-oriented interfaces, the number of packets received via the interface
+      which were discarded because of an unknown or unsupported protocol - 1.3.6.1.2.1.2.2.1.15
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutOctets
+    oid: 1.3.6.1.2.1.2.2.1.16
+    type: counter
+    help: The total number of octets transmitted out of the interface, including framing
+      characters - 1.3.6.1.2.1.2.2.1.16
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.17
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were not addressed to a multicast or broadcast address at this sub-layer,
+      including those that were discarded or not sent - 1.3.6.1.2.1.2.2.1.17
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutNUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.18
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a multicast or broadcast address at this sub-layer,
+      including those that were discarded or not sent - 1.3.6.1.2.1.2.2.1.18
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutDiscards
+    oid: 1.3.6.1.2.1.2.2.1.19
+    type: counter
+    help: The number of outbound packets which were chosen to be discarded even though
+      no errors had been detected to prevent their being transmitted - 1.3.6.1.2.1.2.2.1.19
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutErrors
+    oid: 1.3.6.1.2.1.2.2.1.20
+    type: counter
+    help: For packet-oriented interfaces, the number of outbound packets that could
+      not be transmitted because of errors - 1.3.6.1.2.1.2.2.1.20
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutQLen
+    oid: 1.3.6.1.2.1.2.2.1.21
+    type: gauge
+    help: The length of the output packet queue (in packets). - 1.3.6.1.2.1.2.2.1.21
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.2
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a multicast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.2
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.3
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a broadcast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.3
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.4
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a multicast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.4
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.5
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a broadcast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.5
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInOctets
+    oid: 1.3.6.1.2.1.31.1.1.1.6
+    type: counter
+    help: The total number of octets received on the interface, including framing
+      characters - 1.3.6.1.2.1.31.1.1.1.6
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInUcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.7
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were not addressed to a multicast or broadcast address at this sub-layer
+      - 1.3.6.1.2.1.31.1.1.1.7
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.8
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a multicast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.8
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.9
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a broadcast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.9
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutOctets
+    oid: 1.3.6.1.2.1.31.1.1.1.10
+    type: counter
+    help: The total number of octets transmitted out of the interface, including framing
+      characters - 1.3.6.1.2.1.31.1.1.1.10
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutUcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.11
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were not addressed to a multicast or broadcast address at this sub-layer,
+      including those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.11
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.12
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a multicast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.12
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.13
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a broadcast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.13
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifLinkUpDownTrapEnable
+    oid: 1.3.6.1.2.1.31.1.1.1.14
+    type: gauge
+    help: Indicates whether linkUp/linkDown traps should be generated for this interface
+      - 1.3.6.1.2.1.31.1.1.1.14
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: enabled
+      2: disabled
+  - name: ifHighSpeed
+    oid: 1.3.6.1.2.1.31.1.1.1.15
+    type: gauge
+    help: An estimate of the interface's current bandwidth in units of 1,000,000 bits
+      per second - 1.3.6.1.2.1.31.1.1.1.15
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifPromiscuousMode
+    oid: 1.3.6.1.2.1.31.1.1.1.16
+    type: gauge
+    help: This object has a value of false(2) if this interface only accepts packets/frames
+      that are addressed to this station - 1.3.6.1.2.1.31.1.1.1.16
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: "true"
+      2: "false"
+  - name: ifConnectorPresent
+    oid: 1.3.6.1.2.1.31.1.1.1.17
+    type: gauge
+    help: This object has the value 'true(1)' if the interface sublayer has a physical
+      connector and the value 'false(2)' otherwise. - 1.3.6.1.2.1.31.1.1.1.17
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: "true"
+      2: "false"
+  - name: ifCounterDiscontinuityTime
+    oid: 1.3.6.1.2.1.31.1.1.1.19
+    type: gauge
+    help: The value of sysUpTime on the most recent occasion at which any one or more
+      of this interface's counters suffered a discontinuity - 1.3.6.1.2.1.31.1.1.1.19
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: agentCurrentCPUUtilization
+    oid: 1.3.6.1.4.1.14179.1.1.5.1
+    type: gauge
+    help: Current CPU Load of the switch in percentage. - 1.3.6.1.4.1.14179.1.1.5.1
+  - name: agentTotalMemory
+    oid: 1.3.6.1.4.1.14179.1.1.5.2
+    type: gauge
+    help: Total RAM of the switch in Kbytes. - 1.3.6.1.4.1.14179.1.1.5.2
+  - name: agentFreeMemory
+    oid: 1.3.6.1.4.1.14179.1.1.5.3
+    type: gauge
+    help: Free RAM of the switch in Kbytes. - 1.3.6.1.4.1.14179.1.1.5.3
+  - name: bsnDot11EssSsid
+    oid: 1.3.6.1.4.1.14179.2.1.1.1.2
+    type: DisplayString
+    help: SSID assigned to ESS(WLAN) - 1.3.6.1.4.1.14179.2.1.1.1.2
+    indexes:
+    - labelname: bsnDot11EssIndex
+      type: gauge
+    lookups:
+    - labels:
+      - bsnDot11EssIndex
+      labelname: bsnDot11EssSsid
+      oid: 1.3.6.1.4.1.14179.2.1.1.1.2
+      type: DisplayString
+  - name: bsnDot11EssNumberOfMobileStations
+    oid: 1.3.6.1.4.1.14179.2.1.1.1.38
+    type: counter
+    help: No of Mobile Stations currently associated with the WLAN. - 1.3.6.1.4.1.14179.2.1.1.1.38
+    indexes:
+    - labelname: bsnDot11EssIndex
+      type: gauge
+    lookups:
+    - labels:
+      - bsnDot11EssIndex
+      labelname: bsnDot11EssSsid
+      oid: 1.3.6.1.4.1.14179.2.1.1.1.2
+      type: DisplayString
+  - name: bsnAPIfLoadRxUtilization
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.1
+    type: gauge
+    help: This is the percentage of time the Airespace AP receiver is busy operating
+      on packets - 1.3.6.1.4.1.14179.2.2.13.1.1
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfLoadTxUtilization
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.2
+    type: gauge
+    help: This is the percentage of time the Airespace AP transmitter is busy operating
+      on packets - 1.3.6.1.4.1.14179.2.2.13.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfLoadChannelUtilization
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.3
+    type: gauge
+    help: Channel Utilization - 1.3.6.1.4.1.14179.2.2.13.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfLoadNumOfClients
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.4
+    type: gauge
+    help: This is the number of clients attached to this Airespace AP at the last
+      measurement interval(This comes from APF) - 1.3.6.1.4.1.14179.2.2.13.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPoorSNRClients
+    oid: 1.3.6.1.4.1.14179.2.2.13.1.24
+    type: gauge
+    help: This is the number of clients with poor SNR attached to this Airespace AP
+      at the last measurement interval ( This comes from APF ). - 1.3.6.1.4.1.14179.2.2.13.1.24
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnSensorTemperature
+    oid: 1.3.6.1.4.1.14179.2.3.1.13
+    type: gauge
+    help: Current Internal Temperature of the unit in Centigrade - 1.3.6.1.4.1.14179.2.3.1.13
+  auth:
+    community: '{{ snmp_community_ulb_wlc }}'
+cisco_wlc_wifi:
+  walk:
+  - 1.3.6.1.4.1.14179.2.2.1
+  - 1.3.6.1.4.1.14179.2.2.2
+  - 1.3.6.1.4.1.14179.2.2.3.1.30
+  metrics:
+  - name: bsnAPDot3MacAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.1
+    type: PhysAddress48
+    help: The MAC address of an AP. - 1.3.6.1.4.1.14179.2.2.1.1.1
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPNumOfSlots
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.2
+    type: gauge
+    help: Number of Radio Interfaces on the Airespace AP - 1.3.6.1.4.1.14179.2.2.1.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+    type: DisplayString
+    help: Name assigned to this AP - 1.3.6.1.4.1.14179.2.2.1.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPLocation
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.4
+    type: OctetString
+    help: User specified location of this AP - 1.3.6.1.4.1.14179.2.2.1.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPMonitorOnlyMode
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.5
+    type: gauge
+    help: Monitor Only Mode Setting. - 1.3.6.1.4.1.14179.2.2.1.1.5
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: local
+      1: monitor
+      2: remote
+      3: roguedetector
+      4: sniffer
+      5: bridge
+      6: seConnect
+      7: remoteBridge
+  - name: bsnAPOperationStatus
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.6
+    type: gauge
+    help: Operation State of the AP - 1.3.6.1.4.1.14179.2.2.1.1.6
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: associated
+      2: disassociating
+      3: downloading
+  - name: bsnAPSoftwareVersion
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.8
+    type: DisplayString
+    help: Major Minor Software Version of AP - 1.3.6.1.4.1.14179.2.2.1.1.8
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPBootVersion
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.9
+    type: DisplayString
+    help: Major Minor Boot Version of AP - 1.3.6.1.4.1.14179.2.2.1.1.9
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPPrimaryMwarName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.10
+    type: OctetString
+    help: sysName of the Airespace Switch which is suppose to be the Primary MWAR(switch)
+      of the AP with which AP should associate - 1.3.6.1.4.1.14179.2.2.1.1.10
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPReset
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.11
+    type: gauge
+    help: Set this attribute to reset the AP - 1.3.6.1.4.1.14179.2.2.1.1.11
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: default
+      1: reset
+  - name: bsnAPStatsTimer
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.12
+    type: gauge
+    help: Configures the time interval in secs after which bsnAPDot11Counters Stats
+      is sent from AP to Switch - 1.3.6.1.4.1.14179.2.2.1.1.12
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPPortNumber
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.13
+    type: gauge
+    help: Port on the Switch on which this APs traffic is coming through. - 1.3.6.1.4.1.14179.2.2.1.1.13
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPModel
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.16
+    type: DisplayString
+    help: AP Model - 1.3.6.1.4.1.14179.2.2.1.1.16
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPSerialNumber
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.17
+    type: DisplayString
+    help: AP Serial Number. - 1.3.6.1.4.1.14179.2.2.1.1.17
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPClearConfig
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.18
+    type: gauge
+    help: Set this attribute to clear AP configuration and reset it to factory defaults
+      - 1.3.6.1.4.1.14179.2.2.1.1.18
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: default
+      1: clear
+      2: clearAll
+  - name: bsnApIpAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.19
+    type: InetAddressIPv4
+    help: IP address of the AP - 1.3.6.1.4.1.14179.2.2.1.1.19
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPMirrorMode
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.20
+    type: gauge
+    help: If enabled, then this AP's Client's Data is mirrored and this AP's clients
+      are dynamically added to the switch's mirrored MAC list. - 1.3.6.1.4.1.14179.2.2.1.1.20
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: disable
+      1: enable
+  - name: bsnAPRemoteModeSupport
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.21
+    type: gauge
+    help: This specifies if the the Remote Mode is supported on this AP or not - 1.3.6.1.4.1.14179.2.2.1.1.21
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: disable
+      1: enable
+  - name: bsnAPType
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.22
+    type: EnumAsInfo
+    help: This is the model of the AP in enumeration. - 1.3.6.1.4.1.14179.2.2.1.1.22
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: ap1000
+      2: ap1030
+      3: mimo
+      4: unknown
+      5: ap1100
+      6: ap1130
+      7: ap1240
+      8: ap1200
+      9: ap1310
+      10: ap1500
+      11: ap1250
+      12: ap1505
+      13: ap3201
+      14: ap1520
+      15: ap800
+      16: ap1140
+      17: ap800agn
+      18: ap3500i
+      19: ap3500e
+      20: ap1260
+      21: ap1040
+      22: ap1550
+      23: ap602i
+      24: ap3500p
+      25: ap802gn
+      26: ap802agn
+      27: ap3600i
+      28: ap3600e
+      29: ap2600i
+      30: ap2600e
+      31: ap802hagn
+      32: ap1600i
+      33: ap1600e
+      34: ap702e
+      35: ap702i
+      36: ap3600p
+      37: ap1530i
+      38: ap1530e
+      39: ap3700e
+      40: ap3700i
+      41: ap3700p
+      42: ap2700e
+      43: ap2700i
+      44: ap702w
+      45: wap2600i
+      46: wap2600e
+      47: wap1600i
+      48: wap1600e
+      49: wap702i
+      50: wap702e
+      51: ap1700i
+      52: ap1700e
+      53: ap1570e
+      54: ap1570i
+  - name: bsnAPSecondaryMwarName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.23
+    type: OctetString
+    help: sysName of the Airespace Switch which is suppose to be the Secondary MWAR(switch)
+      of the AP with which AP should associate if Primary Switch(configured through
+      bsnAPPrimaryMwarName) is not available - 1.3.6.1.4.1.14179.2.2.1.1.23
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPTertiaryMwarName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.24
+    type: OctetString
+    help: sysName of the Airespace Switch which is suppose to be the Tertiary MWAR(switch)
+      of the AP with which AP should associate - 1.3.6.1.4.1.14179.2.2.1.1.24
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIsStaticIP
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.25
+    type: gauge
+    help: This flag when disabled implies that AP will use DHCP to get the IP address
+      - 1.3.6.1.4.1.14179.2.2.1.1.25
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: disable
+      1: enable
+  - name: bsnAPNetmask
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.26
+    type: InetAddressIPv4
+    help: The Netmask of the IP address of the AP. - 1.3.6.1.4.1.14179.2.2.1.1.26
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPGateway
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.27
+    type: InetAddressIPv4
+    help: The Gateway for the AP. - 1.3.6.1.4.1.14179.2.2.1.1.27
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPStaticIPAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.28
+    type: InetAddressIPv4
+    help: The Static IP-Address configuration for the AP - 1.3.6.1.4.1.14179.2.2.1.1.28
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPBridgingSupport
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.29
+    type: gauge
+    help: This specifies if this AP is a Bridging AP - 1.3.6.1.4.1.14179.2.2.1.1.29
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: disable
+      1: enable
+  - name: bsnAPGroupVlanName
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.30
+    type: OctetString
+    help: The AP Group to which this AP has been associated with - 1.3.6.1.4.1.14179.2.2.1.1.30
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIOSVersion
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.31
+    type: DisplayString
+    help: IOS Version of IOS Cisco AP - 1.3.6.1.4.1.14179.2.2.1.1.31
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPCertificateType
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.32
+    type: gauge
+    help: Enum values denoting AP Certificate Type - 1.3.6.1.4.1.14179.2.2.1.1.32
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: unknown
+      1: manufactureinstalled
+      2: selfsigned
+      3: localsignificance
+  - name: bsnAPEthernetMacAddress
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.33
+    type: PhysAddress48
+    help: The Ethernet MAC address of the AP. - 1.3.6.1.4.1.14179.2.2.1.1.33
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPAdminStatus
+    oid: 1.3.6.1.4.1.14179.2.2.1.1.37
+    type: gauge
+    help: Admin State of the AP - 1.3.6.1.4.1.14179.2.2.1.1.37
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: enable
+      2: disable
+  - name: bsnAPIfSlotId
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.1
+    type: gauge
+    help: The slotId of this interface. - 1.3.6.1.4.1.14179.2.2.2.1.1
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfType
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.2
+    type: EnumAsInfo
+    help: The type of this interface - 1.3.6.1.4.1.14179.2.2.2.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: dot11b
+      2: dot11a
+      3: dot11abgn
+      4: uwb
+  - name: bsnAPIfPhyChannelAssignment
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.3
+    type: gauge
+    help: If this value is true, then bsnAPDot11CurrentChannel in bsnAPIfDot11PhyDSSSTable
+      is assigned by dynamic algorithm and is read-only. - 1.3.6.1.4.1.14179.2.2.2.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: automatic
+      2: customized
+  - name: bsnAPIfPhyChannelNumber
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.4
+    type: gauge
+    help: Current channel number of the AP Interface - 1.3.6.1.4.1.14179.2.2.2.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: ch1
+      2: ch2
+      3: ch3
+      4: ch4
+      5: ch5
+      6: ch6
+      7: ch7
+      8: ch8
+      9: ch9
+      10: ch10
+      11: ch11
+      12: ch12
+      13: ch13
+      14: ch14
+      20: ch20
+      21: ch21
+      22: ch22
+      23: ch23
+      24: ch24
+      25: ch25
+      26: ch26
+      34: ch34
+      36: ch36
+      38: ch38
+      40: ch40
+      42: ch42
+      44: ch44
+      46: ch46
+      48: ch48
+      52: ch52
+      56: ch56
+      60: ch60
+      64: ch64
+      100: ch100
+      104: ch104
+      108: ch108
+      112: ch112
+      116: ch116
+      120: ch120
+      124: ch124
+      128: ch128
+      132: ch132
+      136: ch136
+      140: ch140
+      149: ch149
+      153: ch153
+      157: ch157
+      161: ch161
+      165: ch165
+      169: ch169
+      173: ch173
+  - name: bsnAPIfPhyTxPowerControl
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.5
+    type: gauge
+    help: If this value is true, then bsnAPIfPhyTxPowerLevel is assigned by dynamic
+      algorithm and is read-only. - 1.3.6.1.4.1.14179.2.2.2.1.5
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: automatic
+      2: customized
+  - name: bsnAPIfPhyTxPowerLevel
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.6
+    type: gauge
+    help: The TxPowerLevel currently being used to transmit data - 1.3.6.1.4.1.14179.2.2.2.1.6
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyAntennaMode
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.7
+    type: EnumAsInfo
+    help: Antenna Mode of the AP Interface - 1.3.6.1.4.1.14179.2.2.2.1.7
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: sectorA
+      2: sectorB
+      3: omni
+      99: notapplicable
+  - name: bsnAPIfPhyAntennaType
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.8
+    type: gauge
+    help: This attribute specified if the Antenna currently used by AP Radio is internal
+      or external - 1.3.6.1.4.1.14179.2.2.2.1.8
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: internal
+      2: external
+  - name: bsnAPIfPhyAntennaDiversity
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.9
+    type: gauge
+    help: Diversity doesn't apply to AP Radio of type 802.11a - 1.3.6.1.4.1.14179.2.2.2.1.9
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: connectorA
+      1: connectorB
+      255: enabled
+  - name: bsnAPIfCellSiteConfigId
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.10
+    type: gauge
+    help: In a cell site configuration, this would be the cell Id of this AP Interface
+      - 1.3.6.1.4.1.14179.2.2.2.1.10
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfNumberOfVaps
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.11
+    type: gauge
+    help: Number of WLANs currently active on this AP Interface. - 1.3.6.1.4.1.14179.2.2.2.1.11
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfOperStatus
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.12
+    type: gauge
+    help: Operational status of the interface. - 1.3.6.1.4.1.14179.2.2.2.1.12
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: down
+      2: up
+  - name: bsnAPIfPortNumber
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.13
+    type: gauge
+    help: Port number on Airespace Switch on which the traffic from this AP interface
+      is received. - 1.3.6.1.4.1.14179.2.2.2.1.13
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfPhyAntennaOptions
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.14
+    type: EnumAsInfo
+    help: This attribute specifies the Antenna types supported by the AP Radio whether
+      it is internal or external or both - 1.3.6.1.4.1.14179.2.2.2.1.14
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: internalAndExternal
+      1: internal
+      2: siacAp
+      3: external
+      4: ext11bInt11a
+  - name: bsnApIfNoOfUsers
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.15
+    type: counter
+    help: No of Users associated with this radio. - 1.3.6.1.4.1.14179.2.2.2.1.15
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfWlanOverride
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.16
+    type: gauge
+    help: This flag when disabled implies that all WLANs are available from this radio
+      - 1.3.6.1.4.1.14179.2.2.2.1.16
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: disable
+      1: enable
+  - name: bsnAPIfPacketsSniffingFeature
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.17
+    type: gauge
+    help: This flag when enabled implies that AP will sniff the 802.11a/bg packets
+      - 1.3.6.1.4.1.14179.2.2.2.1.17
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: disable
+      1: enable
+  - name: bsnAPIfSniffChannel
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.18
+    type: gauge
+    help: This the 802.11a/bg-channel-number on which AP will sniff the packets. -
+      1.3.6.1.4.1.14179.2.2.2.1.18
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: ch0
+      1: ch1
+      2: ch2
+      3: ch3
+      4: ch4
+      5: ch5
+      6: ch6
+      7: ch7
+      8: ch8
+      9: ch9
+      10: ch10
+      11: ch11
+      12: ch12
+      13: ch13
+      14: ch14
+      20: ch20
+      21: ch21
+      22: ch22
+      23: ch23
+      24: ch24
+      25: ch25
+      26: ch26
+      34: ch34
+      36: ch36
+      38: ch38
+      40: ch40
+      42: ch42
+      44: ch44
+      46: ch46
+      48: ch48
+      52: ch52
+      56: ch56
+      60: ch60
+      64: ch64
+      100: ch100
+      104: ch104
+      108: ch108
+      112: ch112
+      116: ch116
+      120: ch120
+      124: ch124
+      128: ch128
+      132: ch132
+      136: ch136
+      140: ch140
+      149: ch149
+      153: ch153
+      157: ch157
+      161: ch161
+      165: ch165
+      169: ch169
+      173: ch173
+  - name: bsnAPIfSniffServerIPAddress
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.19
+    type: InetAddressIPv4
+    help: The machine ip address on which Airopeek application is running. - 1.3.6.1.4.1.14179.2.2.2.1.19
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfAntennaGain
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.20
+    type: gauge
+    help: Represents antenna gain in multiple of 0.5 dBi - 1.3.6.1.4.1.14179.2.2.2.1.20
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfChannelList
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.21
+    type: DisplayString
+    help: List of comma separated channels supported by this radio. - 1.3.6.1.4.1.14179.2.2.2.1.21
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfAbsolutePowerList
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.22
+    type: DisplayString
+    help: List of comma separated absolute power levels supported by this radio. -
+      1.3.6.1.4.1.14179.2.2.2.1.22
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfRegulatoryDomainSupport
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.23
+    type: gauge
+    help: If the regulatory domain on radio is supported or notSupported on the controller
+      - 1.3.6.1.4.1.14179.2.2.2.1.23
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      0: notSupported
+      1: supported
+  - name: bsnAPIfAdminStatus
+    oid: 1.3.6.1.4.1.14179.2.2.2.1.34
+    type: gauge
+    help: Admin status of the interface. - 1.3.6.1.4.1.14179.2.2.2.1.34
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+    enum_values:
+      1: enable
+      2: disable
+  - name: bsnAPIfDot11BSSID
+    oid: 1.3.6.1.4.1.14179.2.2.3.1.30
+    type: PhysAddress48
+    help: BSSID of this AP config which would be the MAC Address of AP - 1.3.6.1.4.1.14179.2.2.3.1.30
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  auth:
+    community: '{{ snmp_community_ulb_wlc }}'
+cisco_wlc_wifi_rf:
+  walk:
+  - 1.3.6.1.4.1.14179.2.2.1.1.3
+  - 1.3.6.1.4.1.14179.2.2.14.1.2
+  - 1.3.6.1.4.1.14179.2.2.15.1.21
+  - 1.3.6.1.4.1.14179.2.2.6
+  metrics:
+  - name: bsnAPIfInterferencePower
+    oid: 1.3.6.1.4.1.14179.2.2.14.1.2
+    type: gauge
+    help: Power of Interference from other 802.11 networks on this channel - 1.3.6.1.4.1.14179.2.2.14.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    - labelname: bsnAPIfInterferenceChannelNo
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDBNoisePower
+    oid: 1.3.6.1.4.1.14179.2.2.15.1.21
+    type: gauge
+    help: This is the average noise power in dBm on each channel that is available
+      to Airespace AP - 1.3.6.1.4.1.14179.2.2.15.1.21
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    - labelname: bsnAPIfNoiseChannelNo
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11TransmittedFragmentCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.1
+    type: counter
+    help: This counter shall be incremented for an acknowledged MPDU with an individual
+      address in the address 1 field or an MPDU with a multicast address in the address
+      1 field of type Data or Management. - 1.3.6.1.4.1.14179.2.2.6.1.1
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11MulticastTransmittedFrameCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.2
+    type: counter
+    help: This counter shall increment only when the multicast bit is set in the destination
+      MAC address of a successfully transmitted MSDU - 1.3.6.1.4.1.14179.2.2.6.1.2
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11RetryCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.3
+    type: counter
+    help: This counter shall increment when an MSDU is successfully transmitted after
+      one or more retransmissions. - 1.3.6.1.4.1.14179.2.2.6.1.3
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11MultipleRetryCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.4
+    type: counter
+    help: This counter shall increment when an MSDU is successfully transmitted after
+      more than one retransmission. - 1.3.6.1.4.1.14179.2.2.6.1.4
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11FrameDuplicateCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.5
+    type: counter
+    help: This counter shall increment when a frame is received that the Sequence
+      Control field indicates is a duplicate. - 1.3.6.1.4.1.14179.2.2.6.1.5
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11RTSSuccessCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.6
+    type: counter
+    help: This counter shall increment when a CTS is received in response to an RTS.
+      - 1.3.6.1.4.1.14179.2.2.6.1.6
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11RTSFailureCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.7
+    type: counter
+    help: This counter shall increment when a CTS is not received in response to an
+      RTS. - 1.3.6.1.4.1.14179.2.2.6.1.7
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11ACKFailureCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.8
+    type: counter
+    help: This counter shall increment when an ACK is not received when expected.
+      - 1.3.6.1.4.1.14179.2.2.6.1.8
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11ReceivedFragmentCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.9
+    type: counter
+    help: This counter shall be incremented for each successfully received MPDU of
+      type Data or Management. - 1.3.6.1.4.1.14179.2.2.6.1.9
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11MulticastReceivedFrameCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.10
+    type: counter
+    help: This counter shall increment when a MSDU is received with the multicast
+      bit set in the destination MAC address. - 1.3.6.1.4.1.14179.2.2.6.1.10
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11FCSErrorCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.11
+    type: counter
+    help: This counter shall increment when an FCS error is detected in a received
+      MPDU. - 1.3.6.1.4.1.14179.2.2.6.1.11
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11TransmittedFrameCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.12
+    type: counter
+    help: This counter shall increment for each successfully transmitted MSDU. - 1.3.6.1.4.1.14179.2.2.6.1.12
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11WEPUndecryptableCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.13
+    type: counter
+    help: This counter shall increment when a frame is received with the WEP subfield
+      of the Frame Control field set to one and the WEPOn value for the key mapped
+      to the TA's MAC address indicates that the frame should not have been encrypted
+      or that frame is discarded due to the receiving STA not implementing the privacy
+      option. - 1.3.6.1.4.1.14179.2.2.6.1.13
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  - name: bsnAPIfDot11FailedCount
+    oid: 1.3.6.1.4.1.14179.2.2.6.1.33
+    type: counter
+    help: This counter shall increment when an MSDU is not transmitted successfully
+      due to the number of transmit attempts exceeding either the bsnAPIfDot11ShortRetryLimit
+      or dot11LongRetryLimit. - 1.3.6.1.4.1.14179.2.2.6.1.33
+    indexes:
+    - labelname: bsnAPDot3MacAddress
+      type: PhysAddress48
+      fixed_size: 6
+    - labelname: bsnAPIfSlotId
+      type: gauge
+    lookups:
+    - labels:
+      - bsnAPDot3MacAddress
+      labelname: bsnAPName
+      oid: 1.3.6.1.4.1.14179.2.2.1.1.3
+      type: DisplayString
+  auth:
+    community: '{{ snmp_community_ulb_wlc }}'
+idrac:
+  walk:
+  - 1.3.6.1.4.1.15497.1.1.1.8
+  - 1.3.6.1.4.1.674.10892.5.4.600.60.1.7
+  - 1.3.6.1.4.1.674.10892.5.4.700.12
+  - 1.3.6.1.4.1.674.10892.5.4.700.20
+  metrics:
+  - name: powerSupplyStatus
+    oid: 1.3.6.1.4.1.15497.1.1.1.8.1.2
+    type: EnumAsStateSet
+    help: Represents the status of a power supply - 1.3.6.1.4.1.15497.1.1.1.8.1.2
+    indexes:
+    - labelname: powerSupplyIndex
+      type: gauge
+    lookups:
+    - labels:
+      - powerSupplyIndex
+      labelname: powerSupplyName
+      oid: 1.3.6.1.4.1.15497.1.1.1.8.1.4
+      type: DisplayString
+    enum_values:
+      1: powerSupplyNotInstalled
+      2: powerSupplyHealthy
+      3: powerSupplyNoAC
+      4: powerSupplyFaulty
+  - name: powerSupplyRedundancy
+    oid: 1.3.6.1.4.1.15497.1.1.1.8.1.3
+    type: EnumAsStateSet
+    help: Represents the status of a collection of one or more power supplies - 1.3.6.1.4.1.15497.1.1.1.8.1.3
+    indexes:
+    - labelname: powerSupplyIndex
+      type: gauge
+    lookups:
+    - labels:
+      - powerSupplyIndex
+      labelname: powerSupplyName
+      oid: 1.3.6.1.4.1.15497.1.1.1.8.1.4
+      type: DisplayString
+    enum_values:
+      1: powerSupplyRedundancyOK
+      2: powerSupplyRedundancyLost
+  - name: powerUsageCumulativeWattage
+    oid: 1.3.6.1.4.1.674.10892.5.4.600.60.1.7
+    type: gauge
+    help: 0600.0060.0001.0007 This attribute defines the total wattage used (in Watt-hours)
+      by this entity since the date and time specified by the powerUsageCumulativeWattageStartDateName
+      attribute. - 1.3.6.1.4.1.674.10892.5.4.600.60.1.7
+    indexes:
+    - labelname: powerUsageChassisIndex
+      type: gauge
+    - labelname: powerUsageIndex
+      type: gauge
+  - name: coolingDeviceStatus
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+    type: EnumAsStateSet
+    help: 0700.0012.0001.0005 This attribute defines the probe status of the cooling
+      device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: other
+      2: unknown
+      3: ok
+      4: nonCriticalUpper
+      5: criticalUpper
+      6: nonRecoverableUpper
+      7: nonCriticalLower
+      8: criticalLower
+      9: nonRecoverableLower
+      10: failed
+  - name: coolingDeviceReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.6
+    type: gauge
+    help: 0700.0012.0001.0006 This attribute defines the reading for a cooling device
+      of subtype other than coolingDeviceSubTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.12.1.6
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceType
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.7
+    type: EnumAsInfo
+    help: 0700.0012.0001.0007 This attribute defines the type of the cooling device.
+      - 1.3.6.1.4.1.674.10892.5.4.700.12.1.7
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: coolingDeviceTypeIsOther
+      2: coolingDeviceTypeIsUnknown
+      3: coolingDeviceTypeIsAFan
+      4: coolingDeviceTypeIsABlower
+      5: coolingDeviceTypeIsAChipFan
+      6: coolingDeviceTypeIsACabinetFan
+      7: coolingDeviceTypeIsAPowerSupplyFan
+      8: coolingDeviceTypeIsAHeatPipe
+      9: coolingDeviceTypeIsRefrigeration
+      10: coolingDeviceTypeIsActiveCooling
+      11: coolingDeviceTypeIsPassiveCooling
+  - name: coolingDeviceUpperNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.9
+    type: gauge
+    help: 0700.0012.0001.0009 This attribute defines the upper nonrecoverable threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.9
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceUpperCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.10
+    type: gauge
+    help: 0700.0012.0001.0010 This attribute defines the upper critical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.10
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceUpperNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.11
+    type: gauge
+    help: 0700.0012.0001.0011 This attribute defines the upper noncritical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.11
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceLowerNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.12
+    type: gauge
+    help: 0700.0012.0001.0012 This attribute defines the lower noncritical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.12
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceLowerCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.13
+    type: gauge
+    help: 0700.0012.0001.0013 This attribute defines the lower critical threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.13
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceLowerNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.14
+    type: gauge
+    help: 0700.0012.0001.0014 This attribute defines the lower nonrecoverable threshold
+      of the cooling device - 1.3.6.1.4.1.674.10892.5.4.700.12.1.14
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDevicecoolingUnitIndexReference
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.15
+    type: gauge
+    help: 0700.0012.0001.0015 This attribute defines the index to the associated cooling
+      unit. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.15
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: coolingDeviceSubType
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.16
+    type: EnumAsInfo
+    help: 0700.0012.0001.0016 This attribute defines the subtype of the cooling device.
+      - 1.3.6.1.4.1.674.10892.5.4.700.12.1.16
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: coolingDeviceSubTypeIsOther
+      2: coolingDeviceSubTypeIsUnknown
+      3: coolingDeviceSubTypeIsAFanThatReadsInRPM
+      4: coolingDeviceSubTypeIsAFanReadsONorOFF
+      5: coolingDeviceSubTypeIsAPowerSupplyFanThatReadsinRPM
+      6: coolingDeviceSubTypeIsAPowerSupplyFanThatReadsONorOFF
+      16: coolingDeviceSubTypeIsDiscrete
+  - name: coolingDeviceProbeCapabilities
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.17
+    type: gauge
+    help: 0700.0012.0001.0017 This attribute defines the probe capabilities of the
+      cooling device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.17
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: upperNonCriticalThresholdSetCapable
+      2: lowerNonCriticalThresholdSetCapable
+      4: upperNonCriticalThresholdDefaultCapable
+      8: lowerNonCriticalThresholdDefaultCapable
+  - name: coolingDeviceDiscreteReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.18
+    type: gauge
+    help: 0700.0012.0001.0018 This attribute defines the reading for a cooling device
+      of type coolingDeviceSubTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.12.1.18
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+    enum_values:
+      1: coolingDeviceIsGood
+      2: coolingDeviceIsBad
+  - name: coolingDeviceFQDD
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.19
+    type: OctetString
+    help: 0700.0012.0001.0019 Fully qualified device descriptor (FQDD) of the cooling
+      device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.19
+    indexes:
+    - labelname: coolingDevicechassisIndex
+      type: gauge
+    - labelname: coolingDeviceIndex
+      type: gauge
+    lookups:
+    - labels:
+      - coolingDevicechassisIndex
+      - coolingDeviceIndex
+      labelname: coolingDeviceLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      type: DisplayString
+  - name: temperatureProbeStatus
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.5
+    type: EnumAsStateSet
+    help: 0700.0020.0001.0005 This attribute defines the probe status of the temperature
+      probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.5
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: other
+      2: unknown
+      3: ok
+      4: nonCriticalUpper
+      5: criticalUpper
+      6: nonRecoverableUpper
+      7: nonCriticalLower
+      8: criticalLower
+      9: nonRecoverableLower
+      10: failed
+  - name: temperatureProbeReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.6
+    type: gauge
+    help: 0700.0020.0001.0006 This attribute defines the reading for a temperature
+      probe of type other than temperatureProbeTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.20.1.6
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeType
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.7
+    type: EnumAsInfo
+    help: 0700.0020.0001.0007 This attribute defines the type of the temperature probe.
+      - 1.3.6.1.4.1.674.10892.5.4.700.20.1.7
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: temperatureProbeTypeIsOther
+      2: temperatureProbeTypeIsUnknown
+      3: temperatureProbeTypeIsAmbientESM
+      16: temperatureProbeTypeIsDiscrete
+  - name: temperatureProbeUpperNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.9
+    type: gauge
+    help: 0700.0020.0001.0009 This attribute defines the upper nonrecoverable threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.9
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeUpperCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.10
+    type: gauge
+    help: 0700.0020.0001.0010 This attribute defines the upper critical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.10
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeUpperNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.11
+    type: gauge
+    help: 0700.0020.0001.0011 This attribute defines the upper noncritical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.11
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeLowerNonCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.12
+    type: gauge
+    help: 0700.0020.0001.0012 This attribute defines the lower noncritical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.12
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeLowerCriticalThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.13
+    type: gauge
+    help: 0700.0020.0001.0013 This attribute defines the lower critical threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.13
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeLowerNonRecoverableThreshold
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.14
+    type: gauge
+    help: 0700.0020.0001.0014 This attribute defines the lower nonrecoverable threshold
+      of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.14
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+  - name: temperatureProbeProbeCapabilities
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.15
+    type: gauge
+    help: 0700.0020.0001.0015 This attribute defines the probe capabilities of the
+      temperature probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.15
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: upperNonCriticalThresholdSetCapable
+      2: lowerNonCriticalThresholdSetCapable
+      4: upperNonCriticalThresholdDefaultCapable
+      8: lowerNonCriticalThresholdDefaultCapable
+  - name: temperatureProbeDiscreteReading
+    oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.16
+    type: gauge
+    help: 0700.0020.0001.0016 This attribute defines the reading for a temperature
+      probe of type temperatureProbeTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.20.1.16
+    indexes:
+    - labelname: temperatureProbechassisIndex
+      type: gauge
+    - labelname: temperatureProbeIndex
+      type: gauge
+    lookups:
+    - labels:
+      - temperatureProbechassisIndex
+      - temperatureProbeIndex
+      labelname: temperatureProbeLocationName
+      oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+      type: DisplayString
+    enum_values:
+      1: temperatureIsGood
+      2: temperatureIsBad
+if_mib:
+  walk:
+  - 1.3.6.1.2.1.1
+  - 1.3.6.1.2.1.16.1.1
+  - 1.3.6.1.2.1.2.2
+  - 1.3.6.1.2.1.31.1.1
+  - 1.3.6.1.4.1.9.9.715.1.1.6.1.10
+  - 1.3.6.1.4.1.9.9.715.1.1.6.1.14
+  metrics:
+  - name: sysDescr
+    oid: 1.3.6.1.2.1.1.1
+    type: DisplayString
+    help: A textual description of the entity - 1.3.6.1.2.1.1.1
+  - name: sysUpTime
+    oid: 1.3.6.1.2.1.1.3
+    type: gauge
+    help: The time (in hundredths of a second) since the network management portion
+      of the system was last re-initialized. - 1.3.6.1.2.1.1.3
+  - name: sysContact
+    oid: 1.3.6.1.2.1.1.4
+    type: DisplayString
+    help: The textual identification of the contact person for this managed node,
+      together with information on how to contact this person - 1.3.6.1.2.1.1.4
+  - name: sysName
+    oid: 1.3.6.1.2.1.1.5
+    type: DisplayString
+    help: An administratively-assigned name for this managed node - 1.3.6.1.2.1.1.5
+  - name: sysLocation
+    oid: 1.3.6.1.2.1.1.6
+    type: DisplayString
+    help: The physical location of this node (e.g., 'telephone closet, 3rd floor')
+      - 1.3.6.1.2.1.1.6
+  - name: sysServices
+    oid: 1.3.6.1.2.1.1.7
+    type: gauge
+    help: A value which indicates the set of services that this entity may potentially
+      offer - 1.3.6.1.2.1.1.7
+  - name: sysORLastChange
+    oid: 1.3.6.1.2.1.1.8
+    type: gauge
+    help: The value of sysUpTime at the time of the most recent change in state or
+      value of any instance of sysORID. - 1.3.6.1.2.1.1.8
+  - name: sysORIndex
+    oid: 1.3.6.1.2.1.1.9.1.1
+    type: gauge
+    help: The auxiliary variable used for identifying instances of the columnar objects
+      in the sysORTable. - 1.3.6.1.2.1.1.9.1.1
+    indexes:
+    - labelname: sysORIndex
+      type: gauge
+  - name: sysORDescr
+    oid: 1.3.6.1.2.1.1.9.1.3
+    type: DisplayString
+    help: A textual description of the capabilities identified by the corresponding
+      instance of sysORID. - 1.3.6.1.2.1.1.9.1.3
+    indexes:
+    - labelname: sysORIndex
+      type: gauge
+  - name: sysORUpTime
+    oid: 1.3.6.1.2.1.1.9.1.4
+    type: gauge
+    help: The value of sysUpTime at the time this conceptual row was last instantiated.
+      - 1.3.6.1.2.1.1.9.1.4
+    indexes:
+    - labelname: sysORIndex
+      type: gauge
+  - name: etherStatsIndex
+    oid: 1.3.6.1.2.1.16.1.1.1.1
+    type: gauge
+    help: The value of this object uniquely identifies this etherStats entry. - 1.3.6.1.2.1.16.1.1.1.1
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsDropEvents
+    oid: 1.3.6.1.2.1.16.1.1.1.3
+    type: counter
+    help: The total number of events in which packets were dropped by the probe due
+      to lack of resources - 1.3.6.1.2.1.16.1.1.1.3
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsOctets
+    oid: 1.3.6.1.2.1.16.1.1.1.4
+    type: counter
+    help: The total number of octets of data (including those in bad packets) received
+      on the network (excluding framing bits but including FCS octets) - 1.3.6.1.2.1.16.1.1.1.4
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts
+    oid: 1.3.6.1.2.1.16.1.1.1.5
+    type: counter
+    help: The total number of packets (including bad packets, broadcast packets, and
+      multicast packets) received. - 1.3.6.1.2.1.16.1.1.1.5
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsBroadcastPkts
+    oid: 1.3.6.1.2.1.16.1.1.1.6
+    type: counter
+    help: The total number of good packets received that were directed to the broadcast
+      address - 1.3.6.1.2.1.16.1.1.1.6
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsMulticastPkts
+    oid: 1.3.6.1.2.1.16.1.1.1.7
+    type: counter
+    help: The total number of good packets received that were directed to a multicast
+      address - 1.3.6.1.2.1.16.1.1.1.7
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsCRCAlignErrors
+    oid: 1.3.6.1.2.1.16.1.1.1.8
+    type: counter
+    help: The total number of packets received that had a length (excluding framing
+      bits, but including FCS octets) of between 64 and 1518 octets, inclusive, but
+      had either a bad Frame Check Sequence (FCS) with an integral number of octets
+      (FCS Error) or a bad FCS with a non-integral number of octets (Alignment Error).
+      - 1.3.6.1.2.1.16.1.1.1.8
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsUndersizePkts
+    oid: 1.3.6.1.2.1.16.1.1.1.9
+    type: counter
+    help: The total number of packets received that were less than 64 octets long
+      (excluding framing bits, but including FCS octets) and were otherwise well formed.
+      - 1.3.6.1.2.1.16.1.1.1.9
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsOversizePkts
+    oid: 1.3.6.1.2.1.16.1.1.1.10
+    type: counter
+    help: The total number of packets received that were longer than 1518 octets (excluding
+      framing bits, but including FCS octets) and were otherwise well formed. - 1.3.6.1.2.1.16.1.1.1.10
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsFragments
+    oid: 1.3.6.1.2.1.16.1.1.1.11
+    type: counter
+    help: The total number of packets received that were less than 64 octets in length
+      (excluding framing bits but including FCS octets) and had either a bad Frame
+      Check Sequence (FCS) with an integral number of octets (FCS Error) or a bad
+      FCS with a non-integral number of octets (Alignment Error) - 1.3.6.1.2.1.16.1.1.1.11
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsJabbers
+    oid: 1.3.6.1.2.1.16.1.1.1.12
+    type: counter
+    help: The total number of packets received that were longer than 1518 octets (excluding
+      framing bits, but including FCS octets), and had either a bad Frame Check Sequence
+      (FCS) with an integral number of octets (FCS Error) or a bad FCS with a non-integral
+      number of octets (Alignment Error) - 1.3.6.1.2.1.16.1.1.1.12
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsCollisions
+    oid: 1.3.6.1.2.1.16.1.1.1.13
+    type: counter
+    help: The best estimate of the total number of collisions on this Ethernet segment
+      - 1.3.6.1.2.1.16.1.1.1.13
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts64Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.14
+    type: counter
+    help: The total number of packets (including bad packets) received that were 64
+      octets in length (excluding framing bits but including FCS octets). - 1.3.6.1.2.1.16.1.1.1.14
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts65to127Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.15
+    type: counter
+    help: The total number of packets (including bad packets) received that were between
+      65 and 127 octets in length inclusive (excluding framing bits but including
+      FCS octets). - 1.3.6.1.2.1.16.1.1.1.15
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts128to255Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.16
+    type: counter
+    help: The total number of packets (including bad packets) received that were between
+      128 and 255 octets in length inclusive (excluding framing bits but including
+      FCS octets). - 1.3.6.1.2.1.16.1.1.1.16
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts256to511Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.17
+    type: counter
+    help: The total number of packets (including bad packets) received that were between
+      256 and 511 octets in length inclusive (excluding framing bits but including
+      FCS octets). - 1.3.6.1.2.1.16.1.1.1.17
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts512to1023Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.18
+    type: counter
+    help: The total number of packets (including bad packets) received that were between
+      512 and 1023 octets in length inclusive (excluding framing bits but including
+      FCS octets). - 1.3.6.1.2.1.16.1.1.1.18
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsPkts1024to1518Octets
+    oid: 1.3.6.1.2.1.16.1.1.1.19
+    type: counter
+    help: The total number of packets (including bad packets) received that were between
+      1024 and 1518 octets in length inclusive (excluding framing bits but including
+      FCS octets). - 1.3.6.1.2.1.16.1.1.1.19
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsOwner
+    oid: 1.3.6.1.2.1.16.1.1.1.20
+    type: OctetString
+    help: The entity that configured this entry and is therefore using the resources
+      assigned to it. - 1.3.6.1.2.1.16.1.1.1.20
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+  - name: etherStatsStatus
+    oid: 1.3.6.1.2.1.16.1.1.1.21
+    type: gauge
+    help: The status of this etherStats entry. - 1.3.6.1.2.1.16.1.1.1.21
+    indexes:
+    - labelname: etherStatsIndex
+      type: gauge
+    enum_values:
+      1: valid
+      2: createRequest
+      3: underCreation
+      4: invalid
+  - name: ifIndex
+    oid: 1.3.6.1.2.1.2.2.1.1
+    type: gauge
+    help: A unique value, greater than zero, for each interface - 1.3.6.1.2.1.2.2.1.1
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifType
+    oid: 1.3.6.1.2.1.2.2.1.3
+    type: EnumAsInfo
+    help: The type of interface - 1.3.6.1.2.1.2.2.1.3
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: other
+      2: regular1822
+      3: hdh1822
+      4: ddnX25
+      5: rfc877x25
+      6: ethernetCsmacd
+      7: iso88023Csmacd
+      8: iso88024TokenBus
+      9: iso88025TokenRing
+      10: iso88026Man
+      11: starLan
+      12: proteon10Mbit
+      13: proteon80Mbit
+      14: hyperchannel
+      15: fddi
+      16: lapb
+      17: sdlc
+      18: ds1
+      19: e1
+      20: basicISDN
+      21: primaryISDN
+      22: propPointToPointSerial
+      23: ppp
+      24: softwareLoopback
+      25: eon
+      26: ethernet3Mbit
+      27: nsip
+      28: slip
+      29: ultra
+      30: ds3
+      31: sip
+      32: frameRelay
+      33: rs232
+      34: para
+      35: arcnet
+      36: arcnetPlus
+      37: atm
+      38: miox25
+      39: sonet
+      40: x25ple
+      41: iso88022llc
+      42: localTalk
+      43: smdsDxi
+      44: frameRelayService
+      45: v35
+      46: hssi
+      47: hippi
+      48: modem
+      49: aal5
+      50: sonetPath
+      51: sonetVT
+      52: smdsIcip
+      53: propVirtual
+      54: propMultiplexor
+      55: ieee80212
+      56: fibreChannel
+      57: hippiInterface
+      58: frameRelayInterconnect
+      59: aflane8023
+      60: aflane8025
+      61: cctEmul
+      62: fastEther
+      63: isdn
+      64: v11
+      65: v36
+      66: g703at64k
+      67: g703at2mb
+      68: qllc
+      69: fastEtherFX
+      70: channel
+      71: ieee80211
+      72: ibm370parChan
+      73: escon
+      74: dlsw
+      75: isdns
+      76: isdnu
+      77: lapd
+      78: ipSwitch
+      79: rsrb
+      80: atmLogical
+      81: ds0
+      82: ds0Bundle
+      83: bsc
+      84: async
+      85: cnr
+      86: iso88025Dtr
+      87: eplrs
+      88: arap
+      89: propCnls
+      90: hostPad
+      91: termPad
+      92: frameRelayMPI
+      93: x213
+      94: adsl
+      95: radsl
+      96: sdsl
+      97: vdsl
+      98: iso88025CRFPInt
+      99: myrinet
+      100: voiceEM
+      101: voiceFXO
+      102: voiceFXS
+      103: voiceEncap
+      104: voiceOverIp
+      105: atmDxi
+      106: atmFuni
+      107: atmIma
+      108: pppMultilinkBundle
+      109: ipOverCdlc
+      110: ipOverClaw
+      111: stackToStack
+      112: virtualIpAddress
+      113: mpc
+      114: ipOverAtm
+      115: iso88025Fiber
+      116: tdlc
+      117: gigabitEthernet
+      118: hdlc
+      119: lapf
+      120: v37
+      121: x25mlp
+      122: x25huntGroup
+      123: transpHdlc
+      124: interleave
+      125: fast
+      126: ip
+      127: docsCableMaclayer
+      128: docsCableDownstream
+      129: docsCableUpstream
+      130: a12MppSwitch
+      131: tunnel
+      132: coffee
+      133: ces
+      134: atmSubInterface
+      135: l2vlan
+      136: l3ipvlan
+      137: l3ipxvlan
+      138: digitalPowerline
+      139: mediaMailOverIp
+      140: dtm
+      141: dcn
+      142: ipForward
+      143: msdsl
+      144: ieee1394
+      145: if-gsn
+      146: dvbRccMacLayer
+      147: dvbRccDownstream
+      148: dvbRccUpstream
+      149: atmVirtual
+      150: mplsTunnel
+      151: srp
+      152: voiceOverAtm
+      153: voiceOverFrameRelay
+      154: idsl
+      155: compositeLink
+      156: ss7SigLink
+      157: propWirelessP2P
+      158: frForward
+      159: rfc1483
+      160: usb
+      161: ieee8023adLag
+      162: bgppolicyaccounting
+      163: frf16MfrBundle
+      164: h323Gatekeeper
+      165: h323Proxy
+      166: mpls
+      167: mfSigLink
+      168: hdsl2
+      169: shdsl
+      170: ds1FDL
+      171: pos
+      172: dvbAsiIn
+      173: dvbAsiOut
+      174: plc
+      175: nfas
+      176: tr008
+      177: gr303RDT
+      178: gr303IDT
+      179: isup
+      180: propDocsWirelessMaclayer
+      181: propDocsWirelessDownstream
+      182: propDocsWirelessUpstream
+      183: hiperlan2
+      184: propBWAp2Mp
+      185: sonetOverheadChannel
+      186: digitalWrapperOverheadChannel
+      187: aal2
+      188: radioMAC
+      189: atmRadio
+      190: imt
+      191: mvl
+      192: reachDSL
+      193: frDlciEndPt
+      194: atmVciEndPt
+      195: opticalChannel
+      196: opticalTransport
+      197: propAtm
+      198: voiceOverCable
+      199: infiniband
+      200: teLink
+      201: q2931
+      202: virtualTg
+      203: sipTg
+      204: sipSig
+      205: docsCableUpstreamChannel
+      206: econet
+      207: pon155
+      208: pon622
+      209: bridge
+      210: linegroup
+      211: voiceEMFGD
+      212: voiceFGDEANA
+      213: voiceDID
+      214: mpegTransport
+      215: sixToFour
+      216: gtp
+      217: pdnEtherLoop1
+      218: pdnEtherLoop2
+      219: opticalChannelGroup
+      220: homepna
+      221: gfp
+      222: ciscoISLvlan
+      223: actelisMetaLOOP
+      224: fcipLink
+      225: rpr
+      226: qam
+      227: lmp
+      228: cblVectaStar
+      229: docsCableMCmtsDownstream
+      230: adsl2
+      231: macSecControlledIF
+      232: macSecUncontrolledIF
+      233: aviciOpticalEther
+      234: atmbond
+      235: voiceFGDOS
+      236: mocaVersion1
+      237: ieee80216WMAN
+      238: adsl2plus
+      239: dvbRcsMacLayer
+      240: dvbTdm
+      241: dvbRcsTdma
+      242: x86Laps
+      243: wwanPP
+      244: wwanPP2
+      245: voiceEBS
+      246: ifPwType
+      247: ilan
+      248: pip
+      249: aluELP
+      250: gpon
+      251: vdsl2
+      252: capwapDot11Profile
+      253: capwapDot11Bss
+      254: capwapWtpVirtualRadio
+      255: bits
+      256: docsCableUpstreamRfPort
+      257: cableDownstreamRfPort
+      258: vmwareVirtualNic
+      259: ieee802154
+      260: otnOdu
+      261: otnOtu
+      262: ifVfiType
+      263: g9981
+      264: g9982
+      265: g9983
+      266: aluEpon
+      267: aluEponOnu
+      268: aluEponPhysicalUni
+      269: aluEponLogicalLink
+      270: aluGponOnu
+      271: aluGponPhysicalUni
+      272: vmwareNicTeam
+      277: docsOfdmDownstream
+      278: docsOfdmaUpstream
+      279: gfast
+      280: sdci
+  - name: ifMtu
+    oid: 1.3.6.1.2.1.2.2.1.4
+    type: gauge
+    help: The size of the largest packet which can be sent/received on the interface,
+      specified in octets - 1.3.6.1.2.1.2.2.1.4
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifSpeed
+    oid: 1.3.6.1.2.1.2.2.1.5
+    type: gauge
+    help: An estimate of the interface's current bandwidth in bits per second - 1.3.6.1.2.1.2.2.1.5
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifPhysAddress
+    oid: 1.3.6.1.2.1.2.2.1.6
+    type: PhysAddress48
+    help: The interface's address at its protocol sub-layer - 1.3.6.1.2.1.2.2.1.6
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifAdminStatus
+    oid: 1.3.6.1.2.1.2.2.1.7
+    type: EnumAsStateSet
+    help: The desired state of the interface - 1.3.6.1.2.1.2.2.1.7
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: up
+      2: down
+      3: testing
+  - name: ifOperStatus
+    oid: 1.3.6.1.2.1.2.2.1.8
+    type: EnumAsStateSet
+    help: The current operational state of the interface - 1.3.6.1.2.1.2.2.1.8
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: up
+      2: down
+      3: testing
+      4: unknown
+      5: dormant
+      6: notPresent
+      7: lowerLayerDown
+  - name: ifLastChange
+    oid: 1.3.6.1.2.1.2.2.1.9
+    type: gauge
+    help: The value of sysUpTime at the time the interface entered its current operational
+      state - 1.3.6.1.2.1.2.2.1.9
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInOctets
+    oid: 1.3.6.1.2.1.2.2.1.10
+    type: counter
+    help: The total number of octets received on the interface, including framing
+      characters - 1.3.6.1.2.1.2.2.1.10
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.11
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were not addressed to a multicast or broadcast address at this sub-layer
+      - 1.3.6.1.2.1.2.2.1.11
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInNUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.12
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a multicast or broadcast address at this sub-layer -
+      1.3.6.1.2.1.2.2.1.12
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInDiscards
+    oid: 1.3.6.1.2.1.2.2.1.13
+    type: counter
+    help: The number of inbound packets which were chosen to be discarded even though
+      no errors had been detected to prevent their being deliverable to a higher-layer
+      protocol - 1.3.6.1.2.1.2.2.1.13
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInErrors
+    oid: 1.3.6.1.2.1.2.2.1.14
+    type: counter
+    help: For packet-oriented interfaces, the number of inbound packets that contained
+      errors preventing them from being deliverable to a higher-layer protocol - 1.3.6.1.2.1.2.2.1.14
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInUnknownProtos
+    oid: 1.3.6.1.2.1.2.2.1.15
+    type: counter
+    help: For packet-oriented interfaces, the number of packets received via the interface
+      which were discarded because of an unknown or unsupported protocol - 1.3.6.1.2.1.2.2.1.15
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutOctets
+    oid: 1.3.6.1.2.1.2.2.1.16
+    type: counter
+    help: The total number of octets transmitted out of the interface, including framing
+      characters - 1.3.6.1.2.1.2.2.1.16
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.17
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were not addressed to a multicast or broadcast address at this sub-layer,
+      including those that were discarded or not sent - 1.3.6.1.2.1.2.2.1.17
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutNUcastPkts
+    oid: 1.3.6.1.2.1.2.2.1.18
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a multicast or broadcast address at this sub-layer,
+      including those that were discarded or not sent - 1.3.6.1.2.1.2.2.1.18
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutDiscards
+    oid: 1.3.6.1.2.1.2.2.1.19
+    type: counter
+    help: The number of outbound packets which were chosen to be discarded even though
+      no errors had been detected to prevent their being transmitted - 1.3.6.1.2.1.2.2.1.19
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutErrors
+    oid: 1.3.6.1.2.1.2.2.1.20
+    type: counter
+    help: For packet-oriented interfaces, the number of outbound packets that could
+      not be transmitted because of errors - 1.3.6.1.2.1.2.2.1.20
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutQLen
+    oid: 1.3.6.1.2.1.2.2.1.21
+    type: gauge
+    help: The length of the output packet queue (in packets). - 1.3.6.1.2.1.2.2.1.21
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.2
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a multicast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.2
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifInBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.3
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a broadcast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.3
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.4
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a multicast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.4
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifOutBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.5
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a broadcast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.5
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInOctets
+    oid: 1.3.6.1.2.1.31.1.1.1.6
+    type: counter
+    help: The total number of octets received on the interface, including framing
+      characters - 1.3.6.1.2.1.31.1.1.1.6
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInUcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.7
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were not addressed to a multicast or broadcast address at this sub-layer
+      - 1.3.6.1.2.1.31.1.1.1.7
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.8
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a multicast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.8
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCInBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.9
+    type: counter
+    help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+      which were addressed to a broadcast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.9
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutOctets
+    oid: 1.3.6.1.2.1.31.1.1.1.10
+    type: counter
+    help: The total number of octets transmitted out of the interface, including framing
+      characters - 1.3.6.1.2.1.31.1.1.1.10
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutUcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.11
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were not addressed to a multicast or broadcast address at this sub-layer,
+      including those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.11
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutMulticastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.12
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a multicast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.12
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifHCOutBroadcastPkts
+    oid: 1.3.6.1.2.1.31.1.1.1.13
+    type: counter
+    help: The total number of packets that higher-level protocols requested be transmitted,
+      and which were addressed to a broadcast address at this sub-layer, including
+      those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.13
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifLinkUpDownTrapEnable
+    oid: 1.3.6.1.2.1.31.1.1.1.14
+    type: gauge
+    help: Indicates whether linkUp/linkDown traps should be generated for this interface
+      - 1.3.6.1.2.1.31.1.1.1.14
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: enabled
+      2: disabled
+  - name: ifHighSpeed
+    oid: 1.3.6.1.2.1.31.1.1.1.15
+    type: gauge
+    help: An estimate of the interface's current bandwidth in units of 1,000,000 bits
+      per second - 1.3.6.1.2.1.31.1.1.1.15
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ifPromiscuousMode
+    oid: 1.3.6.1.2.1.31.1.1.1.16
+    type: gauge
+    help: This object has a value of false(2) if this interface only accepts packets/frames
+      that are addressed to this station - 1.3.6.1.2.1.31.1.1.1.16
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: "true"
+      2: "false"
+  - name: ifConnectorPresent
+    oid: 1.3.6.1.2.1.31.1.1.1.17
+    type: gauge
+    help: This object has the value 'true(1)' if the interface sublayer has a physical
+      connector and the value 'false(2)' otherwise. - 1.3.6.1.2.1.31.1.1.1.17
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+    enum_values:
+      1: "true"
+      2: "false"
+  - name: ifCounterDiscontinuityTime
+    oid: 1.3.6.1.2.1.31.1.1.1.19
+    type: gauge
+    help: The value of sysUpTime on the most recent occasion at which any one or more
+      of this interface's counters suffered a discontinuity - 1.3.6.1.2.1.31.1.1.1.19
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifAlias
+      oid: 1.3.6.1.2.1.31.1.1.1.18
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    - labels:
+      - ifIndex
+      labelname: ifName
+      oid: 1.3.6.1.2.1.31.1.1.1.1
+      type: DisplayString
+  - name: ceqfpUtilOutputNonPriorityPktRate
+    oid: 1.3.6.1.4.1.9.9.715.1.1.6.1.10
+    type: counter
+    help: This object represents the QFP output channel non-priority packet rate during
+      this interval. - 1.3.6.1.4.1.9.9.715.1.1.6.1.10
+    indexes:
+    - labelname: entPhysicalIndex
+      type: gauge
+    - labelname: ceqfpUtilTimeInterval
+      type: gauge
+  - name: ceqfpUtilProcessingLoad
+    oid: 1.3.6.1.4.1.9.9.715.1.1.6.1.14
+    type: gauge
+    help: This object represents the QFP processing load during this interval. - 1.3.6.1.4.1.9.9.715.1.1.6.1.14
+    indexes:
+    - labelname: entPhysicalIndex
+      type: gauge
+    - labelname: ceqfpUtilTimeInterval
+      type: gauge
+  auth:
+    community: '{{ snmp_community_fosdem_default }}'

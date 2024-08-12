@@ -1,0 +1,75 @@
+#!/usr/bin/perl -w
+
+use v5.36;
+
+use SReview::Config::Common;
+use Mojo::UserAgent;
+
+my $config = SReview::Config::Common::setup();
+
+my $eventname = $config->get("eventname");
+my $sched_options = $config->get("eschedule_options");
+my $urlbase = $config->get("urlbase");
+my $sreview_api_key = $config->get("api_key");
+
+die "schedule format not fosdem" unless $config->get("schedule_format") eq "Fosdem";
+die "no pretalx api key found" unless exists($sched_options->{pretalx_api_key});
+die "no pretalx URL found" unless exists($sched_options->{pretalx_url});
+die "no urlbase found" unless defined($urlbase);
+die "no SReview api key found" unless defined($sreview_api_key);
+die "no SReview event defined" unless defined($eventname);
+
+my $ua = Mojo::UserAgent->new;
+
+my $sreview_events = Mojo::URL->new($urlbase . "/api/v1/event/list");
+my $pretalx = Mojo::URL->new($config->get("schedule_options")->{pretalx_url});
+
+my $res = $ua->get($sreview_events)->res;
+
+die "could not fetch event list: " . $res->message unless $res->is_success;
+
+my $events = $res->json;
+my $event;
+
+EVENT:
+foreach my $e(@$events) {
+	next EVENT unless $e->{name} eq $eventname;
+	$event = $e;
+	last;
+}
+
+die "event $eventname not found" unless defined($event);
+
+my $res = $ua->get($urlbase . "/api/v1/event/" . $event->{id} . "/talk/list")->res;
+
+die "could not fetch talk list: " . $res->message unless $res->is_success;
+
+my $talks = $res->json;
+
+my $pretalx_token = $sched_options->{pretalx_api_key};
+
+my $res = $ua->get($urlbase . "/api/v1/room/list")->res;
+
+die "could not fetch list of rooms: " . $res->message unless $res->is_success;
+
+my %rooms;
+
+foreach my $room(@{$res->json}) {
+	$rooms{$room->{id}} = $room;
+}
+
+TALK:
+foreach my $talk(@$talks) {
+	next TALK unless $talk->{state} eq "done";
+	my $pretalx_url = Mojo::URL->new($sched_options->{pretalx_url});
+	pop @{$pretalx_url->path->parts};
+	push @{$pretalx_url->path->parts}, "videolink", $talk->{upstreamid};
+	my $res = $ua->post($pretalx_url => {Authorization => "Token $pretalx_token"} => json => [{
+				description => "Video recording (AV1/opus)",
+				link => "https://video.fosdem.org/2024/" . $rooms{$talk->{room}}->{outputname} . "/" . $talk->{slug} . ".av1.webm"
+			}, {
+				description => "Video recording (mp4)",
+				link => "https://video.fosdem.org/2024/" . $rooms{$talk->{room}}->{outputname} . "/" . $talk->{slug} . ".mp4"
+			}])->res;
+	die "while pushing video links to $pretalx_url: " . $res->message unless $res->is_success;
+}

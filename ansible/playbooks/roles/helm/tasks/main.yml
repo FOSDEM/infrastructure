@@ -1,0 +1,17 @@
+---
+- name: create directory
+  file:
+    path: /opt/helm
+    state: directory
+
+- name: install helm
+  unarchive:
+    src: "https://get.helm.sh/helm-v3.10.3-linux-amd64.tar.gz"
+    dest: "/opt/helm/"
+    copy: false
+
+- name: create symlink to helm binary
+  file:
+    path: /usr/local/bin/helm
+    state: link
+    src: /opt/helm/linux-amd64/helm

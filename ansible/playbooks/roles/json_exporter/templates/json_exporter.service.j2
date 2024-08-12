@@ -1,0 +1,15 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=JSON Exporter
+
+[Service]
+User=json-exporter
+Group=json-exporter
+ExecStart=/usr/local/bin/json_exporter https://api.fosdem.org/roomstatus/v1/listrooms /etc/json_exporter/config.yml
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

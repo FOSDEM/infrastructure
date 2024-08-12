@@ -1,0 +1,49 @@
+---
+alertmanager_cluster:
+  listen-address: ":6783"
+  peers:
+  - "server001.sk1-510.k.ulb.bru.fosdem.net:6783"
+  - "server002.sk1-510.k.ulb.bru.fosdem.net:6783"
+
+alertmanager_config_flags_extra:
+  log.level: debug
+
+alertmanager_smtp:
+  from: "prometheus@{{ ansible_fqdn }}"
+  hello: "{{ ansible_fqdn }}"
+  smarthost: 'mail.fosdem.org:25'
+
+alertmanager_route:
+  receiver: 'alert irc'
+  group_wait: 30s
+  group_interval: 2m
+  repeat_interval: 4h
+  group_by:
+  - alertname
+  - cluster
+
+alertmanager_child_routes: []
+# - match:
+#     team: network
+#   receiver: 'network irc'
+# - match:
+#     team: video
+#   receiver: 'video irc'
+
+alertmanager_receivers:
+- name: 'network email'
+  email_configs:
+  - to: network@lists.fosdem.org
+    from: "prometheus@{{ ansible_fqdn }}"
+- name: 'alert irc'
+  webhook_configs:
+  - send_resolved: false
+    url: http://server001.sk1-510.k.ulb.bru.fosdem.net:8667/fosdem-alerts
+# - name: 'network irc'
+#   webhook_configs:
+#   - send_resolved: false
+#     url: http://server001.sk1-510.k.ulb.bru.fosdem.net:8667/fosdem-network
+# - name: 'video irc'
+#   webhook_configs:
+#   - send_resolved: false
+#     url: http://server001.sk1-510.k.ulb.bru.fosdem.net:8667/fosdem-video

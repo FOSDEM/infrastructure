@@ -1,0 +1,76 @@
+---
+- name: install fetcher script
+  copy:
+    src: fetcher/fetcher.sh
+    dest: /usr/local/bin/fetcher.sh
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+  - restart fetcher target
+
+- name: install fetcher services
+  template:
+    src: fetcher/fetcher.service
+    dest: "/etc/systemd/system/fetcher-{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+  register: vlc_fetcher_services
+  notify:
+  - restart fetcher service
+
+- name: install thumb services
+  template:
+    src: fetcher/thumb.service
+    dest: "/etc/systemd/system/thumb-{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+  notify:
+  - restart fetcher service
+
+- name: install hardcoded playlists
+  template:
+    src: fetcher/room.m3u8
+    dest: "/var/www/hls/{{ item }}.m3u8"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+
+- name: enable fetcher service
+  systemd:
+    name: "fetcher-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+
+- name: enable thumb service
+  systemd:
+    name: "thumb-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+
+- name: install fetcher target
+  template:
+    src: fetcher/fetcher.target
+    dest: /etc/systemd/system/fetcher.target
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - restart fetcher target
+
+- name: start and enable fetcher target
+  become: true
+  systemd:
+    daemon_reload: true
+    name: fetcher.target
+    state: started
+    enabled: true

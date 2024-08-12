@@ -1,0 +1,18 @@
+---
+#FIXME: ansible-lint says this should probably be a handler?
+- name: Self-sign certificate  # noqa: no-handler
+  ansible.builtin.command: openssl x509 -req -sha256 -days 365 -in {{ csr_path }}
+    -signkey {{ privatekey_path }} -out {{ certificate_path }}
+  when:
+    - csr_result is changed
+  tags:
+    - tls-certificates
+  register: self_sign_result
+
+- name: Generate full chain  # noqa: no-handler
+  ansible.builtin.shell:
+    cmd: /bin/cat {{ certificate_path | quote }} > {{ fullchain_path | quote }}
+  when:
+    - self_sign_result is changed
+  tags:
+    - tls-certificates

@@ -1,0 +1,16 @@
+# Sun Grid Engine configuration
+
+# Boolean options in this file must be set to yes or no
+
+# Start the queue master daemon? (if installed)
+SGE_START_MASTERD=yes
+
+# Start the execution daemon? (if installed)
+SGE_START_EXECD=yes
+
+# SGE_ROOT will default to /var/lib/gridengine
+SGE_ROOT=/var/lib/gridengine
+
+# SGE_CELL will default to default
+SGE_CELL=sreview
+

@@ -1,0 +1,37 @@
+- name: Create DB user - www-data
+  command: createuser -d www-data
+  ignore_errors: true
+  become: true
+  become_user: postgres
+
+- name: Create DB user - root
+  command: createuser -s root
+  ignore_errors: true
+  become: true
+  become_user: postgres
+
+- name: Create DB
+  command: createdb fosdem
+  become: true
+  become_user: www-data
+  ignore_errors: true
+
+- name: Copy DB schema
+  copy:
+    src: "fosdem.sql"
+    dest: "/tmp/fosdem.sql"
+
+- name: create DB table
+  command:  "psql fosdem -f /tmp/fosdem.sql"
+  become: true
+  become_user: www-data
+
+- name: make sure InfluxDB is running
+  systemd:
+    name: influxdb
+    state: started
+    enabled: true
+
+- name: create InfluxDB database
+  command: influx -execute 'create database ebur'
+  ignore_errors: true

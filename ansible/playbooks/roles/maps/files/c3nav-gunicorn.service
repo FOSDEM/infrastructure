@@ -1,0 +1,12 @@
+[Unit]
+Description=gunicorn c3nav daemon
+After=network.target
+
+[Service]
+User=c3nav
+Group=c3nav
+WorkingDirectory=/opt/c3nav/src
+ExecStart=/opt/c3nav/env/bin/gunicorn --workers 8 --bind unix:/var/run/c3nav/gunicorn-c3nav.sock c3nav.wsgi:application --log-level warning --error-logfile /var/log/c3nav/gunicorn.log --access-logfile /dev/null
+
+[Install]
+WantedBy=multi-user.target

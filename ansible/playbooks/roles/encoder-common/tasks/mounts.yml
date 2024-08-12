@@ -1,0 +1,27 @@
+---
+- name: ensure /srv/sreview exists
+  file:
+    path: /srv/sreview
+    state: directory
+
+- name: ensure /srv/sreview/incoming exists
+  file:
+    path: /srv/sreview/incoming
+    state: directory
+
+- name: ensure NFS mount software is installed
+  apt:
+    state: latest
+    package:
+    - nfs-common
+
+- name: mount working storage
+  mount:
+    name: /srv/sreview/{{ item }}
+    src: reviewstorage.video.fosdem.org:/srv/sreview/{{ item }}
+    fstype: nfs
+    state: mounted
+  with_items:
+  - assets
+  - storage
+  - output

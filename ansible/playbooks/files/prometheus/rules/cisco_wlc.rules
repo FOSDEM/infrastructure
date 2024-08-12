@@ -1,0 +1,26 @@
+---
+groups:
+- name: Cisco WLC
+  interval: 30s
+  rules:
+    - record: bsnAPIfSlotId:bsnApIfNoOfUsers:sum
+      expr: >
+        sum without (bsnAPName,bsnAPDot3MacAddress) (
+          bsnApIfNoOfUsers
+        )
+    - record: bsnAPIfSlotId:bsnAPIfLoadChannelUtilization:q95
+      expr: >
+        quantile without (bsnAPDot3MacAddress, bsnAPName) (
+          0.95,
+          bsnAPIfLoadChannelUtilization
+        )
+    - record: bsnAPIfSlotId:bsnAPIfLoadChannelUtilization:avg
+      expr: >
+        avg without (bsnAPDot3MacAddress, bsnAPName) (
+          bsnAPIfLoadChannelUtilization
+        )
+    - record: bsnAPIfSlotId:bsnAPIfLoadChannelUtilization:max
+      expr: >
+        max without (bsnAPDot3MacAddress, bsnAPName) (
+          bsnAPIfLoadChannelUtilization
+        )

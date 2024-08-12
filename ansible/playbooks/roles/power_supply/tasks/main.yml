@@ -1,0 +1,31 @@
+---
+- name: Install helper script
+  copy:
+    src: power_supply_metrics.sh
+    dest: /usr/local/bin/power_supply_metrics.sh
+    owner: root
+    mode: 0755
+
+- name: Add moreutils
+  apt:
+    package: moreutils
+
+- name: Install timer/service unit
+  template:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/
+    owner: root
+    mode: 0644
+  with_items:
+  - power_supply_metrics.timer
+  - power_supply_metrics.service
+
+- name: Setup service/timer
+  service:
+    daemon_reload: true
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items:
+  - power_supply_metrics.service
+  - power_supply_metrics.timer

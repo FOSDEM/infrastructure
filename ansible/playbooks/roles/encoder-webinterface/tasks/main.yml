@@ -1,0 +1,2 @@
+---
+- include: config_nginx_sreview.yml

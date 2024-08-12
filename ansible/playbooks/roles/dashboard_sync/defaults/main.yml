@@ -1,0 +1,6 @@
+---
+dashboard_sync:
+  private_api_key: FOO
+  private_url: http://example.com
+  public_api_key: BAR
+  public_url: http://example.com

@@ -1,0 +1,27 @@
+---
+- name: "common: install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - fbi
+    - fontconfig
+    - python3-pygame
+    - avahi-daemon
+    - bash-completion
+    - curl
+    - ffmpeg
+    - sproxy
+    - git
+    - python3-gi-cairo
+    - rsync
+    - avahi-daemon
+    - i965-va-driver-shaders
+    - v4l-utils
+    - mpv
+    - jq
+    - alsa-utils
+    - lm-sensors
+    - ms213x-status
+    - python3-serial
+

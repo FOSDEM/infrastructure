@@ -1,0 +1,20 @@
+---
+collector_name: sreview
+
+metrics:
+- metric_name: talkstate
+  type: gauge
+  help: 'Number of talks in a given state'
+  key_labels:
+  - state
+  values:
+  - count
+  query: |
+    SELECT state, count(*) FROM talks GROUP BY state;
+- metric_name: video_released_seconds
+  type: gauge
+  help: 'Length of all the released videos added together'
+  values:
+  - total_time
+  query: |
+    select extract(epoch from sum((endtime - starttime)::interval)) as total_time from talks where state = 'done';

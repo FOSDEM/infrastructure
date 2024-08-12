@@ -1,0 +1,19 @@
+---
+- name: reload nginx
+  service: name=nginx state=reloaded
+
+- name: restart systemd-logind
+  service:
+    name: systemd-logind
+    state: restarted
+
+- name: reload unbound
+  service: name=unbound state=reloaded
+
+- name: reload icinga
+  service: name=icinga2 state=reloaded
+
+- name: reload dhcpd
+  service: name=unbound state=restarted
+
+

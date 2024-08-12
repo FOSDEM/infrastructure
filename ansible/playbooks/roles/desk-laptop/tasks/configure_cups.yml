@@ -1,0 +1,40 @@
+---
+- name: install printer packages
+  apt:
+    state: latest
+    package:
+    - cups
+    - cups-bsd
+    - cups-pdf
+    - printer-driver-all
+
+- name: add printer drivers
+  copy:
+    src: "printer/{{ item }}"
+    dest: "/etc/cups/ppd/{{ item }}"
+    owner: root
+    group: lp
+    mode: 0644
+  with_items:
+  - Xerox-Phaser-6510.ppd
+  - Xerox-WorkCentre-6515.ppd
+
+- name: stop cupsd before writing the printer config
+  systemd:
+    state: stopped
+    name: cups
+  changed_when: false
+
+- name: configure printers
+  copy:
+    src: "printer/printers.conf"
+    dest: "/etc/cups/printers.conf"
+    owner: root
+    group: lp
+    mode: 0600
+
+- name: start cupsd again
+  systemd:
+    state: started
+    name: cups
+  changed_when: false

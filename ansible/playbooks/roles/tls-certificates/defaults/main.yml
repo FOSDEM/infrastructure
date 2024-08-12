@@ -1,0 +1,25 @@
+---
+basename: bogus
+common_name: bogus.example
+subject_alt_names: []
+base_directory: /etc/ssl/ansible
+
+self_sign: false
+
+csr_path: "{{ base_directory }}/certs/{{ basename }}.csr"
+certificate_path: "{{ base_directory }}/certs/{{ basename }}.pem"
+fullchain_path: "{{ base_directory }}/certs/{{ basename }}.fullchain.pem"
+privatekey_path: "{{ base_directory }}/private/{{ basename }}.key"
+
+letsencrypt_account_key: "{{ base_directory }}/private/letsencrypt_account.key"
+letsencrypt_account_email: foo@dbar.org
+
+letsencrypt_acme_directory: https://acme-v02.api.letsencrypt.org/directory
+
+letsencrypt_chain_path: "{{ base_directory }}/certs/letsencrypt.chain.pem"
+
+letsencrypt_challenge_mode: http-01
+letsencrypt_remaining_days: 10
+letsencrypt_well_known_dir: /var/www/well-known
+
+skip_unit_test: false

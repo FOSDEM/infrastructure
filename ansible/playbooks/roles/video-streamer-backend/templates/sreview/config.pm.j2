@@ -1,0 +1,7 @@
+our $config;
+
+$dbistring = "dbi:Pg:dbname=sreview;host={{ sreview_db_host }};sslmode=require;user=sreview;password={{ sreview_db_pw }}";
+$inputglob = "/var/www/dump/*/*.flv.mp4";
+$parse_re = '.*\/(?<room>[^\/]+)(?<stream>(-[^\/-]+)?)\/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})\/(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})';
+
+1;

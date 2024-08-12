@@ -1,0 +1,287 @@
+---
+fosdem_snmp_default_targets:
+- asr1k.n.fosdem.net
+- core-sw.n.fosdem.net
+- aw-sw.n.fosdem.net
+# - h-sw.n.fosdem.net
+# - j-sw.n.fosdem.net
+# - k-sw.n.fosdem.net
+
+fosdem_snmp_slow_targets: []
+
+prometheus_web_listen_address: ":9090"
+
+prometheus_external_labels:
+  cluster: ulb
+  replica: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
+
+prometheus_remote_write:
+- url: "{{ fosdem_remote_write_url }}"
+  basic_auth:
+    username: "{{ fosdem_remote_write_username }}"
+    password: "{{ fosdem_remote_write_password }}"
+  queue_config:
+    min_shards: 30
+
+prometheus_alertmanager_config:
+- static_configs:
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9093') | list }}"
+
+prometheus_alert_rules:
+- alert: InstanceDown
+  expr: "up == 0"
+  for: 5m
+  labels:
+    severity: critical
+  annotations:
+    description: "{% raw %}{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.{% endraw %}"
+    summary: "{% raw %}Instance {{ $labels.instance }} down{% endraw %}"
+
+prometheus_targets:
+  alertmanager:
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9093') | list }}"
+  prometheus:
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9090') | list }}"
+  bind:
+  - targets: "{{ groups['event-prometheus-servers'] | map('regex_replace', '$', ':9119') | list }}"
+  blackbox_http_targets:
+  - targets:
+    - 'https://api.fosdem.org/roomstatus/v1/listrooms'
+  coredns:
+  - targets: "{{ groups['event-secondary'] | map('regex_replace', '$', ':9153') | list }}"
+  docker:
+  - targets: "{{ groups['event-secondary'] | map('regex_replace', '$', ':9323') | list }}"
+  node:
+  - targets: "{{ groups['node_exporter'] | map('regex_replace', '$', ':9100') | list }}"
+  snmp_default:
+  - targets: "{{ fosdem_snmp_default_targets }}"
+  snmp_cdp:
+  - targets: "{{ fosdem_snmp_default_targets }}"
+  snmp_dhcp_server:
+  - targets:
+    - asr1k.n.fosdem.net
+  snmp_cisco_health:
+  - targets: "{{ fosdem_snmp_default_targets }}"
+  snmp_idrac:
+  - targets:
+    - server001-mgmt.n.fosdem.net
+    - server002-mgmt.n.fosdem.net
+  snmp_slow:
+  - targets: "{{ fosdem_snmp_slow_targets }}"
+  # voctop_audio_fetcher:
+  # - targets: "{{ groups['video-voctop'] | map('regex_replace', '$', ':9128') | list }}"
+
+# Template to simplify scrape configs.
+fosdem_snmp_relabel_config:
+- source_labels: [__address__]
+  target_label: __param_target
+- source_labels: [__param_target]
+  target_label: instance
+- target_label: __address__
+  replacement: 127.0.0.1:9116  # SNMP exporter.
+
+prometheus_scrape_configs:
+- job_name: "prometheus"
+  scrape_interval: 15s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/prometheus.yml"
+- job_name: "node"
+  scrape_interval: 15s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/node.yml"
+- job_name: 'alertmanager'
+  scrape_interval: 15s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/alertmanager.yml"
+- job_name: "bind"
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/bind.yml"
+- job_name: "coredns"
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/coredns.yml"
+- job_name: "docker"
+  scrape_interval: 15s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/docker.yml"
+- job_name: 'snmp_default'
+  scrape_interval: 30s
+  scrape_timeout: 30s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_default.yml"
+  metrics_path: /snmp
+  params:
+    module: [if_mib]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_slow'
+  scrape_interval: 90s
+  scrape_timeout: 90s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_slow.yml"
+  metrics_path: /snmp
+  params:
+    module: [if_mib]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_cdp'
+  scrape_interval: 120s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_cdp.yml"
+  metrics_path: /snmp
+  params:
+    module: [cisco_cdp]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_dhcp_server'
+  scrape_interval: 15s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_dhcp_server.yml"
+  metrics_path: /snmp
+  params:
+    module: [cisco_dhcp_server]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_cisco_health'
+  scrape_interval: 30s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_cisco_health.yml"
+  metrics_path: /snmp
+  params:
+    module: [cisco_health]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'snmp_idrac'
+  scrape_interval: 60s
+  file_sd_configs:
+  - files:
+    - "/etc/prometheus/file_sd/snmp_idrac.yml"
+  metrics_path: /snmp
+  params:
+    module: [idrac]
+  relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+# - job_name: 'snmp_wlc_base'
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   static_configs:
+#   - targets:
+#     - 172.33.17.250
+#   metrics_path: /snmp
+#   params:
+#     module: [cisco_wlc_base]
+#   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+# - job_name: 'snmp_wlc_wifi'
+#   scrape_interval: 30s
+#   scrape_timeout: 25s
+#   static_configs:
+#   - targets:
+#     - 172.33.17.250
+#   metrics_path: /snmp
+#   params:
+#     module: [cisco_wlc_wifi]
+#   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+# - job_name: 'snmp_wlc_wifi_rf'
+#   scrape_interval: 30s
+#   scrape_timeout: 25s
+#   static_configs:
+#   - targets:
+#     - 172.33.17.250
+#   metrics_path: /snmp
+#   params:
+#     module: [cisco_wlc_wifi_rf]
+#   relabel_configs: "{{ fosdem_snmp_relabel_config }}"
+- job_name: 'caddy'
+  static_configs:
+  - targets:
+    - localhost:9180
+- job_name: 'snmp_exporter'
+  static_configs:
+  - targets:
+    - localhost:9116
+# - job_name: 'swag'
+#   scrape_interval: "5s"
+#   metrics_path: /stats/stats.php
+#   static_configs:
+#   - targets:
+#     - pos.fosdem.org
+- job_name: 'grafana'
+  scrape_interval: "15s"
+  scheme: https
+  static_configs:
+  - targets:
+    - dashboard.fosdem.org
+    - grafana.n.fosdem.net
+- job_name: 'reviews'
+  scrape_interval: 30s
+  static_configs:
+  - targets:
+    - encode-master.video.fosdem.org:9399
+# - job_name: 'room_status'
+#   scrape_interval: 15s
+#   static_configs:
+#   - targets:
+#     - localhost:7979
+# - job_name: 'voctop_audio_fetcher'
+#   scrape_interval: 5s
+#   file_sd_configs:
+#   - files:
+#     - "/etc/prometheus/file_sd/voctop_audio_fetcher.yml"
+- job_name: 'blackbox_http'
+  file_sd_configs:
+  - files:
+    - '/etc/prometheus/file_sd/blackbox_http_targets.yml'
+  metrics_path: /probe
+  params:
+    module: [http_2xx]  # Look for a HTTP 200 response.
+  relabel_configs:
+  - source_labels: [__address__]
+    target_label: __param_target
+  - source_labels: [__param_target]
+    target_label: instance
+  - target_label: __address__
+    replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
+
+snmp_exporter_web_listen_address: "127.0.0.1:9116"
+snmp_exporter_config_file: "snmp_exporter/snmp.yml"
+snmp_exporter_log_level: debug
+
+blackbox_exporter_web_listen_address: "127.0.0.1:9115"
+blackbox_exporter_configuration_modules:
+  http_2xx:
+    prober: http
+    http:
+  http_post_2xx:
+    prober: http
+    http:
+      method: POST
+  tcp_connect:
+    prober: tcp
+  pop3s_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - expect: "^+OK"
+      tls: true
+      tls_config:
+        insecure_skip_verify: false
+  ssh_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - expect: "^SSH-2.0-"
+  irc_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - send: "NICK prober"
+      - send: "USER prober prober prober :prober"
+      - expect: "PING :([^ ]+)"
+        send: "PONG ${1}"
+      - expect: "^:[^ ]+ 001"
+  icmp:
+    prober: icmp

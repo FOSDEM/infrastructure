@@ -1,0 +1,54 @@
+---
+- name: install video-status script
+  copy:
+    src: video-status/video-status.py
+    dest: /usr/local/bin/video-status.py
+    owner: root
+    group: root
+    mode: 0755
+  register: videostatusscript
+
+- name: install video-preview script
+  copy:
+    src: video-status/preview.sh
+    dest: /usr/local/bin/preview.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install video-status service
+  copy:
+    src: video-status/video-status.service
+    dest: /etc/systemd/system/video-status.service
+    owner: root
+    group: root
+    mode: 0644
+  register: videostatus
+
+- name: install video-preview service
+  copy:
+    src: video-preview/video-preview.service
+    dest: /etc/systemd/system/video-preview.service
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: disable getty on tty1
+  service:
+    name: getty@tty1.service
+    enabled: false
+    state: stopped
+
+- name: enable video-status service
+  service:
+    name: video-status
+    enabled: true
+    state: started
+
+- name: enable video-preview service
+  service:
+    name: video-preview
+    enabled: true
+    state: started
+

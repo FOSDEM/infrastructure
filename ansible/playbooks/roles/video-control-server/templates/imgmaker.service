@@ -1,0 +1,13 @@
+[Unit]
+Description={{ item }} image maker service
+
+[Service]
+ExecStart=/usr/local/bin/imgmaker.sh {{ item }}
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

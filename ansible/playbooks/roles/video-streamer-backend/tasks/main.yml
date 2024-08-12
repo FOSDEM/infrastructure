@@ -1,0 +1,6 @@
+---
+- include: install_packages.yml
+# - include: mount_ssd.yml
+- include: configure_bic.yml
+- include: configure_nginx.yml
+- include: configure_fetcher.yml

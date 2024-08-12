@@ -1,0 +1,3 @@
+---
+
+user_fosdem_password: "{{ infodesk_user_fosdem_password | password_hash('sha512', infodesk_user_fosdem_salt) }}"

@@ -1,0 +1,11 @@
+---
+
+# this causes issues on some machines, taking up one core
+- name: disable usb autosuspend
+  template:
+    src: grub/disable-usbcore-autosuspend.cfg
+    dest: /etc/default/grub.d/disable-usbcore-autosuspend.cfg
+    owner: root
+    group: root
+    mode: 0644
+  notify: update grub

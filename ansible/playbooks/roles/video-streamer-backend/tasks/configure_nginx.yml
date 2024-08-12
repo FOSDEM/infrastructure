@@ -1,0 +1,49 @@
+---
+- name: remove default html directory
+  file:
+    path: /var/www/html
+    state: absent
+
+- name: create nginx content directories (global)
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+  with_items:
+  - /var/www/hls
+  - /var/www/dump
+
+- name: create nginx content directories (rooms)
+  file:
+    path: "/var/www/dump/{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+  with_items: "{{ video_rooms + virtual_video_rooms }}"
+
+- name: disable the default site configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: reload nginx
+
+- name: install the site configuration
+  template:
+    src: nginx/sites-enabled/streamer-backend.conf
+    dest: /etc/nginx/sites-enabled/streamer-backend.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: Add mtail metrics to ngninx
+  copy:
+    src: nginx/mtail.conf
+    dest: /etc/nginx/conf.d/mtail.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx

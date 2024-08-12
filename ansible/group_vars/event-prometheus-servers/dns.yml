@@ -1,0 +1,32 @@
+---
+bind_zones:
+  conference.fosdem.net:
+    type: master
+  n.fosdem.net:
+    type: master
+  v.conference.fosdem.net:
+    type: master
+
+bind_acls:
+  fosdem: "{{ fosdem_subnets.all }}"
+  fosdem-dualstack: "{{ fosdem_subnets.dualstack }}"
+  fosdem-v6only: "{{ fosdem_subnets.v6only }}"
+  fosdem-temporary: "{{ fosdem_subnets.temporary }}"
+  v6localhost:
+  - ::1/128
+
+bind_statistics_channels:
+- inet: 127.0.0.1
+  port: 8053
+  allow:
+  - 127.0.0.1
+
+bind_recursion_allowed_clients:
+- fosdem
+- fosdem-temporary
+
+bind_dns64_clients:
+- fosdem-v6only
+- v6localhost
+
+bind_authoritative_only: false

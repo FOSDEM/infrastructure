@@ -1,0 +1,15 @@
+---
+
+- name: configure app
+  template:
+    src: nginx/c3nav
+    dest: /etc/nginx/sites-enabled/c3nav
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: remove default config
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent

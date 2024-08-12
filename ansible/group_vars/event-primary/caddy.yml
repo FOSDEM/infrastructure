@@ -1,0 +1,79 @@
+---
+caddy_features: http.prometheus,http.ipfilter,http.jwt,http.login
+caddy_systemd_capabilities_enabled: true
+caddy_additional_args: '-email network@lists.fosdem.org'
+caddy_config: |
+  {{ ansible_nodename }}, {{ ansible_hostname }}.fosdem.net {
+    prometheus
+    gzip
+    root /var/www
+    log /var/log/caddy/access.log
+    proxy / localhost:3000 {
+      transparent
+    }
+  }
+  grafana.n.fosdem.net {
+    prometheus
+    proxy / localhost:3000 {
+      transparent
+    }
+  }
+  prometheus.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ grafana_admin_password }}
+    proxy / localhost:9090 {
+      transparent
+    }
+  }
+  prime.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ grafana_admin_password }}
+    proxy / https://so2wcs.ulb.ac.be {
+      transparent
+      insecure_skip_verify
+    }
+  }
+  oxidized.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ grafana_admin_password }}
+  }
+  alertmanager.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ grafana_admin_password }}
+    proxy / localhost:9093 {
+      transparent
+    }
+  }
+  wlc.n.fosdem.net {
+    prometheus
+    jwt {
+      path /
+      redirect /login
+      allow sub admin
+    }
+    login {
+      success_url /
+      login-path /login
+      simple admin={{ wlc_admin_password }}
+    }
+    proxy / https://172.33.17.250 {
+      transparent
+      insecure_skip_verify
+    }
+  }
+  server1-bmc.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ bmc_admin_password }}
+    proxy / https://192.168.1.11 {
+      transparent
+      insecure_skip_verify
+    }
+  }
+  server2-bmc.n.fosdem.net {
+    prometheus
+    basicauth / admin {{ bmc_admin_password }}
+    proxy / https://192.168.1.12 {
+      transparent
+      insecure_skip_verify
+    }
+  }

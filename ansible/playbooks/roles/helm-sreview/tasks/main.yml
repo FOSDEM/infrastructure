@@ -1,0 +1,63 @@
+---
+- name: enable sreview helm repository
+  kubernetes.core.helm_repository:
+    name: sreview
+    repo_url: https://gitlab.grep.be/api/v4/projects/5/packages/helm/dev
+
+- name: ensure python3-kubernetes is available
+  apt:
+    package: python3-kubernetes
+
+- name: copy values file
+  template:
+    src: fosdem.yaml.j2
+    dest: /tmp/fosdem.yaml
+
+- name: copy secrets
+  copy:
+    src: secret.yaml
+    dest: /tmp/secret.yaml
+
+- name: install sreview helm chart
+  kubernetes.core.helm:
+    name: sreview
+    namespace: sreview
+    create_namespace: true
+    chart_ref: sreview/sreview
+    update_repo_cache: true
+    values_files:
+    - /tmp/fosdem.yaml
+    - /tmp/secret.yaml
+
+- name: copy jobdefs and jobqueue template
+  template:
+    dest: /tmp/kubequeue-defs.yaml
+    src: kubequeue-defs.j2
+
+- name: create jobdefs and jobqueues
+  kubernetes.core.k8s:
+    state: present
+    namespace: sreview
+    src: /tmp/kubequeue-defs.yaml
+
+- name: copy email sync job definition
+  template:
+    dest: /tmp/emailsync.yaml
+    src: syncmailjob.j2
+
+- name: create email sync job
+  kubernetes.core.k8s:
+    state: present
+    namespace: sreview
+    src: /tmp/emailsync.yaml
+
+- name: copy videolinks sync job definitions
+  template:
+    dest: /tmp/videosync.yaml
+    src: synclinkjob.j2
+
+- name: create videolinks sync job
+  kubernetes.core.k8s:
+    state: present
+    namespace: sreview
+    src: /tmp/videosync.yaml
