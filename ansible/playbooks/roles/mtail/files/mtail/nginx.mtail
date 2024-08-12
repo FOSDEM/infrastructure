@@ -1,5 +1,8 @@
 # From https://github.com/ipfs/infrastructure/blob/master/mtail/progs/nginx.mtail
 
+counter http_m3u8_requests_total
+counter http_ts_requests_total
+
 counter http_requests_total by vhost, method, code, content_type
 counter http_request_duration_milliseconds_sum by vhost, method, code, content_type
 counter http_response_size_bytes_sum by vhost, method, code, content_type
