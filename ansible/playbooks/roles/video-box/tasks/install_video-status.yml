@@ -27,7 +27,7 @@
 
 - name: install video-preview service
   copy:
-    src: video-preview/video-preview.service
+    src: video-status/video-preview.service
     dest: /etc/systemd/system/video-preview.service
     owner: root
     group: root

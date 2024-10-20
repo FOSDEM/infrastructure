@@ -81,3 +81,13 @@
     enabled: true
     state: started
     daemon_reload: true
+
+- name: install rc-local script
+  copy:
+    src: video-streamer/rc.local
+    dest: /etc/rc.local
+    owner: root
+    group: root
+    mode: 0755
+
+

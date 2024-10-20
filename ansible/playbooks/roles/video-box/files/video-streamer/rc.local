@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cpupower frequency-set -g performance -u 2000M -d 1900M

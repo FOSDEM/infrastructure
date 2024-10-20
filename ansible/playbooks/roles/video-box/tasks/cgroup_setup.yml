@@ -1,0 +1,33 @@
+---
+
+- name: add GRUB options for reverting to cgroup v1
+  template:
+    src: grub/cgroup.cfg
+    dest: /etc/default/grub.d/cgroup.cfg
+    owner: root
+    group: root
+    mode: 0644
+  notify: update grub
+
+- name: deploy cgroup config for box
+  copy:
+    src: cgroups/fosdem.conf
+    dst: /etc/cgconfig.d/fosdem.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install cgconfig service
+  copy:
+    src: cgconfig/cgconfig.service
+    dest: /etc/systemd/system/cgconfig.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable cgconfig service
+  service:
+    name: cgconfig
+    enabled: true
+    state: started
+

@@ -24,4 +24,5 @@
     - lm-sensors
     - ms213x-status
     - python3-serial
+    - cgroup-tools
 

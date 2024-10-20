@@ -18,7 +18,7 @@ vdev=$(v4l2-ctl --list-devices |grep -EA 1 'USB3|Hagibis|HC-336' |tail -n1)
 height=$(cat /tmp/ms213x-status | jq -r '1920/( (.width/.height)|if . > 2 then . / 2 else . end)|floor')
 /usr/bin/wait_next_second
 
-LD_PRELOAD=/usr/lib/cursor_disable.so ffmpeg -y -v verbose -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
+LD_PRELOAD=/usr/lib/cursor_disable.so cgexec -g cpuset:fosdem.slice/receiver ffmpeg -y -v verbose -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
 	-fflags nobuffer -flags low_delay -avioflags direct \
 	-probesize 32 \
 	-analyzeduration 0 \
