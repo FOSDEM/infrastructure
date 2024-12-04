@@ -25,4 +25,9 @@
     - ms213x-status
     - python3-serial
     - cgroup-tools
+    - intel-media-va-driver-non-free
+    - firmware-sof-signed
+    - firmware-misc-nonfree
+    - teensy-loader-cli
+    - linux-cpupower
 

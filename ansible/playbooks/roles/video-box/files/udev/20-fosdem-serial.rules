@@ -1,0 +1,2 @@
+SUBSYSTEM=="tty", ATTRS{idVendor}=="f05d", ATTRS{idProduct}=="4001", SYMLINK+="tty_fosdem_box_ctl"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="048a", SYMLINK+="tty_fosdem_audio_ctl"

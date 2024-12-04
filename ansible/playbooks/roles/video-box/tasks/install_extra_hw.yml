@@ -1,0 +1,19 @@
+---
+
+- name: set up udev rules - serial
+  ansible.builtin.copy:
+    src: udev/20-fosdem-serial.rules
+    dest: /etc/udev/rules.d/20-fosdem-serial.rules
+    owner: root
+    group: root
+    mode: 0644
+
+- name: set up udev rules - vbox
+  ansible.builtin.copy:
+    src: udev/99-video-box.rules
+    dest: /etc/udev/rules.d/99-video-box.rules
+    owner: root
+    group: root
+    mode: 0644
+
+
