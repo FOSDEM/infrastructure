@@ -182,6 +182,7 @@ def update_switch_state():
 def main():
 	counter = 0
 
+	os.system("clear")
 	syslog.openlog("video-status")
 	update_switch_state()
 
@@ -230,12 +231,6 @@ def update_sysinfo():
 		ip_addr_v4 = False
 		ip_link_mac = "UNKNOWN"
 
-	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
-	if re.search('^ActiveState=active', rec_info) == None:
-		rec = False
-	else:
-		rec = True
-
 	# Signal
 	# width: 1920
 	# height: 1200
@@ -251,25 +246,52 @@ def update_sysinfo():
 		else:
 			signal = False
 	except Exception as e:
-		print("exception")
-		print(e)
+#		print("exception")
+#		print(e)
 		signal = False
 	#print(signaldata)	
-	if signal:
+	if not os.path.isfile("/tmp/ms213x-status"):
+		ret.append(stateEntry("NO CAPTURE DEVICE", BAD))
+	elif signal:
 		ret.append(stateEntry(f"SIGNAL {resolution}"))
 	else:
 		ret.append(stateEntry("NO SIGNAL", BAD))
 		
+# on-box recording disabled for 2025
+#
+#	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
+#	if re.search('^ActiveState=active', rec_info) == None:
+#		rec = False
+#	else:
+#		rec = True
+#
+#
+#	if rec:
+#		ret.append(stateEntry("RECORD", GOOD))
+#
+#	else:
+#		ret.append(stateEntry("PAUSED"))
 
-
-	if rec:
-		ret.append(stateEntry("RECORD", GOOD))
-
-	else:
-		ret.append(stateEntry("PAUSED"))
-
+	ret.append(stateEntry(f"host: {hostname} up: {uptime_duration}"))
 	
-	ret.append(stateEntry(f"up: {uptime_duration}"))
+	portnames = [ "IN", "01", "02", "03", "04"]
+	try:
+		swstate = json.loads(open('/tmp/netstate.json', 'r').read())
+		n=0
+		out="Switch: "
+		for p in swstate:
+			pn = portnames[n]
+			if p == "down":
+				f = f"{pn}:DN|"
+			elif p == "up full-duplex 1000mbps":
+				f = f"{pn}:UP|"
+			else:
+				f = f"{pn}:CK|"
+			out+=f
+			n+=1
+		ret.append(stateEntry(out))
+	except:
+		ret.append(stateEntry("Switch not found", BAD))
 
 	connected = subprocess.check_output("ss -H -o state established '( sport = :8899 )'  not dst '[::1]'|wc -l", shell = True).strip().decode("utf-8")
 
