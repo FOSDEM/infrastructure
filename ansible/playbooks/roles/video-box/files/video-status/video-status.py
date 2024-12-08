@@ -282,7 +282,7 @@ def update_sysinfo():
 		for p in swstate:
 			pn = portnames[n]
 			if p == "down":
-				f = f"{pn}:DN|"
+				f = f"{pn}:dn|"
 			elif p == "up full-duplex 1000mbps":
 				f = f"{pn}:UP|"
 			else:
