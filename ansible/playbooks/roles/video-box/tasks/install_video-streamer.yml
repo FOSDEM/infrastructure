@@ -75,13 +75,6 @@
     state: restarted
   when: videoreceiver.changed
 
-- name: enable video-receiver service
-  systemd:
-    name: video-receiver
-    enabled: true
-    state: started
-    daemon_reload: true
-
 - name: install rc-local script
   copy:
     src: video-streamer/rc.local
@@ -89,5 +82,20 @@
     owner: root
     group: root
     mode: 0755
+  register: rclocal
+
+- name: enable video-receiver service
+  systemd:
+    name: video-receiver
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: restart service if rc.local has been modified
+  service:
+    name: rc-local.service
+    state: restarted
+  when: rclocal.changed
+
 
 
