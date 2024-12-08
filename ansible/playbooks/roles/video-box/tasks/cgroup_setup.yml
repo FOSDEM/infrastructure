@@ -7,6 +7,7 @@
     owner: root
     group: root
     mode: 0644
+  register: grubopt
 
 - name: update GRUB config
   shell: update-grub
@@ -36,6 +37,18 @@
   service:
     name: cgconfig
     enabled: true
+  ignore_errors: true
+
+- name: reboot if GRUB options have changed
+  reboot:
+    reboot_timeout: 120
+    pre_reboot_delay: 35
+  when: grubopt.changed
+
+- name: start cgconfig service
+  service:
+    name: cgconfig
     state: started
   ignore_errors: true
+
 

@@ -31,7 +31,11 @@
     name: udev
     state: reloaded
 
-- name: wait for udev to settne
+- name: retrigger udev
+  shell:
+    cmd: udevadm trigger
+
+- name: wait for udev to settle
   shell:
     cmd: udevadm settle
 
