@@ -30,4 +30,5 @@
     - firmware-misc-nonfree
     - teensy-loader-cli
     - linux-cpupower
+    - picotool
 

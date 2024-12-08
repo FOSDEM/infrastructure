@@ -1,5 +1,15 @@
 ---
 
+- name: setup FOSDEM firmware directory
+  file:
+    path: /lib/firmware/FOSDEM
+    state: directory
+
+- name: copy FOSDEM firmware
+  copy:
+    src: firmware/
+    dest: /lib/firmware/FOSDEM/
+
 - name: set up udev rules - serial
   ansible.builtin.copy:
     src: udev/20-fosdem-serial.rules
@@ -16,4 +26,20 @@
     group: root
     mode: 0644
 
+- name: reload udev
+  service:
+    name: udev
+    state: reloaded
 
+- name: wait for udev to settne
+  shell:
+    cmd: udevadm settle
+
+- name: flash audio board firmware
+  shell:
+    cmd: bash /lib/firmware/FOSDEM/flash_audio_board_firmware.sh /lib/firmware/FOSDEM/teensy_audio.hex
+  ignore_errors: true
+
+- name: flash rp2040 firmware
+  shell:
+    cmd: bash /lib/firmware/FOSDEM/flash_rp2040_firmware.sh /lib/firmware/FOSDEM/box_rp2040.elf
