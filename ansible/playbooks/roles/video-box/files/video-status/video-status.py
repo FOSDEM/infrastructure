@@ -91,7 +91,15 @@ def render_commands(states):
 	return out
 
 def get_serial():
-	return serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1, exclusive=True)
+    while True:
+        try:
+            s = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1, exclusive=True)
+        except:
+            continue
+        break
+
+    return s
+
 
 def output_terminal(states):
 	sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (0, 0, render_text(states)))
@@ -208,10 +216,10 @@ def update_sysinfo():
 	# Interface
 
 	try:
-		ifdata = json.loads(subprocess.check_output("ip -j route get 8.8.8.8", shell=True).decode("utf-8"))
+		ifdata = json.loads(subprocess.check_output("ip -j route get 8.8.8.8", shell=True, stderr=subprocess.DEVNULL).decode("utf-8"))
 		interface = ifdata[0]["dev"]
 		# IP addresses
-		addr_data = json.loads(subprocess.check_output(f"ip -j addr show dev {interface} primary scope global", shell=True).decode("utf-8"))
+		addr_data = json.loads(subprocess.check_output(f"ip -j addr show dev {interface} primary scope global", shell=True, stderr=subprocess.DEVNULL).decode("utf-8"))
 		ip_link_mac = addr_data[0]["address"]
 
 		ip_prefix_v4 = False
