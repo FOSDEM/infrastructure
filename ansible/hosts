@@ -7,6 +7,8 @@ server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [public-dashboard]
 dashboard.fosdem.org
 
+[coredns-primary]
+
 [kube-nodes:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
@@ -62,17 +64,19 @@ reviewmaster.video.fosdem.org
 reviewmaster.video.fosdem.org
 
 [encoder-storage]
+reviewstorage.video.fosdem.org
+
 [encoder-backend]
-encoder1.video.fosdem.org ansible_host=2001:67c:1808::134
-encoder2.video.fosdem.org ansible_host=49.13.128.199
-encoder3.video.fosdem.org ansible_host=168.119.48.62
-encoder4.video.fosdem.org ansible_host=78.47.184.202
-encoder5.video.fosdem.org ansible_host=49.12.75.65
-encoder6.video.fosdem.org ansible_host=128.140.125.171
-encoder7.video.fosdem.org ansible_host=138.201.93.12
-encoder8.video.fosdem.org ansible_host=49.13.26.137
-encoder9.video.fosdem.org ansible_host=188.34.187.236
-encoder10.video.fosdem.org ansible_host=49.13.134.191
+encoder1.video.fosdem.org
+encoder2.video.fosdem.org 
+encoder3.video.fosdem.org 
+encoder4.video.fosdem.org 
+encoder5.video.fosdem.org 
+encoder6.video.fosdem.org 
+encoder7.video.fosdem.org 
+encoder8.video.fosdem.org 
+encoder9.video.fosdem.org 
+encoder10.video.fosdem.org
 
 [video-stream-dump:vars]
 ansible_python_interpreter=/usr/bin/python3
