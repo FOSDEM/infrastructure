@@ -1,4 +1,4 @@
 ---
-- include: install_packages.yml
-- include: configure_nginx.yml
-- include: configure_bic.yml
+- import_tasks: install_packages.yml
+- import_tasks: configure_nginx.yml
+- import_tasks: configure_bic.yml

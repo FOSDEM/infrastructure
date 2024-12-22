@@ -1,8 +1,8 @@
 ---
-- include: install_packages.yml
-- include: configure_dns_dhcp.yml
-- include: configure_db.yml
-- include: configure_icinga.yml
-- include: configure_grafana.yml
-- include: configure_imgmaker.yml
-- include: configure_nginx.yml
+- import_tasks: install_packages.yml
+- import_tasks: configure_dns_dhcp.yml
+- import_tasks: configure_db.yml
+- import_tasks: configure_icinga.yml
+- import_tasks: configure_grafana.yml
+- import_tasks: configure_imgmaker.yml
+- import_tasks: configure_nginx.yml

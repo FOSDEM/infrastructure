@@ -1,9 +1,7 @@
----
-
-- include: configure_network.yml
-- include: install_packages.yml
-- include: cgroup_setup.yml
-- include: install_signal-status.yml
-- include: install_extra_hw.yml
-- include: install_video-status.yml
-- include: install_video-streamer.yml
+- import_tasks: configure_network.yml
+- import_tasks: install_packages.yml
+- import_tasks: cgroup_setup.yml
+- import_tasks: install_signal-status.yml
+- import_tasks: install_extra_hw.yml
+- import_tasks: install_video-status.yml
+- import_tasks: install_video-streamer.yml

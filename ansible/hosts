@@ -7,6 +7,13 @@ server002.sk1-510.k.ulb.bru.fosdem.net ansible_port=1973
 [public-dashboard]
 dashboard.fosdem.org
 
+[video-box:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+
+[video-box]
+radxa8.pit.protopit.eu
+
 [kube-nodes:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_user = root

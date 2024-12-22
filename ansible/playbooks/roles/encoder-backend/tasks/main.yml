@@ -1,5 +1,5 @@
 ---
-- include: install_packages.yml
-- include: fix_hosts.yml
-- include: users.yml
-- include: homedir.yml
+- import_tasks: install_packages.yml
+- import_tasks: fix_hosts.yml
+- import_tasks: users.yml
+- import_tasks: homedir.yml

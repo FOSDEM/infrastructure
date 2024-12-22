@@ -39,4 +39,4 @@
     daemon_reload: true
   with_items: "{{ video_sproxy }}"
 
-- include: streamdump_target.yml
+- import_tasks: streamdump_target.yml
