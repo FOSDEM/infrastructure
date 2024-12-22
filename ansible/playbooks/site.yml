@@ -170,14 +170,14 @@
   hosts: encoder-storage
   remote_user: root
   roles:
-  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-network, tags: [ 'encoder-network' ] }
   - { role: encoder-storage, tags: [ 'encoder-storage'] }
 
 - name: encoder-master
   hosts: encoder-master
   remote_user: root
   roles:
-  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-network, tags: [ 'encoder-network' ] }
   - { role: encoder-common, tags: [ 'encoder-master'] }
   - { role: encoder-backend,tags: [ 'encoder-master'] }
   - { role: encoder-master, tags: [ 'encoder-master'] }
@@ -186,7 +186,7 @@
   hosts: encoder-backend
   remote_user: root
   roles:
-  # - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-network, tags: [ 'encoder-network' ] }
   - { role: encoder-common, tags: [ 'encoder-backend'] }
   - { role: encoder-backend, tags: [ 'encoder-backend' ] }
 
