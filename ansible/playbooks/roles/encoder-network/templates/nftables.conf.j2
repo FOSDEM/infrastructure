@@ -7,8 +7,8 @@ flush ruleset
 table inet filter {
 	chain input {
 		type filter hook input priority 0; policy accept;
-		ip saddr != 10.0.0.0/8 tcp dport sunrpc drop
-		ip saddr != 10.0.0.0/8 udp dport sunrpc drop
+		ip saddr != 172.20.22.210/24 tcp dport sunrpc drop
+		ip saddr != 172.20.22.210/24 udp dport sunrpc drop
 	}
 
 	chain forward {
