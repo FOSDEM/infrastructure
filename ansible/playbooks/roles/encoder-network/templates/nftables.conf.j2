@@ -6,9 +6,14 @@ flush ruleset
 
 table inet filter {
 	chain input {
-		type filter hook input priority 0; policy accept;
-		ip saddr != 172.20.22.210/24 tcp dport sunrpc drop
-		ip saddr != 172.20.22.210/24 udp dport sunrpc drop
+		type filter hook input priority 0; 
+		policy drop;
+		iif lo accept
+		ct state established,related accept
+		ip6 nexthdr icmpv6 accept
+		ip protocol icmp accept
+		ip saddr 172.20.22.210/24 accept
+		tcp dport {ssh,http,https} accept
 	}
 
 	chain forward {
