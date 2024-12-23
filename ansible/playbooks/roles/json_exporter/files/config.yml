@@ -1,5 +1,5 @@
 ---
-# Room state as 2 meanings, fullness and alert, when 2 alert is on.
+# Room state has 2 meanings, fullness and alert, when 2 alert is on.
 # 0  room is empty and alert is 0
 # 1  room is full and alert is 0
 # 2  room is full and alert alert alert
