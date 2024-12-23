@@ -18,6 +18,9 @@ k8s0.video.fosdem.org
 [kube-masternode]
 k8s0.video.fosdem.org
 
+[coredns-hosts]
+coredns.n.fosdem.net
+
 [tv]
 # tv0.n.fosdem.net
 # tv1.n.fosdem.net

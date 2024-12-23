@@ -1,7 +1,7 @@
 ; vim: ts=8 et
 $TTL 3600
 @               IN      SOA     conference-ns1.fosdem.net. hostmaster.conference.fosdem.net. (
-                        2019122702 ; serial
+                        2019122707 ; serial
                         600 ; refresh
                         300 ; retry
                         604800 ; expire
@@ -9,8 +9,7 @@ $TTL 3600
                         )
 @               IN      NS      conference-ns1.fosdem.net.
 
-asr1k           IN      A       213.246.232.54
-asr1k           IN      AAAA    2001:920:0:1::5F
+asr1k           IN      A       185.175.216.254
 
 k-sw            IN      A       192.168.211.240
 aw-sw           IN      A       192.168.211.250
@@ -20,6 +19,9 @@ core-sw         IN      A       192.168.211.254
 voctop-sw       IN      A       192.168.211.200
 
 avq             IN      A       185.175.218.212
+coreswitch001   IN      A       192.168.1.250
+coreswitch002   IN      A       192.168.1.251
+coreswitch003   IN      A       192.168.1.252
 
 ; Wifi monitoring
 wifi1          IN       A       151.216.191.250
@@ -45,10 +47,17 @@ proxmox003 IN       A       192.168.1.23
 netbox	IN	A	185.175.216.241
 	IN	AAAA	2001:67c:1810:f054::212:241
 
+oxidized	IN	A	185.175.216.245
+	IN	AAAA	2001:67c:1810:f054::212:245
+
+monitoring	IN	A	185.175.216.243
+coredns 	IN	A	185.175.216.244
+		IN	AAAA	2001:67c:1810:f054::212:244
+
 ; CNAMEs
 alertmanager   IN       CNAME   server001.fosdem.net.
 grafana        IN       CNAME   server001.fosdem.net.
-oxidized       IN       CNAME   server001.fosdem.net.
+;oxidized       IN       CNAME   server001.fosdem.net.
 prime          IN       CNAME   server001.fosdem.net.
 prometheus     IN       CNAME   server001.fosdem.net.
 wlc            IN       CNAME   server001.fosdem.net.
