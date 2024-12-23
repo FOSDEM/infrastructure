@@ -51,6 +51,8 @@ oxidized	IN	A	185.175.216.245
 	IN	AAAA	2001:67c:1810:f054::212:245
 
 monitoring	IN	A	185.175.216.243
+coredns 	IN	A	185.175.216.244
+		IN	AAAA	2001:67c:1810:f054::212:244
 
 ; CNAMEs
 alertmanager   IN       CNAME   server001.fosdem.net.
