@@ -1,4 +1,4 @@
 ---
-- include: sreview.yml
-- include: gridengine.yml
-- include: mounts.yml
+- import_tasks: sreview.yml
+- import_tasks: gridengine.yml
+- import_tasks: mounts.yml

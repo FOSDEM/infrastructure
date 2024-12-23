@@ -1,6 +1,6 @@
 ---
 # Various tasks to be performed on hosts running on laptops
 
-- include: disable_suspend.yml
-- include: disable_usbcore_autosuspend.yml
-- include: cleanup_apt_proxy.yml
+- import_tasks: disable_suspend.yml
+- import_tasks: disable_usbcore_autosuspend.yml
+- import_tasks: cleanup_apt_proxy.yml

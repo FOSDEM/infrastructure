@@ -1,6 +1,6 @@
 ---
-- include: install_packages.yml
-- include: nfs.yml
-- include: postgresql.yml
-- include: sql_exporter.yml
-- include: config_schedule_import.yml
+- import_tasks: install_packages.yml
+- import_tasks: nfs.yml
+- import_tasks: postgresql.yml
+- import_tasks: sql_exporter.yml
+- import_tasks: config_schedule_import.yml

@@ -6,15 +6,15 @@
   delegate_to: localhost
   changed_when: false
 
-- include: configure_timezone.yml
-- include: configure_sysctl.yml
-- include: configure_apt.yml
-- include: user_root.yml
-- include: user_fosdem.yml
-- include: set_hostname.yml
-- include: configure_fosdem_revision.yml
-- include: install_packages.yml
-- include: configure_sshd.yml
-- include: chrony.yml
+- import_tasks: configure_timezone.yml
+- import_tasks: configure_sysctl.yml
+- import_tasks: configure_apt.yml
+- import_tasks: user_root.yml
+- import_tasks: user_fosdem.yml
+- import_tasks: set_hostname.yml
+- import_tasks: configure_fosdem_revision.yml
+- import_tasks: install_packages.yml
+- import_tasks: configure_sshd.yml
+- import_tasks: chrony.yml
   tags:
   - chrony

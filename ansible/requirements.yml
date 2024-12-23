@@ -9,7 +9,7 @@ roles:
     src: https://github.com/FOSDEM/ansible-bind.git
     type: git
   - name: paulfantom.restic
-    src: https://github.com/paulfantom/ansible-restic.git
+    src: https://github.com/SuperQ/ansible-restic.git
     type: git
   - name: rsyslog
     src: https://github.com/Oefenweb/ansible-rsyslog.git

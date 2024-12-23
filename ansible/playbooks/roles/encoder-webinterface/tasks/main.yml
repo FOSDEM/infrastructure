@@ -1,2 +1,2 @@
 ---
-- include: config_nginx_sreview.yml
+- import_tasks: config_nginx_sreview.yml

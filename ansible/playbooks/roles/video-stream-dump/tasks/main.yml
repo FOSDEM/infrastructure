@@ -1,5 +1,5 @@
 ---
-- include: install_packages.yml
-- include: configure_hdd.yml
+- import_tasks: install_packages.yml
+- import_tasks: configure_hdd.yml
   when: video_stream_dump_configure_hdd
-- include: configure_streamdump.yml
+- import_tasks: configure_streamdump.yml

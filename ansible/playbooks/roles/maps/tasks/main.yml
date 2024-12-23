@@ -71,9 +71,9 @@
     owner: root
     mode: 0644
 
-- include: configure_celery.yml
-- include: configure_gunicorn.yml
-- include: configure_nginx.yml
+- import_tasks: configure_celery.yml
+- import_tasks: configure_gunicorn.yml
+- import_tasks: configure_nginx.yml
 
 
 - name: Run migrations/Collect static files
