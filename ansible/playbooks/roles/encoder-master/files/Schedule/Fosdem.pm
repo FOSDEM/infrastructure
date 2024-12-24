@@ -15,7 +15,9 @@ has 'pretalx_data' => (
 sub _build_pretalx_data {
 	my $self = shift;
 
-	return $self->talk_object->pretalx_data->{speakers}{$self->upstreamid};
+	my $rv = $self->talk_object->pretalx_data->{speakers}{$self->upstreamid};
+        die "Could not find speaker called " . $self->name . " with upstream id " . $self->upstreamid . " for talk " . $self->talk_object->titl . " in pretalx data" unless $rv;
+        return $rv;
 }
 
 sub _load_email {
