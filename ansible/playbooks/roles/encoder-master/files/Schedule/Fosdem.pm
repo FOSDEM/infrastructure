@@ -64,6 +64,26 @@ has 'pretalx_data' => (
 	builder => '_build_pretalx_data',
 );
 
+has '+title' => (
+	trigger => \&_set_title,
+);
+
+has '+subtitle' => (
+	predicate => 'has_subtitle',
+);
+
+sub _set_title {
+	my ($self, $new_title) = @_;
+	if($new_title =~ /^REPLACEMENT: (.*)/) {
+		$self->title($1);
+	}
+	return if $self->has_subtitle;
+	if($new_title =~ /^(?<title>[^:-]+)[ :-]+(?<subtitle>.*$)/) {
+		$self->subtitle($+{subtitle});
+		$self->title($+{title});
+	}
+}
+
 sub _build_pretalx_data {
 	my $self = shift;
 
