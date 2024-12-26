@@ -89,10 +89,22 @@ sub _set_title {
 	}
 }
 
+sub _load_filtered {
+        my $self = shift;
+        if(!defined($self->event_object->root_object->pretalx_data->{$self->upstreamid})) {
+                return 1;
+        }
+        return 0;
+}
+
 sub _build_pretalx_data {
 	my $self = shift;
 
 	my $data = $self->event_object->root_object->pretalx_data->{$self->upstreamid};
+
+        if(!defined($data)) {
+                return {};
+        }
 	$data->{speakers} = {};
 	foreach my $speaker(@{$data->{persons}}) {
 		$data->{speakers}{$speaker->{person_id}} = $speaker;
