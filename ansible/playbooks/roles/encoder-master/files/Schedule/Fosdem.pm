@@ -40,7 +40,12 @@ has 'pretalx_data' => (
 );
 
 sub _build_pretalx_data {
-	return shift->talk_object->pretalx_data->{track};
+        my $self = shift;
+	my $rv = $self->talk_object->pretalx_data->{track};
+
+        die "Could not find track for talk " . $self->talk_object->title . " in pretalx data" unless $rv;
+
+        return $rv;
 }
 
 sub _load_email {
