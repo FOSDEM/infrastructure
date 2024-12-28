@@ -8,11 +8,11 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGTERM
 Restart=always
+RestartSec=1s
+StartLimitInterval=0
 StandardInput=tty
 StandardOutput=tty
 TTYPath=/dev/tty1
-
-
 
 
 [Install]
