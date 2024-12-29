@@ -19,6 +19,17 @@ if [[ -e "${tty}" ]]; then
     stty -F "${tty}" 134
 fi
 
+if ! lsusb | grep -qE '\<2e8a:0003\>'; then
+	gpioset gpiochip0 17=1
+	gpioset gpiochip0 7=1
+
+	sleep 1
+
+	gpioset gpiochip0 17=0
+	gpioset gpiochip0 7=0
+fi
+
+
 i=0
 while ! lsusb | grep -qE '\<2e8a:0003\>'; do
     sleep 0.5

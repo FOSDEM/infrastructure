@@ -31,4 +31,5 @@
     - teensy-loader-cli
     - linux-cpupower
     - picotool
+    - gpiod
 
