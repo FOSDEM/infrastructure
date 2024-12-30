@@ -32,4 +32,6 @@
     - linux-cpupower
     - picotool
     - gpiod
+    - fosdem-mixer-cli
+    - fosdem-mixer-api
 
