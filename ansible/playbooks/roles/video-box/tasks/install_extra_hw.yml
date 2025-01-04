@@ -46,3 +46,13 @@
 - name: flash rp2040 firmware
   shell:
     cmd: bash /lib/firmware/FOSDEM/flash_rp2040_firmware.sh /lib/firmware/FOSDEM/box_rp2040.elf
+
+- name: copy mixer test script
+  ansible.builtin.copy:
+    src: audiotest/audiotest.sh
+    dest: /usr/local/bin/audiotest.sh
+    owner: root
+    group: root
+    mode: 0755
+
+
