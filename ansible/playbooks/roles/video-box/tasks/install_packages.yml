@@ -34,4 +34,5 @@
     - gpiod
     - fosdem-mixer-cli
     - fosdem-mixer-api
+    - picocom
 
