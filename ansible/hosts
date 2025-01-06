@@ -207,16 +207,13 @@ ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
 
 [video-box]
-box0.video.fosdem.org
-box1.video.fosdem.org
-box2.video.fosdem.org
-box3.video.fosdem.org
-box4.video.fosdem.org
-box5.video.fosdem.org
-box6.video.fosdem.org
-box7.video.fosdem.org
-box8.video.fosdem.org
-box9.video.fosdem.org
+
+box03.video.fosdem.org
+box04.video.fosdem.org
+box05.video.fosdem.org
+box07.video.fosdem.org
+box08.video.fosdem.org
+box09.video.fosdem.org
 box10.video.fosdem.org
 box11.video.fosdem.org
 box12.video.fosdem.org
@@ -225,21 +222,6 @@ box14.video.fosdem.org
 box15.video.fosdem.org
 box16.video.fosdem.org
 box17.video.fosdem.org
-box18.video.fosdem.org
-box19.video.fosdem.org
-box20.video.fosdem.org
-box21.video.fosdem.org
-box22.video.fosdem.org
-box23.video.fosdem.org
-box24.video.fosdem.org
-box25.video.fosdem.org
-box26.video.fosdem.org
-box27.video.fosdem.org
-box28.video.fosdem.org
-box29.video.fosdem.org
-box30.video.fosdem.org
-box31.video.fosdem.org
-box32.video.fosdem.org
 box33.video.fosdem.org
 box34.video.fosdem.org
 box35.video.fosdem.org
@@ -255,12 +237,10 @@ box44.video.fosdem.org
 box45.video.fosdem.org
 box46.video.fosdem.org
 box47.video.fosdem.org
-box48.video.fosdem.org
-box49.video.fosdem.org
 box50.video.fosdem.org
 box51.video.fosdem.org
 box52.video.fosdem.org
-box53.video.fosdem.org
+box48.video.fosdem.org
 box54.video.fosdem.org
 box55.video.fosdem.org
 box56.video.fosdem.org
@@ -273,79 +253,38 @@ box62.video.fosdem.org
 box63.video.fosdem.org
 box64.video.fosdem.org
 box65.video.fosdem.org
-box66.video.fosdem.org
 box67.video.fosdem.org
 box68.video.fosdem.org
 box69.video.fosdem.org
+box70.video.fosdem.org
+box71.video.fosdem.org
+box72.video.fosdem.org
+box73.video.fosdem.org
+box74.video.fosdem.org
+box75.video.fosdem.org
+box76.video.fosdem.org
+box77.video.fosdem.org
+box78.video.fosdem.org
+box79.video.fosdem.org
+box80.video.fosdem.org
+box81.video.fosdem.org
+box82.video.fosdem.org
+box83.video.fosdem.org
+box84.video.fosdem.org
+box85.video.fosdem.org
+box86.video.fosdem.org
+box87.video.fosdem.org
+box88.video.fosdem.org
+box89.video.fosdem.org
+box90.video.fosdem.org
+box91.video.fosdem.org
+box93.video.fosdem.org
+box94.video.fosdem.org
+box95.video.fosdem.org
+box96.video.fosdem.org
+box97.video.fosdem.org
+box98.video.fosdem.org
+box99.video.fosdem.org
+box100.video.fosdem.org
 
 [capture-laptop]
-capture0.video.fosdem.org ansible_host=185.175.218.170
-capture1.video.fosdem.org ansible_host=185.175.218.171
-capture2.video.fosdem.org ansible_host=185.175.218.172
-capture3.video.fosdem.org ansible_host=185.175.218.173
-capture4.video.fosdem.org ansible_host=185.175.218.174
-capture5.video.fosdem.org ansible_host=185.175.218.175
-capture6.video.fosdem.org ansible_host=185.175.218.176
-capture7.video.fosdem.org ansible_host=185.175.218.177
-capture8.video.fosdem.org ansible_host=185.175.218.178
-capture9.video.fosdem.org ansible_host=185.175.218.179
-capture10.video.fosdem.org ansible_host=185.175.218.180
-capture11.video.fosdem.org ansible_host=185.175.218.181
-capture12.video.fosdem.org ansible_host=185.175.218.182
-capture13.video.fosdem.org ansible_host=185.175.218.183
-capture14.video.fosdem.org ansible_host=185.175.218.184
-capture15.video.fosdem.org ansible_host=185.175.218.185
-capture16.video.fosdem.org ansible_host=185.175.218.186
-capture17.video.fosdem.org ansible_host=185.175.218.187
-capture18.video.fosdem.org ansible_host=185.175.218.188
-capture19.video.fosdem.org ansible_host=185.175.218.189
-capture20.video.fosdem.org ansible_host=185.175.218.190
-capture21.video.fosdem.org ansible_host=185.175.218.191
-capture22.video.fosdem.org ansible_host=185.175.218.192
-capture23.video.fosdem.org ansible_host=185.175.218.193
-capture24.video.fosdem.org ansible_host=185.175.218.194
-capture25.video.fosdem.org ansible_host=185.175.218.195
-capture26.video.fosdem.org ansible_host=185.175.218.196
-capture27.video.fosdem.org ansible_host=185.175.218.197
-capture28.video.fosdem.org ansible_host=185.175.218.198
-capture29.video.fosdem.org ansible_host=185.175.218.199
-capture30.video.fosdem.org ansible_host=185.175.218.200
-capture31.video.fosdem.org ansible_host=185.175.218.201
-capture32.video.fosdem.org ansible_host=185.175.218.202
-capture33.video.fosdem.org ansible_host=185.175.218.203
-capture34.video.fosdem.org ansible_host=185.175.218.204
-capture35.video.fosdem.org ansible_host=185.175.218.205
-capture36.video.fosdem.org ansible_host=185.175.218.206
-capture37.video.fosdem.org ansible_host=185.175.218.207
-capture38.video.fosdem.org ansible_host=185.175.218.208
-capture39.video.fosdem.org ansible_host=185.175.218.209
-capture40.video.fosdem.org ansible_host=185.175.218.210
-capture41.video.fosdem.org ansible_host=185.175.218.211
-capture42.video.fosdem.org ansible_host=185.175.218.212
-capture43.video.fosdem.org ansible_host=185.175.218.213
-capture44.video.fosdem.org ansible_host=185.175.218.214
-capture45.video.fosdem.org ansible_host=185.175.218.215
-capture46.video.fosdem.org ansible_host=185.175.218.216
-capture47.video.fosdem.org ansible_host=185.175.218.217
-capture48.video.fosdem.org ansible_host=185.175.218.218
-capture49.video.fosdem.org ansible_host=185.175.218.219
-capture50.video.fosdem.org ansible_host=185.175.218.220
-capture51.video.fosdem.org ansible_host=185.175.218.221
-capture52.video.fosdem.org ansible_host=185.175.218.222
-capture53.video.fosdem.org ansible_host=185.175.218.223
-capture54.video.fosdem.org ansible_host=185.175.218.224
-capture55.video.fosdem.org ansible_host=185.175.218.225
-capture56.video.fosdem.org ansible_host=185.175.218.226
-capture57.video.fosdem.org ansible_host=185.175.218.227
-capture58.video.fosdem.org ansible_host=185.175.218.228
-capture59.video.fosdem.org ansible_host=185.175.218.229
-capture60.video.fosdem.org ansible_host=185.175.218.230
-capture61.video.fosdem.org ansible_host=185.175.218.231
-capture62.video.fosdem.org ansible_host=185.175.218.232
-capture63.video.fosdem.org ansible_host=185.175.218.233
-capture64.video.fosdem.org ansible_host=185.175.218.234
-capture65.video.fosdem.org ansible_host=185.175.218.235
-capture66.video.fosdem.org ansible_host=185.175.218.236
-capture67.video.fosdem.org ansible_host=185.175.218.237
-capture68.video.fosdem.org ansible_host=185.175.218.238
-capture69.video.fosdem.org ansible_host=185.175.218.239
