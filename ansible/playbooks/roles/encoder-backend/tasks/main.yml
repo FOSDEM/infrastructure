@@ -1,5 +1,8 @@
 ---
 - import_tasks: install_packages.yml
+  when: "'encoder-storage' not in group_names"
 - import_tasks: fix_hosts.yml
+  when: "'encoder-storage' not in group_names"
 - import_tasks: users.yml
 - import_tasks: homedir.yml
+  when: "'encoder-storage' not in group_names"

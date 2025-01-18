@@ -171,6 +171,7 @@
   remote_user: root
   roles:
   - { role: encoder-network, tags: [ 'encoder-network' ] }
+  - { role: encoder-backend, tags: [ 'encoder-storage' ] }
   - { role: encoder-storage, tags: [ 'encoder-storage'] }
 
 - name: encoder-master

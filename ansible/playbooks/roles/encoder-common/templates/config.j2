@@ -12,6 +12,14 @@ $schedule_options = {
 	pretalx_api_key => "{{sreview_pretalx_api_key}}",
 };
 
+$sftp_access_config = {
+        default => {
+                username => "sreview",
+                publickey => "/var/lib/sreview/.ssh/id_rsa.pub",
+                privatekey => "/var/lib/sreview/.ssh/id_rsa",
+        }
+};
+
 $api_key = "{{sreview_api_key}}";
 # An SVG template to be used as apology template (shown just after the opening credits when technical issues occurred. Should have the same nominal dimensions (in pixels) as the video assets.
 $apology_template = '/srv/sreview/assets/apology.svg';
@@ -170,9 +178,15 @@ $extra_collections = {
 };
 $accessmethods = {
   'input' => 'HTTP::nginx::JSON',
+{% if 'cloud-encoders' in group_names %}
+  'intermediate' => 'SFTP',
+  'output' => 'SFTP',
+  'upload' => 'SFTP',
+{% else %}
   'intermediate' => 'direct',
   'output' => 'direct',
   'upload' => 'direct',
+{% endif %}
 };
 $normalizer = 'ffmpeg';
 

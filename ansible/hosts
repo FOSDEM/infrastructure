@@ -71,7 +71,7 @@ reviewstorage.video.fosdem.org
 
 [encoder-backend]
 encoder1.video.fosdem.org
-encoder2.video.fosdem.org 
+encoder2.video.fosdem.org ansible_host=188.245.118.236
 encoder3.video.fosdem.org 
 encoder4.video.fosdem.org 
 encoder5.video.fosdem.org 
@@ -80,6 +80,9 @@ encoder7.video.fosdem.org
 encoder8.video.fosdem.org 
 encoder9.video.fosdem.org 
 encoder10.video.fosdem.org
+
+[cloud-encoders]
+encoder2.video.fosdem.org
 
 [video-stream-dump:vars]
 ansible_python_interpreter=/usr/bin/python3

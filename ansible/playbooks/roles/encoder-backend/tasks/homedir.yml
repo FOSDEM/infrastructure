@@ -5,3 +5,12 @@
     src: reviewstorage-int.video.fosdem.org:/srv/sreview/sreview-home
     fstype: nfs
     state: mounted
+  when: "'cloud-encoders' not in group_names"
+
+- name: ensure sreview tmp directory exists
+  file:
+    path: /var/lib/sreview/tmp
+    state: directory
+    owner: sreview
+    group: sreview
+    mode: 0755

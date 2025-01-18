@@ -20,3 +20,30 @@
     package:
     - rsync
     - gnupg
+    - libnet-ssh2-perl
+
+- name: ensure the SSH key directory exists
+  file:
+    name: /var/lib/sreview/.ssh
+    state: directory
+    owner: sreview
+    group: sreview
+  when: "'cloud-encoders' in group_names"
+
+- name: generate an SSH key for SReview
+  community.crypto.openssh_keypair:
+    path: /var/lib/sreview/.ssh/id_rsa
+    comment: "SReview on {{ inventory_hostname }}"
+    owner: sreview
+    group: sreview
+    mode: 0600
+  register: sreview_ssh_key
+  when: "'cloud-encoders' in group_names"
+
+- name: install the SSH key onto the storage server
+  ansible.posix.authorized_key:
+    key: "{{ sreview_ssh_key.public_key }}"
+    user: sreview
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['encoder-storage'] }}"
+  when: "'cloud-encoders' in group_names"
