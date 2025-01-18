@@ -1,3 +1,6 @@
+body {
+	--mixer-vu-height: 10rem;
+}
 
 .mixer {
 	display: flex;
@@ -43,7 +46,7 @@
 	writing-mode: vertical-lr;
 	margin: 1rem;
 	vertical-align: middle;
-	height: 15rem;
+	height: var(--mixer-vu-height);
 }
 
 .mutes > div {
@@ -66,7 +69,7 @@
 }
 
 meter {
-	height: 15rem;
+	height: var(--mixer-vu-height);
 	direction: rtl;
 	writing-mode: vertical-lr;
 	margin: 1rem;

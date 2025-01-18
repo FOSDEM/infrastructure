@@ -105,8 +105,10 @@ const Mixer = function (apipath) {
 
 				const outputname = document.createElement('label');
 				outputname.innerText = output;
+				outputname.setAttribute('for', `mute-${input}-${output}`);
 
 				const muted = document.createElement('input');
+				muted.id = `mute-${input}-${output}`;
 				muted.type = 'checkbox';
 
 				muted.checked = !mutes[input][output];
