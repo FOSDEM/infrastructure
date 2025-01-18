@@ -75,30 +75,6 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <td><form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="live"><input type="submit" value="live"></form>
 -->
 </div>
-</div>
-<div class="video-monitoring">
-<div class="video-monitoring-grid">
-<div class="card monitoring-large">
-<div>Stream</div>
-<img id="output" src="/<?php echo $room;?>/room.jpg"/>
-</div>
-<div class="card">
-<div>Camera</div>
-<img id="cam" src="/<?php echo $room;?>/cam.jpg"/>
-</div>
-<div class="card">
-<div>Slides</div>
-<img id="grab" src="/<?php echo $room;?>/grab.jpg"/>
-</div>
-<div class="card monitoring-large">
-<div>Audio</div>
-<canvas id="chart-<?php echo $room; ?>" height="50"></canvas>
-	<script>chart("<?php echo $room; ?>", document.getElementById("chart-<?php echo $room; ?>"), 1000);</script>
-</div>
-</div>
-</div>
-</div>
-
 <div>
 <h2>Mixer</h2>
 <script src="mixer.js"></script>
@@ -130,6 +106,30 @@ window.onload = function() {
         mixer = new Mixer('mixer/<?php echo $audiobox; ?>/');
 }
 </script>
+</div>
+<div class="video-monitoring">
+<div class="video-monitoring-grid">
+<div class="card monitoring-large">
+<div>Stream</div>
+<img id="output" src="<?php echo $room;?>/room.jpg"/>
+</div>
+<div class="card">
+<div>Camera</div>
+<img id="cam" src="<?php echo $room;?>/cam.jpg"/>
+</div>
+<div class="card">
+<div>Slides</div>
+<img id="grab" src="<?php echo $room;?>/grab.jpg"/>
+</div>
+<div class="card monitoring-large">
+<div>Audio</div>
+<canvas id="chart-<?php echo $room; ?>" height="50"></canvas>
+	<script>chart("<?php echo $room; ?>", document.getElementById("chart-<?php echo $room; ?>"), 1000);</script>
+</div>
+</div>
+</div>
+</div>
+
 <!--<iframe src="mixer.php?room=<?php echo $room; ?>" title="Audio Mixer" height="0" width="0" style="border: none; height: 100vh; width: 100%;"></iframe>-->
 </div>
 </div>
