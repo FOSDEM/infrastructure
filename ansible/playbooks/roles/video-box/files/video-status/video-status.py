@@ -146,6 +146,10 @@ def output_image(only_image = False):
 
 switch_state = [None, None, None, None, None]
 
+def start_chargers():
+	with get_serial() as port:
+		port.write(b"pb.chargers.on 1\n")
+
 def read_switch():
 	ret = [None, None, None, None, None]
 
@@ -193,6 +197,7 @@ def main():
 	os.system("clear")
 	syslog.openlog("video-status")
 	update_switch_state()
+	start_chargers()
 
 	while True:
 		info = update_sysinfo()
