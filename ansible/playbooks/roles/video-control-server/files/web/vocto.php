@@ -6,8 +6,9 @@ require_once(dirname(__FILE__)."/inc.php");
 <?php
 function roomlist() {
     echo "<h1>room not found.</h1><br>";
-    $r = pg_query("select roomname from fosdem order by roomname");
-    while ($row = pg_fetch_row($r)) {
+    $r = $db->prepare("select roomname from fosdem order by roomname");
+    $r->execute();
+    while ($row = $r->fetch()) {
         echo '<a style="font-size: larger;" href="/vocto.php?room='.$row[0].'">'.$row[0].'</a><br>';
     }
     exit();
@@ -24,13 +25,15 @@ if (empty($_GET['room']) ) {
     $room = strtolower($_GET['room']);
 }
 
-$r = pg_query("select voctop from fosdem where roomname='"._e($room)."'");
+$r = $db->prepare("select voctop, audio from fosdem where roomname = :room");
+$r->execute(['room' => $room]);
 if (!$r) {
     roomlist();    
 }
 
-$row = pg_fetch_row($r);
+$row = $r->fetch();
 $host = $row[0];
+$audiobox = $row[1];
 
 
 
@@ -39,94 +42,14 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>room <?php echo $room; ?></title>
-<style>
-.room-status {
-    font-size: x-large;
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-}
-
-.room-status label {
-    display: block;
-    flex: 1;
-}
-.room-status select {
-    display: block;
-    font-size: large;
-    min-width: 50%;
-}
-
-.card > div {
-    text-transform: capitalize;
-    font-weight: bold;
-}
-
-/*
-.container {
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-   align-items: center;
-   justify-content: space-evenly;
-}
-*/
-
-.container {
-   display: grid;
-}
-.container > div {
-   padding-left: 10px;
-   padding-right: 10px;
-}
-
-.video-control-grid, .video-monitoring-grid {
-    display: grid;
-}
-
-.video-control-grid {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.video-monitoring img {
-    width: 80%;
-    max-width: 100%;
-}
-
-.video-control input[type=submit] {
-    display: block;
-    width: 100%;
-    min-height: 50px;
-    font-size: large;
-    white-space: normal;
-}
-
-@media screen and (min-width: 576px) {
-.container {
-   grid-template-columns: repeat(2, 1fr);
-}
-.video-control-grid, .video-monitoring-grid {
-    grid-template-columns: repeat(2, 1fr);
-}
-.monitoring-large {
-    grid-column: span 2;
-}
-.video-control input[type=submit] {
-    font-size: x-large;
-}
-}
-
-.video-control form {
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-</style>
+<link rel="stylesheet" href="mixer.css"></script>
+<link rel="stylesheet" href="vocto.css"></script>
 <script src="chart.js"></script>
 <script src="moment.js"></script>
 <script src="chartjs-adapter-moment.js"></script>
 <script src="chartjs-plugin-annotation.js"></script>
 <script src="graph.js"></script>
+<script src="mixer.js"></script>
 </head>
 <body>
 <div class="container">
@@ -174,6 +97,44 @@ if (empty($_GET['w']) && empty($argv[1])) {
 </div>
 </div>
 </div>
+</div>
+
+<div>
+<h2>Mixer</h2>
+<script src="mixer.js"></script>
+<datalist id="volumes">
+<option value="1" label="100%"></option>
+</datalist>
+
+<div class="errors" id="errors"></div>
+
+<div class="mixer">
+
+<div class="inputs channellist" id="inputs">
+<h2>Inputs</h2>
+<!-- inserted by js -->
+</div>
+
+<div class="outputs channellist" id="outputs">
+<h2>Outputs</h2>
+<!-- inserted by js -->
+</div>
+</div>
+</div>
+
+<script>
+"use strict";
+
+var mixer;
+window.onload = function() {
+        mixer = new Mixer('mixer/<?php echo $audiobox; ?>/');
+}
+</script>
+<!--<iframe src="mixer.php?room=<?php echo $room; ?>" title="Audio Mixer" height="0" width="0" style="border: none; height: 100vh; width: 100%;"></iframe>-->
+</div>
+</div>
+</div>
+
 <script>
         const images = document.getElementsByTagName('img');
         for(let i = 0; i < images.length; i++) {

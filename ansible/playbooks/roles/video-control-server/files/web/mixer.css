@@ -1,0 +1,128 @@
+
+.mixer {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.channellist {
+	display: flex;
+}
+
+.channellist h2 {
+
+	direction: ltr;
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	margin: 1rem;
+	vertical-align: middle;
+	text-align: right;
+	font-size: x-large;
+}
+
+.channel {
+	flex: 1;
+
+	border: 1px solid black;
+	margin: 0.5rem;
+
+	width: 6rem;
+	#max-width: 6rem;
+}
+
+.channel h3 {
+	text-align: center;
+}
+
+.channel .sliders {
+	display: flex;
+	justify-content: center;
+}
+
+.channel input[type=range] {
+	direction: rtl;
+	writing-mode: vertical-lr;
+	margin: 1rem;
+	vertical-align: middle;
+	height: 15rem;
+}
+
+.mutes > div {
+	display: flex;
+}
+
+.mutes > div > * {
+	display: inline-block;
+	flex: 1;
+}
+
+.mutes label {
+	text-align: right;
+	font-size: large;
+}
+
+.mutes input[type=checkbox] {
+	font-size: x-large;
+	accent-color: green;
+}
+
+meter {
+	height: 15rem;
+	direction: rtl;
+	writing-mode: vertical-lr;
+	margin: 1rem;
+	vertical-align: middle;
+	--background: #dadada;
+	--optimum: darkgoldenrod;
+	--sub-optimum: forestgreen;
+	--sub-sub-optimum: crimson;
+
+	/* The gray background in Firefox */
+	background: var(--background);
+	display: block;
+
+	#height: auto;
+	margin: 1rem;
+}
+
+/* The gray background in Chrome, etc. */
+meter::-webkit-meter-bar {
+	background: var(--background);
+}
+
+/* The green (optimum) bar in Firefox */
+meter:-moz-meter-optimum::-moz-meter-bar {
+	background: var(--optimum);
+}
+
+/* The green (optimum) bar in Chrome etc. */
+meter::-webkit-meter-optimum-value {
+	background: var(--optimum);
+}
+
+/* The yellow (sub-optimum) bar in Firefox */
+meter:-moz-meter-sub-optimum::-moz-meter-bar {
+	background: var(--sub-optimum);
+}
+
+/* The yellow (sub-optimum) bar in Chrome etc. */
+meter::-webkit-meter-suboptimum-value {
+	background: var(--sub-optimum);
+}
+
+/* The red (even less good) bar in Firefox */
+meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+	background: var(--sub-sub-optimum);
+}
+
+/* The red (even less good) bar in Chrome etc. */
+meter::-webkit-meter-even-less-good-value {
+	background: var(--sub-sub-optimum);
+}
+
+.errors > * {
+	background-color: red;
+	font-weight: bold;
+	padding: 1rem;
+	font-size: x-large;
+}
+
