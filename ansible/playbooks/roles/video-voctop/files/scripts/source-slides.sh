@@ -10,7 +10,7 @@ ffmpeg -y -nostdin -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /
 	-timeout 3000000 \
 	-analyzeduration 3M \
 	-i "${SOURCE_SLIDES}" \
-	-ac 3 \
+	-ac 2 \
 	-filter_complex "
 		[0:v]  scale_vaapi=w=$WIDTH:h=$HEIGHT  [v2]; [v2] hwdownload,format=nv12,format=yuv420p [v1]; [v1] scale=$WIDTH:$HEIGHT,fps=$FRAMERATE,setdar=16/9,setsar=1 [v] ;
 		[0:a] aresample=$AUDIORATE [a]
