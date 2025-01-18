@@ -116,8 +116,9 @@ require_once(dirname(__FILE__)."/inc.php");
             <a href="?building=all">All</a>
         </div>
         <?php
-        $r = pg_query("select distinct building from fosdem order by building");
-        while ($row = pg_fetch_row($r)) {
+        $r = $db->prepare("select distinct building from fosdem order by building");
+        $r->execute();
+        while ($row = $r->fetch()) {
             $checked = array_key_exists('building', $_GET) && ($_GET['building'] == 'all' || (is_array($_GET['building']) && in_array($row[0], $_GET['building']))) ? 'checked' : '';
             echo '<div class="checkbox-container">';
             echo '<input name="building[]" id="building-'.$row[0].'" type="checkbox" value="'.$row[0].'" '.$checked.'/>';
@@ -148,7 +149,8 @@ require_once(dirname(__FILE__)."/inc.php");
         $qw = " and building IN ".$buildings_str;
     }
 
-    $r = pg_query("select roomname, cam, slides, voctop from fosdem where building!='d' ".$qw." order by building, roomname");
+    $r = $db->prepare("select roomname, cam, slides, voctop from fosdem where building!='d' ".$qw." order by building, roomname");
+    $r->execute();
 
     if (!$r) {
         die("internal error");
@@ -158,7 +160,7 @@ require_once(dirname(__FILE__)."/inc.php");
     <div class="roomlist">
 
         <?php
-        while ($row = pg_fetch_row($r)) {
+        while ($row = $r->fetch()) {
             echo '<div class="roomcard" id="card-'.$row[0].'">';
             echo '<div class="roomcard-title">'.$row[0].'</div>';
 
@@ -166,7 +168,7 @@ require_once(dirname(__FILE__)."/inc.php");
             echo '<div class="roomcard-body">';
             echo '<a href="tcp://'.$row[1].':8899"><img src="'.$row[0].'/cam.jpg"/></a>';
             echo '<a href="tcp://'.$row[2].':8899"><img src="'.$row[0].'/grab.jpg"/></a>';
-            echo '<a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a>';
+	    echo '<a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a>';
             echo '<canvas id="chart-'.$row[0].'"></canvas>';
             echo '<script>chart("'.$row[0].'", document.getElementById("chart-'.$row[0].'"), 5000, updateStatus);</script>';
             echo '</div>';

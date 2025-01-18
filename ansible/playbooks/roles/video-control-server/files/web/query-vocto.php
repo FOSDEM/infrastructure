@@ -7,11 +7,12 @@ if(empty($_REQUEST['voctop'])) {
 }
 $voct = $_REQUEST['voctop'];
 
-$r = pg_query("SELECT roomname, cam, slides FROM fosdem WHERE voctop='"._e($voct)."'");
+$r = $db->prepare("SELECT roomname, cam, slides FROM fosdem WHERE voctop = :voctop");
+$r->execute(['voctop' => $voct]);
 
 if (!$r) {
 	die("notfound");
 }
 
-$row = pg_fetch_row($r);
+$row = $r->fetch();
 echo $row[0]." ".$row[1]." ".$row[2];
