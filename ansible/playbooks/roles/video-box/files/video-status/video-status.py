@@ -282,7 +282,7 @@ def update_sysinfo():
 
 	ret.append(stateEntry(f"host: {hostname} up: {uptime_duration}"))
 	
-	portnames = [ "IN", "01", "02", "03", "04"]
+	portnames = [ "I", "1", "2", "3", "4"]
 	try:
 		swstate = json.loads(open('/tmp/netstate.json', 'r').read())
 		n=0
@@ -290,11 +290,11 @@ def update_sysinfo():
 		for p in swstate:
 			pn = portnames[n]
 			if p == "down":
-				f = f"{pn}:dn|"
+				f = f"{pn}:d|"
 			elif p == "up full-duplex 1000mbps":
-				f = f"{pn}:UP|"
+				f = f"{pn}:U|"
 			else:
-				f = f"{pn}:CK|"
+				f = f"{pn}:C|"
 			out+=f
 			n+=1
 		ret.append(stateEntry(out))
