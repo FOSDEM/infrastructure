@@ -28,6 +28,7 @@ video_rooms:
 - k1105
 - k3201
 - k3401
+- k3601
 - k4201
 - k4401
 - k4601
@@ -37,11 +38,13 @@ video_rooms:
 - ub2147
 - ub2252a
 - ub4132
+- ub4136
 - ub5132
 - ub5230
 - ud2120
 - ud2208
 - ud2218a
+- ud6215
 
 virtual_video_rooms:
 - dcollab
