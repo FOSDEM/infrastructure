@@ -101,9 +101,9 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <script>
 "use strict";
 
-var mixer;
 window.onload = function() {
-        mixer = new Mixer('mixer/<?php echo $audiobox; ?>/');
+	const mixer = new Mixer('mixer/<?php echo $audiobox; ?>/');
+	mixer.setupMixer().then(_ => {});
 }
 </script>
 </div>

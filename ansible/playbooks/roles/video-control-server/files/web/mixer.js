@@ -4,8 +4,21 @@ const Mixer = function (apipath) {
 	var vuLastUpdate = Date.now();
 	var webSocket;
 
-	const inputsShown = ['IN1', 'IN2', 'IN3', 'PC'];
-	const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
+	const inputsShown = ['IN1', 'IN2', 'IN3', 'PC', 'USB1', 'USB2'];
+	const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2', 'USB1', 'USB2'];
+
+	const inputLabels = {};
+	const outputLabels = {'OUT1': '\u{1F4F9}', 'OUT2': '\u{1F50A}', 'HP1': '\u{1F3A7}L', 'HP2': '\u{1F3A7}R'};
+
+	function getInputLabel(input) {
+		if(input in inputLabels) return inputLabels[input];
+		return input;
+	}
+
+	function getOutputLabel(output) {
+		if(output in outputLabels) return outputLabels[output];
+		return output;
+	}
 
 	function intersect(a, b) {
 		let t;
@@ -14,7 +27,6 @@ const Mixer = function (apipath) {
 			return b.indexOf(e) > -1;
 		});
 	}
-
 
 
 	async function loadInfo() {
@@ -55,18 +67,20 @@ const Mixer = function (apipath) {
 		slider.type = 'range';
 		slider.min = 0;
 		slider.max = 1.8;
-		slider.value = initialMultiplier;
 		slider.step = 0.1;
 		slider.setAttribute('list', 'volumes');
+		setTimeout(() => {
+			slider.value = initialMultiplier;
+		}, 0.1);
 
 		return slider;
 	}
 
 	function createVuMeter() {
 		const meter = document.createElement('meter');
-		meter.min = -50;
+		meter.min = -40;
 		meter.high = -14;
-		meter.optimum = -50;
+		meter.optimum = -40;
 		meter.low = -30;
 		meter.max = 0;
 
@@ -84,18 +98,18 @@ const Mixer = function (apipath) {
 
 			const head = document.createElement('h3');
 
-			head.innerText = input;
+			head.innerText = getInputLabel(input);
 
 			const sliders = document.createElement('div');
 			sliders.className = 'sliders';
 
-			const volume = createSlider(multipliers.input[input]);
+			const volume = createSlider(multipliers[input]);
 			volume.addEventListener('change', e => onInputVolumeChange(input, e));
 
-			//              const slider = createSlider();
+			const slider = createSlider(multipliers[input]);
 			const vu = createVuMeter();
 
-			//              sliders.appendChild(slider);
+			sliders.appendChild(slider);
 			sliders.appendChild(vu);
 
 			const mutelist = document.createElement('div');
@@ -104,7 +118,7 @@ const Mixer = function (apipath) {
 				const mutech = document.createElement('div');
 
 				const outputname = document.createElement('label');
-				outputname.innerText = output;
+				outputname.innerText = getOutputLabel(output);
 				outputname.setAttribute('for', `mute-${input}-${output}`);
 
 				const muted = document.createElement('input');
@@ -139,15 +153,14 @@ const Mixer = function (apipath) {
 
 			const head = document.createElement('h3');
 
-			head.innerText = output;
+			head.innerText = getOutputLabel(output);
 
 			const sliders = document.createElement('div');
 			sliders.className = 'sliders';
 
-			//const volume = createOutputSlider(multipliers.input[input]);
 			//volume.addEventListener('change', e => onInputVolumeChange(input, e));
 
-			const slider = createSlider();
+			const slider = createSlider(multipliers[output]);
 			const vu = createVuMeter();
 
 			sliders.appendChild(slider);
@@ -169,32 +182,30 @@ const Mixer = function (apipath) {
 		webSocket.addEventListener('message', (e) => {updateVu(e.data); });
 	}
 
-	function setupMixer() {
-		loadInfo(apipath).then(info => {
-			loadMultipliers(apipath).then(multipliers => {
-				loadMutes(apipath).then(mutes => {
-					setupInputs(info, multipliers, mutes);
-					setupOutputs(info, multipliers);
-					setupVuWebSocket(apipath);
-				})})}).then(_ => {
-					setInterval(function() {
-						let noUpdateMessage = document.getElementById('no-vu-update');
-						if(Date.now() - vuLastUpdate >= 1000) {
-							setupVuWebSocket(apipath);
-							if(!noUpdateMessage) {
-								const div = document.createElement('div');
-								div.id = 'no-vu-update';
-								div.innerText = 'No update from the mixer!';
-								document.getElementById('errors').appendChild(div);
-							}
-						}
-						else if(noUpdateMessage) {
-							noUpdateMessage.parentElement.removeChild(noUpdateMessage);
-						}
-					}, 1000);
-				});
-	};
+	this.setupMixer = async () => {
+		const info = await loadInfo(apipath);
+		const multipliers = await loadMultipliers(apipath);
+		const mutes = await loadMutes(apipath);
+		setupInputs(info, multipliers['input'], mutes);
+		setupOutputs(info, multipliers['output']);
+		setupVuWebSocket(apipath);
 
-	setupMixer();
+		setInterval(function() {
+			let noUpdateMessage = document.getElementById('no-vu-update');
+			if(Date.now() - vuLastUpdate >= 1000) {
+				setupVuWebSocket(apipath);
+				if(!noUpdateMessage) {
+					const div = document.createElement('div');
+					div.id = 'no-vu-update';
+					div.innerText = 'No update from the mixer!';
+					document.getElementById('errors').appendChild(div);
+				}
+			}
+			else if(noUpdateMessage) {
+				noUpdateMessage.parentElement.removeChild(noUpdateMessage);
+			}
+		}, 1000);
+	}
+
 	return this;
 }
