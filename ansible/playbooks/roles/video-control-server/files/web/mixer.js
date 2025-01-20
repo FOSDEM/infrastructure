@@ -4,8 +4,8 @@ const Mixer = function (apipath) {
 	var vuLastUpdate = Date.now();
 	var webSocket;
 
-	const inputsShown = ['IN1', 'IN2', 'IN3', 'PC', 'USB1', 'USB2'];
-	const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2', 'USB1', 'USB2'];
+	const inputsShown = ['IN1', 'IN2', 'IN3'];
+	const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
 
 	const inputLabels = {};
 	const outputLabels = {'OUT1': '\u{1F4F9}', 'OUT2': '\u{1F50A}', 'HP1': '\u{1F3A7}L', 'HP2': '\u{1F3A7}R'};
