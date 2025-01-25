@@ -25,7 +25,7 @@ $api_key = "{{sreview_api_key}}";
 $apology_template = '/srv/sreview/assets/apology.svg';
 
 # The DBI connection string used to connect to the database
-$dbistring = 'dbi:Pg:dbname=\'sreview\';user=\'sreview\';password=\'{{ sreview_db_pw }}\';host=\'reviewmaster.video.fosdem.org\';sslmode=require';
+$dbistring = 'dbi:Pg:dbname=\'sreview\';user=\'sreview\';password=\'{{ sreview_db_pw }}\';host=\'31.22.22.132\';sslmode=require';
 
 # The data for the From: header in the email. Required if notify_actions includes email.
 $email_from = 'noreply@fosdem.org';
@@ -105,7 +105,11 @@ $output_profiles = ['fosdem_av1','copy'];
 $output_subdirs = [ 'year', 'room_output' ];
 
 # The base directory under which SReview should place the final released files
-#$outputdir = '/srv/sreview/output';
+{% if 'cloud-encoders' in group_names %}
+$outputdir = 'sftp://31.22.22.133/srv/sreview/output';
+{% else %}
+$outputdir = '/srv/sreview/output';
+{% endif %}
 
 # A regular expression to parse a filename into year, month, day, hour, minute, second, and room
 $parse_re = '.*\\/(?<room>[^-]+)(-(?<stream>[^-]+))?-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts';
@@ -122,7 +126,11 @@ $preroll_template = '/srv/sreview/assets/open.svg';
 $preview_exten = 'mp4';
 
 # The directory on the file system where files served by the webinterface should be stored
-$pubdir = '/srv/sreview/storage/';
+{% if 'cloud-encoders' in group_names %}
+$pubdir = 'sftp://31.22.22.133/srv/sreview/storage';
+{% else %}
+$pubdir = '/srv/sreview/storage';
+{% endif %}
 
 # A maximum number of jobs that should be submitted in a single loop in sreview-dispatch. 0 means no limit.
 $query_limit = 0;

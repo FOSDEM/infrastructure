@@ -1,0 +1,47 @@
+Hi!
+
+This is to notify you that the video of your talk, titled
+
+  <%= $title %>
+
+is now ready for review at
+
+  <%= $url %>
+
+Please be so kind as to review it at your earliest convenience. If you
+don't do so, we will eventually get around to it, but that might take a
+while.
+
+Please follow the instructions in the form; the primary goal of the
+review process is to crowdsource the marking of the start and end of the
+talk to you, its speaker(s) and other directly involved people, rather
+than relying on a limited number of speakers. It is not about you
+approving the video.
+
+If there is a problem with the video that you cannot fix through the
+review system, you can contact us through:
+
+mail: video@fosdem.org
+matrix: #video:fosdem.org
+or via the comment system in the review interface (be sure to then
+enable the "an administrator should look at this talk" option).
+% if ($talk->has_correction("serial") && $talk->corrections->{serial} > 0) {
+
+It looks like this talk was reviewed before (either by you or by someone
+else who received this email). This means that the current version of
+the recording has been edited, and this email is just to ask you to make
+sure that things look fine now. If you're happy with the updates that
+were made earlier, choose the "please publish it to the world" option,
+and your talk will be transcoded and published.
+
+For reference, the current video was made with the following settings:
+
+Start offset: <%= $talk->corrections->{offset_start} %>
+Length adjustment: <%= $talk->corrections->{length_adj} %>
+Audio channel: <%= $talk->corrections->{audio_channel} %>
+Audio offset: <%= $talk->corrections->{offset_audio} %>
+% }
+
+Thanks for your assitance,
+
+The FOSDEM video team.

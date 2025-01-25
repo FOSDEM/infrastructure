@@ -47,3 +47,8 @@
   delegate_to: "{{ item }}"
   loop: "{{ groups['encoder-storage'] }}"
   when: "'cloud-encoders' in group_names"
+
+- name: install the notification email template
+  copy:
+    src: notify-email.ep
+    dest: /srv/sreview/assets/notify-email.ep
