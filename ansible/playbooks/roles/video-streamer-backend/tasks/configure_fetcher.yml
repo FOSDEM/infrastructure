@@ -9,6 +9,14 @@
   notify:
   - restart fetcher target
 
+- name: install thumb script
+  copy:
+    src: thumb/thumb.sh
+    dest: /usr/local/bin/thumb.sh
+    owner: root
+    group: root
+    mode: 0755
+
 - name: install fetcher services
   template:
     src: fetcher/fetcher.service

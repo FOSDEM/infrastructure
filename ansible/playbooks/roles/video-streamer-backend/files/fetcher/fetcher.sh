@@ -42,7 +42,7 @@ if echo  $room |grep -q ^d; then
 		exit 1
 else
 	ffmpeg -v error -nostdin -y -i "$src" \
-		-c copy -map 0:v:0 -map 0:a:0 -map 0:a:1 -map 0:v:1\
-		-f tee "[select=\'v:0,v:1,a:0,a:1\':f=hls:hls_flags=delete_segments+temp_file:hls_start_number_source=datetime:hls_time=2:hls_delete_threshold=10:var_stream_map=\'v:0,a:0,name:1080p v:1,a:1,name:720p\':hls_segment_filename=${room}-%v-%d.ts]${room}-%v.m3u8|[select=\'v:0,a:0,a:1\':f=segment:segment_time=1800:segment_format=mpegts:strftime=1]/var/www/dump/${room}/${room}-%Y%m%d%H%M%S.ts"
+		-c copy -map 0:v:0 -map 0:a:0 -map 0:a:1 -map 0:a:2 -map 0:a:3 -map 0:v:1 -map 0:v:2 \
+		-f tee "[select=\'v:0,v:1,v:2,a:0,a:1,a:2\':f=hls:hls_flags=delete_segments+temp_file:hls_start_number_source=datetime:hls_time=2:hls_delete_threshold=10:var_stream_map=\'v:0,a:0,name:1080p v:1,a:1,name:720p v:2,a:2,name:480p\':hls_segment_filename=${room}-%v-%d.ts]${room}-%v.m3u8|[select=\'v:0,a:0,a:3\':f=segment:segment_time=1800:segment_format=mpegts:strftime=1]/var/www/dump/${room}/${room}-%Y%m%d%H%M%S.ts"
 fi
 
