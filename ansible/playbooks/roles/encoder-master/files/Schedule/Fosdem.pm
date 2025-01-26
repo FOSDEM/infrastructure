@@ -16,7 +16,7 @@ sub _build_pretalx_data {
 	my $self = shift;
 
 	my $rv = $self->talk_object->pretalx_data->{speakers}{$self->upstreamid};
-        die "Could not find speaker called " . $self->name . " with upstream id " . $self->upstreamid . " for talk " . $self->talk_object->titl . " in pretalx data" unless $rv;
+        die "Could not find speaker called " . $self->name . " with upstream id " . $self->upstreamid . " for talk " . $self->talk_object->title . " in pretalx data" unless $rv;
         return $rv;
 }
 
@@ -77,16 +77,40 @@ has '+subtitle' => (
 	predicate => 'has_subtitle',
 );
 
+sub _parse_title {
+        my $self = shift;
+        my $new_title = shift;
+        my $subtitle = undef;
+
+	if($new_title =~ /^REPLACEMENT: (.*)/) {
+		$new_title = $1;
+	}
+
+	if($new_title =~ /^(?<title>[^:-]+)[ :-]+(?<subtitle>.*$)/) {
+		$subtitle = $+{subtitle};
+		$new_title = $+{title};
+	}
+        return ($new_title, $subtitle);
+}
+
+sub _load_title {
+        my $self = shift;
+        my $title = $self->SUPER::_load_title;
+
+        ($title, my $subtitle) = $self->_parse_title($title);
+        $self->subtitle($subtitle) if $subtitle;
+
+        return $title;
+}
+
 sub _set_title {
 	my ($self, $new_title) = @_;
-	if($new_title =~ /^REPLACEMENT: (.*)/) {
-		$self->title($1);
-	}
-	return if $self->has_subtitle;
-	if($new_title =~ /^(?<title>[^:-]+)[ :-]+(?<subtitle>.*$)/) {
-		$self->subtitle($+{subtitle});
-		$self->title($+{title});
-	}
+        my $parsed_title;
+        my $subtitle;
+
+        ($parsed_title, $subtitle) = $self->_parse_title($new_title);
+        $self->title($parsed_title) if $new_title ne $parsed_title;
+        $self->subtitle($subtitle) if $subtitle;
 }
 
 sub _load_filtered {

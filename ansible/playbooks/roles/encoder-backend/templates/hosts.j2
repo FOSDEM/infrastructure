@@ -1,8 +1,10 @@
 # {{ ansible_managed }}
 127.0.0.1	localhost
+{% if not('cloud-encoders' in group_names) %}
 172.20.22.132   reviewmaster.video.fosdem.org reviewmaster
 172.20.22.133   reviewstorage.video.fosdem.org reviewstorage
 172.20.22.210   encoder1.video.fosdem.org encoder1
+{% endif %}
 188.245.118.236 encoder2.video.fosdem.org encoder2
 #168.119.48.62   encoder3.video.fosdem.org encoder3
 #78.47.184.202	encoder4.video.fosdem.org encoder4

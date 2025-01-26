@@ -4,10 +4,15 @@
     path: /srv/sreview
     state: directory
 
-- name: ensure /srv/sreview/incoming exists
+- name: ensure /srv/sreview/ paths exist
   file:
-    path: /srv/sreview/incoming
+    path: /srv/sreview/{{ item }}
     state: directory
+  with_items:
+    - incoming
+    - assets
+    - storage
+    - output
 
 - name: ensure NFS mount software is installed
   apt:
