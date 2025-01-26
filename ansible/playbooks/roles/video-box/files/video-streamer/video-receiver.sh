@@ -26,7 +26,7 @@ LD_PRELOAD=/usr/lib/cursor_disable.so taskset -c 2 ffmpeg -y -v verbose -nostdin
         -itsoffset 0.064 -f alsa -sample_rate 48000 -channels 2 -i hw:$adev \
 	-threads:0 0 \
 	-aspect 16:9 \
-	-filter_complex "[1:a] volume=volume=2dB [ain]; [ain] channelsplit=channel_layout=stereo[left][right];  [0:v] scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black [vscaled]; [vscaled] split [vgpu][vprepdisplay]; [vprepdisplay] format=yuv420p[vdisplay]; [vgpu] format=nv12,hwupload [vout]" \
+	-filter_complex "[1:a] volume=volume=2dB [ain]; [0:v] scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black [vscaled]; [vscaled] split [vgpu][vprepdisplay]; [vprepdisplay] format=yuv420p[vdisplay]; [vgpu] format=nv12,hwupload [vout]" \
 	-map '[vout]:0' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 30  \
@@ -34,10 +34,9 @@ LD_PRELOAD=/usr/lib/cursor_disable.so taskset -c 2 ffmpeg -y -v verbose -nostdin
 	-b:v:0 3000k \
 	-qmin:v:0 1 \
 	-fps_mode cfr \
-	-map '[left]:0' \
-	-ac 1 -strict -2 -c:a aac -b:a 128k -ar 48000 \
-	-map '[right]:1' \
+	-map '[ain]:0' \
+	-ac 2 -strict -2 -c:a aac -b:a 128k -ar 48000 \
 	-map '[vdisplay]:v:1' \
 	-c:v:1 wrapped_avframe \
-	-f tee "[select=\'v:0,a:0,a:1,a:2\':f=mpegts]pipe:1|[select=\'v:1\':f=opengl]/dev/null" | /usr/bin/sproxy
+	-f tee "[select=\'v:0,a:0\':f=mpegts]pipe:1|[select=\'v:1\':f=opengl]/dev/null" | /usr/bin/sproxy
 
