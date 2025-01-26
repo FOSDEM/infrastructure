@@ -9,3 +9,22 @@
 - name: "set tuned profile"
   shell:
     cmd: tuned-adm profile throughput-performance
+
+- name: "copy grub cfg for disabling mitigations"
+  copy:
+    src: grub/mitigations.cfg
+    dest: /etc/default/grub.d/mitigations.cfg
+    owner: root
+    group: root
+    mode: 0644
+  register: grubopt
+
+- name: update GRUB config
+  shell: update-grub
+
+- name: reboot if GRUB options have changed
+  reboot:
+    reboot_timeout: 120
+    pre_reboot_delay: 35
+  when: grubopt.changed
+
