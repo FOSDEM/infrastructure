@@ -11,7 +11,7 @@
 
 - name: install thumb script
   copy:
-    src: thumb/thumb.sh
+    src: fetcher/thumb.sh
     dest: /usr/local/bin/thumb.sh
     owner: root
     group: root
