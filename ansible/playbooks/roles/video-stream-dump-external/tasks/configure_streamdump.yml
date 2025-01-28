@@ -29,7 +29,7 @@
   with_items: "{{ video_sproxy }}"
   register: video_stream_dump_services
   notify:
-  - restart streamdump service
+  - restart streamdump target
 
 - name: enable streamdump service
   systemd:

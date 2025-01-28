@@ -95,7 +95,7 @@ ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
 
 [video-stream-dump-external]
-streamdump-external0.video.fosdem.org
+streamdump-external.video.fosdem.org
 
 [video-voctop:vars]
 ansible_python_interpreter=/usr/bin/python3
