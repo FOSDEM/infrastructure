@@ -4,7 +4,7 @@
     state: latest
     install_recommends: false
     package:
-    - ack-grep
+    - ack
     - apt-transport-https
     - bash-completion
     - binutils
