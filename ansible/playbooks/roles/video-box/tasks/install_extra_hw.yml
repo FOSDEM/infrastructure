@@ -1,6 +1,6 @@
 ---
 
-- name: setup FOSDEM firmware directory
+- name: setup local FOSDEM firmware directory
   file:
     path: /local/lib/firmware/FOSDEM
     state: directory
@@ -8,15 +8,10 @@
     - firmware
     - firmware_ms2131
 
-- name: copy FOSDEM firmware
-  copy:
-    src: firmware/
-    dest: /local/lib/firmware/FOSDEM/
-  tags:
-    - firmware
-
 - name: download ms2131 firmware blob
   ansible.builtin.get_url:
+    # TODO: find a better place to put this
+    # this should be fine for now, since we verify it by checksum anyway
     url: https://rnd.qtrp.org/ms2131_firmware_fosdem.bin
     checksum: 'sha256:5948ac271fe4dff9ade08fd0b0e87f2622ac6cab3e4d3b43a2addbbdba0c6167'
     dest: /local/lib/firmware/FOSDEM/ms2131.bin
@@ -60,13 +55,13 @@
 
 - name: flash audio board firmware
   shell:
-    cmd: bash /local/lib/firmware/FOSDEM/flash_audio_board_firmware.sh /local/lib/firmware/FOSDEM/teensy_audio.hex
+    cmd: bash /lib/firmware/FOSDEM/flash_audio_board_firmware.sh /lib/firmware/FOSDEM/teensy_audio.hex
   tags:
     - firmware
 
 - name: flash rp2040 firmware
   shell:
-    cmd: bash /local/lib/firmware/FOSDEM/flash_rp2040_firmware.sh /local/lib/firmware/FOSDEM/box_rp2040.elf
+    cmd: bash /lib/firmware/FOSDEM/flash_rp2040_firmware.sh /lib/firmware/FOSDEM/box_rp2040.elf
   tags:
     - firmware
 
@@ -103,5 +98,3 @@
     owner: root
     group: root
     mode: 0755
-
-

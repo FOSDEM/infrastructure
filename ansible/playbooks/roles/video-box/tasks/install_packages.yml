@@ -23,11 +23,13 @@
     - alsa-utils
     - lm-sensors
     - ms213x-status
+    - ms213x-cli
     - python3-serial
     - cgroup-tools
     - intel-media-va-driver-non-free
     - firmware-sof-signed
     - firmware-misc-nonfree
+    - fosdem-firmware
     - teensy-loader-cli
     - linux-cpupower
     - picotool
@@ -35,4 +37,6 @@
     - fosdem-mixer-cli
     - fosdem-mixer-api
     - picocom
-
+  tags:
+    - firmware
+    - firmware_ms2131
