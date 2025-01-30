@@ -2,7 +2,7 @@
 
 - name: setup local FOSDEM firmware directory
   file:
-    path: /local/lib/firmware/FOSDEM
+    path: /usr/local/share/fosdem_firmware
     state: directory
   tags:
     - firmware
@@ -14,7 +14,7 @@
     # this should be fine for now, since we verify it by checksum anyway
     url: https://rnd.qtrp.org/ms2131_firmware_fosdem.bin
     checksum: 'sha256:5948ac271fe4dff9ade08fd0b0e87f2622ac6cab3e4d3b43a2addbbdba0c6167'
-    dest: /local/lib/firmware/FOSDEM/ms2131.bin
+    dest: /usr/local/share/fosdem_firmware/ms2131.bin
     owner: root
     group: root
     mode: 0644
@@ -55,13 +55,13 @@
 
 - name: flash audio board firmware
   shell:
-    cmd: bash /lib/firmware/FOSDEM/flash_audio_board_firmware.sh /lib/firmware/FOSDEM/teensy_audio.hex
+    cmd: bash /usr/share/fosdem_firmware/flash_audio_board_firmware.sh /usr/share/fosdem_firmware/audio_board_teensy.hex
   tags:
     - firmware
 
 - name: flash rp2040 firmware
   shell:
-    cmd: bash /lib/firmware/FOSDEM/flash_rp2040_firmware.sh /lib/firmware/FOSDEM/box_rp2040.elf
+    cmd: bash /usr/share/fosdem_firmware/flash_rp2040_firmware.sh /usr/share/fosdem_firmware/box_rp2040.elf
   tags:
     - firmware
 
@@ -69,8 +69,8 @@
   shell: |
     set -eu
 
-    old=/local/lib/firmware/FOSDEM/ms2131_old_$(date +'%Y%m%d%H%M%S').bin
-    new=/local/lib/firmware/FOSDEM/ms2131.bin
+    old=/usr/local/share/fosdem_firmware/ms2131_old_$(date +'%Y%m%d%H%M%S').bin
+    new=/usr/local/share/fosdem_firmware/ms2131.bin
 
     [[ -f /etc/systemd/system/video-statuskeeper ]] && echo 'stopping statuskeeper' && systemctl stop video-statuskeeper || true
     echo 'reading old firmware'
