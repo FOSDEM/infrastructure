@@ -3,6 +3,7 @@
   apt:
     state: latest
     install_recommends: false
+    update_cache: yes
     package:
     - fbi
     - fontconfig
