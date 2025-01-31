@@ -153,7 +153,7 @@ $state_actions = {
   'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fnt_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
   'finalreview' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N frv_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
   'injecting' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N inj_<%== $talkid %> /usr/bin/sreview-inject-job <%== $talkid %>',
-  'transcribing' => 'qsub -q trans.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N trs_<%== $talkid %> /usr/bin/sreview-transcribe <%== $talkid %>',
+  'transcribing' => 'qsub -q trans.q -cwd -v VIRTUAL_ENV=/var/lib/sreview/whisper -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N trs_<%== $talkid %> /usr/bin/sreview-transcribe <%== $talkid %>',
   'syncing' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -b y -N syn_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %> sync',
 };
 
@@ -218,6 +218,8 @@ $video_multi_profiles = {
 };
 
 $workdir = '/var/lib/sreview/tmp';
+
+$transcribe_command = '/var/lib/sreview/whisper/bin/whisper --language en --output_format vtt --model tiny --output_dir <%== $output_dir %> <%== $input_filename %>';
 
 $video_license = 'CC BY';
 
