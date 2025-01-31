@@ -38,6 +38,7 @@
     - picotool
     - gpiod
     - fosdem-mixer-cli
+    - python3-fosdemosc
     - fosdem-mixer-api
     - picocom
   tags:

@@ -5,3 +5,4 @@
 - import_tasks: install_signal-status.yml
 - import_tasks: install_video-status.yml
 - import_tasks: install_video-streamer.yml
+- import_tasks: install_mixer_ctl.yml
