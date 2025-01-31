@@ -44,33 +44,24 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-i tcp://localhost:11000 \
 	-threads:0 0 \
 	-aspect 16:9 \
-	-filter_complex "[0:a]channelsplit=channel_layout=stereo[leftp][right]; [leftp] asplit=3 [left1][left2][left3];[0:v] format=nv12,hwupload [vhw]; [vhw] split=3 [vout] [vout-preds] [vout-preds2]; [vout-preds] scale_vaapi=w=1280:720 [vout-ds]; [vout-preds2] scale_vaapi=w=854:480 [vout-ds2] " \
+	-filter_complex "[0:a]channelsplit=channel_layout=stereo[leftp][right]; [leftp] asplit=2 [left1][left2];[0:v] format=nv12,hwupload [vhw]; [vhw] split=2 [vout] [vout-preds] ; [vout-preds] scale_vaapi=w=854:480 [vout-ds] " \
 	-map '[vout]:0' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 30 \
 	-maxrate:v:0 5000k -bufsize:v:0 8192k \
 	-b:v:0 3000k \
 	-qmin:v:0 1 \
-	\
 	-map '[vout-ds]:1' \
 	-c:v:1 h264_vaapi -rc_mode CBR\
 	-g 30 \
-	-maxrate:v:0 3000k -bufsize:v:0 8192k \
-	-b:v:1 1000k \
-	-qmin:v:1 1 \
-	-map '[vout-ds2]:2' \
-	-c:v:2 h264_vaapi -rc_mode CBR\
-	-g 30 \
 	-maxrate:v:0 1000k -bufsize:v:0 8192k \
-	-b:v:2 500k \
+	-b:v:1 500k \
 	-qmin:v:2 1 \
 	-map '[left1]:1' \
 	-ac:1 1 -strict -2 -c:a:0 aac -b:a:0 128k -ar:0 48000 \
 	-map '[left2]:2' \
 	-ac:1 1 -strict -2 -c:a:1 aac -b:a:1 128k -ar:1 48000 \
-	-map '[left3]:3' \
-	-ac:1 1 -strict -2 -c:a:2 aac -b:a:2 128k -ar:2 48000 \
-	-map '[right]:4' \
-	-ac 1 -strict -2 -c:a:3 aac -b:a:3 128k -ar:3 48000 \
+	-map '[right]:3' \
+	-ac 1 -strict -2 -c:a:2 aac -b:a:2 128k -ar:2 48000 \
 	-f mpegts - | sproxy
 
