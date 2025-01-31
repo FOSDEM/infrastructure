@@ -64,7 +64,6 @@
     else
         echo "${cur_ver} unchanged"
     fi
-    echo "${cur_ver}" > "${ver_file}"
   register: firmware_ver
   changed_when: "'unchanged' not in firmware_ver.stdout"
   args:
@@ -83,7 +82,6 @@
     else
         echo "${cur_ver} unchanged"
     fi
-    echo "${cur_ver}" > "${hash_file}"
   register: firmware_ver_ms2131
   changed_when: "'unchanged' not in firmware_ver_ms2131.stdout"
   args:
@@ -97,6 +95,7 @@
   tags:
     - firmware
   when: firmware_ver.changed
+  register: flash_audio_firmware
 
 - name: flash rp2040 firmware
   shell:
@@ -104,6 +103,7 @@
   tags:
     - firmware
   when: firmware_ver.changed
+  register: flash_rp2040_firmware
 
 - name: flash ms2131 firmware
   shell: |
@@ -131,6 +131,28 @@
     - firmware_ms2131
     - firmware
   when: firmware_ver_ms2131.changed
+
+- name: update status for fosdem firmware
+  shell: |
+    set -eu
+    ver_file=/usr/local/share/fosdem_firmware/upstream_ver
+    cur_ver=$(dpkg-query --showformat='${Version}' --show fosdem-firmware)
+    echo "${cur_ver}" > "${ver_file}"
+  args:
+    executable: /bin/bash
+  tags:
+    - firmware
+
+- name: update status for ms2131 firmware
+  shell: |
+    set -eu
+    hash_file=/usr/local/share/fosdem_firmware/ms2131_hash
+    cur_ver=$(cat /usr/local/share/fosdem_firmware/ms2131.bin | sha256sum)
+    echo "${cur_ver}" > "${hash_file}"
+  args:
+    executable: /bin/bash
+  tags:
+    - firmware
 
 - name: copy mixer test script
   ansible.builtin.copy:
