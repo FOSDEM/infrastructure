@@ -48,6 +48,21 @@
   loop: "{{ groups['encoder-storage'] }}"
   when: "'cloud-encoders' in group_names"
 
+- name: install the announcement email template
+  copy:
+    src: announce.ep
+    dest: /srv/sreview/assets/announce.ep
+
+- name: install the opening credits
+  copy:
+    src: open.svg
+    dest: /srv/sreview/assets/open.svg
+
+- name: install the closing credits
+  copy:
+    src: close.png
+    dest: /srv/sreview/assets/close.png
+
 - name: install the notification email template
   copy:
     src: notify-email.ep
