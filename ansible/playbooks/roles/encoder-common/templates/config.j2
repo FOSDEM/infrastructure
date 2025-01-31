@@ -153,12 +153,16 @@ $state_actions = {
   'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fnt_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
   'finalreview' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N frv_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
   'injecting' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N inj_<%== $talkid %> /usr/bin/sreview-inject-job <%== $talkid %>',
+  'transcribing' => 'qsub -q trans.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N trs_<%== $talkid %> /usr/bin/sreview-transcribe <%== $talkid %>',
+  'syncing' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -b y -N syn_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %> sync',
 };
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
 $upload_actions = [
   [ 'rsync', '-zavRHP', '--remove-source-files', '/srv/sreview/output/./<%== $relative_file %>', 'review-sync@rsync.fosdem.org:/srv/video/public/' ]
 ];
+
+$sync_extensions = [ "vtt" ];
 
 # If set, used with parse_re in an s///g command to produce an input URL
 #$url_re = undef;
@@ -178,7 +182,6 @@ $cleanup = 'previews';
 
 $eventurl_format = 'https://video.fosdem.org/2025/<%= $room_output %>/<%= $slug %>.av1.webm';
 $audio_multiplex_mode = 'stream';
-$command_tune={bs1770gain => "0.5"};
 
 $inject_collection = "upload";
 $extra_collections = {
