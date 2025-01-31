@@ -53,17 +53,57 @@
   shell:
     cmd: udevadm settle
 
+- name: check if there is a change to fosdem firmware
+  shell: |
+    set -eu
+    ver_file=/usr/local/share/fosdem_firmware/upstream_ver
+    old_ver=$(cat "${ver_file}" 2>/dev/null || true)
+    cur_ver=$(dpkg-query --showformat='${Version}' --show fosdem-firmware)
+    if [[ "${old_ver}" != "${cur_ver}" ]]; then
+        echo "${cur_ver} new"
+    else
+        echo "${cur_ver} unchanged"
+    fi
+    echo "${cur_ver}" > "${ver_file}"
+  register: firmware_ver
+  changed_when: "'unchanged' not in firmware_ver.stdout"
+  args:
+    executable: /bin/bash
+  tags:
+    - firmware
+
+- name: check if there is a change to ms2131 firmware
+  shell: |
+    set -eu
+    hash_file=/usr/local/share/fosdem_firmware/ms2131_hash
+    old_ver=$(cat "${hash_file}" 2>/dev/null || true)
+    cur_ver=$(cat /usr/local/share/fosdem_firmware/ms2131.bin | sha256sum)
+    if [[ "${old_ver}" != "${cur_ver}" ]]; then
+        echo "${cur_ver} new"
+    else
+        echo "${cur_ver} unchanged"
+    fi
+    echo "${cur_ver}" > "${hash_file}"
+  register: firmware_ver_ms2131
+  changed_when: "'unchanged' not in firmware_ver_ms2131.stdout"
+  args:
+    executable: /bin/bash
+  tags:
+    - firmware
+
 - name: flash audio board firmware
   shell:
     cmd: bash /usr/share/fosdem_firmware/flash_audio_board_firmware.sh /usr/share/fosdem_firmware/audio_board_teensy.hex
   tags:
     - firmware
+  when: firmware_ver.changed
 
 - name: flash rp2040 firmware
   shell:
     cmd: bash /usr/share/fosdem_firmware/flash_rp2040_firmware.sh /usr/share/fosdem_firmware/box_rp2040.elf
   tags:
     - firmware
+  when: firmware_ver.changed
 
 - name: flash ms2131 firmware
   shell: |
@@ -90,6 +130,7 @@
   tags:
     - firmware_ms2131
     - firmware
+  when: firmware_ver_ms2131.changed
 
 - name: copy mixer test script
   ansible.builtin.copy:
