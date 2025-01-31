@@ -69,12 +69,19 @@ has 'pretalx_data' => (
 	builder => '_build_pretalx_data',
 );
 
+has '_subtitle' => (
+        is => 'rw',
+        isa => 'Str',
+        trigger => \&_clear_subtitle,
+);
+
 has '+title' => (
 	trigger => \&_set_title,
 );
 
 has '+subtitle' => (
 	predicate => 'has_subtitle',
+        clearer => '_clear_subtitle',
 );
 
 sub _parse_title {
@@ -86,9 +93,11 @@ sub _parse_title {
 		$new_title = $1;
 	}
 
-	if($new_title =~ /^(?<title>[^:-]+)[ :-]+(?<subtitle>.*$)/) {
-		$subtitle = $+{subtitle};
-		$new_title = $+{title};
+	if($new_title =~ /^(?<title>[^:-?]+[?]*)[:-\s]*(?<subtitle>.*$)/) {
+                if(length($+{title}) >= 10) {
+                        $subtitle = $+{subtitle};
+                        $new_title = $+{title};
+                }
 	}
         return ($new_title, $subtitle);
 }
@@ -98,7 +107,7 @@ sub _load_title {
         my $title = $self->SUPER::_load_title;
 
         ($title, my $subtitle) = $self->_parse_title($title);
-        $self->subtitle($subtitle) if $subtitle;
+        $self->_subtitle($subtitle) if $subtitle;
 
         return $title;
 }
@@ -110,7 +119,11 @@ sub _set_title {
 
         ($parsed_title, $subtitle) = $self->_parse_title($new_title);
         $self->title($parsed_title) if $new_title ne $parsed_title;
-        $self->subtitle($subtitle) if $subtitle;
+        $self->_subtitle($subtitle) if $subtitle;
+}
+
+sub _load_subtitle {
+        return shift->_subtitle;
 }
 
 sub _load_filtered {
