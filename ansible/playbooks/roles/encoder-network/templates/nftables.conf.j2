@@ -13,7 +13,7 @@ table inet filter {
 		ip6 nexthdr icmpv6 accept
 		ip protocol icmp accept
 		ip saddr 172.20.22.210/24 accept
-		tcp dport {ssh,http,https,5432} accept
+		tcp dport {ssh,http,https,5432,6444,6445} accept
 	}
 
 	chain forward {
