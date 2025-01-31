@@ -46,6 +46,11 @@
     enabled: true
     state: started
 
+- name: restart video-status service
+  service:
+    name: video-status
+    state: restarted
+
 - name: enable video-preview service
   service:
     name: video-preview
