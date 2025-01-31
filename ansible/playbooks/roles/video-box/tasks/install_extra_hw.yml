@@ -1,14 +1,26 @@
 ---
 
-- name: setup FOSDEM firmware directory
+- name: setup local FOSDEM firmware directory
   file:
-    path: /lib/firmware/FOSDEM
+    path: /usr/local/share/fosdem_firmware
     state: directory
+  tags:
+    - firmware
+    - firmware_ms2131
 
-- name: copy FOSDEM firmware
-  copy:
-    src: firmware/
-    dest: /lib/firmware/FOSDEM/
+- name: download ms2131 firmware blob
+  ansible.builtin.get_url:
+    # TODO: find a better place to put this
+    # this should be fine for now, since we verify it by checksum anyway
+    url: https://rnd.qtrp.org/ms2131_firmware_fosdem.bin
+    checksum: 'sha256:5948ac271fe4dff9ade08fd0b0e87f2622ac6cab3e4d3b43a2addbbdba0c6167'
+    dest: /usr/local/share/fosdem_firmware/ms2131.bin
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - firmware_ms2131
+    - firmware
 
 - name: set up udev rules - serial
   ansible.builtin.copy:
@@ -17,6 +29,8 @@
     owner: root
     group: root
     mode: 0644
+  tags:
+    - firmware
 
 - name: set up udev rules - vbox
   ansible.builtin.copy:
@@ -41,11 +55,41 @@
 
 - name: flash audio board firmware
   shell:
-    cmd: bash /lib/firmware/FOSDEM/flash_audio_board_firmware.sh /lib/firmware/FOSDEM/teensy_audio.hex
+    cmd: bash /usr/share/fosdem_firmware/flash_audio_board_firmware.sh /usr/share/fosdem_firmware/audio_board_teensy.hex
+  tags:
+    - firmware
 
 - name: flash rp2040 firmware
   shell:
-    cmd: bash /lib/firmware/FOSDEM/flash_rp2040_firmware.sh /lib/firmware/FOSDEM/box_rp2040.elf
+    cmd: bash /usr/share/fosdem_firmware/flash_rp2040_firmware.sh /usr/share/fosdem_firmware/box_rp2040.elf
+  tags:
+    - firmware
+
+- name: flash ms2131 firmware
+  shell: |
+    set -eu
+
+    old=/usr/local/share/fosdem_firmware/ms2131_old_$(date +'%Y%m%d%H%M%S').bin
+    new=/usr/local/share/fosdem_firmware/ms2131.bin
+
+    [[ -f /etc/systemd/system/video-statuskeeper ]] && echo 'stopping statuskeeper' && systemctl stop video-statuskeeper || true
+    echo 'reading old firmware'
+    ms213x-cli read FLASH 0 --filename "${old}"
+    if cmp "${old}" "${new}"; then
+      echo 'firmware is correct, not reflashing'
+    else
+      echo 'flashing and verifying...'
+      ms213x-cli write-file --verify FLASH 0 "${new}"
+      echo 'flashing done'
+    fi
+    [[ -f /etc/systemd/system/video-statuskeeper ]] && echo 'starting statuskeeper' && systemctl start video-statuskeeper || true
+  register: flash_ms2131_firmware
+  changed_when: "'not reflashing' not in flash_ms2131_firmware.stdout"
+  args:
+    executable: /bin/bash
+  tags:
+    - firmware_ms2131
+    - firmware
 
 - name: copy mixer test script
   ansible.builtin.copy:
@@ -54,5 +98,3 @@
     owner: root
     group: root
     mode: 0755
-
-
