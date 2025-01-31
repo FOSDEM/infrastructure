@@ -23,8 +23,6 @@
     - jq
     - alsa-utils
     - lm-sensors
-    - libhidapi-hidraw0 # TODO: modify the ms213x-cli package to include these as dependencies
-    - libhidapi-libusb0
     - ms213x-status
     - ms213x-cli
     - python3-serial
