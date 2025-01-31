@@ -1,0 +1,17 @@
+Hi!
+
+This is to inform you that the video of your talk, titled
+
+  <%= $title %>
+
+has now been released and will soon be available at
+
+  <%= $talk->eventurl %>
+
+It may be a few hours before our mirrors get the files and the links work.
+
+Feel free to announce it to whoever you think may be interested!
+
+Thanks for speaking at FOSDEM,
+
+The FOSDEM team.
