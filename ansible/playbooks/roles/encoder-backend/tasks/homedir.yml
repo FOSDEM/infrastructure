@@ -14,3 +14,11 @@
     owner: sreview
     group: sreview
     mode: 0755
+
+- name: ensure script-output directory exists
+  file:
+    path: /var/lib/sreview/script-output
+    state: directory
+    owner: sreview
+    group: sreview
+    mode: 0755
