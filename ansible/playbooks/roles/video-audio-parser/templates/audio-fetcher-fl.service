@@ -1,0 +1,13 @@
+[Unit]
+Description={{ item }} FL audio parser service
+
+[Service]
+ExecStart=/usr/local/bin/audio-fetcher {{ item }} 0
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

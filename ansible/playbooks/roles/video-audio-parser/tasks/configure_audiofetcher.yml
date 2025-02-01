@@ -1,0 +1,72 @@
+---
+
+- name: Add influx key
+  apt_key:
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+
+- name: Add influx repo
+  apt_repository:
+    filename: influxdb
+    repo: "deb https://repos.influxdata.com/debian stable main"
+
+- name: "install packages"
+  apt:
+    state: latest
+    package:
+    - python3-requests
+    - influxdb
+
+- name: make sure InfluxDB is running
+  systemd:
+    name: influxdb
+    state: started
+    enabled: true
+
+- name: create InfluxDB database
+  command: influx -execute 'create database ebur'
+  ignore_errors: true
+
+
+- name: install audio-fetcher binary
+  copy:
+    src: files/audio-fetcher/audio-fetcher
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install audiofetcher service FL
+  template:
+    src: audio-fetcher-fl.service
+    dest: /etc/systemd/system/audio-fetcher-fl-{{ item }}.service
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms }}"
+
+- name: install audiofetcher service FR
+  template:
+    src: audio-fetcher-fr.service
+    dest: /etc/systemd/system/audio-fetcher-fr-{{ item }}.service
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ video_rooms }}"
+
+
+- name: enable and start all audiofetcher FL
+  service:
+    name: audio-fetcher-fl-{{item}}
+    state: started
+    enabled: true
+    daemon_reload: true
+  with_items: "{{ video_rooms }}"
+
+- name: enable and start all audiofetcher FR
+  service:
+    name: audio-fetcher-fr-{{item}}
+    state: started
+    enabled: true
+    daemon_reload: true
+  with_items: "{{ video_rooms }}"
+

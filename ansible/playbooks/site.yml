@@ -49,6 +49,14 @@
   roles:
   - { role: video-control-server, tags: [ 'video-control-server' ] }
 
+- name: video-audio-parser
+  hosts: video-audio-parser
+  remote_user: root
+  roles:
+  - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-audio-parser, tags: [ 'video-audio-parser' ] }
+
+
 - name: video-box
   hosts:
     - video-box

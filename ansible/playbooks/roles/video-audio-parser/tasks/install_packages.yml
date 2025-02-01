@@ -1,0 +1,8 @@
+---
+- name: "install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    package:
+    - ffmpeg
+

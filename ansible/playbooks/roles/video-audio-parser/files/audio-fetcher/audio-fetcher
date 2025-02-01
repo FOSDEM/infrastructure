@@ -1,0 +1,154 @@
+#!/usr/bin/python3
+
+import os
+import re
+import requests
+import socket
+import subprocess
+import sys
+import time
+
+
+def initsession():
+	global httpsession, querysession
+	s = requests.Session()
+	httpsession = s
+
+	s = requests.Session()
+	querysession = s
+
+def fetchvocto(room):
+	global querysession
+	r = None
+	url = 'http://control.video.fosdem.org/query-room.php?room='+room
+
+	try:
+		r = querysession.get(url, timeout=(1,1))
+	except (requests.ConnectionError, requests.Timeout, requests.HTTPError):
+		return None
+
+	c = r.content.decode('utf8')
+
+	if c == 'notfound':
+		return None
+
+	return c.split()
+
+def submitdata(rawdata):
+	global httpsession
+	r = None
+
+	retry = True
+	tries = 0
+
+	data = ""
+
+	for line in rawdata:
+		data += line
+
+	while retry:
+		tries += 1
+		retry = False
+		url = 'http://{remote}/write?db={db}'.format(remote='localhost:8086', db='ebur')
+		try:
+			try:
+				r = httpsession.post(url, data = data, timeout = (3, 5))
+			except ValueError as e:
+				# requests v. 2.2 does not support tuple for timeout, leaving the larger value only:
+				r = httpsession.post(url, data = data, timeout = 5)
+		except (requests.ConnectionError, requests.Timeout, requests.HTTPError):
+			retry = True
+			r = None
+			initsession()
+		if r is not None:
+			if r.status_code == 400:
+				print("Broken data, {d}".format(d = data))
+				return True # do not retry this piece of data
+			if r.status_code == 401:
+				print("Auth failed")
+				initsession()
+				return False
+			if r.status_code != 204:
+				print("Failed submitting data, {s}".format(s = r.text))
+				initsession()
+				return False
+		if tries > 5:
+			return False
+
+	return True
+
+
+
+# Test with file.
+#ffmpeg = "/usr/bin/ffmpeg -nostats -nostdin -re -i FILENAME -filter_complex ebur128 -f null -".split(' ')
+# Listen for stream.
+
+roomname=sys.argv[1]
+chan=sys.argv[2];
+
+vocto = None
+
+initsession()
+while vocto is None:
+	s = fetchvocto(roomname)
+	if s is not None:
+		vocto = s[0].replace('tcp://', '').replace(':8899/?timeout=3000000', '')
+	time.sleep(1)
+
+
+ffmpeg = f"/usr/bin/ffmpeg -nostats -nostdin -i tcp://{vocto}:8899/ -vn -filter_complex '[0:a:{chan}] ebur128' -f null - "
+
+devnull = open(os.devnull, 'wb')
+process = subprocess.Popen(ffmpeg, shell=True, stderr=subprocess.PIPE, stdout=devnull)
+pipe = process.stderr
+pushdata = []
+
+
+
+print("current room is " + roomname)
+
+pushed = 0
+refresh = 1
+
+while True:
+	line = pipe.readline()
+	if len(line) == 0:
+		process.kill()
+		process.communicate()
+		process.wait()
+		pipe.close()
+		process = subprocess.Popen(ffmpeg, shell=True, stderr=subprocess.PIPE, stdout=devnull)
+		pipe = process.stderr
+		continue
+	line = line.strip().decode('utf-8')
+	#line = '[Parsed_ebur128_0 @ 0x562c6964fd00] t: 1.50023    M: -33.2 S:-120.7     I: -34.8 LUFS     LRA:   0.0 LU'
+	matches = re.split(r'\[Parsed_ebur.*t:[ ]*([0-9.-]*).*M:[ ]*([0-9.-]*).*S:[ ]*([0-9.-]*).*I:[ ]*([0-9.-]*)', line)
+	
+	#print "%s" % line
+
+	if len(matches)<5:
+		continue
+
+	#print "%r" % matches
+
+
+	dataline = 'ebur2,stream=' + roomname + ',chan=' + chan + ' '
+	dataline += 'M=' + matches[2] + ",S=" + matches[3] + ",I=" + matches[4]
+
+	ts = int(time.time() * 1000000000)
+
+	dataline += " " + str(ts) + "\n"
+	#print "%s" % dataline
+
+	pushdata.append(dataline)
+
+	if len(pushdata)>10:
+		submitdata(pushdata)
+		pushdata = []
+		pushed += 1
+
+	if pushed >= refresh:
+		pushed = 0
+
+
+# vim: noai:ts=4:sw=4:noexpandtab

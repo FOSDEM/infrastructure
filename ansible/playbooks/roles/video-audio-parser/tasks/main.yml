@@ -1,0 +1,3 @@
+---
+- import_tasks: install_packages.yml
+- import_tasks: configure_audiofetcher.yml
