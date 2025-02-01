@@ -26,6 +26,6 @@
 - name: enable and start all audiofetcher
   service:
     name: audio-fetcher
-    state: started
-    enabled: true
+    state: stopped
+    enabled: false
     daemon_reload: true
