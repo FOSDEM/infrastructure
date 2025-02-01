@@ -6,3 +6,5 @@
 - import_tasks: users.yml
 - import_tasks: homedir.yml
   when: "'encoder-storage' not in group_names"
+- import_tasks: whisper.yml
+  when: "'encoder-storage' not in group_names"
