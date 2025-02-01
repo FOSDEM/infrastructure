@@ -28,6 +28,10 @@ coredns.n.fosdem.net
 [video-control-server]
 control.video.fosdem.org
 
+[video-audio-parser]                             
+vap.video.fosdem.org ansible_host=185.175.218.112
+
+
 [video-streamer-backend:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
@@ -183,6 +187,7 @@ event-secondary
 [video:children]
 video-box
 video-control-server
+video-audio-parser
 video-stream-dump
 video-stream-dump-external
 video-streamer-backend
