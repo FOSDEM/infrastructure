@@ -17,4 +17,5 @@ metrics:
   values:
   - total_time
   query: |
-    select extract(epoch from sum((endtime - starttime)::interval)) as total_time from talks where state = 'done';
+    SELECT COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks WHERE state = 'done';
+
