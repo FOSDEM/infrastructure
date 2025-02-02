@@ -159,7 +159,7 @@ $state_actions = {
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
 $upload_actions = [
-  [ 'rsync', '-zavRHP', '--remove-source-files', '/srv/sreview/output/./<%== $relative_file %>', 'review-sync@rsync.fosdem.org:/srv/video/public/' ]
+  [ 'rsync', '-zavRHP', '/srv/sreview/output/./<%== $relative_file %>', 'review-sync@rsync.fosdem.org:/srv/video/public/' ]
 ];
 
 $sync_extensions = [ "vtt" ];
