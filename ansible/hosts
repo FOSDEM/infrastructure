@@ -87,6 +87,8 @@ encoder10.video.fosdem.org
 
 [cloud-encoders]
 encoder2.video.fosdem.org
+encoder9.video.fosdem.org
+encoder10.video.fosdem.org
 
 [video-stream-dump:vars]
 ansible_python_interpreter=/usr/bin/python3
