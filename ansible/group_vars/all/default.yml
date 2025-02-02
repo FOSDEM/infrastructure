@@ -12,6 +12,7 @@ ssh_users:
 - wouter_v
 - wouter_s
 - bastischubert
+- shin
 
 timezone: "Europe/Brussels"
 
