@@ -84,6 +84,8 @@ encoder7.video.fosdem.org
 encoder8.video.fosdem.org 
 encoder9.video.fosdem.org 
 encoder10.video.fosdem.org
+encoder11.video.fosdem.org
+encoder12.video.fosdem.org
 
 [cloud-encoders]
 encoder2.video.fosdem.org
