@@ -36,7 +36,7 @@ metrics:
   values:
   - total_reviewed_duration
   query: |
-    SELECT EXTRACT(EPOCH FROM SUM(talks.endtime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE ce.property_value END || ' seconds')::INTERVAL) - (talks.starttime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE cs.property_value END || ' seconds')::INTERVAL) AS total_reviewed_duration
+    SELECT EXTRACT(EPOCH FROM SUM((talks.endtime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE ce.property_value END || ' seconds')::INTERVAL) - (talks.starttime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE cs.property_value END || ' seconds')::INTERVAL))) AS total_reviewed_duration
     FROM talks
     JOIN corrections ce ON talks.id = ce.talk AND ce.property = 6
     JOIN corrections cs ON talks.id = cs.talk AND cs.property = 4
