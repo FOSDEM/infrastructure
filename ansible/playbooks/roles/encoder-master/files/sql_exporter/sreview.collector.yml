@@ -31,7 +31,7 @@ metrics:
   values:
   - total_time
   query: |
-    SELECT COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks GROUP BY state;
+    SELECT state, COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks GROUP BY state;
 - metric_name: video_encoded_seconds
   type: gauge
   help: 'Length of the released vieos as encoded'
