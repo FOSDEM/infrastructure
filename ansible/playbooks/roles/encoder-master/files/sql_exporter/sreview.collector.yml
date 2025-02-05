@@ -26,10 +26,12 @@ metrics:
 - metric_name: video_released_seconds
   type: gauge
   help: 'Length of all the released videos added together'
+  key_labels:
+  - state
   values:
   - total_time
   query: |
-    SELECT COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks WHERE state = 'done';
+    SELECT COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks GROUP BY state;
 - metric_name: video_encoded_seconds
   type: gauge
   help: 'Length of the released vieos as encoded'
