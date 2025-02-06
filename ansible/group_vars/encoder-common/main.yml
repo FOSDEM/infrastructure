@@ -1,0 +1,14 @@
+sreview:
+  nfs_server: reviewstorage.video.fosdem.org
+  fonts:
+    - 'Frutiger Black.ttf'
+    - 'Frutiger Bold.ttf'
+    - 'Frutiger Light.ttf'
+    - 'Frutiger Regular.ttf'
+    - 'Frutiger Roman.ttf'
+    - 'Signika-Bold.ttf'
+    - 'Signika-Light.ttf'
+    - 'Signika-Medium.ttf'
+    - 'Signika-Regular.ttf'
+    - 'Signika-SemiBold.ttf'
+    - 'Signika-VariableFont_GRAD,wght.ttf'

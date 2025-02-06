@@ -67,3 +67,18 @@
   copy:
     src: notify-email.ep
     dest: /srv/sreview/assets/notify-email.ep
+
+- name: Ensure the font directory exists
+  file:
+    name: /var/lib/sreview/.local/share/fonts
+    state: directory
+    owner: sreview
+    group: sreview
+  when: "{{ sreview.fonts is defined }}"
+
+- name: install the fonts
+  copy:
+    src: "fonts/{{ item }}"
+    dest: /var/lib/sreview/.local/share/fonts/{{ item }}
+  loop: "{{ sreview.fonts }}"
+  when: "{{ sreview.fonts is defined }}"
