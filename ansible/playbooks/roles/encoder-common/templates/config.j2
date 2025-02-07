@@ -143,18 +143,18 @@ $secret = '{{ mojosecret }}';
 
 # A hash that tells SReview what to do with a talk when it is in a given state. Mojo::Template is used to transform these.
 $state_actions = {
-  'cutting' => 'qsub -cwd -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N cut_<%== $talkid %> /usr/bin/sreview-cut <%== $talkid %>',
-  'generating_previews' => 'qsub -cwd -V -q hiprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N prv_<%== $talkid %> /usr/bin/sreview-previews <%== $talkid %>',
-  'notification' => 'qsub -cwd -V -q mail.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N ntf_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %>',
-  'transcoding' => 'qsub -cwd -V -q lowprio.q -e <%== $output_dir %> -o <%== $output_dir %> -b y -N trn_<%== $talkid %> /usr/bin/sreview-transcode <%== $talkid %>',
-  'uploading' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N upl_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %>',
-  'announcing' => 'qsub -q mail.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N ann_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> announce',
-  'fixuping' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fix_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
-  'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N fnt_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
-  'finalreview' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N frv_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
-  'injecting' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N inj_<%== $talkid %> /usr/bin/sreview-inject-job <%== $talkid %>',
-  'transcribing' => 'qsub -q trans.q -cwd -v VIRTUAL_ENV=/var/lib/sreview/whisper -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -N trs_<%== $talkid %> /usr/bin/sreview-transcribe <%== $talkid %>',
-  'syncing' => 'qsub -q hiprio.q -cwd -V -b y -e <%== $output_dir %> -o <%== $output_dir %> -b y -N syn_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %> sync',
+  'cutting' => 'qsub -cwd -V -q hiprio.q -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N cut_<%== $talkid %> /usr/bin/sreview-cut <%== $talkid %>',
+  'generating_previews' => 'qsub -cwd -V -q hiprio.q -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N prv_<%== $talkid %> /usr/bin/sreview-previews <%== $talkid %>',
+  'notification' => 'qsub -cwd -V -q mail.q -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N ntf_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %>',
+  'transcoding' => 'qsub -cwd -V -q lowprio.q -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N trn_<%== $talkid %> /usr/bin/sreview-transcode <%== $talkid %>',
+  'uploading' => 'qsub -q hiprio.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N upl_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %>',
+  'announcing' => 'qsub -q mail.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N ann_<%== $talkid %> /usr/bin/sreview-notify <%== $talkid %> announce',
+  'fixuping' => 'qsub -q hiprio.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N fix_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
+  'notify_final' => 'qsub -q hiprio.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N fnt_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
+  'finalreview' => 'qsub -q hiprio.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N frv_<%== $talkid %> /usr/bin/sreview-skip <%== $talkid %>',
+  'injecting' => 'qsub -q hiprio.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N inj_<%== $talkid %> /usr/bin/sreview-inject-job <%== $talkid %>',
+  'transcribing' => 'qsub -q trans.q -cwd -v VIRTUAL_ENV=/var/lib/sreview/whisper -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -N trs_<%== $talkid %> /usr/bin/sreview-transcribe <%== $talkid %>',
+  'syncing' => 'qsub -q hiprio.q -cwd -V -b y -l mem_free=3G -e <%== $output_dir %> -o <%== $output_dir %> -b y -N syn_<%== $talkid %> /usr/bin/sreview-upload <%== $talkid %> sync',
 };
 
 # An array of commands to run on each file to be uploaded. Each component is passed through Mojo::Template before processing. To avoid quoting issues, it is a two-dimensional array, so that no shell will be called to run this.
