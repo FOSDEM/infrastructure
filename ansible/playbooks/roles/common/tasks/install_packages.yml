@@ -28,6 +28,7 @@
     - mtr-tiny
     - needrestart
     - patch
+    - prometheus-node-exporter
     - psmisc
     - screen
     - sipcalc
