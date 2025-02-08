@@ -105,7 +105,7 @@ $output_profiles = ['fosdem_av1','copy'];
 $output_subdirs = [ 'year', 'room_output' ];
 
 # The base directory under which SReview should place the final released files
-{% if 'cloud-encoders' in group_names %}
+{% if 'cloud-encodersXXX' in group_names %}
 $outputdir = 'sftp://31.22.22.133/srv/sreview/output';
 {% else %}
 $outputdir = '/srv/sreview/output';
@@ -126,7 +126,7 @@ $preroll_template = '/srv/sreview/assets/open.svg';
 $preview_exten = 'mp4';
 
 # The directory on the file system where files served by the webinterface should be stored
-{% if 'cloud-encoders' in group_names %}
+{% if 'cloud-encodersXXX' in group_names %}
 $pubdir = 'sftp://31.22.22.133/srv/sreview/storage';
 {% else %}
 $pubdir = '/srv/sreview/storage';
@@ -193,7 +193,7 @@ $extra_collections = {
 };
 $accessmethods = {
   'input' => 'HTTP::nginx::JSON',
-{% if 'cloud-encoders' in group_names %}
+{% if 'cloud-encodersXXX' in group_names %}
   'intermediate' => 'SFTP',
   'output' => 'SFTP',
   'upload' => 'SFTP',
