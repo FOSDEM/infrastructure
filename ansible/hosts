@@ -96,18 +96,18 @@ encoder19.video.fosdem.org
 encoder20.video.fosdem.org
 
 [cloud-encoders]
-#encoder2.video.fosdem.org
-#encoder9.video.fosdem.org
-#encoder10.video.fosdem.org
-#encoder13.video.fosdem.org
-#encoder14.video.fosdem.org
-#encoder15.video.fosdem.org
-#encoder16.video.fosdem.org
-#encoder17.video.fosdem.org
-#encoder19.video.fosdem.org
-#encoder18.video.fosdem.org
-#encoder19.video.fosdem.org
-#encoder20.video.fosdem.org
+encoder2.video.fosdem.org
+encoder9.video.fosdem.org
+encoder10.video.fosdem.org
+encoder13.video.fosdem.org
+encoder14.video.fosdem.org
+encoder15.video.fosdem.org
+encoder16.video.fosdem.org
+encoder17.video.fosdem.org
+encoder19.video.fosdem.org
+encoder18.video.fosdem.org
+encoder19.video.fosdem.org
+encoder20.video.fosdem.org
 
 [video-stream-dump:vars]
 ansible_python_interpreter=/usr/bin/python3
