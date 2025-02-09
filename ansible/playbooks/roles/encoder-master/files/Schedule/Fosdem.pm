@@ -89,8 +89,8 @@ sub _parse_title {
         my $new_title = shift;
         my $subtitle = undef;
 
-	if($new_title =~ /^\[?(REPLACEMENT|RESCHEDULED)[:\]]? (.*)/) {
-		$new_title = $1;
+	if($new_title =~ /^\[?(REPLACEMENT|RESCHEDULED)[:\]]? (?<title>.*)/) {
+		$new_title = $+{title};
 	}
 
 	if($new_title =~ /^(?<title>[^:-?]+[?]*)[:\s-]*(?<subtitle>.*$)/) {
