@@ -4,11 +4,11 @@ require_once(dirname(__FILE__)."/inc.php");
 <!DOCTYPE html>
 
 <?php
-function roomlist() {
-    echo "<h1>room not found.</h1><br>";
+function roomlist($db) {
+    echo "<h1>Room List</h1><br>";
     $r = $db->prepare("select roomname from fosdem order by roomname");
     $r->execute();
-    while ($row = $r->fetch()) {
+    foreach ($r as $row) {
         echo '<a style="font-size: larger;" href="/vocto.php?room='.$row[0].'">'.$row[0].'</a><br>';
     }
     exit();
@@ -19,20 +19,20 @@ if (empty($_GET['room']) ) {
         $spl = explode('-', $_SERVER['PHP_AUTH_USER']);
         $room = strtolower($spl[1]);
     } else {
-        roomlist();
+        roomlist($db);
     }
 } else {
     $room = strtolower($_GET['room']);
 }
 
-$r = $db->prepare("select voctop, audio from fosdem where roomname = :room");
+$r = $db->prepare("select voctop, audio, cam, slides from fosdem where roomname = :room");
 $r->execute(['room' => $room]);
 if (!$r) {
     roomlist();    
 }
 
 $row = $r->fetch();
-$host = $row[0];
+$host = $row['voctop'];
 $audiobox = $row[1];
 
 
@@ -49,12 +49,13 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <script src="chartjs-adapter-moment.js"></script>
 <script src="chartjs-plugin-annotation.js"></script>
 <script src="graph.js"></script>
+<script src="reconnecting-websocket.js"></script>
 <script src="mixer.js"></script>
 </head>
 <body>
 <div class="container">
 <div class="video-control">
-<h2>Room <?php echo $room; ?></h2>
+<h2><a href="/vocto.php">home</a> | Room <?php echo $room; ?></h2>
 <div class="room-status">
 <form>
 <label for="room_status">Room Status: </label>
@@ -76,8 +77,7 @@ if (empty($_GET['w']) && empty($argv[1])) {
 -->
 </div>
 <div>
-<h2>Mixer</h2>
-<script src="mixer.js"></script>
+<h2>Mixer on <?php echo $audiobox; ?>; <a href="https://control.video.fosdem.org/grafana/d/aeacoqvn453b4a/mixer-levels?orgId=1&from=now-5m&to=now&timezone=browser&var-Box=<?php echo $room; ?>&refresh=5s">Grafana</a></h2>
 <datalist id="volumes">
 <option value="1" label="100%"></option>
 </datalist>
@@ -86,24 +86,40 @@ if (empty($_GET['w']) && empty($argv[1])) {
 
 <div class="mixer">
 
+<div class="mixer">
+<h2>Inputs (pre-fader)</h2>
 <div class="inputs channellist" id="inputs">
-<h2>Inputs</h2>
 <!-- inserted by js -->
+</div>
+</div>
+<div class="mixer">
+<h2>Outputs (post-fader)</h2>
+<div class="outputs channellist" id="outputs">
+<!-- inserted by js -->
+</div>
+</div>
+</div>
 </div>
 
-<div class="outputs channellist" id="outputs">
-<h2>Outputs</h2>
-<!-- inserted by js -->
-</div>
-</div>
-</div>
+<div id="kur"></div>
 
 <script>
 "use strict";
 
 window.onload = function() {
-	const mixer = new Mixer('mixer/<?php echo $audiobox; ?>/');
-	mixer.setupMixer().then(_ => {});
+	const inputsShown = ['IN1', 'IN2', 'IN3'];
+const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
+<?php if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) { ?>
+const inputsControllable = [];
+const outputsControllable = ['OUT2'];
+const mutesControllable = false;
+<?php } else { ?>
+const inputsControllable = inputsShown;
+const outputsControllable = outputsShown;
+const mutesControllable = true;
+<?php } ?>
+	const audioMixer = new Mixer('mixer/<?php echo $audiobox; ?>', inputsShown, outputsShown, inputsControllable, outputsControllable, mutesControllable);
+	audioMixer.setupMixer().then(_ => {});
 }
 </script>
 </div>
@@ -111,21 +127,29 @@ window.onload = function() {
 <div class="video-monitoring-grid">
 <div class="card monitoring-large">
 <div>Stream</div>
+<a href="tcp://<?php echo $row['voctop'] ?>:8899">
 <img id="output" src="<?php echo $room;?>/room.jpg"/>
+</a>
 </div>
 <div class="card">
 <div>Camera</div>
+<a href="tcp://<?php echo $row['cam'] ?>:8899">
 <img id="cam" src="<?php echo $room;?>/cam.jpg"/>
+</a>
 </div>
 <div class="card">
 <div>Slides</div>
+<a href="tcp://<?php echo $row['slides'] ?>:8899">
 <img id="grab" src="<?php echo $room;?>/grab.jpg"/>
+</a>
 </div>
 <div class="card monitoring-large">
 <div>Audio</div>
-<canvas id="chart-<?php echo $room; ?>" height="50"></canvas>
+<canvas id="chart-<?php echo $room; ?>" height="100"></canvas>
 	<script>chart("<?php echo $room; ?>", document.getElementById("chart-<?php echo $room; ?>"), 1000);</script>
 </div>
+<h3>Cambox <?php echo $row['cam']; ?></h3>
+<h3>Slidesbox <?php echo $row['slides']; ?></h3>
 </div>
 </div>
 </div>
