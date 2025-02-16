@@ -1,36 +1,40 @@
 <?php
 
+
+function cap($val) {
+	return max($val, -50);
+}
+
 $room = $_GET['room'] or die('room required');
+$lastts = isset($_GET['time']) ? $_GET['time'] * 1000 * 1000: 'now() - 5m';
 
 $data = http_build_query(array(
     'db' => 'ebur',
-    'q' => 'SELECT  mean(S) as S, mean(M) as M FROM "ebur" WHERE time >= now() - 5m and time <= now() and stream =~ /^'.$room.'$/ GROUP BY time(1s) fill(null)',
+    'q' => 'SELECT mean(S) as S, mean(M) as M FROM "ebur2" WHERE time >= ' . $lastts . ' and time <= now() and stream =~ /^'.$room.'$/ GROUP BY time(1s), chan fill(null)',
     'epoch' => 'ms'
 ));
 
-$ch = curl_init('http://localhost:8086/query?'.$data);
+$ch = curl_init('http://185.175.218.112:8086/query?'.$data);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $curl_result = curl_exec($ch);
 
 curl_close($ch);
 
 $results = json_decode($curl_result, true)['results'][0];
-$result = array_key_exists('series', $results) && $results['series'] != null ? $results['series'][0] : [];
 
-$columns = array_key_exists('columns', $result) ? $result['columns'] : [];
-$values = array_key_exists('values', $result) ? $result['values'] : [];
+//actual serises here.
+$series = ['l' => [], 'r' => []];
 
-
-// cap silence to -50
-foreach($values as &$entry) {
-    if($entry[1] != null) $entry[1] = max($entry[1], -50);
-    if($entry[2] != null) $entry[2] = max($entry[2], -50);
+if (!isset($results['series'])) {
+	echo json_encode([]);
+	die();
 }
-unset($entry);
 
-$output = array_map(function($arr) {
-    global $columns;
-    return array_combine($columns, $arr);
-}, $values);
+foreach($results['series'] as $k => $data) {
+	foreach (array_slice($data['values'], 0, -1) as $dataVal) {
+		[$t, $s, $m] = $dataVal;
+		$series[$k === 0 ? 'l' : 'r'][] = ['time' => $t, 'S' => cap($s), 'M' => cap($m)];
+	}
+}
 
-echo json_encode($output);
+echo json_encode($series);
