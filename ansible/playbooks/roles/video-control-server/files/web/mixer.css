@@ -1,5 +1,7 @@
 body {
 	--mixer-vu-height: 10rem;
+	--mixer-vu-width: 5.5rem;
+	--mixer-vu-margin: 0.5rem;
 }
 
 .mixer {
@@ -9,17 +11,22 @@ body {
 
 .channellist {
 	display: flex;
+	flex-wrap: wrap;
 }
 
-.channellist h2 {
-
-	direction: ltr;
-	writing-mode: vertical-rl;
-	transform: rotate(180deg);
+.mixer h2 {
 	margin: 1rem;
 	vertical-align: middle;
 	text-align: right;
 	font-size: x-large;
+}
+
+@media screen and  (min-width: 900px) {
+	.mixer h2 {
+		direction: ltr;
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+	}
 }
 
 .channel {
@@ -28,12 +35,13 @@ body {
 	border: 1px solid black;
 	margin: 0.5rem;
 
-	width: 6rem;
-	#max-width: 6rem;
+	width: var(--mixer-vu-width);
+	max-width: var(--mixer-vu-width);
 }
 
 .channel h3 {
 	text-align: center;
+	margin: 0.5rem;
 }
 
 .channel .sliders {
@@ -44,7 +52,7 @@ body {
 .channel input[type=range] {
 	direction: rtl;
 	writing-mode: vertical-lr;
-	margin: 1rem;
+	margin: var(--mixer-vu-margin);
 	vertical-align: middle;
 	height: var(--mixer-vu-height);
 }
@@ -72,7 +80,7 @@ meter {
 	height: var(--mixer-vu-height);
 	direction: rtl;
 	writing-mode: vertical-lr;
-	margin: 1rem;
+	margin: var(--mixer-vu-margin);
 	vertical-align: middle;
 	--background: #dadada;
 	--optimum: darkgoldenrod;
@@ -82,9 +90,6 @@ meter {
 	/* The gray background in Firefox */
 	background: var(--background);
 	display: block;
-
-	#height: auto;
-	margin: 1rem;
 }
 
 /* The gray background in Chrome, etc. */

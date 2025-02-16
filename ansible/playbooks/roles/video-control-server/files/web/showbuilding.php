@@ -49,7 +49,11 @@ require_once(dirname(__FILE__)."/inc.php");
             text-align: center;
             border: 1px solid black;
             padding: .1em;
-        }
+	}
+	.roomcard > a:link, .roomcard > a:visited {
+	    color: midnightblue;
+            text-decoration: none;
+	}
         .roomcard-body {
             display: flex;
             align-items: center;
@@ -83,12 +87,14 @@ require_once(dirname(__FILE__)."/inc.php");
 
     <script>
         function updateStatus(chart, room) {
-            const data = chart.data.datasets[0].data;
-            const title = document.querySelector(`#card-${room} > .roomcard-title`);
+		const data = chart.data.datasets[0].data;
+            const title = document.querySelector(`#card-${room} .roomcard-title`);
             if(data == null || data.length == 0) {
                  title.classList.add('color-red');
                  return;
-            }
+	    }
+
+	    console.log(data);
 
 	    const lastTime = moment(data.findLast(x => x[1] != null));
             const now = moment.utc();
@@ -98,7 +104,7 @@ require_once(dirname(__FILE__)."/inc.php");
             }
 
             // May cause false alarms if there is no noise in the given hall
-            if(data[data.length-2]['S'] <= -48) {
+            if(data[data.length-3]['S'] <= -48) {
                  title.classList.add('color-yellow');
                  return;
             }
@@ -111,7 +117,7 @@ require_once(dirname(__FILE__)."/inc.php");
 <body>
 
     <form class="buildings">
-        <h2>Buildings:</h2>
+        <h3>Buildings:</h3>
         <div class="checkbox-container">
             <a href="?building=all">All</a>
         </div>
@@ -128,7 +134,6 @@ require_once(dirname(__FILE__)."/inc.php");
         ?>
         <input type="submit" value="Choose"/>
     </form>
-    <br/><br/><br/>
 
     <?php
     if (empty($_GET['building']) ) {
@@ -138,14 +143,10 @@ require_once(dirname(__FILE__)."/inc.php");
         if(!is_array($buildings)) $buildings = array(strtolower($_GET['building']));
     }
 
-    function pgstr($x) {
-        return "'" . _e($x) . "'";
-    }
-
     if (in_array('all', $buildings)) {
         $qw = "";
     } else {
-        $buildings_str = '(' . join(',', array_map('pgstr', $buildings)) . ')';
+        $buildings_str = '(' . join(',', array_map('_e', $buildings)) . ')';
         $qw = " and building IN ".$buildings_str;
     }
 
@@ -162,14 +163,17 @@ require_once(dirname(__FILE__)."/inc.php");
         <?php
         while ($row = $r->fetch()) {
             echo '<div class="roomcard" id="card-'.$row[0].'">';
-            echo '<div class="roomcard-title">'.$row[0].'</div>';
+            echo '<a href="/vocto.php?room='.$row[0].'"><div class="roomcard-title">'.$row[0].'</div></a>';
 
     // Camera list
-            echo '<div class="roomcard-body">';
+	    echo '<div class="roomcard-body">';
             echo '<a href="tcp://'.$row[1].':8899"><img src="'.$row[0].'/cam.jpg"/></a>';
             echo '<a href="tcp://'.$row[2].':8899"><img src="'.$row[0].'/grab.jpg"/></a>';
 	    echo '<a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a>';
             echo '<canvas id="chart-'.$row[0].'"></canvas>';
+	    echo '<p>cam: ' . explode('.', $row[1])[0] . '<br/>';
+	    echo 'sld: ' . explode('.', $row[2])[0] . '<br/>';
+	    echo 'vtp: ' . explode('.', $row[3])[0] . '<br/>';
             echo '<script>chart("'.$row[0].'", document.getElementById("chart-'.$row[0].'"), 5000, updateStatus);</script>';
             echo '</div>';
     // End camera list

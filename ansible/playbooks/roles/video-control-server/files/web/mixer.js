@@ -1,11 +1,38 @@
 "use strict";
 
-const Mixer = function (apipath) {
-	var vuLastUpdate = Date.now();
-	var webSocket;
+const RetryingWebSocket = function(path, errorTime, errorMessage, errorContainer, onMessage) {
+	const errorElement = document.createElement('div');
+	errorElement.innerText = errorMessage;
 
-	const inputsShown = ['IN1', 'IN2', 'IN3'];
-	const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
+	const ws = new ReconnectingWebSocket(path, null, {timeoutInterval: errorTime, reconnectInterval: 2000})
+	ws.open();
+
+	ws.addEventListener('message', e => {
+		onMessage(e)
+	});
+
+	ws.addEventListener('close', e => {
+		if(!errorContainer.contains(errorElement)) {
+			errorContainer.appendChild(errorElement);
+		}
+	});
+	ws.addEventListener('open', e => {
+		if(errorContainer.contains(errorElement)) {
+			errorContainer.removeChild(errorElement);
+		}
+	});
+
+	return ws;
+}
+
+const Mixer = function (apipath, inputsShown, outputsShown, inputsControllable, outputsControllable, mutesControllable) {
+	var levelsWs;
+	var stateWs;
+
+	//const inputsShown = ['IN1', 'IN2', 'IN3'];
+	//const inputsShown = ['IN1', 'IN2', 'IN3', 'PC', 'USB1', 'USB2'];
+	//const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
+	//const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2', 'USB1', 'USB2'];
 
 	const inputLabels = {};
 	const outputLabels = {'OUT1': '\u{1F4F9}', 'OUT2': '\u{1F50A}', 'HP1': '\u{1F3A7}L', 'HP2': '\u{1F3A7}R'};
@@ -41,33 +68,62 @@ const Mixer = function (apipath) {
 		return await fetch(`${apipath}/mutes`).then(x => x.json());
 	}
 
-	async function onInputVolumeChange(input, e) {
+	async function toggleMute(channel, bus, value) {
+		return await fetch(`${apipath}/muted/${channel}/${bus}/${value}`);
+	}
+
+	async function changeInputVolume(input, value) {
+		return await fetch(`${apipath}/multipliers/input/${input}/${value}`);
+	}
+
+	async function changeOutputVolume(output, value) {
+		return await fetch(`${apipath}/multipliers/output/${output}/${value}`);
 	}
 
 	async function updateVu(vuString) {
 		const vu = JSON.parse(vuString);
-		vuLastUpdate = Date.now()
 
 		for(const [input, level] of Object.entries(vu.input)) {
 			if(!inputsShown.includes(input)) continue;
 			const meter = document.querySelector(`.inputs .channel[data-name=${input}] meter`);
-
 			meter.value = level.rms;
+
 		}
 		for(const [output, level] of Object.entries(vu.output)) {
 			if(!outputsShown.includes(output)) continue;
 			const meter = document.querySelector(`.outputs .channel[data-name=${output}] meter`);
-
 			meter.value = level.rms;
 		}
 	}
 
-	function createSlider(initialMultiplier) {
+	async function updateState(stateString) {
+		const state = JSON.parse(stateString);
+
+		for(const [channel, v] of Object.entries(state.mutes)) {
+			for(const [bus, muted] of Object.entries(v)) {
+				const checkbox = document.getElementById(`mute-${channel}-${bus}`);
+				if(checkbox) checkbox.checked = !muted;
+			}
+		}
+		for(const [channel, multiplier] of Object.entries(state.multipliers.input)) {
+			const slider = document.querySelector(`.inputs [data-name=${channel}] input[type=range]`);
+			if(slider) slider.value = multiplier;
+			if(slider && multiplier > slider.max) slider.disabled = true;
+		}
+		for(const [bus, multiplier] of Object.entries(state.multipliers.output)) {
+			const slider = document.querySelector(`.outputs [data-name=${bus}] input[type=range]`);
+			if(slider) slider.value = multiplier;
+			if(slider && multiplier > slider.max) slider.disabled = true;
+		}
+	}
+
+	function createSlider(initialMultiplier = 0.0, controllable, onchange) {
 		const slider = document.createElement('input');
 		slider.type = 'range';
 		slider.min = 0;
 		slider.max = 1.8;
 		slider.step = 0.1;
+		if(!controllable || initialMultiplier > slider.max) slider.disabled = true;
 		slider.setAttribute('list', 'volumes');
 		setTimeout(() => {
 			slider.value = initialMultiplier;
@@ -78,18 +134,20 @@ const Mixer = function (apipath) {
 
 	function createVuMeter() {
 		const meter = document.createElement('meter');
-		meter.min = -40;
-		meter.high = -14;
+
+		meter.min = -60;
+		//meter.min = -40;
+		meter.high = 0;
 		meter.optimum = -40;
-		meter.low = -30;
-		meter.max = 0;
+		meter.low = -20;
+		meter.max = +4;
 
 		meter.value = -50;
 
 		return meter;
 	}
 
-	function setupInputs(info, multipliers, mutes) {
+	function setupInputs(info) {
 		const inputs = document.getElementById('inputs');
 		for(const input of intersect(info.inputs, inputsShown)) {
 			const div = document.createElement('div');
@@ -103,11 +161,10 @@ const Mixer = function (apipath) {
 			const sliders = document.createElement('div');
 			sliders.className = 'sliders';
 
-			const volume = createSlider(multipliers[input]);
-			volume.addEventListener('change', e => onInputVolumeChange(input, e));
-
-			const slider = createSlider(multipliers[input]);
+			const slider = createSlider(0.0, inputsControllable.includes(input));
 			const vu = createVuMeter();
+
+			slider.oninput = () => changeInputVolume(input, slider.value);
 
 			sliders.appendChild(slider);
 			sliders.appendChild(vu);
@@ -121,14 +178,17 @@ const Mixer = function (apipath) {
 				outputname.innerText = getOutputLabel(output);
 				outputname.setAttribute('for', `mute-${input}-${output}`);
 
-				const muted = document.createElement('input');
-				muted.id = `mute-${input}-${output}`;
-				muted.type = 'checkbox';
+				const unmuted = document.createElement('input');
+				unmuted.id = `mute-${input}-${output}`;
+				if(!mutesControllable) unmuted.disabled = true;
+				unmuted.type = 'checkbox';
 
-				muted.checked = !mutes[input][output];
+//				unmuted.checked = !mutes[input][output];
+
+				unmuted.oninput = () => toggleMute(input, output, !unmuted.checked);
 
 				mutech.appendChild(outputname);
-				mutech.appendChild(muted);
+				mutech.appendChild(unmuted);
 
 				mutelist.appendChild(mutech);
 			}
@@ -144,7 +204,7 @@ const Mixer = function (apipath) {
 		}
 	}
 
-	function setupOutputs(info, multipliers) {
+	function setupOutputs(info) {
 		const outputs = document.getElementById('outputs');
 		for(const output of intersect(info.outputs, outputsShown)) {
 			const div = document.createElement('div');
@@ -158,10 +218,10 @@ const Mixer = function (apipath) {
 			const sliders = document.createElement('div');
 			sliders.className = 'sliders';
 
-			//volume.addEventListener('change', e => onInputVolumeChange(input, e));
-
-			const slider = createSlider(multipliers[output]);
+			const slider = createSlider(0.0, outputsControllable.includes(output));
 			const vu = createVuMeter();
+
+			slider.oninput = () => changeOutputVolume(output, slider.value);
 
 			sliders.appendChild(slider);
 			sliders.appendChild(vu);
@@ -176,35 +236,13 @@ const Mixer = function (apipath) {
 		}
 	}
 
-	function setupVuWebSocket(apipath) {
-		if(webSocket) webSocket.close();
-		webSocket = new WebSocket(`${apipath}/vu/ws`);
-		webSocket.addEventListener('message', (e) => {updateVu(e.data); });
-	}
-
 	this.setupMixer = async () => {
 		const info = await loadInfo(apipath);
-		const multipliers = await loadMultipliers(apipath);
-		const mutes = await loadMutes(apipath);
-		setupInputs(info, multipliers['input'], mutes);
-		setupOutputs(info, multipliers['output']);
-		setupVuWebSocket(apipath);
-
-		setInterval(function() {
-			let noUpdateMessage = document.getElementById('no-vu-update');
-			if(Date.now() - vuLastUpdate >= 1000) {
-				setupVuWebSocket(apipath);
-				if(!noUpdateMessage) {
-					const div = document.createElement('div');
-					div.id = 'no-vu-update';
-					div.innerText = 'No update from the mixer!';
-					document.getElementById('errors').appendChild(div);
-				}
-			}
-			else if(noUpdateMessage) {
-				noUpdateMessage.parentElement.removeChild(noUpdateMessage);
-			}
-		}, 1000);
+		setupInputs(info);
+		setupOutputs(info);
+		const errors = document.getElementById('errors')
+		levelsWs = new RetryingWebSocket(`${apipath}/vu/ws`, 500, 'No levels from mixer', errors, e => updateVu(e.data))
+		stateWs = new RetryingWebSocket(`${apipath}/state/ws`, 5000, 'No state from mixer', errors, e => updateState(e.data))
 	}
 
 	return this;

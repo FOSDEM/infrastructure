@@ -1,5 +1,7 @@
-async function loadData(room) {
-    const response = await fetch(`query-ebur.php?room=${room}`);
+async function loadData(room, time) {
+    let params = `room=${room}`;
+    if(time) params = `${params}&time=${time}`;
+    const response = await fetch(`query-ebur.php?${params}`);
     return response.json();
 }
 
@@ -7,27 +9,30 @@ async function loadData(room) {
 async function chart(room, element, refreshInterval, onTick) {
     const data = await loadData(room);
 
+    const primary = 'midnightblue';
+    const backup = 'goldenrod';
+
     const cfg = {
         data: {
             datasets: [
             {
                 type: 'line',
-                label: 'M',
+                label: 'L',
                 pointRadius: 0,
-                backgroundColor: 'darkgoldenrod',
-                borderColor: 'darkgoldenrod',
-                borderWidth: 1,
-                data: data,
-                parsing: { xAxisKey: 'time', yAxisKey: 'M' }
+                backgroundColor: primary,
+                borderColor: primary,
+                borderWidth: 2,
+                data: data['l'],
+                parsing: { xAxisKey: 'time', yAxisKey: 'S' }
             },
             {
                 type: 'line',
-                label: 'S',
+                label: 'R',
                 pointRadius: 0,
-                backgroundColor: 'green',
-                borderColor: 'green',
-                borderWidth: 2,
-                data: data,
+                backgroundColor: backup,
+                borderColor: backup,
+                borderWidth: 1,
+                data: data['r'],
                 parsing: { xAxisKey: 'time', yAxisKey: 'S' }
             },
             ],
@@ -42,7 +47,7 @@ async function chart(room, element, refreshInterval, onTick) {
                         type: 'box',
                         yMin: -52,
                         yMax: -30,
-                        backgroundColor: 'rgba(255,0,0,0.25)',
+                        backgroundColor: 'rgba(255, 0, 0, 0.25)',
                         borderWidth: 0,
                     },
                     green: {
@@ -100,10 +105,23 @@ async function chart(room, element, refreshInterval, onTick) {
 
 
 async function tick(roomChart, room) {
-    let data = await loadData(room);
+    let dataLeft = roomChart.data.datasets[0];
+    let dataRight = roomChart.data.datasets[1];
 
-    roomChart.data.datasets[0].data = data;
-    roomChart.data.datasets[1].data = data;
+    let lastTs;
+    try {
+        lastTs = Math.min(dataLeft.data[dataLeft.data.length - 1].time, dataRight.data[dataRight.data.length - 1].time);
+    } catch {
+        lastTs = undefined;
+    }
+
+    let data = await loadData(room, lastTs ? lastTs + 1 : undefined);
+
+    dataLeft.data.splice(0, data['l'].length);
+    dataRight.data.splice(0, data['r'].length);
+
+    dataLeft.data.push(...data['l']);
+    dataRight.data.push(...data['r']);
 
     roomChart.update();
 }
