@@ -4,7 +4,7 @@ function _e($str)
 {
 	global $db;
 
-	return $db->escape($str);
+	return $db->quote($str);
 }
 
 $db = new PDO("pgsql:dbname=fosdem user=www-data");
