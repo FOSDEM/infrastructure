@@ -26,10 +26,13 @@
   "graphTooltip": 0,
   "id": 1,
   "links": [],
-  "liveNow": false,
+  "liveNow": true,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eebrjgr1cdce8d"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -41,8 +44,9 @@
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
-            "axisPlacement": "hidden",
+            "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -111,7 +115,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
+        "w": 24,
         "x": 0,
         "y": 0
       },
@@ -125,53 +129,104 @@
           ],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "repeat": "room",
+      "pluginVersion": "11.5.1",
+      "repeat": "RoomName",
       "repeatDirection": "h",
       "targets": [
         {
-          "query": "SELECT  mean(S) as S, mean(M) as M FROM \"ebur\" WHERE $timeFilter and stream =~ /^$room$/ GROUP BY time($__interval) fill(null)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eebrjgr1cdce8d"
+          },
+          "query": "SELECT  mean(S) as S FROM \"ebur2\" WHERE $timeFilter and stream =~ /^$room$/ GROUP BY time($__interval), chan fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
         }
       ],
+      "title": "$RoomName levels",
       "type": "timeseries"
     }
   ],
-  "refresh": "5s",
-  "schemaVersion": 38,
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
+        "allowCustomValue": false,
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
         },
-        "datasource": null,
-        "definition": "show tag values with key=stream",
-        "hide": 0,
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "aebqkiywvuk1sb"
+        },
+        "definition": "select distinct building from fosdem order by building;",
+        "includeAll": true,
+        "multi": true,
+        "name": "Building",
+        "options": [],
+        "query": "select distinct building from fosdem order by building;",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "aw1120",
+          "value": "aw1120"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "aebqkiywvuk1sb"
+        },
+        "definition": "select distinct roomname from fosdem where building in ($Building) order by roomname;",
+        "description": "",
+        "includeAll": false,
+        "name": "RoomName",
+        "options": [],
+        "query": "select distinct roomname from fosdem where building in ($Building) order by roomname;",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "a5e21010-c46b-49c8-a50e-915274b90347"
+        },
+        "definition": "show tag values with key=stream where stream =~ '/^[${RoomName:pipe}]$/';",
+        "hide": 2,
         "includeAll": true,
         "label": "room",
         "multi": true,
         "name": "room",
         "options": [],
-        "query": "show tag values with key=stream",
+        "query": {
+          "query": "show tag values with key=stream where stream =~ '/^[${RoomName:pipe}]$/';",
+          "refId": "InfluxVariableQueryEditor-VariableQuery"
+        },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
         "type": "query"
       }
@@ -184,7 +239,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "ebur",
-  "uid": "15BPZFO4k",
-  "version": 5,
+  "uid": "b300dd3e-5d97-454d-b510-b8859efeb624",
+  "version": 6,
   "weekStart": ""
 }

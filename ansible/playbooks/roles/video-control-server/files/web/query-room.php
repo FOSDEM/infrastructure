@@ -7,11 +7,12 @@ if(empty($_REQUEST['room'])) {
 }
 $room = $_REQUEST['room'];
 
-$r = pg_query("SELECT voctop FROM fosdem WHERE roomname='"._e($room)."'");
+$r = $db->prepare("SELECT voctop FROM fosdem WHERE roomname = :room");
+$r->execute(['room' => $room]);
 
 if (!$r) {
 	die("notfound");
 }
 
-$row = pg_fetch_row($r);
+$row = $r->fetch();
 echo 'tcp://'.$row[0].':8899/?timeout=3000000';

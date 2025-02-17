@@ -4,10 +4,11 @@ require_once(dirname(__FILE__)."/inc.php");
 <!DOCTYPE html>
 
 <?php
-function roomlist() {
-    echo "<h1>room not found.</h1><br>";
-    $r = pg_query("select roomname from fosdem order by roomname");
-    while ($row = pg_fetch_row($r)) {
+function roomlist($db) {
+    echo "<h1>Room List</h1><br>";
+    $r = $db->prepare("select roomname from fosdem order by roomname");
+    $r->execute();
+    foreach ($r as $row) {
         echo '<a style="font-size: larger;" href="/vocto.php?room='.$row[0].'">'.$row[0].'</a><br>';
     }
     exit();
@@ -18,19 +19,21 @@ if (empty($_GET['room']) ) {
         $spl = explode('-', $_SERVER['PHP_AUTH_USER']);
         $room = strtolower($spl[1]);
     } else {
-        roomlist();
+        roomlist($db);
     }
 } else {
     $room = strtolower($_GET['room']);
 }
 
-$r = pg_query("select voctop from fosdem where roomname='"._e($room)."'");
+$r = $db->prepare("select voctop, audio, cam, slides from fosdem where roomname = :room");
+$r->execute(['room' => $room]);
 if (!$r) {
     roomlist();    
 }
 
-$row = pg_fetch_row($r);
-$host = $row[0];
+$row = $r->fetch();
+$host = $row['voctop'];
+$audiobox = $row[1];
 
 
 
@@ -39,99 +42,20 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>room <?php echo $room; ?></title>
-<style>
-.room-status {
-    font-size: x-large;
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-}
-
-.room-status label {
-    display: block;
-    flex: 1;
-}
-.room-status select {
-    display: block;
-    font-size: large;
-    min-width: 50%;
-}
-
-.card > div {
-    text-transform: capitalize;
-    font-weight: bold;
-}
-
-/*
-.container {
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-   align-items: center;
-   justify-content: space-evenly;
-}
-*/
-
-.container {
-   display: grid;
-}
-.container > div {
-   padding-left: 10px;
-   padding-right: 10px;
-}
-
-.video-control-grid, .video-monitoring-grid {
-    display: grid;
-}
-
-.video-control-grid {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.video-monitoring img {
-    width: 80%;
-    max-width: 100%;
-}
-
-.video-control input[type=submit] {
-    display: block;
-    width: 100%;
-    min-height: 50px;
-    font-size: large;
-    white-space: normal;
-}
-
-@media screen and (min-width: 576px) {
-.container {
-   grid-template-columns: repeat(2, 1fr);
-}
-.video-control-grid, .video-monitoring-grid {
-    grid-template-columns: repeat(2, 1fr);
-}
-.monitoring-large {
-    grid-column: span 2;
-}
-.video-control input[type=submit] {
-    font-size: x-large;
-}
-}
-
-.video-control form {
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-</style>
+<link rel="stylesheet" href="mixer.css"></script>
+<link rel="stylesheet" href="vocto.css"></script>
 <script src="chart.js"></script>
 <script src="moment.js"></script>
 <script src="chartjs-adapter-moment.js"></script>
 <script src="chartjs-plugin-annotation.js"></script>
 <script src="graph.js"></script>
+<script src="reconnecting-websocket.js"></script>
+<script src="mixer.js"></script>
 </head>
 <body>
 <div class="container">
 <div class="video-control">
-<h2>Room <?php echo $room; ?></h2>
+<h2><a href="/vocto.php">home</a> | Room <?php echo $room; ?></h2>
 <div class="room-status">
 <form>
 <label for="room_status">Room Status: </label>
@@ -152,28 +76,89 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <td><form method=GET target="tgt" action="/vocto.php" style="float: left;"><input hidden name="room" value="<?php echo $room;?>"><input hidden name="w" value="live"><input type="submit" value="live"></form>
 -->
 </div>
+<div>
+<h2>Mixer on <?php echo $audiobox; ?>; <a href="https://control.video.fosdem.org/grafana/d/aeacoqvn453b4a/mixer-levels?orgId=1&from=now-5m&to=now&timezone=browser&var-Box=<?php echo $room; ?>&refresh=5s">Grafana</a></h2>
+<datalist id="volumes">
+<option value="1" label="100%"></option>
+</datalist>
+
+<div class="errors" id="errors"></div>
+
+<div class="mixer">
+
+<div class="mixer">
+<h2>Inputs (pre-fader)</h2>
+<div class="inputs channellist" id="inputs">
+<!-- inserted by js -->
+</div>
+</div>
+<div class="mixer">
+<h2>Outputs (post-fader)</h2>
+<div class="outputs channellist" id="outputs">
+<!-- inserted by js -->
+</div>
+</div>
+</div>
+</div>
+
+<div id="kur"></div>
+
+<script>
+"use strict";
+
+window.onload = function() {
+	const inputsShown = ['IN1', 'IN2', 'IN3'];
+const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
+<?php if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) { ?>
+const inputsControllable = [];
+const outputsControllable = ['OUT2'];
+const mutesControllable = false;
+<?php } else { ?>
+const inputsControllable = inputsShown;
+const outputsControllable = outputsShown;
+const mutesControllable = true;
+<?php } ?>
+	const audioMixer = new Mixer('mixer/<?php echo $audiobox; ?>', inputsShown, outputsShown, inputsControllable, outputsControllable, mutesControllable);
+	audioMixer.setupMixer().then(_ => {});
+}
+</script>
 </div>
 <div class="video-monitoring">
 <div class="video-monitoring-grid">
 <div class="card monitoring-large">
 <div>Stream</div>
-<img id="output" src="/<?php echo $room;?>/room.jpg"/>
+<a href="tcp://<?php echo $row['voctop'] ?>:8899">
+<img id="output" src="<?php echo $room;?>/room.jpg"/>
+</a>
 </div>
 <div class="card">
 <div>Camera</div>
-<img id="cam" src="/<?php echo $room;?>/cam.jpg"/>
+<a href="tcp://<?php echo $row['cam'] ?>:8899">
+<img id="cam" src="<?php echo $room;?>/cam.jpg"/>
+</a>
 </div>
 <div class="card">
 <div>Slides</div>
-<img id="grab" src="/<?php echo $room;?>/grab.jpg"/>
+<a href="tcp://<?php echo $row['slides'] ?>:8899">
+<img id="grab" src="<?php echo $room;?>/grab.jpg"/>
+</a>
 </div>
 <div class="card monitoring-large">
 <div>Audio</div>
-<canvas id="chart-<?php echo $room; ?>" height="50"></canvas>
+<canvas id="chart-<?php echo $room; ?>" height="100"></canvas>
 	<script>chart("<?php echo $room; ?>", document.getElementById("chart-<?php echo $room; ?>"), 1000);</script>
 </div>
+<h3>Cambox <?php echo $row['cam']; ?></h3>
+<h3>Slidesbox <?php echo $row['slides']; ?></h3>
 </div>
 </div>
+</div>
+
+<!--<iframe src="mixer.php?room=<?php echo $room; ?>" title="Audio Mixer" height="0" width="0" style="border: none; height: 100vh; width: 100%;"></iframe>-->
+</div>
+</div>
+</div>
+
 <script>
         const images = document.getElementsByTagName('img');
         for(let i = 0; i < images.length; i++) {
