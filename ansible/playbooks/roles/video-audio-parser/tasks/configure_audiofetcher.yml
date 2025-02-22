@@ -16,6 +16,13 @@
     - python3-requests
     - influxdb
 
+- name: install influxdb conifg
+  copy:
+   src: influxdb.conf
+   dest: /etc/influxdb/influxdb.conf
+   owner: root
+   group: root
+
 - name: make sure InfluxDB is running
   systemd:
     name: influxdb
