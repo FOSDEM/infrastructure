@@ -5,12 +5,16 @@ function cap($val) {
 	return max($val, -50);
 }
 
+function influx_escape($str) {
+	return str_replace('/', '\/', $str);
+}
+
 $room = $_GET['room'] or die('room required');
-$lastts = isset($_GET['time']) ? $_GET['time'] * 1000 * 1000: 'now() - 5m';
+$lastts = isset($_GET['time']) ? int($_GET['time']) * 1000 * 1000: 'now() - 5m';
 
 $data = http_build_query(array(
     'db' => 'ebur',
-    'q' => 'SELECT mean(S) as S, mean(M) as M FROM "ebur2" WHERE time >= ' . $lastts . ' and time <= now() and stream =~ /^'.$room.'$/ GROUP BY time(1s), chan fill(null)',
+    'q' => 'SELECT mean(S) as S, mean(M) as M FROM "ebur2" WHERE time >= ' . $lastts . ' and time > now() - 5m and time <= now() and stream =~ /^'.influx_escape($room).'$/ GROUP BY time(1s), chan fill(null)',
     'epoch' => 'ms'
 ));
 
