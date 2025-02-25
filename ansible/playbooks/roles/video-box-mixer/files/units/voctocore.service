@@ -1,0 +1,13 @@
+[Unit]
+Description=voctocore
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/share/voctomix/voctocore/voctocore.py -vv --ini-file /opt/config/voctocore.ini
+Restart=always
+RestartSec=1s
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target

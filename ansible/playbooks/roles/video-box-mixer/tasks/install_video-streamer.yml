@@ -1,0 +1,74 @@
+---
+- name: install receiver script
+  copy:
+    src: video-streamer/video-receiver.sh
+    dest: /usr/local/bin/video-receiver.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install video-recorder script
+  copy:
+    src: video-streamer/video-recorder.sh
+    dest: /usr/local/bin/video-recorder.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install video-usbreset.py script
+  copy:
+    src: video-streamer/video-usbreset.py
+    dest: /usr/local/bin/video-usbreset.py
+    owner: root
+    group: root
+    mode: 0755
+
+
+- name: create recording directory
+  file:
+    path: "/home/video-recording"
+    state: directory
+    mode: 0755
+
+- name: install video-recorder service
+  copy:
+    src: video-streamer/video-recorder.service
+    dest: /etc/systemd/system/video-recorder.service
+    owner: root
+    group: root
+    mode: 0644
+  register: videorecorder
+
+- name: perform a daemon-reload if any service has been modified
+  systemd:
+    daemon_reload: true
+  when: videorecorder.changed
+
+
+# - name: disable video-streamer service
+#   service:
+#     name: video-streamer
+#     enabled: false
+#     state: stopped
+
+# video-recorder IS NOT enabled by default/from ansible!
+# do not add it here.
+# vk 2017-01-28
+
+- name: install rc-local script
+  copy:
+    src: video-streamer/rc.local
+    dest: /etc/rc.local
+    owner: root
+    group: root
+    mode: 0755
+  register: rclocal
+
+- name: restart service if rc.local has been modified
+  service:
+    name: rc-local.service
+    state: restarted
+  when: rclocal.changed
+
+
+

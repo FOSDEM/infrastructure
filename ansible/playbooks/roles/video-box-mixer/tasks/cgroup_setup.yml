@@ -1,0 +1,54 @@
+---
+
+- name: add GRUB options for reverting to cgroup v1
+  template:
+    src: grub/cgroup.cfg
+    dest: /etc/default/grub.d/cgroup.cfg
+    owner: root
+    group: root
+    mode: 0644
+  register: grubopt
+
+- name: update GRUB config
+  shell: update-grub
+
+- name: create cgconfig.d directory
+  file:
+    path: /etc/cgconfig.d
+    state: directory
+
+- name: deploy cgroup config for box
+  copy:
+    src: cgroups/fosdem.conf
+    dest: /etc/cgconfig.d/fosdem.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install cgconfig service
+  copy:
+    src: cgroups/cgconfig.service
+    dest: /etc/systemd/system/cgconfig.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable cgconfig service
+  service:
+    name: cgconfig
+    enabled: true
+  ignore_errors: true
+
+- name: reboot if GRUB options have changed
+  reboot:
+    reboot_timeout: 120
+    pre_reboot_delay: 35
+  when: grubopt.changed
+
+- name: start cgconfig service
+  service:
+    name: cgconfig
+    state: started
+  ignore_errors: true
+
+

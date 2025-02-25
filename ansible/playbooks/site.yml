@@ -68,6 +68,16 @@
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box, tags: [ 'video-box' ] }
 
+- name: video-box-mixer
+  hosts:
+    - video-box-mixer
+  remote_user: root
+  roles:
+  - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-box-mixer, tags: [ 'video-box-mixer' ] }
+
 - name: video-voctop
   hosts: video-voctop
   remote_user: root

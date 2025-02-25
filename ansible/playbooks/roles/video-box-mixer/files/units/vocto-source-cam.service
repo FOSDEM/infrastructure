@@ -1,0 +1,14 @@
+[Unit]
+Description = voctomix source cam
+After = voctocore.service
+Requires = voctocore.service
+
+[Service]
+Type = simple
+ExecStart = /opt/scripts/source-cam.sh
+Restart = always
+RestartSec = 1s
+StartLimitInterval = 0
+
+[Install]
+WantedBy = voctocore.service

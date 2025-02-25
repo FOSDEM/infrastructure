@@ -207,6 +207,7 @@ event-secondary
 
 [video:children]
 video-box
+video-box-mixer
 video-control-server
 video-audio-parser
 video-stream-dump
@@ -316,5 +317,13 @@ box97.video.fosdem.org
 box98.video.fosdem.org
 box99.video.fosdem.org
 box100.video.fosdem.org
+
+[video-box-mixer:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user = root
+
+[video-box-mixer]
+vbx1.video.fosdem.org
+
 
 [capture-laptop]

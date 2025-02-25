@@ -1,0 +1,107 @@
+---
+
+- name: "install packages"
+  apt:
+    state: latest
+    package:
+    - bash-completion
+    - curl
+    - ffmpeg
+    - sproxy
+    - git
+    - python3-gi-cairo
+    - rsync
+    - avahi-daemon
+    - i965-va-driver-shaders
+
+- name: "install voctomix package from (somewhere, not backports)"
+  apt:
+    state: latest
+#    default_release: "{{ ansible_distribution_release }}-backports"
+    package:
+    - voctomix-core
+
+- name: create scripts directory
+  file:
+    path: /opt/scripts/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install sink-output scripts
+  copy:
+    src: "scripts/{{ item }}"
+    dest: /opt/scripts/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+  - sink-output.sh
+  - source-cam.sh
+  - source-slides.sh
+  - restart-voctocore.sh
+  notify: restart voctoscripts
+
+- name: create config directory
+  file:
+    path: /opt/config/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: set standard configuration
+  copy:
+    src: "config/{{ item }}"
+    dest: "/opt/config/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - defaults.sh
+  - config.sh
+  - voctocore.ini
+  - background.png
+  notify: restart vocto
+
+- name: patch videomix.py to use our defaults
+  patch:
+    src: patches/videomix.py.diff
+    dest: /usr/share/voctomix/voctocore/lib/videomix.py
+
+- name: install vocto units
+  copy:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+  with_fileglob:
+  - ../files/units/*
+  notify: restart vocto
+
+- name: enable and start all vocto units
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+    daemon_reload: true
+  with_items:
+  - voctocore
+  - vocto-sink-output
+  - vocto-source-cam
+  - vocto-source-slides
+
+
+# Voctocore leaks memory
+
+- name: Setup voctocore restart cron
+  cron:
+    name: Voctocore restart
+    user: root
+    minute: '4'
+    hour: '4'
+    job: /opt/scripts/restart-voctocore.sh
+    cron_file: voctocore-restart
+

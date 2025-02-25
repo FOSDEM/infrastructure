@@ -1,0 +1,44 @@
+---
+- name: "common: install packages"
+  apt:
+    state: latest
+    install_recommends: false
+    update_cache: yes
+    package:
+    - fbi
+    - fontconfig
+    - python3-pygame
+    - avahi-daemon
+    - bash-completion
+    - curl
+    - ffmpeg
+    - sproxy
+    - git
+    - python3-gi-cairo
+    - rsync
+    - avahi-daemon
+    - i965-va-driver-shaders
+    - v4l-utils
+    - mpv
+    - jq
+    - alsa-utils
+    - lm-sensors
+    - ms213x-status
+    - ms213x-cli
+    - python3-serial
+    - cgroup-tools
+    - intel-media-va-driver-non-free
+    - firmware-sof-signed
+    - firmware-misc-nonfree
+    - fosdem-firmware
+    - teensy-loader-cli
+    - linux-cpupower
+    - picotool
+    - gpiod
+    - fosdem-mixer-cli
+    - python3-fosdemosc
+    - fosdem-mixer-api
+    - picocom
+  tags:
+    - firmware
+    - firmware_ms2131
