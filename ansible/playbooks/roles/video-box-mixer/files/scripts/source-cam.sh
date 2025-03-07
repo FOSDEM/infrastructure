@@ -9,12 +9,21 @@ usbport=3:5
 usbdev=$(lsusb -s $usbport | sed 's%Bus \([0-9]*\) Device \([0-9]*\): ID '$usbid'.*$%/dev/bus/usb/\1/\2%')
 usbdevname=$(lsusb -s $usbport |cut -d ' ' -f 7- )
 
+
+mixercli -s  set-gain IN2 USB1 1
+mixercli -s  set-gain IN2 USB2 1
+mixercli -s  unmute IN2 USB1
+mixercli -s  unmute IN2 USB2
+mixercli -s  ims IN2 1
+mixercli -s  oms USB1 1
+mixercli -s  oms USB2 1
+
 #/usr/bin/usb_reset "$usbdev"
 #
 #sleep 5
 #
 vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera" |tail -n1)
-adev=$(arecord -l  |grep -E 'PCH' |cut -d: -f1 |cut -d' ' -f 2)
+adev=$(arecord -l  |grep -E 'Audio Board' |cut -d: -f1 |cut -d' ' -f 2)
 
 /usr/bin/wait_next_second
 
