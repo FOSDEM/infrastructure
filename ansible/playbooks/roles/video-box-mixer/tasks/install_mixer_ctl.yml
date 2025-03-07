@@ -1,12 +1,12 @@
 ---
-- name: enable OSC proxy
+- name: disable OSC proxy
   service:
     name: oscproxy
-    enabled: true
-    state: restarted
+    enabled: false
+    state: stopped
 
-- name: enable mixer API
+- name: disable mixer API
   service:
     name: fosdem-mixer-api
-    enabled: true
-    state: restarted
+    enabled: false
+    state: stopper
