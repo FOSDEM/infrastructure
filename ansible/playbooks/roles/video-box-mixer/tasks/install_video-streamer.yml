@@ -44,6 +44,12 @@
     daemon_reload: true
   when: videorecorder.changed
 
+- name: disable video-receiver service
+  service:
+    name: video-receiver
+    enabled: false
+    state: stopped
+
 
 # - name: disable video-streamer service
 #   service:
