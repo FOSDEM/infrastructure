@@ -49,6 +49,7 @@
     name: video-receiver
     enabled: false
     state: stopped
+  ignore_errors: true
 
 
 # - name: disable video-streamer service

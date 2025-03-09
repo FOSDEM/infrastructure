@@ -9,4 +9,4 @@
   service:
     name: fosdem-mixer-api
     enabled: false
-    state: stopper
+    state: stopped
