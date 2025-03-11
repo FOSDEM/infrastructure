@@ -22,14 +22,19 @@ mixercli -s  oms USB2 1
 #
 #sleep 5
 #
-vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera|Brio" |tail -n1)
+camres=1280x720
+vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera" |tail -n1)
+if [ -z "$vdev" ]; then
+	vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Brio" |tail -n1)
+	camres=640x360
+fi
 adev=$(arecord -l  |grep -E 'Audio Board' |cut -d: -f1 |cut -d' ' -f 2)
 
 /usr/bin/wait_next_second
 
 ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel \
 	-analyzeduration 3M \
-	-f v4l2 -video_size 1280x720 -framerate 30 -i ${vdev} \
+	-f v4l2 -video_size ${camres} -framerate 30 -i ${vdev} \
 	-f alsa -sample_rate 48000 -channels 2 -i hw:${adev} \
 	-ac 2 \
 	-filter_complex "
