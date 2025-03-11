@@ -22,7 +22,7 @@ mixercli -s  oms USB2 1
 #
 #sleep 5
 #
-vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera" |tail -n1)
+vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera|Brio" |tail -n1)
 adev=$(arecord -l  |grep -E 'Audio Board' |cut -d: -f1 |cut -d' ' -f 2)
 
 /usr/bin/wait_next_second
