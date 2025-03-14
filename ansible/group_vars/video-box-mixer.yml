@@ -1,0 +1,18 @@
+---
+sysctl_parameters:
+  net.core.wmem_max: 8388608
+  net.core.wmem_default: 8388608
+  net.core.rmem_max: 8388608
+  net.core.rmem_default: 8388608
+  net.ipv4.tcp_keepalive_time: 10
+  net.ipv4.tcp_keepalive_intvl: 5
+  net.ipv4.tcp_keepalive_probes: 5
+
+# Where is our SSD drive supposed to be?
+ssd_mount: /home/video-recording
+ssd_drive: /dev/nvme0n1
+
+# Prometheus node exporter should write to the SSD instead of the SD
+node_exporter_textfile_dir: /home/node-exporter/textfiles/
+node_exporter_install_path: /home/node-exporter/
+
