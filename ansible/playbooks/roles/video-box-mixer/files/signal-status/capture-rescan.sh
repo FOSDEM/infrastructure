@@ -30,7 +30,7 @@ while :; do
 		fi 
 		if [[ $waited -eq 3 ]]; then
 			logger Signal stable, restarting receiver
-			systemctl restart video-receiver
+			systemctl restart vocto-source-slides
 			sleep 10
 			state=nochange
 		fi
