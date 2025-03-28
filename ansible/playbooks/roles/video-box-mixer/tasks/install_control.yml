@@ -1,0 +1,41 @@
+---
+
+- name: "install packages"
+  apt:
+    state: latest
+    package:
+    - nginx
+    - ssl-cert
+    - php8.2-fpm
+
+
+- name: create scripts directory
+  file:
+    path: /opt/scripts/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install control scripts
+  copy:
+    src: "control/{{ item }}"
+    dest: /var/www/html
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - vocto.css
+  - vocto.php
+
+- name: install nginx config
+  copy:
+    src: "control/{{ item }}"
+    dest: /etc/nginx/sites-enabled
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - default
+  notify: restart nginx
+

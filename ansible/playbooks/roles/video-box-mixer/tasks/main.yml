@@ -7,4 +7,5 @@
 - import_tasks: install_video-status.yml
 - import_tasks: install_video-streamer.yml
 - import_tasks: install_voctocore.yml
+- import_tasks: install_control.yml
 - import_tasks: install_mixer_ctl.yml
