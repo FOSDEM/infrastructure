@@ -1,5 +1,15 @@
 ---
 
+- name: Add influx key
+  apt_key:
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+
+- name: Add influx repo
+  apt_repository:
+    filename: influxdb
+    repo: "deb https://repos.influxdata.com/debian stable main"
+
+
 - name: "install packages"
   apt:
     state: latest
@@ -7,17 +17,29 @@
     - nginx
     - ssl-cert
     - php8.2-fpm
+    - php8.2-curl
+    - influxdb
+
+- name: install influxdb conifg
+  copy:
+   src: control/influxdb.conf
+   dest: /etc/influxdb/influxdb.conf
+   owner: root
+   group: root
+   mode: 0644
+
+- name: make sure InfluxDB is running
+  systemd:
+    name: influxdb
+    state: restarted
+    enabled: true
+
+- name: create InfluxDB database
+  command: influx -execute 'create database ebur with duration 1h'
+  ignore_errors: true
 
 
-- name: create scripts directory
-  file:
-    path: /opt/scripts/
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-
-- name: install control scripts
+- name: install control web
   copy:
     src: "control/{{ item }}"
     dest: /var/www/html
@@ -25,8 +47,15 @@
     group: root
     mode: 0644
   with_items:
-  - vocto.css
-  - vocto.php
+  - chart.js                      
+  - chartjs-adapter-moment.js     
+  - chartjs-plugin-annotation.js  
+  - graph.js                      
+  - moment.js                     
+  - query-ebur.php                
+  - vocto.css                     
+  - vocto.php                     
+
 
 - name: install nginx config
   copy:
@@ -38,4 +67,42 @@
   with_items:
   - default
   notify: restart nginx
+
+- name: install audio-fetcher binary
+  copy:
+    src: files/audio-fetcher/audio-fetcher
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install audiofetcher service on channel 0
+  copy:
+    src: audio-fetcher/audio-fetcher-0.service
+    dest: /etc/systemd/system/audio-fetcher-0.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install audiofetcher service on channel 1
+  copy:
+    src: audio-fetcher/audio-fetcher-1.service
+    dest: /etc/systemd/system/audio-fetcher-1.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable and start audiofetcher on channel 0
+  service:
+    name: audio-fetcher-0
+    state: started
+    enabled: true
+    daemon_reload: true
+
+- name: enable and start audiofetcher on channel 1
+  service:
+    name: audio-fetcher-1
+    state: started
+    enabled: true
+    daemon_reload: true
 

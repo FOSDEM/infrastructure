@@ -1,0 +1,13 @@
+[Unit]
+
+Description=audio-fetcher chan 1
+
+[Service]
+ExecStart=/usr/local/bin/audio-fetcher 1
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
