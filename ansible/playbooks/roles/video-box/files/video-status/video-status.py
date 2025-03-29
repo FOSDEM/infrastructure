@@ -68,12 +68,13 @@ def render_commands(states):
 		return b"\x1b\x01" + skk.encode("utf8") + b"                 "
  
 	def strGreen(skk): 
-		return b"\x1b\x02" + skk.encode("utf8") + b"                 "
+		return b"\x1b\x0e" + skk.encode("utf8") + b"                 "
 
 	def strWhite(skk): 
 		return b"\x1b\x0f" + skk.encode("utf8") + b"                 "
 
 	out = b"\n\n"
+	out += b"display.img.clear\n"
 
 	line = 0
 
@@ -119,7 +120,7 @@ img_x = 240
 img_y = 134
 xpos = int( (img_x - img_y) / 2)
 
-def output_image(only_image = False):
+def output_image():
 
 	try:
 		f = open("/tmp/picture.raw", "rb");
@@ -134,15 +135,13 @@ def output_image(only_image = False):
 		return
 	
 	with get_serial() as port:
+		port.write(b"display.text.clear\n")
 		port.write(b"display.img.clear\n")
 		
 		dcmd = f"display.img 565 0 {xpos} {img_x} {img_y}\n"
 		port.write(dcmd.encode("utf-8"))
 		port.write(data)
-		if only_image:
-			port.write(b"\ndisplay.imgonly\n")
-		else:
-			port.write(b"\ndisplay.refresh\n")
+		port.write(b"\ndisplay.imgonly\n")
 
 switch_state = [None, None, None, None, None]
 
@@ -201,11 +200,13 @@ def main():
 
 	while True:
 		info = update_sysinfo()
-		output_serial_display(info)
-		output_terminal(info)
 		update_switch_state()
-		output_image(counter == 0)
-		counter = (counter + 1) % 4
+		output_terminal(info)
+		if counter % 3 == 0:
+			output_serial_display(info)
+		else:
+			output_image()
+		counter = (counter + 1) % 256
 		time.sleep(1)
 
 def update_sysinfo():
@@ -295,11 +296,11 @@ def update_sysinfo():
 		for p in swstate:
 			pn = portnames[n]
 			if p == "down":
-				f = f"{pn}:d|"
+				f = f"{pn}d|"
 			elif p == "up full-duplex 1000mbps":
-				f = f"{pn}:U|"
+				f = f"{pn}U|"
 			else:
-				f = f"{pn}:C|"
+				f = f"{pn}C|"
 			out+=f
 			n+=1
 		ret.append(stateEntry(out))
