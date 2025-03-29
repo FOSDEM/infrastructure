@@ -18,6 +18,7 @@ RED   = 255,0,0
 NORMAL = 0
 GOOD = 1
 BAD = 2
+CHECK = 3
 
 os.environ["LANG"] = "C"
 
@@ -26,11 +27,13 @@ LOGO_FILE =  '/usr/local/bin/logo.png'
 class stateEntry():
 	""" entry in the states """
 	data: str
-	state: int # 0 NORMAL 1 GOOD(green) 2 BAD(red)
+	nl: bool
+	state: int # 0 NORMAL 1 GOOD(green) 2 BAD(red) 3 CHECK(yellow)
 
-	def __init__(self, inpdata, inpstate=0):
+	def __init__(self, inpdata, inpstate=0, nl=True):
 		self.data = inpdata
 		self.state = inpstate
+		self.nl = nl
 
 
 
@@ -42,6 +45,10 @@ def render_text(states):
 	def strGreen(skk): 
 		return "\033[92m" + skk + "\033[00m"
 
+	def strYellow(skk): 
+		return "\033[93m" + skk + "\033[00m"
+
+
 	out = ""
 
 	maxLen = 0
@@ -50,45 +57,61 @@ def render_text(states):
 		maxLen = max(maxLen, len(state.data))
 
 	maxLen = int(maxLen / 8 + 1) * 8
-
+	cline = "| "
 	for state in states:
 		if state.state == GOOD:
 			rend = strGreen(state.data)
 		elif state.state == BAD:
 			rend = strRed(state.data)
+		elif state.state == CHECK:
+			rend = strYellow(state.data)
 		else:
 			rend = state.data
-		out += "| " + rend + " " * (maxLen - len(state.data)) + " |\n"
+
+		cline += rend
+		if state.nl:
+			out += cline + " " * (maxLen - len(cline)) + " |\n"
+			cline = "| "
 
 	return out
 
 def render_commands(states):
 
 	def strRed(skk):
-		return b"\x1b\x01" + skk.encode("utf8") + b"                 "
+		return b"\x1b\x01" + skk.encode("utf8")
  
 	def strGreen(skk): 
-		return b"\x1b\x0e" + skk.encode("utf8") + b"                 "
+		return b"\x1b\x0e" + skk.encode("utf8")
+
+	def strYellow(skk): 
+		return b"\x1b\x03" + skk.encode("utf8")
 
 	def strWhite(skk): 
-		return b"\x1b\x0f" + skk.encode("utf8") + b"                 "
+		return b"\x1b\x0f" + skk.encode("utf8") 
 
 	out = b"\n\n"
 	out += b"display.img.clear\n"
 
 	line = 0
 
+	cline = b""
 	for state in states:
 		if state.state == GOOD:
 			rend = strGreen(state.data)
 		elif state.state == BAD:
 			rend = strRed(state.data)
+		elif state.state == CHECK:
+			rend = strYellow(state.data)
 		else:
 			rend = strWhite(state.data)
-		out += b"display.text.line "+ str(line).encode("utf8") + b" " + rend + b"\n"
-		line+=1
+		cline += rend
+		if state.nl:
+			out += b"display.text.line "+ str(line).encode("utf8") + b" " + cline + b"                 \n"
+			line+=1
+			cline = b""
 
 	out += b"display.refresh\n"
+	#print(out)
 	return out
 
 def get_serial():
@@ -271,39 +294,33 @@ def update_sysinfo():
 	else:
 		ret.append(stateEntry("NO SIGNAL", BAD))
 		
-# on-box recording disabled for 2025
-#
-#	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
-#	if re.search('^ActiveState=active', rec_info) == None:
-#		rec = False
-#	else:
-#		rec = True
-#
-#
-#	if rec:
-#		ret.append(stateEntry("RECORD", GOOD))
-#
-#	else:
-#		ret.append(stateEntry("PAUSED"))
 
-	ret.append(stateEntry(f"host: {hostname} up: {uptime_duration}"))
+	ret.append(stateEntry(f"host: {hostname} ", nl=False))
+
+	rec_info = os.popen('systemctl show video-recorder --property=ActiveState').read()
+	if re.search('^ActiveState=active', rec_info) == None:
+		ret.append(stateEntry(f"rec: paused ", BAD))
+	else:
+		ret.append(stateEntry(f"rec: RECORD ", GOOD))
+
+
 	
-	portnames = [ "I", "1", "2", "3", "4"]
+	portnames = [ "IN", "01", "02", "03", "04"]
 	try:
 		swstate = json.loads(open('/tmp/netstate.json', 'r').read())
 		n=0
-		out="Switch: "
+		ret.append(stateEntry("Switch:", NORMAL, nl=False))
 		for p in swstate:
 			pn = portnames[n]
 			if p == "down":
-				f = f"{pn}d|"
+				ret.append(stateEntry(f"{pn}", BAD, nl=False))
 			elif p == "up full-duplex 1000mbps":
-				f = f"{pn}U|"
+				ret.append(stateEntry(f"{pn}", GOOD, nl=False))
 			else:
-				f = f"{pn}C|"
-			out+=f
+				ret.append(stateEntry(f"{pn}", CHECK, nl=False))
+			ret.append(stateEntry("|", NORMAL, nl=False))
 			n+=1
-		ret.append(stateEntry(out))
+		ret.append(stateEntry(""))
 	except:
 		ret.append(stateEntry("Switch not found", BAD))
 
@@ -321,7 +338,7 @@ def update_sysinfo():
 		fp = open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', "r")
 		hz = int(int(fp.read().rstrip())/1000)
 		fp.close()
-		if hz > 1900:
+		if hz > 1800:
 			state = NORMAL
 		else:
 			state = BAD
