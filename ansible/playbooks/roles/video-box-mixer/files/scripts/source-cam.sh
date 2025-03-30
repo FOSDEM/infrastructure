@@ -23,7 +23,7 @@ mixercli -s  oms USB2 1
 #sleep 5
 #
 camres=1280x720
-vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera" |tail -n1)
+vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera|eMeet" |tail -n1)
 if [ -z "$vdev" ]; then
 	vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Brio" |tail -n1)
 	camres=640x360
