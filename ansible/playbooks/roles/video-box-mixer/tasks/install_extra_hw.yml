@@ -108,21 +108,24 @@
 - name: flash ms2131 firmware
   shell: |
     set -eu
+    set -x
 
     old=/usr/local/share/fosdem_firmware/ms2131_old_$(date +'%Y%m%d%H%M%S').bin
     new=/usr/local/share/fosdem_firmware/ms2131.bin
 
-    [[ -f /etc/systemd/system/video-statuskeeper.service ]] && echo 'stopping statuskeeper' && systemctl stop video-statuskeeper || true
-    echo 'reading old firmware'
-    ms213x-cli read FLASH 0 --filename "${old}"
-    if cmp "${old}" "${new}"; then
-      echo 'firmware is correct, not reflashing'
-    else
-      echo 'flashing and verifying...'
-      ms213x-cli write-file --verify FLASH 0 "${new}"
-      echo 'flashing done'
-    fi
-    [[ -f /etc/systemd/system/video-statuskeeper.service ]] && echo 'starting statuskeeper' && systemctl start video-statuskeeper || true
+    systemctl stop vocto-source-cam vocto-source-slides video-display-rescan.service video-statuskeeper.service  || true
+    for board in $(grep -l Hagibis /sys/class/hidraw/hidraw*/device/uevent |cut -d / -f 5); do
+      old=/usr/local/share/fosdem_firmware/ms2131_old_$(date +'%Y%m%d%H%M%S').${board}.bin
+      echo 'reading old firmware'
+      ms213x-cli read FLASH 0 --filename "${old}" --raw-path=/dev/$board
+      if cmp "${old}" "${new}"; then
+        echo 'firmware is correct, not reflashing'
+      else
+        echo 'flashing and verifying...'
+        ms213x-cli write-file --verify FLASH 0 "${new}" --raw-path=/dev/$board
+        echo 'flashing done'
+      fi
+    done
   register: flash_ms2131_firmware
   changed_when: "'not reflashing' not in flash_ms2131_firmware.stdout"
   args:
