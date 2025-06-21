@@ -5,20 +5,15 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/config.sh
 
 
-usbdev=$(lsusb -d 345f:2131 | sed 's%Bus \([0-9]*\) Device \([0-9]*\): ID 345f:2131.*$%/dev/bus/usb/\1/\2%')
 
-if [ -z $usbdev ]; then
-        echo Video board not found, exiting
-        sleep 5
-        exit 0
-fi
-
-/usr/bin/usb_reset "$usbdev"
+usbpos=4-2
+upath=/sys/bus/usb/devices/$usbpos
+vdev=/dev/$(basename $(find $upath/*/video4linux -mindepth 1 -maxdepth 1 | sort |head -n1))
+adev=$(basename $(find $upath/*/sound -mindepth 1 -maxdepth 1 | sort |tail -n1|sed s/card//))
+. $upath/uevent
+/usr/bin/usb_reset "/dev/bus/usb/$BUSNUM/$DEVNUM"
 
 sleep 5
-adev=$(arecord -l  |grep -E 'USB3|Hagibis|HC-336' |cut -d: -f1 |cut -d' ' -f 2)
-vdev=$(v4l2-ctl --list-devices |grep -EA 1 'USB3|Hagibis|HC-336' |tail -n1)
-
 height=$(cat /tmp/ms213x-status | jq -r ${WIDTH}'/( (.width/.height)|if . > 2 then . / 2 else . end)|floor')
 
 /usr/bin/wait_next_second

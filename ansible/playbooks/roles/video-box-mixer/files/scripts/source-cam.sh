@@ -4,12 +4,6 @@ confdir="`dirname "$0"`/../config/"
 . ${confdir}/defaults.sh
 . ${confdir}/config.sh
 
-usbport=3:5
-
-usbdev=$(lsusb -s $usbport | sed 's%Bus \([0-9]*\) Device \([0-9]*\): ID '$usbid'.*$%/dev/bus/usb/\1/\2%')
-usbdevname=$(lsusb -s $usbport |cut -d ' ' -f 7- )
-
-
 mixercli -s  set-gain IN2 USB1 1
 mixercli -s  set-gain IN2 USB2 1
 mixercli -s  unmute IN2 USB1
@@ -18,17 +12,15 @@ mixercli -s  ims IN2 1
 mixercli -s  oms USB1 1
 mixercli -s  oms USB2 1
 
-#/usr/bin/usb_reset "$usbdev"
-#
-#sleep 5
-#
-camres=1280x720
-vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Camera|eMeet|UHD" |tail -n1)
-if [ -z "$vdev" ]; then
-	vdev=$(v4l2-ctl --list-devices |grep -EA 1 "Brio" |tail -n1)
-	camres=640x360
-fi
+usbpos=4-1
+camres=1920x1080
+upath=/sys/bus/usb/devices/$usbpos
+vdev=/dev/$(basename $(find $upath/*/video4linux -mindepth 1 -maxdepth 1 | sort |head -n1))
+#adev=$(basename $(find $upath/*/sound -mindepth 1 -maxdepth 1 | sort |tail -n1|sed s/card//))
 adev=$(arecord -l  |grep -E 'Audio Board' |cut -d: -f1 |cut -d' ' -f 2)
+. $upath/uevent
+/usr/bin/usb_reset "/dev/bus/usb/$BUSNUM/$DEVNUM"
+sleep 5
 
 /usr/bin/wait_next_second
 
