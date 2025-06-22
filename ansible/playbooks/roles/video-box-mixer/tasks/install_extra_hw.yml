@@ -113,7 +113,6 @@
     old=/usr/local/share/fosdem_firmware/ms2131_old_$(date +'%Y%m%d%H%M%S').bin
     new=/usr/local/share/fosdem_firmware/ms2131.bin
 
-    systemctl stop vocto-source-cam vocto-source-slides video-display-rescan.service video-statuskeeper.service  || true
     for board in $(grep -l Hagibis /sys/class/hidraw/hidraw*/device/uevent |cut -d / -f 5); do
       old=/usr/local/share/fosdem_firmware/ms2131_old_$(date +'%Y%m%d%H%M%S').${board}.bin
       echo 'reading old firmware'
@@ -122,8 +121,11 @@
         echo 'firmware is correct, not reflashing'
       else
         echo 'flashing and verifying...'
+	# these will all be enabled by ansible later, and you need to power-cycle the box anyway
+        systemctl stop vocto-source-cam.service vocto-source-slides.service video-display-rescan.service video-statuskeeper.service video-capture-rescan.service video-preview.service || true
+	sleep 1
         ms213x-cli write-file --verify FLASH 0 "${new}" --raw-path=/dev/$board
-        echo 'flashing done'
+        echo 'flashing done, the box needs to be power-cycled'
       fi
     done
   register: flash_ms2131_firmware
