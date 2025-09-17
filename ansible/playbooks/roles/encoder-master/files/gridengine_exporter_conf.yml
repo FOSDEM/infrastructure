@@ -1,0 +1,9 @@
+test: false
+port: 9081
+pidfile: "/var/run/gridengine_prometheus.pid"
+sge:
+  arch: "lx-amd64"
+  cell: default
+  execd_port: 6445
+  qmaster_port: 6444
+  cluster_name: p6444
