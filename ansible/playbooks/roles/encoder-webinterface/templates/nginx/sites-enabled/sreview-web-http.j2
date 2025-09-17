@@ -10,7 +10,7 @@ server {
   index index.html;
   
   location /.well-known/ {
-    alias {{ letsencrypt_well_known_dir }}/;
+    alias {{ letsencrypt_well_known_dir }}/.well-known/;
   }
 
   location / {
