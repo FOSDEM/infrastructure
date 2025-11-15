@@ -121,9 +121,9 @@
         echo 'firmware is correct, not reflashing'
       else
         echo 'flashing and verifying...'
-	# these will all be enabled by ansible later, and you need to power-cycle the box anyway
+        # these will all be enabled by ansible later, and you need to power-cycle the box anyway
         systemctl stop vocto-source-cam.service vocto-source-slides.service video-display-rescan.service video-statuskeeper.service video-capture-rescan.service video-preview.service || true
-	sleep 1
+        sleep 1
         ms213x-cli write-file --verify FLASH 0 "${new}" --raw-path=/dev/$board
         echo 'flashing done, the box needs to be power-cycled'
       fi
