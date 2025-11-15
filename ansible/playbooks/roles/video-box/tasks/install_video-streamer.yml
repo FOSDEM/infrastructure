@@ -7,6 +7,14 @@
     group: root
     mode: 0755
 
+- name: install mixer-set-pc script
+  copy:
+    src: video-streamer/mixer-set-pc.sh
+    dest: /usr/local/bin/mixer-set-pc.sh
+    owner: root
+    group: root
+    mode: 0755
+
 - name: install video-recorder script
   copy:
     src: video-streamer/video-recorder.sh
