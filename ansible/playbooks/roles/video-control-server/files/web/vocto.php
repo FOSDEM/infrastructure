@@ -107,7 +107,7 @@ if (empty($_GET['w']) && empty($argv[1])) {
 "use strict";
 
 window.onload = function() {
-	const inputsShown = ['IN1', 'IN2', 'IN3'];
+	const inputsShown = ['IN1', 'IN2', 'IN3', 'PC'];
 const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
 <?php if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) { ?>
 const inputsControllable = [];
