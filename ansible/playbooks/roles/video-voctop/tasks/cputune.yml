@@ -19,6 +19,16 @@
     mode: 0644
   register: grubopt
 
+- name: "copy grub cfg for disabling higher c-states"
+  copy:
+    src: grub/cstate.cfg
+    dest: /etc/default/grub.d/cstate.cfg
+    owner: root
+    group: root
+    mode: 0644
+  register: grubopt
+
+
 - name: update GRUB config
   shell: update-grub
 
@@ -26,5 +36,5 @@
   reboot:
     reboot_timeout: 120
     pre_reboot_delay: 35
-  when: grubopt.changed
+  when: grubopt.changed or grubopt2.changed
 
