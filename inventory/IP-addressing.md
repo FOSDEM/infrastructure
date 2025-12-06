@@ -32,6 +32,7 @@
   - 185.175.218.254/32 # asr1k po1.4006
 - 192.168.1.0/24 # server out of band
   - 192.168.1.1 # monitoring nat service ip
+  - 192.168.1.2 # jumphost 
   - 192.168.1.21 # proxmox001
   - 192.168.1.22 # proxmox002
   - 192.168.1.23 # proxmox003
