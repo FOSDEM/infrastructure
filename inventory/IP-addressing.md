@@ -19,16 +19,19 @@
   - 151.216.221.254 # asr1k po1.4006
 - 151.216.224.0/20 # nat64 pool
 - 185.175.216.240/28 # infra servers
-  - 185.175.216.251 # server001 eno4
-  - 185.175.216.252 # server002 eno4
+  - 185.175.216.242 # reviewmaster ULB
+  - 185.175.216.242 # monitoring.n.fosdem.net
+  - 185.175.216.250 # coredns.n.fosdem.net vm
+  - 185.175.216.251 # jumphost
+  - 185.175.216.252 # coredns.n.fosdem.net service ip
   - 185.175.216.254 # asr1k po1.212
 - 185.175.218.0/24 # wired video
+  - 185.175.218.11 # control.video.fosdem.org
+  - 185.175.218.13 # fpbx.video.fosdem.org
+  - 185.175.218.14 # vap.video.fosdem.org
   - 185.175.218.254/32 # asr1k po1.4006
 - 192.168.1.0/24 # server out of band
-  - 192.168.1.1 # server001 eno3
-  - 192.168.1.2 # server002 eno3
-  - 192.168.1.11 # server001 iDRAC
-  - 192.168.1.12 # server002 iDRAC
+  - 192.168.1.1 # monitoring nat service ip
   - 192.168.1.21 # proxmox001
   - 192.168.1.22 # proxmox002
   - 192.168.1.23 # proxmox003
