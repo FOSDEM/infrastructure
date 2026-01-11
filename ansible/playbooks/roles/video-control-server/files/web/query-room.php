@@ -7,8 +7,7 @@ if(empty($_REQUEST['room'])) {
 }
 $room = $_REQUEST['room'];
 
-$r = $db->prepare("SELECT voctop FROM fosdem WHERE roomname = :room");
-$r->execute(['room' => $room]);
+$r = $db->query("SELECT voctop FROM fosdem WHERE roomname="._e($room));
 
 if (!$r) {
 	die("notfound");

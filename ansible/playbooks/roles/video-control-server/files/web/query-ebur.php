@@ -10,7 +10,7 @@ function influx_escape($str) {
 }
 
 $room = $_GET['room'] or die('room required');
-$lastts = isset($_GET['time']) ? int($_GET['time']) * 1000 * 1000: 'now() - 5m';
+$lastts = isset($_GET['time']) ? (int)($_GET['time']) * 1000 * 1000: 'now() - 5m';
 
 $data = http_build_query(array(
     'db' => 'ebur',
@@ -18,7 +18,7 @@ $data = http_build_query(array(
     'epoch' => 'ms'
 ));
 
-$ch = curl_init('http://185.175.218.112:8086/query?'.$data);
+$ch = curl_init('http://185.175.218.14:8086/query?'.$data);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $curl_result = curl_exec($ch);
 
