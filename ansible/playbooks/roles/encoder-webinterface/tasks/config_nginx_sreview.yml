@@ -33,14 +33,14 @@
 - name: Force nginx reload after setting up vhost
   meta: flush_handlers
 
-- name: Generate tls certificate
-  include_role:
-    name: tls-certificates
-  vars:
-    basename: sreview-web
-    common_name: review.video.fosdem.org
-    self_sign: false
-    letsencrypt_do_nginx_vhost: false
+#- name: Generate tls certificate
+#  include_role:
+#    name: tls-certificates
+#  vars:
+#    basename: sreview-web
+#    common_name: review.video.fosdem.org
+#    self_sign: false
+#    letsencrypt_do_nginx_vhost: false
 
 - name: Install common nginx TLS config
   include_role:
