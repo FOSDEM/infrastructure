@@ -127,19 +127,19 @@ const mutesControllable = true;
 <div class="video-monitoring-grid">
 <div class="card monitoring-large">
 <div>Stream</div>
-<a href="tcp://<?php echo $row['voctop'] ?>:8899">
+                        <a class="mpv-m3u" href="tcp://<?php echo $row['voctop'] ?>:8899">
 <img id="output" src="<?php echo $room;?>/room.jpg"/>
 </a>
 </div>
 <div class="card">
 <div>Camera</div>
-<a href="tcp://<?php echo $row['cam'] ?>:8899">
+                        <a class="mpv-m3u" href="tcp://<?php echo $row['cam'] ?>:8899">
 <img id="cam" src="<?php echo $room;?>/cam.jpg"/>
 </a>
 </div>
 <div class="card">
 <div>Slides</div>
-<a href="tcp://<?php echo $row['slides'] ?>:8899">
+                        <a class="mpv-m3u" href="tcp://<?php echo $row['slides'] ?>:8899">
 <img id="grab" src="<?php echo $room;?>/grab.jpg"/>
 </a>
 </div>
@@ -184,8 +184,54 @@ const mutesControllable = true;
         }
     }
 })();    
-
 </script>
+
+
+        <script>
+            // When clinking on a previews make a m3u with the link so it open in the default video player  
+            (function() {
+                function sanitizeFileName(name) {
+                    return String(name)
+                        .trim()
+                        .replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "-")
+                        .replace(/\s+/g, " ")
+                        .slice(0, 120);
+                }
+
+                function makeM3U(title, url) {
+                    return ["#EXTM3U", `#EXTINF:-1,${title}`, url, ""].join("\n");
+                }
+
+                document.addEventListener("click", (e) => {
+                    const a = e.target.closest("a.mpv-m3u");
+                    if (!a) return;
+
+                    const streamUrl = a.getAttribute("href"); // keep original, not resolved
+                    if (!streamUrl) return;
+
+                    e.preventDefault();
+
+                    const title = a.dataset.title || a.textContent.trim() || "stream";
+
+                    const m3uText = makeM3U(title, streamUrl);
+
+                    const blob = new Blob([m3uText], {
+                        type: "audio/x-mpegurl;charset=utf-8",
+                    });
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    const dl = document.createElement("a");
+                    dl.href = blobUrl;
+                    dl.download = `${sanitizeFileName(title)}.m3u`;
+                    document.body.appendChild(dl);
+                    dl.click();
+                    dl.remove();
+
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 10_000);
+                });
+            })();
+        </script>
+
 <iframe name="tgt" id="target" width="0" height="0"></iframe>
 </body>
 <?php
