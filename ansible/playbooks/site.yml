@@ -173,7 +173,7 @@
 #  - { role: cloudalchemy.prometheus, tags: [ 'prometheus' ] }
 #  - { role: cloudalchemy.alertmanager, tags: [ 'alertmanager' ] }
   - { role: json_exporter, tags: [ 'json_exporter' ] }
-  - { role: paulfantom.restic, tags: [ 'backup' ] }
+#  - { role: paulfantom.restic, tags: [ 'backup' ] }
 
 - name: public-dashboard
   hosts: public-dashboard
