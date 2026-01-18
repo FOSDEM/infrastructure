@@ -37,6 +37,7 @@ ansible_python_interpreter=/usr/bin/python3
 ansible_user = root
 [video-streamer-backend]
 streambackend0.video.fosdem.org
+streambackend-2025.video.fosdem.org
 #streambackend1.video.fosdem.org
 #streambackend2.video.fosdem.org
 #streambackend3.video.fosdem.org
