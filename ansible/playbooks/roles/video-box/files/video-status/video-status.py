@@ -213,6 +213,30 @@ def update_switch_state():
 			syslog.syslog(f"Port {i} state change {switch_state[i]} -> {new_state[i]}")
 			switch_state[i] = new_state[i]
 
+diag = ''
+
+def update_diag():
+    global diag
+    newdiag = ''
+    with get_serial() as port:
+        port.write(b"status\n")
+        while True:
+            line = port.readline().decode("utf-8").strip()
+            if re.match(r"^(ok|fail) ", line):
+                break
+            newdiag += "\n" + line
+            
+    if diag != newdiag:
+        diag = newdiag
+    else:
+        try:
+            with open("/tmp/status.tmp", "w") as f:
+                f.write(diag)
+
+            os.rename("/tmp/status.tmp", "/tmp/status.txt")
+        except:
+            pass
+
 def main():
 	counter = 0
 
@@ -224,6 +248,7 @@ def main():
 	while True:
 		info = update_sysinfo()
 		update_switch_state()
+		update_diag()
 		output_terminal(info)
 		if counter % 3 == 0:
 			output_serial_display(info)
