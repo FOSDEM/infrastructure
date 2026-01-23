@@ -63,6 +63,11 @@
     src: close.png
     dest: /srv/sreview/assets/close.png
 
+- name: install the apology tmeplate
+  copy:
+    src: open.svg
+    dest: /srv/sreview/assets/sorry.svg
+
 - name: install the notification email template
   copy:
     src: notify-email.ep
