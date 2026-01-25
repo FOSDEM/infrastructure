@@ -166,7 +166,7 @@ $upload_actions = [
 $sync_extensions = [ "vtt" ];
 
 $sync_actions = [
-  [ 'rsync', '-zavHP', '/srv/sreview/output/./<%== $relative_file %>', 'review-sync@rsync.fosdem.org:/srv/video/public/' ]
+  [ 'rsync', '-zavRHP', '/srv/sreview/output/./<%== $relative_file %>', 'review-sync@rsync.fosdem.org:/srv/video/public/' ]
 ];
 
 # If set, used with parse_re in an s///g command to produce an input URL
