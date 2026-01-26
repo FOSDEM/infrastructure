@@ -104,6 +104,7 @@
     name: rc-local.service
     state: restarted
   when: rclocal.changed
+  ignore_errors: true
 
 
 
