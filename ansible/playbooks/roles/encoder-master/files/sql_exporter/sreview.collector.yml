@@ -20,6 +20,7 @@ metrics:
     LEFT JOIN (
     SELECT state, COUNT(*) AS count
     FROM talks
+    WHERE event = 23
     GROUP BY state
     ) AS talk_counts
     ON all_states.state = talk_counts.state;
@@ -31,15 +32,15 @@ metrics:
   values:
   - total_time
   query: |
-    SELECT state, COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks GROUP BY state;
+    SELECT state, COALESCE(EXTRACT(EPOCH FROM SUM((endtime - starttime)::INTERVAL)), 0) AS total_time FROM talks WHERE event = 23  GROUP BY state;
 - metric_name: video_encoded_seconds
   type: gauge
   help: 'Length of the released vieos as encoded'
   values:
   - total_reviewed_duration
   query: |
-    SELECT EXTRACT(EPOCH FROM SUM((talks.endtime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE ce.property_value END || ' seconds')::INTERVAL) - (talks.starttime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE cs.property_value END || ' seconds')::INTERVAL))) AS total_reviewed_duration
+    SELECT COALESCE( EXTRACT(EPOCH FROM SUM( (talks.endtime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE ce.property_value END || ' seconds')::INTERVAL) - (talks.starttime + (CASE WHEN LENGTH(ce.property_value)=0 THEN '0' ELSE cs.property_value END || ' seconds')::INTERVAL))), 0) AS total_reviewed_duration
     FROM talks
     JOIN corrections ce ON talks.id = ce.talk AND ce.property = 6
     JOIN corrections cs ON talks.id = cs.talk AND cs.property = 4
-    WHERE talks.state = 'done';
+    WHERE talks.state = 'done' AND talks.event = 23;
