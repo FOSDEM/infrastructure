@@ -33,14 +33,14 @@ $email_from = 'noreply@fosdem.org';
 # A filename of a Mojo::Template template to process, returning the email body. Required if notify_actions includes email.
 $notify_email_template = '/srv/sreview/assets/notify-email.ep';
 
-$notify_email_subject = "Your FOSDEM 2025 talk titled '<%== \$title %>'\\";
+$notify_email_subject = "Your FOSDEM 2026 talk titled '<%== \$title %>'\\";
 
 $announce_email_template = '/srv/sreview/assets/announce.ep';
 
-$announce_email_subject = "RELEASED: Your FOSDEM 2025 talk titled '<%== \$title %>'\\";
+$announce_email_subject = "RELEASED: Your FOSDEM 2026 talk titled '<%== \$title %>'\\";
 
 # The default event to handle in the webinterface. Ignored by all other parts of sreview.
-$event = 'FOSDEM 2025';
+$event = 'FOSDEM 2026';
 
 $extra_profiles = {
         FOSDEM => {
@@ -79,7 +79,7 @@ $extra_profiles = {
 };
 
 # A filename pattern (glob) that tells SReview where to find new files
-$inputglob = 'https://streambackend-2025.video.fosdem.org/dump/*';
+$inputglob = 'https://streambackend0.video.fosdem.org/dump/*';
 
 $input_profile = "FOSDEM";
 
@@ -185,7 +185,7 @@ $urlbase = 'https://review.video.fosdem.org';
 
 $cleanup = 'previews';
 
-$eventurl_format = 'https://video.fosdem.org/2025/<%= $room_output %>/<%= $slug %>.av1.webm';
+$eventurl_format = 'https://video.fosdem.org/2026/<%= $room_output %>/<%= $slug %>.av1.webm';
 $audio_multiplex_mode = 'stream';
 
 $inject_collection = "upload";
