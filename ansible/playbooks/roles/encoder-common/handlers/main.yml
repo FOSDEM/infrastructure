@@ -1,0 +1,9 @@
+- name: restart sreview-web
+  service:
+    name: sreview-web
+    status: restarted
+
+- name: restart sreview-dispatch
+  service:
+    name: sreview-dispatch
+    status: restarted

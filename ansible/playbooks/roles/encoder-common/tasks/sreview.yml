@@ -12,6 +12,9 @@
     group: root
     mode: 0664
   register: sreview_config_fix
+  notify:
+    - restart sreview-web
+    - restart sreview-dispatch
 
 - name: install required packages
   apt:
