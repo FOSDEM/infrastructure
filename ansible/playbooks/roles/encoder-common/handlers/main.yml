@@ -2,8 +2,10 @@
   service:
     name: sreview-web
     state: restarted
+  when: '"encoder-master" in group_names'
 
 - name: restart sreview-dispatch
   service:
     name: sreview-dispatch
     state: restarted
+  when: '"encoder-master" in group_names'
