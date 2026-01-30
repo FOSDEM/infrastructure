@@ -39,6 +39,7 @@
     - python3-fosdemosc
     - fosdem-mixer-api
     - picocom
+    - rsyslog
   tags:
     - firmware
     - firmware_ms2131

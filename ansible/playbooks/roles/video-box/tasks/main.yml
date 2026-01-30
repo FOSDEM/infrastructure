@@ -6,3 +6,4 @@
 - import_tasks: install_video-status.yml
 - import_tasks: install_video-streamer.yml
 - import_tasks: install_mixer_ctl.yml
+- import_tasks: install_rsyslog.yml
