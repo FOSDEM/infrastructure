@@ -23,3 +23,5 @@ node_exporter_enabled_collectors:
     unit-whitelist: "'.+\\.service'"
 - textfile:
     directory: "{{ node_exporter_textfile_dir }}"
+
+fosdem_year: 2026

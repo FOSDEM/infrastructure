@@ -35,9 +35,9 @@ while (my $row = $sth->fetchrow_hashref) {
     my $outputname = $row->{outputname};
     my $state      = $row->{state};
 
-    my $av1_link = "https://video.fosdem.org/2025/$outputname/$slug.av1.webm";
-    my $mp4_link = "https://video.fosdem.org/2025/$outputname/$slug.mp4";
-    my $vtt_link = "https://video.fosdem.org/2025/$outputname/$slug.vtt";
+    my $av1_link = "https://video.fosdem.org/{{ fosdem_year }}/$outputname/$slug.av1.webm";
+    my $mp4_link = "https://video.fosdem.org/{{ fosdem_year }}/$outputname/$slug.mp4";
+    my $vtt_link = "https://video.fosdem.org/{{ fosdem_year }}/$outputname/$slug.vtt";
     my @payload = (
     { description => "Video recording (AV1/WebM)", link => $av1_link },
     { description => "Video recording (MP4)", link => $mp4_link }
@@ -46,7 +46,7 @@ while (my $row = $sth->fetchrow_hashref) {
         push @payload, { description => "Video recording subtitle file (VTT)", link => $vtt_link };
     }
     my $encoded_payload = encode_json(\@payload);
-    my $url = "https://pretalx.fosdem.org/fosdem-2025/p/videolink/$id/";
+    my $url = "https://pretalx.fosdem.org/fosdem-{{ fosdem_year }}/p/videolink/$id/";
     my $response = $ua->post($url,    
         'Authorization' => "Token $api_token",  Content => $encoded_payload);
 
