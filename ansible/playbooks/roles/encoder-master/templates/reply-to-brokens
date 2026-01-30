@@ -1,0 +1,43 @@
+#!/bin/bash
+
+for nonce in $(psql -t -c "select talks.id, nonce, max(logdate) as logdate from talks join events on talks.event = events.id join commentlog on commentlog.talk = talks.id where talks.state='broken' and events.name='FOSDEM {{ fosdem_year }}' group by talks.id, nonce order by logdate" | awk -F'|' '{print $2}')
+do      
+        sreview-reply $nonce
+        if [ $? -gt 0 ]; then
+                echo "reply failed, skipping processing"
+        else    
+                select action in "leave the talk alone, do the next one" "set to lost" "set to needs_work" "set to uninteresting" "reset to editable" "open upload form and assign to reviewer 1" "stop processing"
+                do      
+                        case "$action" in
+                                "leave the talk alone, do the next one")
+                                        # do nothing
+                                        break
+                                ;;
+                                "set to lost")
+                                        psql -c "UPDATE talks SET state='lost' WHERE nonce='$nonce'"
+                                        break
+                                ;;
+                                "set to needs_work")
+                                        psql -c "UPDATE talks SET state='needs_work' WHERE nonce='$nonce'"
+                                        break
+                                ;;
+                                "set to uninteresting")
+                                        psql -c "UPDATE talks SET state='uninteresting' WHERE nonce='$nonce'"
+                                        break
+                                ;;
+                                "reset to editable")
+                                        psql -c "UPDATE talks SET state='cutting', progress='waiting' WHERE nonce='$nonce'"
+                                        break
+                                ;;
+                                "open upload form and assign to reviewer 1")
+                                        psql -c "UPDATE talks SET flags=coalesce(flags, '{}') || '{\"can_upload\":true}', reviewer=1 WHERE nonce='$nonce'"
+                                        break
+                                ;;
+                                "stop processing")
+                                        exit 0
+                        esac
+                        echo "E: missed this one"
+                        exit 1
+                done
+        fi
+done

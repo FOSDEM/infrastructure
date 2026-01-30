@@ -4,3 +4,4 @@
 - import_tasks: postgresql.yml
 - import_tasks: sql_exporter.yml
 - import_tasks: config_schedule_import.yml
+- import_tasks: install_scripts.yml

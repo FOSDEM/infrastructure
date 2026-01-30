@@ -1,0 +1,13 @@
+- name: install to-pretalx.pl
+  template:
+    name: to-pretalx.pl
+    src: to-pretalx.pl
+    dest: /usr/local/bin/to-pretalx.pl
+    mode: 0755
+
+- name: install reply-to-brokens
+  template:
+    name: reply-to-brokens
+    src: reply-to-brokens
+    dest: /var/lib/sreview/reply-to-brokens
+    mode: 0755
