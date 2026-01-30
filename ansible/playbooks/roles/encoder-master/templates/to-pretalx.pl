@@ -6,7 +6,7 @@ use JSON;
 use LWP::UserAgent;
 
 my $dbname = 'sreview';
-my $api_token = '{{ pretalx_sreview_api_token }}';
+my $api_token = '{{ sreview_pretalx_api_key }}';
 
 # Connect to PostgreSQL
 my $dbh = DBI->connect("dbi:Pg:dbname=$dbname", "sreview", '', { RaiseError => 1, AutoCommit => 1 })
