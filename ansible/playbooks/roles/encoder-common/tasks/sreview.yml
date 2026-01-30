@@ -68,7 +68,22 @@
 
 - name: install the apology tmeplate
   copy:
-    src: open.svg
+    src: apology-2026.svg
+    dest: /srv/sreview/assets/apology-2026.svg
+
+- name: install the opening credits
+  copy:
+    src: opening-2026.svg
+    dest: /srv/sreview/assets/opening-2026.svg
+
+- name: install the closing credits
+  copy:
+    src: closing-2026.png
+    dest: /srv/sreview/assets/closing-2026.png
+
+- name: install the apology tmeplate
+  copy:
+    src: sorry.svg
     dest: /srv/sreview/assets/sorry.svg
 
 - name: install the notification email template

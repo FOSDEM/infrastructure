@@ -22,7 +22,7 @@ $sftp_access_config = {
 
 $api_key = "{{sreview_api_key}}";
 # An SVG template to be used as apology template (shown just after the opening credits when technical issues occurred. Should have the same nominal dimensions (in pixels) as the video assets.
-$apology_template = '/srv/sreview/assets/sorry.svg';
+$apology_template = '/srv/sreview/assets/apology-2026.svg';
 
 # The DBI connection string used to connect to the database
 $dbistring = 'dbi:Pg:dbname=\'sreview\';user=\'sreview\';password=\'{{ sreview_db_pw }}\';host=\'31.22.22.132\';sslmode=require';
@@ -116,13 +116,13 @@ $outputdir = '/srv/sreview/output';
 $parse_re = '.*\\/(?<room>[^-]+)(-(?<stream>[^-]+))?-(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})(?<second>\\d{2}).ts';
 
 # A PNG file to be used as closing credits. Will only be used if no postroll_template was defined. Should have the same dimensions as the video assets.
-$postroll = '/srv/sreview/assets/close.png';
+$postroll = '/srv/sreview/assets/closing-2026.png';
 
 # An SVG template to be used as closing credits. Should have the same nominal dimensions (in pixels) as the video assets.
 #$postroll_template = '/srv/sreview/assets/fosdem2020_sponsors_bg.png';
 
 # An SVG template to be used as opening credits. Should have the same nominal dimensions (in pixels) as the video assets.
-$preroll_template = '/srv/sreview/assets/open.svg';
+$preroll_template = '/srv/sreview/assets/opening-2026.svg';
 
 $preview_exten = 'mp4';
 
