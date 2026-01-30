@@ -2,7 +2,7 @@
 Description={{ item }} FR audio parser service
 
 [Service]
-ExecStart=/usr/local/bin/audio-fetcher {{ item }} 2
+ExecStart=/usr/local/bin/audio-fetcher {{ item }} 1
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
