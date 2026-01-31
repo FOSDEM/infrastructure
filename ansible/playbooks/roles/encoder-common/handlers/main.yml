@@ -9,3 +9,10 @@
     name: sreview-dispatch
     state: restarted
   when: '"encoder-master" in group_names'
+
+- name: restart execd
+  service:
+    name: gridengine-exec
+    enabled: true
+    state: restarted
+  ignore_errors: true

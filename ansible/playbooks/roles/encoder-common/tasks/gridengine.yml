@@ -7,12 +7,14 @@
     src: load.sh
     dest: /usr/local/bin/load.sh
     mode: 0755
-  register: load_sh
+  notify:
+    - restart execd
 
-- name: restart gridengine service when needed
-  service:
-    name: gridengine-exec
-    enabled: true
-    state: started
-  when: load_sh.changed
-  ignore_errors: true
+- name: ensure reviewmaster is active qmaster
+  copy:
+    src: act_qmaster
+    dest: /var/lib/gridengine/default/common/act_qmaster
+    owner: sgeadmin
+    group: sgeadmin
+  notify:
+    - restart execd
