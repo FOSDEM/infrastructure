@@ -51,6 +51,37 @@
   loop: "{{ groups['encoder-storage'] }}"
   when: "'cloud-encoders' in group_names"
 
+- name: install sshfs
+  when: "'cloud-encoders' in group_names"
+  ansible.builtin.apt:
+    package: sshfs
+    state: present
+
+- name: sshfs the directories
+  when: "'cloud-encoders' in group_names"
+  ansible.builtin.command:
+    cmd: sshfs sreview@reviewstorage.video.fosdem.org:{{ item.path }} {{ item.path }}
+    creates: "{{ item.path }}/{{ item.file }}"
+  with_items:
+    - path: /var/lib/sreview
+      file: script-output
+    - path: /srv/sreview/storage
+      file: video
+    - path: /srv/sreview/assets
+      file: announce.ep
+    - path: /srv/sreview/output
+      file: "{{ fosdem_year }}"
+
+- name: sshfs the storage directory
+  when: "'cloud-encoders' in group_names"
+  ansible.builtin.command:
+    cmd: sshfs sreview@reviewstorage.video.fosdem.org:/srv/sreview/storage /srv/sreview/storage
+    creates: /srv/sreview/storage/video
+
+- name: sshfs the assets directory
+  when: "'cloud-encoders' in group_names"
+  ansible.builtin.command:
+
 - name: install the announcement email template
   copy:
     src: announce.ep
