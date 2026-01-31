@@ -1,127 +1,122 @@
-async function loadData(room, time) {
-    let params = `room=${room}`;
-    if(time) params = `${params}&time=${time}`;
-    const response = await fetch(`query-ebur.php?${params}`);
-    return response.json();
-}
+const round = (d, places = 2) => Math.round(d * Math.pow(10, places)) / Math.pow(10, places);
 
+async function loadData(room, time) {
+  let params = `room=${room}`;
+  if (time) params = `${params}&time=${time}`;
+  const response = await fetch(`query-ebur.php?${params}`);
+
+  const data = await response.json();
+
+  return {
+    l: data["l"].map((x) => [x.time, x.S]),
+    r: data["r"].map((x) => [x.time, x.S]),
+  };
+}
 
 async function chart(room, element, refreshInterval, onTick) {
-    const data = await loadData(room);
+  const data = await loadData(room);
 
-    const primary = 'midnightblue';
-    const backup = 'goldenrod';
+  const primary = "midnightblue";
+  const backup = "goldenrod";
 
-    const cfg = {
-        data: {
-            datasets: [
-            {
-                type: 'line',
-                label: 'L',
-                pointRadius: 0,
-                backgroundColor: primary,
-                borderColor: primary,
-                borderWidth: 2,
-                data: data['l'],
-                parsing: { xAxisKey: 'time', yAxisKey: 'S' }
-            },
-            {
-                type: 'line',
-                label: 'R',
-                pointRadius: 0,
-                backgroundColor: backup,
-                borderColor: backup,
-                borderWidth: 1,
-                data: data['r'],
-                parsing: { xAxisKey: 'time', yAxisKey: 'S' }
-            },
+  const cfg = {
+    animation: false,
+    tooltip: { trigger: "axis" },
+    backgroundColor: "transparent",
+    color: ["midnightblue", "goldenrod"],
+
+    grid: { left: 0, right: 0, top: 0, bottom: 0 },
+    xAxis: {
+      type: "time",
+      min: Date.now() - 5 * 60 * 1000,
+      max: Date.now(),
+      show: false,
+    },
+    yAxis: [{ type: "value", name: "волуме", min: -52, max: 0, show: false }],
+    series: [
+      {
+        name: "L",
+        type: "line",
+        smooth: true,
+        symbol: "none",
+        data: data["l"],
+        tooltip: { valueFormatter: (v) => `${round(v)}` },
+        markArea: {
+          silent: true,
+          data: [
+            [
+              { yAxis: -52, itemStyle: { color: "red", opacity: 0.2 } },
+              { yAxis: -30 },
             ],
+            [
+              { yAxis: -30, itemStyle: { color: "green", opacity: 0.2 } },
+              { yAxis: -14 },
+            ],
+            [
+              { yAxis: -14, itemStyle: { color: "yellow", opacity: 0.2 } },
+              { yAxis: -0 },
+            ],
+          ],
         },
-        options: {
-            animation: false,
-            layout: { padding: 0 },
-            plugins: {
-                filler: {},
-                annotation: { annotations: {
-                    red: {
-                        type: 'box',
-                        yMin: -52,
-                        yMax: -30,
-                        backgroundColor: 'rgba(255, 0, 0, 0.25)',
-                        borderWidth: 0,
-                    },
-                    green: {
-                        type: 'box',
-                        yMin: -30,
-                        yMax: -14,
-                        backgroundColor: 'rgba(86, 166, 75, 0.25)',
-                        borderWidth: 0,
-                    },
-                    yellow: {
-                        type: 'box',
-                        yMin: -14,
-                        yMax: -0,
-                        backgroundColor: 'rgba(224, 180, 0, 0.25)',
-                        borderWidth: 0,
-                    },
-                }},
-                legend: { display: false }
-            },
-            parsing: false,
-            scales: {
-                time:  {
-                    axis: 'x',
-                    type: 'time',
-                    display: false,
-                },
-                S:  {
-                    axis: 'y',
-                    type: 'linear',
-                    display: false,
-                    min: -52,
-                    max: 0,
-                },
-                M:  {
-                    axis: 'y',
-                    type: 'linear',
-                    display: false,
-                    min: -60,
-                    max: 0,
-                },
-            },
-        }
-    }
+      },
+      {
+        name: "R",
+        type: "line",
+        smooth: true,
+        symbol: "none",
+        lineStyle: { width: 1 },
+        data: data["r"],
+        tooltip: { valueFormatter: (v) => `${round(v)}` },
+      },
+    ],
+  };
 
-    Chart.register({id: 'annotation'});
-    let chart = new Chart(element, cfg);
+  let chart = echarts.init(element);
+  chart.setOption(cfg);
 
-    setInterval(function() {
-        tick(chart, room);
-        if(onTick) onTick(chart, room);
-    }, refreshInterval);
+  setInterval(function () {
+    tick(chart, room);
+    if (onTick) onTick(chart, room);
+  }, refreshInterval);
 
-    return chart;
+  return chart;
 }
-
 
 async function tick(roomChart, room) {
-    let dataLeft = roomChart.data.datasets[0];
-    let dataRight = roomChart.data.datasets[1];
+  const option = roomChart.getOption();
 
-    let lastTs;
-    try {
-        lastTs = Math.min(dataLeft.data[dataLeft.data.length - 1].time, dataRight.data[dataRight.data.length - 1].time);
-    } catch {
-        lastTs = undefined;
-    }
+  let dataLeft = option.series[0].data.slice();
+  let dataRight = option.series[1].data.slice();
 
-    let data = await loadData(room, lastTs ? lastTs + 1 : undefined);
+  let lastTs;
+  try {
+    lastTs = Math.min(
+      dataLeft.data[dataLeft.data.length - 1][0],
+      dataRight.data[dataRight.data.length - 1][0],
+    );
+  } catch {
+    lastTs = undefined;
+  }
 
-    dataLeft.data.splice(0, data['l'].length);
-    dataRight.data.splice(0, data['r'].length);
+  let data = await loadData(room, lastTs ? lastTs + 1 : undefined);
 
-    dataLeft.data.push(...data['l']);
-    dataRight.data.push(...data['r']);
+  dataLeft.splice(0, data["l"].length);
+  dataRight.splice(0, data["r"].length);
 
-    roomChart.update();
+  dataLeft.push(...data["l"]);
+  dataRight.push(...data["r"]);
+
+  roomChart.setOption({
+    xAxis: {
+      type: "time",
+      min: Date.now() - 5 * 60 * 1000, // 5 minutes
+      max: Date.now(),
+      show: false,
+    },
+    series: [
+      { name: "L", data: dataLeft },
+      { name: "R", data: dataRight },
+    ],
+  });
 }
+

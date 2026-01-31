@@ -70,6 +70,7 @@
 	height: 100%;
 }
 
-.video-monitoring canvas {
+.video-monitoring canvas, .video-monitoring .chart {
 	width: 100%;
+	height: 100px;
 }
