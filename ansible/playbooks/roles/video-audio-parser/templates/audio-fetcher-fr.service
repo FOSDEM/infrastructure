@@ -2,7 +2,13 @@
 Description={{ item }} FR audio parser service
 
 [Service]
-ExecStart=/usr/local/bin/audio-fetcher {{ item }} 1
+
+#
+# YES, it's channel 2. This is synchronized with sink-output.sh for
+# the video-voctop role, the channel with the camera internal mic audio
+# 
+
+ExecStart=/usr/local/bin/audio-fetcher {{ item }} 2
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGKILL
