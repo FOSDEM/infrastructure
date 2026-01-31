@@ -13,6 +13,19 @@
     - assets
     - storage
     - output
+  when: "'cloud-encoders' not in group_names"
+
+- name: ensure /srv/sreview/ paths exist and are correctly owned
+  file:
+    path: /srv/sreview/{{ item }}
+    state: directory
+    owner: sreview
+    group: sreview
+  with_items:
+    - incoming
+    - assets
+    - storage
+    - output
 
 - name: ensure NFS mount software is installed
   apt:
@@ -32,3 +45,24 @@
   - storage
   - output
   when: "'cloud-encoders' not in group_names"
+
+- name: install sshfs
+  when: "'cloud-encoders' in group_names"
+  ansible.builtin.apt:
+    package: sshfs
+    state: present
+
+- name: sshfs the directories
+  when: "'cloud-encoders' in group_names"
+  become: yes
+  become_user: sreview
+  ansible.builtin.command:
+    cmd: sshfs sreview@reviewstorage.video.fosdem.org:{{ item.path }} {{ item.path }}
+    creates: "{{ item.path }}/{{ item.file }}"
+  with_items:
+    - path: /srv/sreview/storage
+      file: video
+    - path: /srv/sreview/assets
+      file: announce.ep
+    - path: /srv/sreview/output
+      file: "{{ fosdem_year }}"
