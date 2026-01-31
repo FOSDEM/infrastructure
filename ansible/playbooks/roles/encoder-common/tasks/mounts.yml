@@ -15,18 +15,6 @@
     - output
   when: "'cloud-encoders' not in group_names"
 
-- name: ensure /srv/sreview/ paths exist and are correctly owned
-  file:
-    path: /srv/sreview/{{ item }}
-    state: directory
-    owner: sreview
-    group: sreview
-  with_items:
-    - incoming
-    - assets
-    - storage
-    - output
-
 - name: ensure NFS mount software is installed
   apt:
     state: latest

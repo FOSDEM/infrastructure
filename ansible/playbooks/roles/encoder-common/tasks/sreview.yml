@@ -55,41 +55,49 @@
   copy:
     src: announce.ep
     dest: /srv/sreview/assets/announce.ep
+  when: "'encoder-master' in group_names"
 
 - name: install the opening credits
   copy:
     src: open.svg
     dest: /srv/sreview/assets/open.svg
+  when: "'encoder-master' in group_names"
 
 - name: install the closing credits
   copy:
     src: close.png
     dest: /srv/sreview/assets/close.png
+  when: "'encoder-master' in group_names"
 
 - name: install the apology tmeplate
   copy:
     src: apology-2026.svg
     dest: /srv/sreview/assets/apology-2026.svg
+  when: "'encoder-master' in group_names"
 
 - name: install the opening credits
   copy:
     src: opening-2026.svg
     dest: /srv/sreview/assets/opening-2026.svg
+  when: "'encoder-master' in group_names"
 
 - name: install the closing credits
   copy:
     src: closing-2026.png
     dest: /srv/sreview/assets/closing-2026.png
+  when: "'encoder-master' in group_names"
 
 - name: install the apology tmeplate
   copy:
     src: sorry.svg
     dest: /srv/sreview/assets/sorry.svg
+  when: "'encoder-master' in group_names"
 
 - name: install the notification email template
   copy:
     src: notify-email.ep
     dest: /srv/sreview/assets/notify-email.ep
+  when: "'encoder-master' in group_names"
 
 - name: Ensure the font directory exists
   file:
