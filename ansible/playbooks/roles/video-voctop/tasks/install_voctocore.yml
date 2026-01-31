@@ -107,8 +107,8 @@
   cron:
     name: Voctocore restart
     user: root
-    minute: '4'
-    hour: '4'
+    minute: '20'
+    hour: '8'
     job: /opt/scripts/restart-voctocore.sh
     cron_file: voctocore-restart
 
