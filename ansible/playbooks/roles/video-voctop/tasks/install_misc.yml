@@ -1,0 +1,6 @@
+---
+- name: "install lldpd"
+  apt:
+    state: latest
+    package:
+    - lldpd

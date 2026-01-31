@@ -2,4 +2,5 @@
 - import_tasks: cputune.yml
 - import_tasks: install_voctocore.yml
 - import_tasks: install_audio_fetcher.yml
+- import_tasks: install_misc.yml
   tags: voctocore
