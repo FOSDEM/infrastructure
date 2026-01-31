@@ -44,10 +44,7 @@ if (empty($_GET['w']) && empty($argv[1])) {
 <title>room <?php echo $room; ?></title>
 <link rel="stylesheet" href="mixer.css"></script>
 <link rel="stylesheet" href="vocto.css"></script>
-<script src="chart.js"></script>
-<script src="moment.js"></script>
-<script src="chartjs-adapter-moment.js"></script>
-<script src="chartjs-plugin-annotation.js"></script>
+<script src="echarts.min.js"></script>
 <script src="graph.js"></script>
 <script src="reconnecting-websocket.js"></script>
 <script src="mixer.js"></script>
@@ -101,25 +98,25 @@ if (empty($_GET['w']) && empty($argv[1])) {
 </div>
 </div>
 
-<div id="kur"></div>
-
 <script>
 "use strict";
 
 window.onload = function() {
 	const inputsShown = ['IN1', 'IN2', 'IN3', 'PC'];
-const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
-<?php if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) { ?>
-const inputsControllable = [];
-const outputsControllable = ['OUT2'];
-const mutesControllable = false;
-<?php } else { ?>
-const inputsControllable = inputsShown;
-const outputsControllable = outputsShown;
-const mutesControllable = true;
-<?php } ?>
-	const audioMixer = new Mixer('mixer/<?php echo $audiobox; ?>', inputsShown, outputsShown, inputsControllable, outputsControllable, mutesControllable);
-	audioMixer.setupMixer().then(_ => {});
+	const outputsShown = ['OUT1', 'OUT2', 'HP1', 'HP2'];
+
+	<?php if (!empty($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER'][0]=='1'|| $_SERVER['PHP_AUTH_USER'][0]=='2' ) ) { ?>
+		const inputsControllable = [];
+		const outputsControllable = ['OUT2'];
+		const mutesControllable = false;
+	<?php } else { ?>
+		const inputsControllable = inputsShown;
+		const outputsControllable = outputsShown;
+		const mutesControllable = true;
+	<?php } ?>
+
+        const audioMixer = new Mixer('mixer/<?php echo $audiobox; ?>', inputsShown, outputsShown, inputsControllable, outputsControllable, mutesControllable);
+        audioMixer.setupMixer().then(_ => {});
 }
 </script>
 </div>
@@ -127,26 +124,26 @@ const mutesControllable = true;
 <div class="video-monitoring-grid">
 <div class="card monitoring-large">
 <div>Stream</div>
-                        <a class="mpv-m3u" href="tcp://<?php echo $row['voctop'] ?>:8899">
+<a class="mpv-m3u" href="tcp://<?php echo $row['voctop'] ?>:8899">
 <img id="output" src="<?php echo $room;?>/room.jpg"/>
 </a>
 </div>
 <div class="card">
 <div>Camera</div>
-                        <a class="mpv-m3u" href="tcp://<?php echo $row['cam'] ?>:8899">
+<a class="mpv-m3u" href="tcp://<?php echo $row['cam'] ?>:8899">
 <img id="cam" src="<?php echo $room;?>/cam.jpg"/>
 </a>
 </div>
 <div class="card">
 <div>Slides</div>
-                        <a class="mpv-m3u" href="tcp://<?php echo $row['slides'] ?>:8899">
-<img id="grab" src="<?php echo $room;?>/grab.jpg"/>
+<a href="tcp://<?php echo $row['slides'] ?>:8899">
+<img class="mpv-m3u" id="grab" src="<?php echo $room;?>/grab.jpg"/>
 </a>
 </div>
 <div class="card monitoring-large">
 <div>Audio</div>
-<canvas id="chart-<?php echo $room; ?>" height="100"></canvas>
-	<script>chart("<?php echo $room; ?>", document.getElementById("chart-<?php echo $room; ?>"), 1000);</script>
+<div class="chart" id="chart-<?php echo $room; ?>" height="100"></div>
+<script>chart("<?php echo $room; ?>", document.getElementById("chart-<?php echo $room; ?>"), 1000);</script>
 </div>
 <h3>Cambox <?php echo $row['cam']; ?></h3>
 <h3>Slidesbox <?php echo $row['slides']; ?></h3>
@@ -154,7 +151,6 @@ const mutesControllable = true;
 </div>
 </div>
 
-<!--<iframe src="mixer.php?room=<?php echo $room; ?>" title="Audio Mixer" height="0" width="0" style="border: none; height: 100vh; width: 100%;"></iframe>-->
 </div>
 </div>
 </div>
@@ -184,53 +180,53 @@ const mutesControllable = true;
         }
     }
 })();    
+
+</script>
+<script>
+    // When clinking on a previews make a m3u with the link so it open in the default video player
+    (function() {
+        function sanitizeFileName(name) {
+            return String(name)
+                .trim()
+                .replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "-")
+                .replace(/\s+/g, " ")
+                .slice(0, 120);
+        }
+
+        function makeM3U(title, url) {
+            return ["#EXTM3U", `#EXTINF:-1,${title}`, url, ""].join("\n");
+        }
+
+        document.addEventListener("click", (e) => {
+            const a = e.target.closest("a.mpv-m3u");
+            if (!a) return;
+
+            const streamUrl = a.getAttribute("href"); // keep original, not resolved
+            if (!streamUrl) return;
+
+            e.preventDefault();
+
+            const title = a.dataset.title || a.textContent.trim() || "stream";
+
+            const m3uText = makeM3U(title, streamUrl);
+
+            const blob = new Blob([m3uText], {
+                type: "audio/x-mpegurl;charset=utf-8",
+            });
+            const blobUrl = URL.createObjectURL(blob);
+
+            const dl = document.createElement("a");
+            dl.href = blobUrl;
+            dl.download = `${sanitizeFileName(title)}.m3u`;
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
+
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 10_000);
+        });
+    })();
 </script>
 
-
-        <script>
-            // When clinking on a previews make a m3u with the link so it open in the default video player  
-            (function() {
-                function sanitizeFileName(name) {
-                    return String(name)
-                        .trim()
-                        .replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "-")
-                        .replace(/\s+/g, " ")
-                        .slice(0, 120);
-                }
-
-                function makeM3U(title, url) {
-                    return ["#EXTM3U", `#EXTINF:-1,${title}`, url, ""].join("\n");
-                }
-
-                document.addEventListener("click", (e) => {
-                    const a = e.target.closest("a.mpv-m3u");
-                    if (!a) return;
-
-                    const streamUrl = a.getAttribute("href"); // keep original, not resolved
-                    if (!streamUrl) return;
-
-                    e.preventDefault();
-
-                    const title = a.dataset.title || a.textContent.trim() || "stream";
-
-                    const m3uText = makeM3U(title, streamUrl);
-
-                    const blob = new Blob([m3uText], {
-                        type: "audio/x-mpegurl;charset=utf-8",
-                    });
-                    const blobUrl = URL.createObjectURL(blob);
-
-                    const dl = document.createElement("a");
-                    dl.href = blobUrl;
-                    dl.download = `${sanitizeFileName(title)}.m3u`;
-                    document.body.appendChild(dl);
-                    dl.click();
-                    dl.remove();
-
-                    setTimeout(() => URL.revokeObjectURL(blobUrl), 10_000);
-                });
-            })();
-        </script>
 
 <iframe name="tgt" id="target" width="0" height="0"></iframe>
 </body>

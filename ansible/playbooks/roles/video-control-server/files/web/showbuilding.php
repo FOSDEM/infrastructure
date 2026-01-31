@@ -59,15 +59,16 @@ require_once(dirname(__FILE__)."/inc.php");
             max-width: 9rem;
             height: auto;
         }
-        .roomcard-body iframe, .roomcard-body canvas {
+        .roomcard-body iframe, .roomcard-body canvas, .roomcard-body .levels {
             max-width: 9rem;
             max-height: 4.5rem;
         }
+	.roomcard-body .levels {
+            width: 9rem;
+            height: 4.5rem;
+        }
     </style>
-    <script src="chart.js"></script>
-    <script src="moment.js"></script>
-    <script src="chartjs-adapter-moment.js"></script>
-    <script src="chartjs-plugin-annotation.js"></script>
+    <script src="echarts.min.js"></script>
     <script src="graph.js"></script>
 
     <script>
@@ -167,7 +168,7 @@ require_once(dirname(__FILE__)."/inc.php");
             echo '<a href="tcp://'.$row[1].':8899"><img src="'.$row[0].'/cam.jpg"/></a>';
             echo '<a href="tcp://'.$row[2].':8899"><img src="'.$row[0].'/grab.jpg"/></a>';
             echo '<a href="tcp://'.$row[3].':8899"><img src="'.$row[0].'/room.jpg"/></a>';
-            echo '<canvas id="chart-'.$row[0].'"></canvas>';
+            echo '<div class="levels" id="chart-'.$row[0].'"></div>';
             echo '<script>chart("'.$row[0].'", document.getElementById("chart-'.$row[0].'"), 5000, updateStatus);</script>';
             echo '</div>';
     // End camera list
