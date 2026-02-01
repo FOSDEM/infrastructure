@@ -224,7 +224,7 @@ $video_multi_profiles = {
 
 $workdir = '/var/lib/sreview/tmp';
 
-$transcribe_command = '/var/lib/sreview/whisper/bin/whisper --language en --output_format vtt --model tiny --output_dir <%== $output_dir %> <%== $input_filename %>';
+$transcribe_command = '/var/lib/sreview/whisper/bin/whisper --language en --output_format vtt --threads 1 --model tiny --output_dir <%== $output_dir %> <%== $input_filename %>';
 $transcribe_source_extension = 'av1.webm';
 
 $video_license = 'CC BY';
