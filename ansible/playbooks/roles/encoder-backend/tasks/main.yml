@@ -1,9 +1,9 @@
 ---
+- import_tasks: users.yml
 - import_tasks: install_packages.yml
   when: "'encoder-storage' not in group_names"
 - import_tasks: fix_gridengine.yml
   when: "'encoder-storage' not in group_names"
-- import_tasks: users.yml
 - import_tasks: homedir.yml
   when: "'encoder-storage' not in group_names"
 - import_tasks: whisper.yml

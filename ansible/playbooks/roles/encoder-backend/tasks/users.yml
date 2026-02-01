@@ -7,10 +7,12 @@
 - name: add sreview user
   user:
     name: sreview
-    comment: "Sreview user"
+    comment: "SReview user"
     uid: 2000
     group: sreview
     shell: /bin/bash
+    home: /var/lib/sreview
+    create_home: false
     password: ""
 
 - name: add sgeadmin group
