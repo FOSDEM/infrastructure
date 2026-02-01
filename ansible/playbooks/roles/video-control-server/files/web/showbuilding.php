@@ -84,22 +84,16 @@ require_once(dirname(__FILE__)."/inc.php");
 
     <script>
         function updateStatus(chart, room) {
-            const data = chart.data.datasets[0].data;
+            const data = chart.getOption().series[0].data;
             const title = document.querySelector(`#card-${room} > .roomcard-title`);
-            if(data == null || data.length == 0) {
-                 title.classList.add('color-red');
-                 return;
-            }
 
-	    const lastTime = moment(data.findLast(x => x[1] != null));
-            const now = moment.utc();
-            if(now.diff(lastTime) >= 5000) { // 5 seconds
+            if(data == null || data.length == 0 || data[data.length-1][0] <= Date.now() - 10 * 1000) {
                  title.classList.add('color-red');
                  return;
             }
 
             // May cause false alarms if there is no noise in the given hall
-            if(data[data.length-2]['S'] <= -48) {
+            if(data[data.length-2][1] <= -48) {
                  title.classList.add('color-yellow');
                  return;
             }
@@ -107,6 +101,7 @@ require_once(dirname(__FILE__)."/inc.php");
             title.classList.remove('color-red');
             title.classList.remove('color-yellow');
         }
+
     </script>
 </head>
 <body>
