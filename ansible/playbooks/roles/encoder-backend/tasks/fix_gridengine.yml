@@ -1,6 +1,13 @@
 ---
-- name: run setup
-  setup:
+- name: fix the hosts file so gridengine (and other things) will work
+  template:
+    dest: /etc/hosts
+    src: hosts.j2
+    owner: root
+    group: root
+    mode: 0664
+  notify:
+    - restart execd
 
 - name: install load script
   copy:
