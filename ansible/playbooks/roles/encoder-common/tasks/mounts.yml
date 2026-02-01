@@ -15,6 +15,21 @@
     - output
   when: "'cloud-encoders' not in group_names"
 
+- name: ensure /srv/sreview paths exist for the right user
+  file:
+    path: /srv/sreview/{{ item }}
+    owner: sreview
+    group: sreview
+    state: directory
+  with_items:
+    - incoming
+    - assets
+    - storage
+    - output
+  when: "'cloud-encoders' in group_names"
+  register: sreview_paths
+  ignore_errors: true
+
 - name: ensure NFS mount software is installed
   apt:
     state: latest
@@ -40,17 +55,18 @@
     package: sshfs
     state: present
 
-- name: sshfs the directories
-  when: "'cloud-encoders' in group_names"
-  become: yes
-  become_user: sreview
-  ansible.builtin.command:
-    cmd: sshfs sreview@reviewstorage.video.fosdem.org:{{ item.path }} {{ item.path }}
-    creates: "{{ item.path }}/{{ item.file }}"
-  with_items:
-    - path: /srv/sreview/storage
-      file: video
-    - path: /srv/sreview/assets
-      file: announce.ep
-    - path: /srv/sreview/output
-      file: "{{ fosdem_year }}"
+# This doesn't work in ansible because sshfs wants to ask about trusting the ssh server and we've had enough we'll just do it manually kthxbye
+#- name: sshfs the directories
+#  when: "'cloud-encoders' in group_names and sreview_paths.changed is true"
+#  become: yes
+#  become_user: sreview
+#  ansible.builtin.command:
+#    cmd: sshfs sreview@reviewstorage.video.fosdem.org:{{ item.path }} {{ item.path }}
+#    creates: "{{ item.path }}/{{ item.file }}"
+#  with_items:
+#    - path: /srv/sreview/storage
+#      file: video
+#    - path: /srv/sreview/assets
+#      file: announce.ep
+#    - path: /srv/sreview/output
+#      file: "{{ fosdem_year }}"
