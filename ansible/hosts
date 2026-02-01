@@ -83,7 +83,7 @@ encoder5.video.fosdem.org
 encoder6.video.fosdem.org 
 encoder7.video.fosdem.org 
 encoder8.video.fosdem.org 
-encoder9.video.fosdem.org ansible_host=142.132.225.30
+encoder9.video.fosdem.org
 encoder10.video.fosdem.org
 encoder11.video.fosdem.org
 encoder12.video.fosdem.org
@@ -95,6 +95,17 @@ encoder17.video.fosdem.org
 encoder18.video.fosdem.org
 encoder19.video.fosdem.org
 encoder20.video.fosdem.org
+
+[tigron-encoders]
+encoder1.video.fosdem.org
+encoder3.video.fosdem.org
+encoder4.video.fosdem.org
+encoder5.video.fosdem.org
+encoder6.video.fosdem.org
+encoder7.video.fosdem.org
+encoder8.video.fosdem.org
+encoder11.video.fosdem.org
+encoder12.video.fosdem.org
 
 [cloud-encoders]
 encoder2.video.fosdem.org
