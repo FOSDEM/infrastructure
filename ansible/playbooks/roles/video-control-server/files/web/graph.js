@@ -8,8 +8,8 @@ async function loadData(room, time) {
   const data = await response.json();
 
   return {
-    l: data["l"].map((x) => [x.time, x.S]),
-    r: data["r"].map((x) => [x.time, x.S]),
+    l: (data["l"] ?? []).map((x) => [x.time, x.S]),
+    r: (data["r"] ?? []).map((x) => [x.time, x.S]),
   };
 }
 
