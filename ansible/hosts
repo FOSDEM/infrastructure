@@ -76,18 +76,18 @@ reviewstorage.video.fosdem.org
 
 [encoder-backend]
 encoder1.video.fosdem.org
-encoder2.video.fosdem.org
+encoder2.video.fosdem.org ansible_host=46.224.105.252
 encoder3.video.fosdem.org 
 encoder4.video.fosdem.org 
 encoder5.video.fosdem.org 
 encoder6.video.fosdem.org 
 encoder7.video.fosdem.org 
 encoder8.video.fosdem.org 
-encoder9.video.fosdem.org
-encoder10.video.fosdem.org
+encoder9.video.fosdem.org ansible_host=142.132.225.30
+encoder10.video.fosdem.org ansible_host=88.99.87.91
 encoder11.video.fosdem.org
 encoder12.video.fosdem.org
-encoder13.video.fosdem.org
+encoder13.video.fosdem.org ansible_host=49.12.215.239
 encoder14.video.fosdem.org
 encoder15.video.fosdem.org
 encoder16.video.fosdem.org
@@ -97,6 +97,7 @@ encoder19.video.fosdem.org
 encoder20.video.fosdem.org
 
 [tigron-encoders]
+reviewmaster.video.fosdem.org
 encoder1.video.fosdem.org
 encoder3.video.fosdem.org
 encoder4.video.fosdem.org
