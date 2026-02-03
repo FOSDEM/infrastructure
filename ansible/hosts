@@ -88,10 +88,10 @@ encoder10.video.fosdem.org ansible_host=88.99.87.91
 encoder11.video.fosdem.org
 encoder12.video.fosdem.org
 encoder13.video.fosdem.org ansible_host=49.12.215.239
-encoder14.video.fosdem.org
-encoder15.video.fosdem.org
-encoder16.video.fosdem.org
-encoder17.video.fosdem.org
+encoder14.video.fosdem.org ansible_host=5.75.224.102
+encoder15.video.fosdem.org ansible_host=49.13.18.29
+encoder16.video.fosdem.org ansible_host=91.99.183.253
+encoder17.video.fosdem.org ansible_host=49.13.126.149
 encoder18.video.fosdem.org
 encoder19.video.fosdem.org
 encoder20.video.fosdem.org
