@@ -30,6 +30,7 @@
     - intel-media-va-driver-non-free
     - firmware-sof-signed
     - firmware-misc-nonfree
+    - firmware-intel-graphics
     - fosdem-firmware
     - teensy-loader-cli
     - linux-cpupower
