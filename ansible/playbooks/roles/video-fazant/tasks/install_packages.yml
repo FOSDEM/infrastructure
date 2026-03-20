@@ -50,3 +50,11 @@
   tags:
     - firmware
     - firmware_ms2131
+
+- name: "remove modemmanager"
+  apt:
+    state: absent
+    update_cache: no
+    package:
+    - modemmanager
+
