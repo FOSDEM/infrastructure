@@ -44,7 +44,7 @@ ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaap
 	-i tcp://localhost:11000 \
 	-threads:0 0 \
 	-aspect 16:9 \
-	-filter_complex "[0:a]channelsplit=channel_layout=stereo[leftp][right]; [leftp] asplit=2 [left1][left2];[0:v] format=nv12,hwupload [vhw]; [vhw] split=2 [vout] [vout-preds] ; [vout-preds] scale_vaapi=w=854:480 [vout-ds] " \
+	-filter_complex "[0:a]channelsplit=channel_layout=stereo[leftp][right]; [leftp] asplit=2 [left1][left2];[0:v] format=nv12,hwupload [vhw]; [vhw] split=2 [vout] [vout-preds] ; [vout-preds] scale_vaapi=w=854:h=480 [vout-ds] " \
 	-map '[vout]:0' \
 	-c:v:0 h264_vaapi -rc_mode CBR\
 	-g 30 \
