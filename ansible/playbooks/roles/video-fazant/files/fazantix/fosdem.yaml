@@ -1,0 +1,176 @@
+sources:
+  background:
+    type: image
+    path: images/background.png
+  camera:
+    type: v4l
+    path: /dev/v4l/by-path/pci-0000:00:14.0-usbv3-0:3:1.0-video-index0
+    # path: /dev/video0
+    fmt: yuyv
+    frames:
+      width: 1920
+      height: 1080
+      # width: 640
+      # height: 480
+      num_allocated_frames: 6
+    num_frames_in_writing: 3
+    fps: 30
+  # camera:
+  #   type: ffmpeg_stdout
+  #   cmd: 'ffmpeg -stream_loop -1 -re -i https://rnd.qtrp.org/test_videos/cows.mp4 -vf scale=1920:1080 -pix_fmt yuv422p -f rawvideo -r 30 -'
+  #   frames:
+  #     width: 1920
+  #     height: 1080
+  #     num_allocated_frames: 5
+  # slides:
+  #   type: v4l
+  #   path: /dev/video1
+  #   fmt: yuyv
+  #   frames:
+  #     width: 1920
+  #     height: 1080
+  #     num_allocated_frames: 6
+  #   num_frames_in_writing: 3
+  slides:
+    type: ffmpeg_stdout
+    cmd: 'systemd-run --scope -p AllowedCPUs=2 ffmpeg -stream_loop -1 -re -i /root/fazantfazantfazant.mkv -vf scale=1920:1080 -pix_fmt yuv422p -f rawvideo -r 30 -'
+    frames:
+      width: 1920
+      height: 1080
+      num_allocated_frames: 5
+
+scenes:
+  cam-over-slides:
+    layers:
+      - source: background
+        transform:
+          x: 0
+          y: 0
+          scale: 1
+          opacity: 1
+      - source: camera
+        transform:
+          left: -0.04
+          top: -0.04
+          scale: 0.79
+          opacity: 1
+        warp:
+          opacity: 0
+          cx: 0.5
+          cy: 0.5
+          scale: 0.1
+      - source: slides
+        transform:
+          right: -0.04
+          bottom: -0.1
+          scale: 0.25
+          opacity: 1
+        warp:
+          opacity: 1
+          scale: 0.001
+          right: -0.04
+          bottom: -0.1
+  slides-over-cam:
+    layers:
+      - source: background
+        transform:
+          x: 0
+          y: 0
+          scale: 1
+          opacity: 1
+      - source: slides
+        transform:
+          left: -0.04
+          top: -0.04
+          scale: 0.79
+          opacity: 1
+        warp:
+          opacity: 0
+          cx: 0.5
+          cy: 0.5
+          scale: 0.1
+      - source: camera
+        transform:
+          right: -0.04
+          bottom: -0.1
+          scale: 0.25
+          opacity: 1
+        warp:
+          opacity: 1
+          scale: 0.001
+          right: -0.04
+          bottom: -0.1
+  side-by-side:
+    layers:
+      - source: background
+        transform:
+          x: 0
+          y: 0
+          scale: 1
+          opacity: 1
+      - source: slides
+        transform:
+          x: 0.03
+          y: 0.25
+          scale: 0.45
+          opacity: 1
+      - source: camera
+        transform:
+          x: 0.52
+          y: 0.25
+          scale: 0.45
+          opacity: 1
+  full-slides:
+    layers:
+      - source: background
+        transform:
+          x: 0
+          y: 0
+          scale: 1
+          opacity: 1
+      - source: slides
+        transform:
+          x: 0.03
+          y: 0.03
+          scale: 0.93
+          opacity: 1
+  full-cam:
+    layers:
+      - source: background
+        transform:
+          x: 0
+          y: 0
+          scale: 1
+          opacity: 1
+      - source: camera
+        transform:
+          x: 0.03
+          y: 0.03
+          scale: 0.93
+          opacity: 1
+
+sinks:
+  projector:
+    type: window
+    frames:
+      width: 1920
+      height: 1080
+    default_scene: full-slides
+    transition_time_ms: 1500
+  stream:
+    type: ffmpeg_stdin
+    cmd: "ffmpeg -f rawvideo -video_size 1280x720 -pixel_format rgba -framerate 30 -i - -c:v libx264 -preset fast -pix_fmt yuv420p -f mpegts tcp://0.0.0.0:2000?listen"
+    frames:
+      width: 1280
+      height: 720
+      num_allocated_frames: 5
+    default_scene: slides-over-cam
+    transition_time_ms: 1500
+
+api:
+  bind: ':8000'
+  enable_profiler: true
+
+fallback_colour: '#ebac54'
+bg_colour: '#54aceb'
+base_framerate: 30

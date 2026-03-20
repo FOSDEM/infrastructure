@@ -1,0 +1,25 @@
+[Unit]
+Description=fazantix service
+Conflicts=getty@%i.service
+After=getty@%i.service
+
+[Service]
+ExecStart=/opt/fazantix/run.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGTERM
+Restart=always
+RestartSec=1s
+StartLimitInterval=0
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+# Fail to start if not controlling the virtual terminal.
+StandardInput=tty-fail
+PAMName=root
+
+
+[Install]
+WantedBy=multi-user.target
+DefaultInstance=tty1

@@ -1,0 +1,58 @@
+---
+
+- name: create fazantix directory
+  file:
+    path: "/opt/fazantix"
+    state: directory
+    mode: 0755
+
+- name: install fazantix config
+  copy:
+    src: fazantix/fosdem.yaml
+    dest: /opt/fazantix/fosdem.yaml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install fazantix runner
+  copy:
+    src: fazantix/run.sh
+    dest: /opt/fazantix/run.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install fazantix images
+  copy:
+    src: fazantix/images
+    dest: /opt/fazantix/images
+    owner: root
+    group: root
+
+- name: disable tty1
+  service:
+    name: getty@tty1 
+    enabled: false
+    state: stopped
+
+- name: install fazantix service
+  copy:
+    src: fazantix/fazantix.service
+    dest: /etc/systemd/system/fazantix.service
+    owner: root
+    group: root
+    mode: 0644
+  register: fazantixservice
+
+
+- name: perform a daemon-reload if any service has been modified
+  systemd:
+    daemon_reload: true
+  when: fazantixservice.changed
+
+- name: enable fazantix service
+  service:
+    name: fazantix
+    enabled: true
+    state: started
+

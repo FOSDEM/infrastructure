@@ -41,6 +41,12 @@
     - fosdem-mixer-api
     - picocom
     - rsyslog
+    - fazantix-wayland
+    - fazantix-wayland-dbgsym
+    - fazantix-data
+    - fazantix-frontend
+    - fazantix-validate-config
+    - cage
   tags:
     - firmware
     - firmware_ms2131

@@ -78,6 +78,17 @@
   - { role: video-monitoring, tags: [ 'video-monitoring' ] }
   - { role: video-box-mixer, tags: [ 'video-box-mixer' ] }
 
+- name: video-fazant
+  hosts:
+    - video-fazant
+    - capture-laptop
+  remote_user: root
+  roles:
+  - { role: laptop, tags: [ 'laptop' ] }
+  - { role: video-repo, tags: [ 'video-repo' ] }
+  - { role: video-monitoring, tags: [ 'video-monitoring' ] }
+  - { role: video-fazant, tags: [ 'video-fazant' ] }
+
 - name: video-voctop
   hosts: video-voctop
   remote_user: root
