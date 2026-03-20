@@ -1,0 +1,26 @@
+# file module will create a directory if missing
+- name: Create tty1.service.d directory
+  file:
+    path: /etc/systemd/system/getty@tty1.service.d/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# template module will create a file
+- name: Copy tty.service drop-in
+  copy:
+    src: units/tty-override.conf
+    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+    owner: root
+    group: root
+    mode: 0644
+  register: tty_override
+
+- name: reload tty1 if needed
+  service:
+    name: getty@tty1.service.d
+    state: restarted
+    enabled: true
+    daemon_reload: true
+  when: tty_override.changed
