@@ -30,6 +30,7 @@
     - patch
     - prometheus-node-exporter
     - psmisc
+    - python3-debian
     - screen
     - sipcalc
     - strace

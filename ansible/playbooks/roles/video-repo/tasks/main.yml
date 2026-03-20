@@ -13,16 +13,28 @@
   when: ansible_os_family == "Debian"
 
   # {{ repository }}/gpgkey URL works for both legacy and modern public repositories.
-- name: Add {{repository}} GPG key to apt-key
+- name: Add {{repository}} GPG key to apt-key / bookworkm
   apt_key: url=https://packagecloud.io/{{ repository }}/gpgkey state=present
-  when: ansible_os_family == "Debian" 
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "12"
 
-- name: "Adding packagecloud.io repository: {{ repository }}"
+- name: "Adding packagecloud.io repository: {{ repository }} on bookworm"
   copy:
       src: "video-team.repo.list"
       dest: "{{ debian_config_file_location }}"
   register: added_deb_repository
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "12"
+
+- name: Add {{repository}} on trixie
+  deb822_repository:
+    name: video-team
+    types: deb
+    uris: https://packagecloud.io/fosdem/video-team/debian
+    suites: '{{ ansible_distribution_release }}'
+    components: main
+    architectures: amd64
+    signed_by: https://packagecloud.io/fosdem/video-team/gpgkey
+  register: added_deb_repository
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version | int >= 13
 
 - name: Update APT package cache
   apt: update_cache=true
