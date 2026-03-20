@@ -46,17 +46,6 @@ video_rooms:
 - ud2218a
 - ud6215
 
-virtual_video_rooms:
-- dcollab
-- dconfidential
-- demulator
-- denergy
-- dmatrix
-- dminimalistic
-- dresearch
-- dsds
-- dtest
-
 # all video boxes and voctpos
 
 video_sproxy:
