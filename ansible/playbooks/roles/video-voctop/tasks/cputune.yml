@@ -28,6 +28,14 @@
     mode: 0644
   register: grubopt2
 
+- name: "copy grub cfg for disabling console blinking"
+  copy:
+    src: grub/console.cfg
+    dest: /etc/default/grub.d/console.cfg
+    owner: root
+    group: root
+    mode: 0644
+  register: grubopt3
 
 - name: update GRUB config
   shell: update-grub
@@ -36,5 +44,5 @@
   reboot:
     reboot_timeout: 120
     pre_reboot_delay: 35
-  when: grubopt.changed or grubopt2.changed
+  when: grubopt.changed or grubopt2.changed or grubopt3.changed
 
