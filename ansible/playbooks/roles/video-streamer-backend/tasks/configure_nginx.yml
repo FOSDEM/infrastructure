@@ -39,7 +39,7 @@
     mode: 0644
   notify: reload nginx
 
-- name: Add mtail metrics to ngninx
+- name: Add mtail metrics to nginx
   copy:
     src: nginx/mtail.conf
     dest: /etc/nginx/conf.d/mtail.conf
@@ -47,3 +47,23 @@
     group: root
     mode: 0644
   notify: reload nginx
+
+- name: Copy certificate file
+  copy:
+    src: nginx/certificates/streambackend0.video.fosdem.org.cer
+    dest: /etc/nginx/streambackend0.video.fosdem.org.cer
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: Copy private key file
+  copy:
+    src: nginx/certificates/streambackend0.video.fosdem.org.key
+    dest: /etc/nginx/streambackend0.video.fosdem.org.key
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+
