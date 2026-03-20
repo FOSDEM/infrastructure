@@ -1,0 +1,17 @@
+---
+
+- name: set up udev rules
+  ansible.builtin.copy:
+    src: udev/99-video-box.rules
+    dest: /etc/udev/rules.d/99-fosdem.rules
+    owner: root
+    group: root
+    mode: 0644
+
+- name: configure interfaces
+  ansible.builtin.copy:
+    src: network/video0
+    dest: /etc/network/interfaces.d/video0
+    owner: root
+    group: root
+    mode: 0644

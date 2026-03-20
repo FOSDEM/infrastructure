@@ -1,0 +1,4 @@
+# Our USB ethernet thing should always be renamed to video0
+
+SUBSYSTEMS=="usb", DRIVERS=="ax88179_178a", ENV{USB_NETWORK_RENAME}="video0"
+ENV{USB_NETWORK_RENAME}=="video0", SUBSYSTEM=="net", ATTR{type}=="1", NAME="video0"

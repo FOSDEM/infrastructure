@@ -1,0 +1,9 @@
+---
+- name: install video-status script
+  copy:
+    src: rsyslog/10-fosdem.conf
+    dest: /etc/rsyslog.d/10-fosdem.conf
+    owner: root
+    group: root
+    mode: 0644
+  register: rsyslog

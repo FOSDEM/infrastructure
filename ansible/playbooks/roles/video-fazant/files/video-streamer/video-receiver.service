@@ -1,0 +1,16 @@
+[Unit]
+Description=video-receiver service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/video-receiver.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGKILL
+Restart=always
+RestartSec=1s
+StartLimitInterval=0
+
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+---
+- name: enable OSC proxy
+  service:
+    name: oscproxy
+    enabled: true
+    state: restarted
+
+- name: enable mixer API
+  service:
+    name: fosdem-mixer-api
+    enabled: true
+    state: restarted
