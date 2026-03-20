@@ -77,6 +77,11 @@
     src: patches/videomix.py.diff
     dest: /usr/share/voctomix/voctocore/lib/videomix.py
 
+- name: patch config.py to support new python
+  patch:
+    src: patches/config.py.diff
+    dest: /usr/share/voctomix/voctocore/lib/config.py
+
 - name: install vocto units
   copy:
     src: "{{ item }}"

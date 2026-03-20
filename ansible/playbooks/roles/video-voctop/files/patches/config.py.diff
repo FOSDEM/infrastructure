@@ -1,0 +1,21 @@
+diff -urN a/voctomix/voctocore/lib/config.py b/voctomix/voctocore/lib/config.py
+--- a/voctomix/voctocore/lib/config.py	2019-01-07 17:59:06.000000000 +0100
++++ b/voctomix/voctocore/lib/config.py	2026-03-20 14:07:07.673612471 +0100
+@@ -1,6 +1,6 @@
+ import os.path
+ import logging
+-from configparser import SafeConfigParser, DuplicateSectionError
++from configparser import ConfigParser, DuplicateSectionError
+ from lib.args import Args
+ 
+ __all__ = ['Config']
+@@ -8,7 +8,7 @@
+ Config = None
+ 
+ 
+-class VocConfigParser(SafeConfigParser):
++class VocConfigParser(ConfigParser):
+     def getlist(self, section, option):
+         option = self.get(section, option).strip()
+         if len(option) == 0:
+Binary files a/voctomix/voctocore/lib/__pycache__/config.cpython-313.pyc and b/voctomix/voctocore/lib/__pycache__/config.cpython-313.pyc differ
