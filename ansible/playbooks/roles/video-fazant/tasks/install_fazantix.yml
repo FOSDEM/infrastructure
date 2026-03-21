@@ -1,5 +1,25 @@
 ---
 
+
+- name: "fazantix: install firmware"
+  apt:
+    state: latest
+    install_recommends: false
+    update_cache: yes
+    package:
+    - intel-media-va-driver-non-free
+    - firmware-sof-signed
+    - firmware-misc-nonfree
+    - firmware-intel-graphics
+    register: firmware_updated
+
+- name: reboot if the firmware was changed
+  reboot:
+    reboot_timeout: 120
+    pre_reboot_delay: 35
+  when: firmware_updated.changed
+
+
 - name: create fazantix directory
   file:
     path: "/opt/fazantix"
