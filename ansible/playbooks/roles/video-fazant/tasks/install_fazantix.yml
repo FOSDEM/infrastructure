@@ -25,7 +25,7 @@
 - name: install fazantix images
   copy:
     src: fazantix/images
-    dest: /opt/fazantix/images
+    dest: /opt/fazantix
     owner: root
     group: root
 
