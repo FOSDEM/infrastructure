@@ -15,29 +15,42 @@ sources:
       num_allocated_frames: 6
     num_frames_in_writing: 3
     fps: 30
-  # camera:
-  #   type: ffmpeg_stdout
-  #   cmd: 'ffmpeg -stream_loop -1 -re -i https://rnd.qtrp.org/test_videos/cows.mp4 -vf scale=1920:1080 -pix_fmt yuv422p -f rawvideo -r 30 -'
-  #   frames:
-  #     width: 1920
-  #     height: 1080
-  #     num_allocated_frames: 5
-  # slides:
-  #   type: v4l
-  #   path: /dev/video1
-  #   fmt: yuyv
-  #   frames:
-  #     width: 1920
-  #     height: 1080
-  #     num_allocated_frames: 6
-  #   num_frames_in_writing: 3
   slides:
-    type: ffmpeg_stdout
-    cmd: 'systemd-run --scope -p AllowedCPUs=2 ffmpeg -stream_loop -1 -re -i /root/fazantfazantfazant.mkv -vf scale=1920:1080 -pix_fmt yuv422p -f rawvideo -r 30 -'
+    type: v4l
+    path: /dev/v4l/by-path/pci-0000:00:14.0-usbv3-0:2:1.0-video-index0
+    fmt: yuyv
     frames:
       width: 1920
       height: 1080
-      num_allocated_frames: 5
+      num_allocated_frames: 6
+    num_frames_in_writing: 3
+    fps: 30
+
+#  camera:
+#    type: ffmpeg_stdout
+#    cmd: 'systemd-run --scope -p AllowedCPUs=3 ffmpeg -stream_loop -1 -re -i /root/dance.mp4 -filter_complex "[0:v] scale=1920:1080,fps=30,format=yuv422p [vout]" -map "[vout]"  -f rawvideo -'
+#    #cmd: 'systemd-run --scope -p AllowedCPUs=3 ffmpeg -stream_loop -1 -re -i /root/cows.mp4 -filter_complex "[0:v] scale=1920:1080,fps=30,format=yuv422p [vout]" -map "[vout]"  -f rawvideo -'
+#    frames:
+#      width: 1920
+#      height: 1080
+#      num_allocated_frames: 5
+#    fps: 30
+#  # slides:
+#  #   type: v4l
+#  #   path: /dev/video1
+#  #   fmt: yuyv
+#  #   frames:
+#  #     width: 1920
+#  #     height: 1080
+#  #     num_allocated_frames: 6
+#  #   num_frames_in_writing: 3
+#  slides:
+#    type: ffmpeg_stdout
+#    cmd: 'systemd-run --scope -p AllowedCPUs=2 ffmpeg -stream_loop -1 -v warning -re -i /root/fazantfazantfazant.mkv -filter_complex "[0:v] scale=1920:1080,fps=30,format=yuv422p [vout]" -map "[vout]" -f rawvideo -'
+#    frames:
+#      width: 1920
+#      height: 1080
+#      num_allocated_frames: 5
 
 scenes:
   cam-over-slides:
