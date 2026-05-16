@@ -172,7 +172,7 @@ sinks:
     transition_time_ms: 1500
   stream:
     type: ffmpeg_stdin
-    cmd: "ffmpeg -f rawvideo -video_size 1280x720 -pixel_format rgba -framerate 30 -i - -c:v libx264 -preset fast -pix_fmt yuv420p -f mpegts tcp://0.0.0.0:2000?listen"
+    cmd: "/opt/fazantix/sink.sh"
     frames:
       width: 1280
       height: 720
