@@ -1,0 +1,26 @@
+---
+
+- name: create edid directory
+  file:
+    path: "/usr/lib/firmware/edid"
+    state: directory
+    mode: 0755
+
+- name: install edid file config
+  copy:
+    src: edid/EDID.bin
+    dest: /usr/lib/firmware/edid/EDID.bin
+    owner: root
+    group: root
+    mode: 0644
+  notify: update initramfs
+
+- name: install GRUB edid config
+  copy:
+    src: edid/20-fosdem-edid
+    dest: /etc/default/grub.d/20-fosdem-edid
+    owner: root
+    group: root
+    mode: 0755
+  notify: update grub
+
