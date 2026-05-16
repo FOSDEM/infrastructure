@@ -174,8 +174,8 @@ sinks:
     type: ffmpeg_stdin
     cmd: "/opt/fazantix/sink.sh"
     frames:
-      width: 1280
-      height: 720
+      width: 1920
+      height: 1080
       num_allocated_frames: 5
     default_scene: slides-over-cam
     transition_time_ms: 1500
