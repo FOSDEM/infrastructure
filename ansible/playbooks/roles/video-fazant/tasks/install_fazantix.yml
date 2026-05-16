@@ -11,7 +11,7 @@
     - firmware-sof-signed
     - firmware-misc-nonfree
     - firmware-intel-graphics
-    register: firmware_updated
+  register: firmware_updated
 
 - name: reboot if the firmware was changed
   reboot:
