@@ -1,12 +1,12 @@
 ---
-- name: enable OSC proxy
+- name: enable audioctl
   service:
-    name: oscproxy
+    name: audioctl
     enabled: true
     state: restarted
 
-- name: enable mixer API
-  service:
-    name: fosdem-mixer-api
-    enabled: true
-    state: restarted
+- name: install nginx config for interface
+  copy:
+    src: nginx/interface.conf
+    dst: /etc/nginx/sites-enabled/interface.conf
+  register: nginx_config

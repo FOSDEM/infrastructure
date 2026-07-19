@@ -32,9 +32,8 @@
     - linux-cpupower
     - picotool
     - gpiod
-    - fosdem-mixer-cli
-    - python3-fosdemosc
-    - fosdem-mixer-api
+    - fosdem-audioctl
+    - fosdem-audioctl_ui
     - picocom
     - rsyslog
     - fazantix-wayland
@@ -43,6 +42,7 @@
     - fazantix-frontend
     - fazantix-validate-config
     - cage
+    - nginx
   tags:
     - firmware
     - firmware_ms2131
