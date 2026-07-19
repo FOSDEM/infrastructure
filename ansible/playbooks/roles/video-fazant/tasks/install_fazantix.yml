@@ -42,6 +42,14 @@
     group: root
     mode: 0755
 
+- name: install fazantix sink
+  copy:
+    src: fazantix/sink.sh
+    dest: /opt/fazantix/sink.sh
+    owner: root
+    group: root
+    mode: 0755
+
 - name: install fazantix images
   copy:
     src: fazantix/images
