@@ -8,16 +8,25 @@
 
 - name: install edid file config
   copy:
-    src: edid/EDID.bin
+    src: hwtweaks/EDID.bin
     dest: /usr/lib/firmware/edid/EDID.bin
     owner: root
     group: root
     mode: 0644
   notify: update initramfs
 
+- name: install GRUB cqe config
+  copy:
+    src: hwtweaks/10-sdhci.cfg
+    dest: /etc/default/grub.d/10-sdhci.cfg
+    owner: root
+    group: root
+    mode: 0755
+  notify: update grub
+
 - name: install GRUB edid config
   copy:
-    src: edid/20-fosdem-edid.cfg
+    src: hwtweaks/20-fosdem-edid.cfg
     dest: /etc/default/grub.d/20-fosdem-edid.cfg
     owner: root
     group: root
