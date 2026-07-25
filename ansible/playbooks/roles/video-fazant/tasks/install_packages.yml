@@ -33,7 +33,7 @@
     - picotool
     - gpiod
     - fosdem-audioctl
-    - fosdem-audioctl_ui
+    - fosdem-audioctl-ui
     - picocom
     - rsyslog
     - fazantix-wayland
