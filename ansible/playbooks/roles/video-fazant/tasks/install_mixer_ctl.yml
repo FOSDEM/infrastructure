@@ -9,4 +9,15 @@
   copy:
     src: nginx/interface.conf
     dest: /etc/nginx/sites-enabled/interface.conf
-  register: nginx_config
+  notify: reload nginx
+
+- name: remove default config
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: reload nginx
+
+- name: install very complex gui start page
+  copy:
+    src: nginx/index.html
+    dest: /var/www/html/index.html

@@ -6,3 +6,6 @@
 - name: update grub
   shell: update-grub
 
+- name: reload nginx
+  service: name=nginx state=reloaded
+
