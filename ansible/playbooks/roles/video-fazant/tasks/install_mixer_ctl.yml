@@ -1,12 +1,12 @@
 ---
 - name: enable audioctl
   service:
-    name: audioctl
+    name: fosdem-audioctl
     enabled: true
     state: restarted
 
 - name: install nginx config for interface
   copy:
     src: nginx/interface.conf
-    dst: /etc/nginx/sites-enabled/interface.conf
+    dest: /etc/nginx/sites-enabled/interface.conf
   register: nginx_config
