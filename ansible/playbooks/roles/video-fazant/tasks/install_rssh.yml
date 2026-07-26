@@ -1,0 +1,33 @@
+---
+- name: install rssh config
+  template:
+    src: rssh/rssh.config
+    dest: /etc/rssh.config
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install rssh service
+  copy:
+    src: rssh/rssh.service
+    dest: /etc/systemd/system/rssh.service
+    owner: root
+    group: root
+    mode: 0644
+  register: rssh
+
+- name: Generate /etc/ssh/ RSA host key
+  command : ssh-keygen -q -t rsa -f /etc/rssh_key -C "" -N ""
+  args:
+    creates: /etc/rssh_key
+
+- name: perform a daemon-reload if any service has been modified
+  systemd:
+    daemon_reload: true
+  when: rssh.changed
+
+- name: enable rssh service
+  service:
+    name: rssh
+    enabled: true
+    state: started
