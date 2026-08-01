@@ -2,9 +2,9 @@
 
 import json
 import os
-import serial
 import re
 import signal
+import socket
 import subprocess
 import sys
 import syslog
@@ -89,8 +89,9 @@ def render_commands(states):
 	def strWhite(skk): 
 		return b"\x1b\x0f" + skk.encode("utf8") 
 
-	out = b"\n\n"
-	out += b"display.img.clear\n"
+	out = []
+	out 
+	out.append(b"display.img.clear\n")
 
 	line = 0
 
@@ -106,23 +107,37 @@ def render_commands(states):
 			rend = strWhite(state.data)
 		cline += rend
 		if state.nl:
-			out += b"display.text.line "+ str(line).encode("utf8") + b" " + cline + b"                 \n"
+			out.append(b"display.text.line "+ str(line).encode("utf8") + b" " + cline + b"                 \n")
 			line+=1
 			cline = b""
 
-	out += b"display.refresh\n"
+	out.append(b"display.refresh\n")
 	#print(out)
 	return out
 
-def get_serial():
-    while True:
-        try:
-            s = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1, exclusive=True)
-        except:
-            continue
-        break
-
-    return s
+def serial_cmd(cmd):
+	start = time.time()
+	sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+	try:
+		sock.connect("/dev/sock_fosdem_box_ctl")
+	except:
+		return []
+	sock.send(cmd)
+	sock.send(b"\n\n")
+	reader = sock.makefile()
+	retdata = []
+	while True:
+		try:
+			l = reader.readline().strip()
+		except (ConnectionResetError, ConnectionRefusedError) as error:
+			return retdata
+		if re.match(r"^(ok|fail)", l):
+			break
+		retdata.append(l)
+	end = time.time()
+	duration = end - start
+#	print(f"Command took {duration}")
+	return retdata
 
 
 def output_terminal(states):
@@ -130,14 +145,13 @@ def output_terminal(states):
 	sys.stdout.flush()
 
 def clear_serial_display():
-	with get_serial() as port:
-		port.write(b"display.text.clear")	
+	serial_cmd(b"display.text.clear")	
 
 def output_serial_display(states):
 	cmds = render_commands(states)
-	with get_serial() as port:
-		port.write(cmds)	
-
+	for cmd in cmds:
+		serial_cmd(cmd)
+            
 
 img_x = 240
 img_y = 134
@@ -157,37 +171,31 @@ def output_image():
 	except:
 		return
 	
-	with get_serial() as port:
-		port.write(b"display.text.clear\n")
-		port.write(b"display.img.clear\n")
-		
-		dcmd = f"display.img 565 0 {xpos} {img_x} {img_y}\n"
-		port.write(dcmd.encode("utf-8"))
-		port.write(data)
-		port.write(b"\ndisplay.imgonly\n")
+	serial_cmd(b"display.text.clear\n")
+	serial_cmd(b"display.img.clear\n")
+	imgcmd = f"display.img 565 0 {xpos} {img_x} {img_y}\n"
+	serial_cmd(imgcmd.encode("latin1") + data + b"\n")
+	serial_cmd(b"display.imgonly\n")
 
 switch_state = [None, None, None, None, None]
 
 def start_chargers():
-	with get_serial() as port:
-		port.write(b"pb.chargers.on 1\n")
+	serial_cmd(b"pb.chargers.on 1\n")
 
 def read_switch():
 	ret = [None, None, None, None, None]
 
 	updated = False
-	with get_serial() as port:
-		port.write(b"netswitch.info\n")
-		while True:
-			line = port.readline().decode("utf-8").strip()
-			m = re.match(r"port ([0-9]): (.*)$", line)
-			if m is not None:
-				p = int(m.group(1))
-				s = m.group(2)
-				ret[p] = s
-				updated = True
-			elif re.match(r"^(ok|fail) ", line):
-				break
+	lines = serial_cmd(b"netswitch.info\n")
+	for line in lines:
+		m = re.match(r"port ([0-9]): (.*)$", line)
+		if m is not None:
+			p = int(m.group(1))
+			s = m.group(2)
+			ret[p] = s
+			updated = True
+		elif re.match(r"^(ok|fail) ", line):
+			break
 			
 	if not updated:
 		return None
@@ -218,14 +226,10 @@ diag = ''
 def update_diag():
     global diag
     newdiag = ''
-    with get_serial() as port:
-        port.write(b"status\n")
-        while True:
-            line = port.readline().decode("utf-8").strip()
-            if re.match(r"^(ok|fail) ", line):
-                break
-            newdiag += "\n" + line
-            
+    diaglines = serial_cmd(b"status\n")
+    for line in diaglines:
+        newdiag += "\n" + line
+             
     if diag != newdiag:
         diag = newdiag
     else:

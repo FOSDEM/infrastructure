@@ -1,0 +1,15 @@
+[Unit]
+Description=rp2040 proxy service
+After=video-streamer.service
+
+[Service]
+ExecStart=/usr/local/bin/rp2020_proxy.py
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+KillSignal=SIGTERM
+Restart=always
+RestartSec=1s
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target

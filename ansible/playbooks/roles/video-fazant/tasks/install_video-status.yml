@@ -8,6 +8,15 @@
     mode: 0755
   register: videostatusscript
 
+- name: install rp2040 proxy
+  copy:
+    src: video-status/rp2040_proxy.py
+    dest: /usr/local/bin/rp2040_proxy.py
+    owner: root
+    group: root
+    mode: 0755
+  register: proxyscript
+
 - name: install video-preview script
   copy:
     src: video-status/preview.sh
@@ -20,6 +29,15 @@
   copy:
     src: video-status/video-status.service
     dest: /etc/systemd/system/video-status.service
+    owner: root
+    group: root
+    mode: 0644
+  register: videostatus
+
+- name: install rp2040 proxy service
+  copy:
+    src: video-status/rp2040-proxy.service
+    dest: /etc/systemd/system/rp2040-proxy.service
     owner: root
     group: root
     mode: 0644
@@ -39,6 +57,12 @@
     name: getty@tty1.service
     enabled: false
     state: stopped
+
+- name: enable rp2040 proxy service
+  service:
+    name: rp2040-proxy
+    enabled: true
+    state: started
 
 - name: enable video-status service
   service:
