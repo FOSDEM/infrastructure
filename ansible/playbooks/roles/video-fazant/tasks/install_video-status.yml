@@ -17,6 +17,22 @@
     mode: 0755
   register: proxyscript
 
+- name: install vlan config tool
+  copy:
+    src: vlan-config/vlan-config.py
+    dest: /usr/local/bin/vlan-config.py
+    owner: root
+    group: root
+    mode: 0755
+
+- name: install example config for vlan tool
+  copy:
+    src: vlan-config/switch.toml
+    dest: /etc/network/switch.toml
+    owner: root
+    group: root
+    mode: 0644
+
 - name: install video-preview script
   copy:
     src: video-status/preview.sh
