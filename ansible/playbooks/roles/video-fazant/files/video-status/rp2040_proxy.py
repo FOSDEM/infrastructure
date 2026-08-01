@@ -11,7 +11,10 @@ sockname = "/dev/sock_fosdem_box_ctl"
 serial = serial.Serial('/dev/tty_fosdem_box_ctl', 115200, timeout=1, exclusive=True)
 
 listener = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-os.unlink(sockname)
+try:
+	os.unlink(sockname)
+except:
+	pass
 listener.bind(sockname)
 listener.listen()
 
