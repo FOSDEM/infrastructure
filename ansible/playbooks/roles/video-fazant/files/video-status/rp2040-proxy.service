@@ -3,7 +3,7 @@ Description=rp2040 proxy service
 After=video-streamer.service
 
 [Service]
-ExecStart=/usr/local/bin/rp2020_proxy.py
+ExecStart=/usr/local/bin/rp2040_proxy.py
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 KillSignal=SIGTERM
