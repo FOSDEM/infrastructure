@@ -2,7 +2,7 @@
 
 teensy=$(arecord -l  |grep -E 'Audio Board|FOSDEM' |cut -d: -f1 |cut -d' ' -f 2)
 
-ffmpeg -y -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
+ffmpeg -y -v error -nostdin -init_hw_device vaapi=intel:/dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device intel -filter_hw_device intel  \
         -probesize 2M \
         -analyzeduration 2M \
         -f rawvideo -video_size 1920x1080 -pixel_format rgba -framerate 30 -i - \
