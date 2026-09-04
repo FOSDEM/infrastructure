@@ -2,6 +2,7 @@
 Description=fazantix service
 
 [Service]
+Environment="XDG_RUNTIME_DIR=/run/user/0"
 ExecStart=/opt/fazantix/run.sh
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
